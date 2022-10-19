@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+
+        <!-- Begin Page Content -->
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">계약관리</h1>
+        <!-- page card -->
+        <div class="card shadow mb-4">
+
+            <!-- card-header -->
+            <div class="card-header py-3"><h8 class="m-0 font-weight-bold text-primary">검색</h8></div>
+            <!-- card-body -->
+            <div class="card-body">
+                <!-- div -->
+                <div>
+                    <!-- <div class="input-group"> -->
+                    <div class="input-group">
+
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width:100px;">계약상태</td>
+                                <td>
+                                    <div class="input-group-prepend">
+                                        <select class="form-select" name="type1" style="height:50px;">
+                                            <option value="">-계약상태--------------------------------</option>
+                                            <option value="">신규계약</option>
+                                            <option value="">계약완료</option>
+                                            <option value="">계약중지</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:100px;">일반검색</td>
+                                <td>
+                                    <div class="input-group-prepend">
+                                        <select class="form-select" name="type3" style="height:50px;">
+                                            <option value="">-항목선택--------------------------------</option>
+                                            <option value="">계약코드</option>
+                                            <option value="">업체명</option>
+                                            <option value="">품목명</option>
+                                        </select>&nbsp;
+                                        <input type="text" class="form-control" name="keyword" style="height:50px;">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr style="height:20px;">
+                                <td colspan="2" style="text-align: right;"><button class="btn btn-outline-secondary searchBtn" type="button">검색</button></td>
+                            </tr>
+                        </table>
+
+                    </div><!-- <div class="input-group"> -->
+                </div><!-- div -->
+            </div><!-- <div class="card-body"> -->
+
+            <!-- card-header -->
+            <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">목록</h6></div>
+            <!-- card-body -->
+            <div class="card-body">
+
+                <!-- <div class="table-responsive"> -->
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>계약코드</th>
+                            <th>납품업체</th>
+                            <th>품목코드</th>
+                            <th>품목이름</th>
+                            <th>계약일자</th>
+                            <th>리드타임(일)</th>
+                            <th>비고</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>2</td>
+                            <td>305-20221115-0001</td>
+                            <td>AMD</td>
+                            <td>P10002</td>
+                            <td>라이젠5-4세대 5600 (버미어)</td>
+                            <td>2022-11-15</td>
+                            <td>30일</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>305-20221114-0001</td>
+                            <td>인텔</td>
+                            <td>P10002</td>
+                            <td>코어i7-12세대 12700K</td>
+                            <td>2022-11-15</td>
+                            <td>30일</td>
+                            <td>-</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div style="float: right">
+                        <button class="btn btn-outline-secondary deleteBtn" type="button">계약삭제</button>
+                        <button class="btn btn-outline-secondary registBtn" type="button">계약등록</button>
+                    </div>
+
+                </div><!-- <div class="table-responsive"> -->
+            </div><!-- card-body -->
+
+        </div><!-- page card -->
+    <!-- End Page Content -->
+    </th:block>
+</th:block>
