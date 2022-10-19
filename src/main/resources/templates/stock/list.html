@@ -92,7 +92,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="dto : ${result.dtoList}">
-                            <td><input type="checkbox" name="checkbox"></td>
+                            <td><input type="checkbox" name="checkbox" th:value="${dto.sno}"></td>
                             <td>[[${dto.scode}]]</td>
                             <td><a th:href="@{/stock/read(sno = ${dto.sno}, page = ${result.page}, type1 = ${pageRequestDTO.type1}, type2 = ${pageRequestDTO.type2}, type3 = ${pageRequestDTO.type3}, keyword = ${pageRequestDTO.keyword})}">[[${dto.sname}]]</a></td>
                             <td>[[${dto.scate1}]]</td>

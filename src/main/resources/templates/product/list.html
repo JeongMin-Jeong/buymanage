@@ -43,20 +43,24 @@
                                         </div>
                                     </td>
                                 </tr>
+
                                 <tr>
                                     <td style="width:100px;">일반검색</td>
                                     <td>
                                         <div class="input-group-prepend">
                                             <select class="form-select" name="ptype3" style="height:50px;">
-                                                <option th:selected="${pageRequestDTO.ptype3 == null}">-항목선택--------------------------------</option>
-                                                <option value="code" th:selected="${pageRequestDTO.ptype3 == 'code'}">품목코드</option>
-                                                <option value="name" th:selected="${pageRequestDTO.ptype3 == 'name'}">품목이름</option>
-                                                <option value="content" th:selected="${pageRequestDTO.ptype3 == 'content'}">품목내용</option>
+                                                <option th:selected="${pageRequestDTO2.ptype3 == null}">-항목선택--------------------------------</option>
+                                                <option value="code" th:selected="${pageRequestDTO2.ptype3 == 'code'}">품목코드</option>
+                                                <option value="name" th:selected="${pageRequestDTO2.ptype3 == 'name'}">품목이름</option>
+                                                <option value="content" th:selected="${pageRequestDTO2.ptype3 == 'content'}">품목내용</option>
                                             </select>&nbsp;
-                                            <input class="form-control" name="keyword" style="height:50px;" th:value="${pageRequestDTO.keyword}">
+                                            <input class="form-control" name="keyword" style="height:50px;" th:value="${pageRequestDTO2.keyword}">
                                         </div>
                                     </td>
                                 </tr>
+
+
+
                                 <tr style="height:20px;">
                                     <td colspan="2" style="text-align: right;"><button class="btn btn-outline-secondary btn-search" type="button">검색</button></td>
                                 </tr>

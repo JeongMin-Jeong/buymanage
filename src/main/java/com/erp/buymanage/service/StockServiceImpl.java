@@ -125,6 +125,7 @@ public class StockServiceImpl implements StockService {
             conditionBuilder.and(qStock.scate2.eq(type2));
 
 
+
         if(type3.contains("k")){
             conditionBuilder.or(qStock.scode.contains(keyword));
         }

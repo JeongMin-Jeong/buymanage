@@ -1,9 +1,10 @@
 package com.erp.buymanage.service;
 
-import com.erp.buymanage.dto.PageRequestDTO;
+import com.erp.buymanage.dto.PageRequestDTO2;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.ProductDTO;
 import com.erp.buymanage.entity.Product;
+import com.erp.buymanage.repository.ProductRepository;
 import com.erp.buymanage.entity.QProduct;
 import com.erp.buymanage.repository.ProductRepository;
 import com.querydsl.core.BooleanBuilder;
@@ -43,7 +44,8 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override // 목록처리
-    public PageResultDTO<ProductDTO, Product> getList(PageRequestDTO requestDTO) {
+    public PageResultDTO<ProductDTO, Product> getList(PageRequestDTO2 requestDTO) {
+
         Pageable pageable = requestDTO.getPageable(Sort.by("pno").descending());
 //        BooleanBuilder booleanBuilder = getSearch(requestDTO); // 검색조건처리
         Page<Product> result = repository.findAll(pageable); // Querydsl 사용
