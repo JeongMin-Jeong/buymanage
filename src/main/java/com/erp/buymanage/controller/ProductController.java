@@ -1,10 +1,12 @@
 package com.erp.buymanage.controller;
 
+import com.erp.buymanage.security.dto.AuthMemberDTO;
 import com.erp.buymanage.dto.PageRequestDTO;
 import com.erp.buymanage.dto.ProductDTO;
 import com.erp.buymanage.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +31,9 @@ public class ProductController {
     }
 
     @GetMapping("/list")
-    public void list(PageRequestDTO pageRequestDTO, Model model){
+    public void list(PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMembe){
         log.info(">>>>> ProductController(list)");
+        log.info(">>>>> authMember" + authMember);
 
         model.addAttribute("result", service.getList(pageRequestDTO));
     }
