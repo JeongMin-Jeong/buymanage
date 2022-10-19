@@ -82,7 +82,7 @@ public class ProductController {
 
         service.remove(pno);
 
-        redirectAttributes.addFlashAttribute("msg", pno);
+
         return "redirect:/product/list";
     }
 }
