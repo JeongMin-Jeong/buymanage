@@ -86,7 +86,7 @@
                             <th scope="col">품목이름</th>
                             <th scope="col">품목분류1</th>
                             <th scope="col">품목분류2</th>
-                            <!--                                <th>공급단가(원)</th>-->
+<!--                                <th>공급단가(원)</th>-->
                             <th scope="col">도면(사진)</th>
                             <th scope="col">비고</th>
                         </tr>
@@ -98,7 +98,7 @@
                             <td>[[${dto.pname}]]</td>
                             <td>[[${dto.ptype1}]]</td>
                             <td>[[${dto.ptype2}]]</td>
-                            <!--                                <td>50,000</td>-->
+<!--                                <td>50,000</td>-->
                             <td></td>
                             <td>[[${dto.petc}]]</td>
                         </tr>
@@ -110,7 +110,7 @@
                         <li class="page-item " th:if="${result.prev}">
                             <a class="page-link"
                                th:href="@{/product/list(page= ${result.start -1})}"
-                               typetabindex="-1">
+                                    typetabindex="-1">
                                 Pre
                             </a>
                         </li>
@@ -145,7 +145,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                    <!--                                    <button type="button" class="btn btn-primary">확인</button>-->
+<!--                                    <button type="button" class="btn btn-primary">확인</button>-->
                                 </div>
                             </div>
                         </div>
@@ -169,6 +169,6 @@
                 </div><!-- <div class="table-responsive"> -->
             </div><!-- card-body -->
         </div><!-- page card -->
-        <!-- End Page Content -->
+    <!-- End Page Content -->
     </th:block>
 </th:block>
