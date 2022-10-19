@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+
+  <th:block th:fragment="content">
+
+    <h1 class="mt-4">자재 수정</h1>
+
+    <form action="/stock/modify" method="post">
+      <input type="hidden" name="sno" th:value="${dto.sno}">
+      <input type="hidden" name="page" th:value="${requestDTO.page}">
+      <input type="hidden" name="type1" th:value="${requestDTO.type1}">
+      <input type="hidden" name="type2" th:value="${requestDTO.type2}">
+      <input type="hidden" name="type3" th:value="${requestDTO.type3}">
+      <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
+    <div class="form-group">
+      <label >품목코드</label>
+      <input type="text" class="form-control" name="scode" th:value="${dto.scode}">
+    </div>
+
+    <div class="form-group">
+      <label >품목이름</label>
+      <input type="text" class="form-control" name="sname" th:value="${dto.sname}">
+    </div>
+
+    <div class="form-group">
+      <label >품목분류1</label>
+      <input type="text" class="form-control" name="scate1" th:value="${dto.scate1}">
+    </div>
+
+
+    <div class="form-group">
+      <label >품목분류2</label>
+      <input type="text" class="form-control" name="scate2" th:value="${dto.scate2}">
+    </div>
+
+    <div class="form-gr" style="display: flex; justify-content: space-between;">
+      <div>
+        <label>입고수량</label>
+        <input type="text" class="form-control" name="sin" th:value="${dto.sin}" readonly>
+      </div>
+      <div>
+        <label>출고수량</label>
+        <input type="text" class="form-control" name="sout" th:value="${dto.sout}" readonly>
+      </div>
+      <div>
+        <label>반품수량</label>
+        <input type="text" class="form-control" name="sreturn" th:value="${dto.sreturn}" readonly>
+      </div>
+      <div>
+        <label>재고수량</label>
+        <input type="text" class="form-control" name="stock" th:value="${dto.stock}" readonly>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label >비고</label>
+      <textarea class="form-control" rows="5" name="snote">[[${dto.snote}]]</textarea>
+    </div>
+    </form>
+
+<!--    <a th:href="@{/stock/modify(sno = ${dto.sno}, page=${requestDTO.page})}">-->
+      <button type="button" class="btn btn-outline-secondary readModifyBtn">수정</button>
+<!--    </a>-->
+
+    <a th:href="@{/stock/list(page=${requestDTO.page}, type1 = ${requestDTO.type1}, type2 = ${requestDTO.type2}, type3 = ${requestDTO.type3}, keyword = ${requestDTO.keyword})}">
+      <button type="button" class="btn btn-outline-secondary readListBtn">목록</button>
+    </a>
+
+    <!--<div class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <input class="form-control"  type="text" name="replyText" placeholder="Reply Text...">
+            </div>
+            <div class="form-group">
+              <input class="form-control"  type="text" name="replyer" placeholder="Replyer">
+              <input type="hidden" name="rno" >
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger replyRemove">Remove</button>
+            <button type="button" class="btn btn-warning replyModify">Modify</button>
+            <button type="button" class="btn btn-primary replySave">Save</button>
+            <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+    <script th:inline="javascript">
+
+      var actionForm = $("form");
+
+      $(".readModifyBtn").click(function () {
+
+        if(!confirm("수정하시겠습니까?")) {
+          return;
+        }
+
+        actionForm
+                .attr("action", "/stock/modify")
+                .attr("method", "post");
+
+        actionForm.submit();
+
+      });
+
+    </script>
+
+  </th:block>
+
+</th:block>
+

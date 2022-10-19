@@ -4,141 +4,175 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
 
-            <!-- Begin Page Content -->
-            <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">품목관리</h1>
-            <!-- page card -->
-            <div class="card shadow mb-4">
+        <!-- Begin Page Content -->
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">품목관리</h1>
+        <!-- page card -->
+        <div class="card shadow mb-4">
 
-                <!-- card-header -->
-                <div class="card-header py-3"><h8 class="m-0 font-weight-bold text-primary">검색</h8></div>
-                <!-- card-body -->
-                <div class="card-body">
-                    <!-- div -->
-                    <div>
-                        <!-- <div class="input-group"> -->
+            <!-- card-header -->
+            <div class="card-header py-3"><h8 class="m-0 font-weight-bold text-primary">검색</h8></div>
+            <!-- card-body -->
+            <div class="card-body">
+                <!-- div -->
+                <div>
+                    <!-- <div class="input-group"> -->
+                    <form action="/product/list" method="get" id="searchForm">
                         <div class="input-group">
-
+                            <input type="hidden" name="page" value="1">
                             <table style="width: 100%;">
                                 <tr>
                                     <td style="width:100px;">품목분류</td>
                                     <td>
                                         <div class="input-group-prepend">
-                                            <select class="form-select" name="type1" style="height:50px;">
-                                                <option value="">-분류선택--------------------------------</option>
-                                                <option value="">데스크톱</option>
-                                                <option value="">노트북</option>
-                                                <option value="">서버</option>
-                                                <option value="">기타</option>
+                                            <select class="form-select" name="ptype1" style="height:50px;">
+                                                <option value="미분류">-분류선택--------------------------------</option>
+                                                <option value="데스크톱">데스크톱</option>
+                                                <option value="노트북">노트북</option>
+                                                <option value="서버">서버</option>
                                             </select>&nbsp;
-                                            <select class="form-select" name="type2" style="height:50px;">
-                                                <option value="">-분류선택--------------------------------</option>
-                                                <option value="">CPU</option>
-                                                <option value="">메인보드</option>
-                                                <option value="">메모리</option>
-                                                <option value="">하드디스크/SDD</option>
-                                                <option value="">케이스</option>
-                                                <option value="">파워</option>
+                                            <select class="form-select" name="ptype2" style="height:50px;">
+                                                <option value="미분류">-분류선택--------------------------------</option>
+                                                <option value="CPU">CPU</option>
+                                                <option value="메인보드">메인보드</option>
+                                                <option value="메모리">메모리</option>
+                                                <option value="하드디스크">하드디스크/SDD</option>
+                                                <option value="케이스">케이스</option>
+                                                <option value="파워">파워</option>
                                             </select>
                                         </div>
                                     </td>
                                 </tr>
+
                                 <tr>
                                     <td style="width:100px;">일반검색</td>
                                     <td>
                                         <div class="input-group-prepend">
-                                            <select class="form-select" name="type3" style="height:50px;">
-                                                <option value="">-항목선택--------------------------------</option>
-                                                <option value="">품목코드</option>
-                                                <option value="">품목이름</option>
-                                                <option value="">품목내용</option>
+                                            <select class="form-select" name="ptype3" style="height:50px;">
+                                                <option th:selected="${pageRequestDTO2.ptype3 == null}">-항목선택--------------------------------</option>
+                                                <option value="code" th:selected="${pageRequestDTO2.ptype3 == 'code'}">품목코드</option>
+                                                <option value="name" th:selected="${pageRequestDTO2.ptype3 == 'name'}">품목이름</option>
+                                                <option value="content" th:selected="${pageRequestDTO2.ptype3 == 'content'}">품목내용</option>
                                             </select>&nbsp;
-                                            <input type="text" class="form-control" name="keyword" style="height:50px;">
+                                            <input class="form-control" name="keyword" style="height:50px;" th:value="${pageRequestDTO2.keyword}">
                                         </div>
                                     </td>
                                 </tr>
+
+
+
                                 <tr style="height:20px;">
-                                    <td colspan="2" style="text-align: right;"><button class="btn btn-outline-secondary searchBtn" type="button">검색</button></td>
+                                    <td colspan="2" style="text-align: right;"><button class="btn btn-outline-secondary btn-search" type="button">검색</button></td>
                                 </tr>
                             </table>
-
                         </div><!-- <div class="input-group"> -->
-                    </div><!-- div -->
-                </div><!-- <div class="card-body"> -->
+                    </form>
+                </div><!-- div -->
+            </div><!-- <div class="card-body"> -->
 
-                <!-- card-header -->
-                <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">목록</h6></div>
-                <!-- card-body -->
-                <div class="card-body">
-                    <!-- <div class="table-responsive"> -->
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>품목코드</th>
-                                <th>품목이름</th>
-                                <th>품목분류1</th>
-                                <th>품목분류2</th>
-                                <th>공급단가(원)</th>
-                                <th>도면(사진)</th>
-                                <th>비고</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>4</td>
-                                <td>P10004</td>
-                                <td>MEMORY_HYNIX_DIMM3</td>
-                                <td>데스크탑</td>
-                                <td>메모리</td>
-                                <td>50,000</td>
-                                <td>MEMORY1_IMG1.PNG</td>
-                                <td>비고</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>P10003</td>
-                                <td>MBOARD_ASUS_DESK</td>
-                                <td>데스크탑</td>
-                                <td>메인보드</td>
-                                <td>180,000</td>
-                                <td>MBOARD1_IMG1.PNG</td>
-                                <td>비고</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>P10002</td>
-                                <td>라이젠5-4세대 5600 (버미어)</td>
-                                <td>데스크탑</td>
-                                <td>CPU</td>
-                                <td>250,000</td>
-                                <td>CPU1_IMG1.PNG</td>
-                                <td>비고</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>P10001</td>
-                                <td>코어i7-12세대 12700K</td>
-                                <td>데스크탑</td>
-                                <td>CPU</td>
-                                <td>500,000</td>
-                                <td>CPU1_IMG1.PNG</td>
-                                <td>비고</td>
-                            </tr>
-                            </tbody>
-                        </table>
-
+            <!-- card-header -->
+            <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">목록</h6></div>
+            <!-- card-body -->
+            <div class="card-body">
+                <!-- <div class="table-responsive"> -->
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable">
                         <div style="float: right">
                             <button class="btn btn-outline-secondary deleteBtn" type="button">품목삭제</button>
-                            <button class="btn btn-outline-secondary registBtn" type="button">품목등록</button>
+                            <a th:href="@{/product/register}">
+                                <button class="btn btn-outline-secondary registBtn" type="button">품목등록</button>
+                            </a>
                         </div>
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">품목코드</th>
+                            <th scope="col">품목이름</th>
+                            <th scope="col">품목분류1</th>
+                            <th scope="col">품목분류2</th>
+<!--                                <th>공급단가(원)</th>-->
+                            <th scope="col">도면(사진)</th>
+                            <th scope="col">비고</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="dto: ${result.dtoList}">
+                            <td><input type="checkbox" name="product" value="${dto.pno}"></td>
+                            <th><a th:href="@{/product/read(pno=${dto.pno}, page=${result.page})}">[[${dto.pcode}]]</a></th>
+                            <td>[[${dto.pname}]]</td>
+                            <td>[[${dto.ptype1}]]</td>
+                            <td>[[${dto.ptype2}]]</td>
+<!--                                <td>50,000</td>-->
+                            <td></td>
+                            <td>[[${dto.petc}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                    </div><!-- <div class="table-responsive"> -->
-                </div><!-- card-body -->
+                    <!-- 하단 페이지 버튼 -->
+                    <ul class="pagination h-100 justify-content-center align-items-center">
+                        <li class="page-item " th:if="${result.prev}">
+                            <a class="page-link"
+                               th:href="@{/product/list(page= ${result.start -1})}"
+                                    typetabindex="-1">
+                                Pre
+                            </a>
+                        </li>
 
+                        <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+                            <a class="page-link"
+                               th:href="@{/product/list(page = ${page})}">
+                                [[${page}]]
+                            </a>
+                        </li>
 
-            </div><!-- page card -->
+                        <li class="page-item" th:if="${result.next}">
+                            <a class="page-link"
+                               th:href="@{/product/list(page= ${result.end + 1})}">
+                                Next
+                            </a>
+                        </li>
+                    </ul><!-- 하단 페이지 버튼 -->
+
+                    <!-- 모달창 처리-->
+                    <div class="modal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">변경사항</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>정상적으로 처리되었습니다.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+<!--                                    <button type="button" class="btn btn-primary">확인</button>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- 신규등록완료시 뜨는 모달창 처리-->
+
+                    <script th:inline="javascript">
+                        /* 신규등록완료시 뜨는 모달창 처리 */
+                        var msg = [[${msg}]];
+                        console.log(msg);
+                        if(msg){
+                            $(".modal").modal();
+                        }/* 신규등록완료시 뜨는 모달창 처리 */
+
+                        /* 검색시 이벤트 처리*/
+                        var searchForm = $("#searchForm");
+                        $('.btn-search').click(function (e) {
+                            searchForm.submit();
+                        });/* 검색시 이벤트 처리*/
+                    </script>
+
+                </div><!-- <div class="table-responsive"> -->
+            </div><!-- card-body -->
+        </div><!-- page card -->
     <!-- End Page Content -->
     </th:block>
 </th:block>
