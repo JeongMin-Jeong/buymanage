@@ -120,10 +120,9 @@ public class StockServiceImpl implements StockService {
         //검색 조건 작성
         BooleanBuilder conditionBuilder = new BooleanBuilder();
 
-        if(type1 != null || type2 != null) {
+
             conditionBuilder.and(qStock.scate1.eq(type1));
             conditionBuilder.and(qStock.scate2.eq(type2));
-        }
 
 
         if(type3.contains("k")){
