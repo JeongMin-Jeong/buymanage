@@ -31,7 +31,7 @@ public class ProductController {
     }
 
     @GetMapping("/list")
-    public void list(PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMembe){
+    public void list(PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMember){
         log.info(">>>>> ProductController(list)");
         log.info(">>>>> authMember" + authMember);
 
