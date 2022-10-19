@@ -44,6 +44,7 @@ public class PageResultDTO<DTO, EN> {
     private void makePageList(Pageable pageable) {
 
         this.page = pageable.getPageNumber() + 1;   //0부터 시작하므로 1을 추가
+
         this.size = pageable.getPageSize();
 
         //temp end page

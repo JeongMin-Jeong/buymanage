@@ -5,6 +5,10 @@ import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.ProductDTO;
 import com.erp.buymanage.entity.Product;
 import com.erp.buymanage.repository.ProductRepository;
+import com.erp.buymanage.entity.QProduct;
+import com.erp.buymanage.repository.ProductRepository;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -41,6 +45,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override // 목록처리
     public PageResultDTO<ProductDTO, Product> getList(PageRequestDTO2 requestDTO) {
+
         Pageable pageable = requestDTO.getPageable(Sort.by("pno").descending());
 //        BooleanBuilder booleanBuilder = getSearch(requestDTO); // 검색조건처리
         Page<Product> result = repository.findAll(pageable); // Querydsl 사용

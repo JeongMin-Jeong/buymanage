@@ -31,9 +31,9 @@ public class ProductController {
     }
 
     @GetMapping("/list")
+
     public void list(PageRequestDTO2 pageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMember){
         log.info(">>>>> ProductController(list)");
-
         model.addAttribute("result", service.getList(pageRequestDTO));
     }
 
@@ -54,6 +54,7 @@ public class ProductController {
 
     @GetMapping({"/read","/modify"})
     public void read(long pno, @ModelAttribute("requestDTO") PageRequestDTO2 requestDTO, Model model){
+
         log.info(">>>>> ProductController(read,modify GetMapping)");
         log.info(">>>>> pno: " + pno);
 
@@ -64,6 +65,7 @@ public class ProductController {
 
     @PostMapping("/modify")
     public String modify(ProductDTO dto, @ModelAttribute("requestDTO") PageRequestDTO2 requestDTO, RedirectAttributes redirectAttributes){
+
         log.info(">>>>> ProductController(modify PostMapping)");
 
         service.modify(dto);
