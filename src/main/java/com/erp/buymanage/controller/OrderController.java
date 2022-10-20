@@ -31,6 +31,7 @@ public class OrderController {
     }
 
     @GetMapping("/list")
+
     public void list(PageRequestDTO3 pageRequestDTO, Model model) {
         log.info("list................" + pageRequestDTO);
         model.addAttribute("result", service.getList(pageRequestDTO));
@@ -54,7 +55,9 @@ public class OrderController {
     }
 
     @GetMapping({"/read","/modify"})
+
     public void read(long ono, @ModelAttribute("requestDTO") PageRequestDTO3 requestDTO, Model model) {
+
 
         log.info("ono: " + ono);
         OrderDTO dto = service.read(ono);
@@ -62,17 +65,19 @@ public class OrderController {
     }
 
     @PostMapping("/remove")
-    public String remove(long ono , RedirectAttributes redirectAttributes) {
+    public String remove(Long ono , RedirectAttributes redirectAttributes) {
         log.info("ono: " + ono);
         service.remove(ono);
         redirectAttributes.addFlashAttribute("msg",ono) ;
-        return "redirect: /order/list";
+        return "redirect:/order/list";
 
     }
 
     @PostMapping("/modify")
     public String modify(OrderDTO dto,
+
                          @ModelAttribute("requestDTO") PageRequestDTO3 requestDTO,
+
                          RedirectAttributes redirectAttributes){
 
 
