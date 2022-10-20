@@ -2,13 +2,14 @@ package com.erp.buymanage.service;
 
 import com.erp.buymanage.dto.OrderDTO;
 import com.erp.buymanage.dto.PageRequestDTO;
+import com.erp.buymanage.dto.PageRequestDTO3;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.entity.OrderEntity;
 
 public interface OrderService {
 
     long register(OrderDTO dto);
-    PageResultDTO<OrderDTO, OrderEntity> getList(PageRequestDTO requestDTO);
+    PageResultDTO<OrderDTO, OrderEntity> getList(PageRequestDTO3 requestDTO);
     OrderDTO read(Long ono);
 
     default OrderEntity dtoToEntity(OrderDTO dto) {
