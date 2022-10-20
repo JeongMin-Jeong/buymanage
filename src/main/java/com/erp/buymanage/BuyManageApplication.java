@@ -10,6 +10,4 @@ public class BuyManageApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BuyManageApplication.class, args);
 	}
-
-	
 }
