@@ -26,14 +26,14 @@
                                 <td>
                                     <div class="input-group-prepend">
                                         <select class="form-select" name="type1" style="height:50px;">
-                                            <option th:selected="${pageRequestDTO.type1 == null}">-분류선택--------------------------------</option>
+                                            <option value="" th:selected="${pageRequestDTO.type1 == null}">-분류선택--------------------------------</option>
                                             <option value="데스크톱" th:selected="${pageRequestDTO.type1 == '데스크톱'}">데스크톱</option>
                                             <option value="노트북" th:selected="${pageRequestDTO.type1 == '노트북'}">노트북</option>
                                             <option value="서버" th:selected="${pageRequestDTO.type1 == '서버'}">서버</option>
                                             <option value="기타" th:selected="${pageRequestDTO.type1 == '기타'}">기타</option>
                                         </select>&nbsp;
                                         <select class="form-select" name="type2" style="height:50px;">
-                                            <option th:selected="${pageRequestDTO.type2 == null}">-분류선택--------------------------------</option>
+                                            <option value="" th:selected="${pageRequestDTO.type2 == null}">-분류선택--------------------------------</option>
                                             <option value="CPU" th:selected="${pageRequestDTO.type2 == 'CPU'}">CPU</option>
                                             <option value="메인보드" th:selected="${pageRequestDTO.type2 == '메인보드'}">메인보드</option>
                                             <option value="메모리" th:selected="${pageRequestDTO.type2 == '메모리'}">메모리</option>
@@ -49,7 +49,7 @@
                                 <td>
                                     <div class="input-group-prepend">
                                         <select class="form-select" name="type3" style="height:50px;">
-                                            <option th:selected="${pageRequestDTO.type3 == null}">-항목선택--------------------------------</option>
+                                            <option value="" th:selected="${pageRequestDTO.type3 == null}">-항목선택--------------------------------</option>
                                             <option value="k" th:selected="${pageRequestDTO.type3 == 'k'}">품목코드</option>
                                             <option value="l" th:selected="${pageRequestDTO.type3 == 'l'}">품목이름</option>
                                         </select>&nbsp;

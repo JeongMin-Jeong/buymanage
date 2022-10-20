@@ -31,6 +31,7 @@ public class ProductController {
 
     @GetMapping("/list")
     public void list(ProductPageRequestDTO productPageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMember){
+
         log.info(">>>>> ProductController(list)");
         model.addAttribute("result", service.getList(productPageRequestDTO));
     }
