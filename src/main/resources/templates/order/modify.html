@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
+  <th:block th:fragment="content">
+
+    <h1 class="mt-4">발주정보 수정 페이지</h1>
+    <!-- page card -->
+    <div class="card shadow mb-4">
+      <!-- card-body -->
+      <div class="card-body">
+
+        <form th:action="@{/order/register}" th:method="post">
+          <!-- 페이지번호 -->
+          <input type="hidden" name="page" th:value="${requestDTO.page}"><!-- 페이지번호 -->
+          <!-- 삭제처리에 pno넘기기위한 히든처리 -->
+          <div class="form-group">
+            <input type="hidden" class="form-control" name="ono" th:value="${dto.ono}">
+          </div><!-- 삭제처리에 pno넘기기위한 히든처리 -->
+          <div class="form-group" >
+            <label>품목코드</label>
+            <input type="text" class="form-control" name="pcode" th:value="${dto.pcode}" >
+          </div>
+
+          <div class="form-group" >
+            <label>대분류</label>
+            <select class="form-select" name="ptype1" style="height:40px;" th:value="${dto.ptype1}">
+              <option value="미분류">-분류선택--------------------------------</option>
+              <option value="데스크톱">데스크톱</option>
+              <option value="노트북">노트북</option>
+              <option value="서버">서버</option>
+              <option value="기타">기타</option>
+            </select>
+            &nbsp;&nbsp;
+            <!--            </div>-->
+            <!--            <div class="form-group">-->
+            <label>중분류</label>
+            <select class="form-select" name="ptype2" style="height:40px;" th:value="${dto.ptype2}">
+              <option value="미분류">-분류선택--------------------------------</option>
+              <option value="CPU">CPU</option>
+              <option value="메인보드">메인보드</option>
+              <option value="메모리">메모리</option>
+              <option value="하드디스크">하드디스크/SDD</option>
+              <option value="케이스">케이스</option>
+              <option value="파워">파워</option>
+            </select>
+          </div>
+          <div class="form-group" >
+            <label>품목이름</label>
+            <input type="text" class="form-control" name="opname" th:value="${dto.opname}">
+          </div>
+          <div class="form-group"  >
+            <label>수량</label> <input type="text" class="form-control" id="oquantity" name="oquantity" th:value="${dto.oquantity}" >
+            <label>공급단가(원)</label> <input type="text"  class="form-control"id="oprice" name="oprice" th:value="${dto.oprice}" >
+          </div>
+          <div >
+            <div class="form-group"  >
+              <label>납품업체</label> <input type="text" class="form-control" id="ocompany" name="ocompany" th:value="${dto.ocompany}" >
+              <label>담당자</label> <input type="text" class="form-control" id="omanager" name="omanager"  th:value="${dto.omanager}">
+            </div>
+          </div>
+          <div >
+            <div class="form-group" >
+              <label>발주일자</label><input type="date" class="form-control" name="orderdate" th:value="${dto.orderdate}">
+              <label>납기일자</label><input type="date" class="form-control" name="deliverydate" th:value="${dto.deliverydate}">
+              <label>마감일자</label><input type="date" class="form-control" name="duedate" th:value="${dto.duedate}">
+            </div>
+          </div>
+          <div class="form-group" >
+            <label>발주상태</label>
+            <select class="form-select" name="ostate" style="height:40px;" th:value="${dto.ostate}">
+              <option value="발주상태">---------------------------------</option>
+              <option value="구매발주">구매발주</option>
+              <option value="입고처리">입고처리</option>
+              <option value="발품처리">발품처리</option>
+              <option value="마감완료">마감완료</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>설명</label>
+            <textarea class="form-control" rows="5" name="pcontent" th:value="${dto.pcontent}" th:text="${dto.pcontent}"></textarea>
+          </div>
+          <div class="form-group">
+            <label>비고</label>
+            <textarea class="form-control" rows="2" name="oetc" th:value="${dto.oetc}" th:text="${dto.oetc}"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">수정</button>
+
+        </form>
+        <button type = "button" class="btn btn-primary">삭제</button>
+      </div><!-- card-body -->
+    </div><!-- page card -->
+
+    <script th:inline="javascript">
+      var actionForm = $("form");
+      $(".removeBtn").click(function(){
+        actionForm
+                .attr("action", "/order/remove")
+                .attr("method" , post);
+
+        actionForm.submit();
+      });
+
+    </script>
+  </th:block>
+</th:block>
