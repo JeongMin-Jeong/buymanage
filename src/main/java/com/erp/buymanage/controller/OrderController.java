@@ -1,7 +1,7 @@
 package com.erp.buymanage.controller;
 
 import com.erp.buymanage.dto.OrderDTO;
-import com.erp.buymanage.dto.PageRequestDTO;
+import com.erp.buymanage.dto.PageRequestDTO3;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.querydsl.QPageRequest;
@@ -31,7 +31,7 @@ public class OrderController {
     }
 
     @GetMapping("/list")
-    public void list(PageRequestDTO pageRequestDTO, Model model) {
+    public void list(PageRequestDTO3 pageRequestDTO, Model model) {
         log.info("list................" + pageRequestDTO);
         model.addAttribute("result", service.getList(pageRequestDTO));
     }
@@ -54,7 +54,7 @@ public class OrderController {
     }
 
     @GetMapping({"/read","/modify"})
-    public void read(long ono, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {
+    public void read(long ono, @ModelAttribute("requestDTO") PageRequestDTO3 requestDTO, Model model) {
 
         log.info("ono: " + ono);
         OrderDTO dto = service.read(ono);
@@ -72,7 +72,7 @@ public class OrderController {
 
     @PostMapping("/modify")
     public String modify(OrderDTO dto,
-                         @ModelAttribute("requestDTO") PageRequestDTO requestDTO,
+                         @ModelAttribute("requestDTO") PageRequestDTO3 requestDTO,
                          RedirectAttributes redirectAttributes){
 
 

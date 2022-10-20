@@ -3,6 +3,7 @@ package com.erp.buymanage.service;
 
 import com.erp.buymanage.dto.OrderDTO;
 import com.erp.buymanage.dto.PageRequestDTO;
+import com.erp.buymanage.dto.PageRequestDTO3;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.entity.OrderEntity;
 import com.erp.buymanage.repository.OrderRepository;
@@ -36,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
 
     }
     @Override
-    public PageResultDTO<OrderDTO, OrderEntity> getList(PageRequestDTO requestDTO) {
+    public PageResultDTO<OrderDTO, OrderEntity> getList(PageRequestDTO3 requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("ono").descending());
 
         Page<OrderEntity> result = repository.findAll(pageable);
