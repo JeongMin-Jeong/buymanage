@@ -1,6 +1,6 @@
 package com.erp.buymanage.service;
 
-import com.erp.buymanage.dto.PageRequestDTO;
+import com.erp.buymanage.dto.PageRequestDTO2;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.ProductDTO;
 import com.erp.buymanage.entity.Product;
@@ -10,7 +10,7 @@ public interface ProductService {
     Long register(ProductDTO dto);
 
     // 목록처리
-    PageResultDTO<ProductDTO, Product> getList(PageRequestDTO requestDTO);
+    PageResultDTO<ProductDTO, Product> getList(PageRequestDTO2 requestDTO);
 
     // 조회처리
     ProductDTO read(Long pno);

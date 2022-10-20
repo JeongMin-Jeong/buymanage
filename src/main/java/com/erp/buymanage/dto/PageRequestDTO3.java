@@ -10,22 +10,22 @@ import org.springframework.data.domain.Sort;
 @Builder
 @AllArgsConstructor
 @Data
-public class PageRequestDTO {
+public class PageRequestDTO3 {
 
     private int page;
     private int size;
-
-    private String type1;
-    private String type2;
-    private String type3;
+    private String type;
     private String keyword;
 
-    public PageRequestDTO() {
+
+    public PageRequestDTO3(){
         this.page = 1;
         this.size = 10;
     }
 
-    public Pageable getPageable(Sort sort) {
+    public Pageable getPageable(Sort sort){
+
         return PageRequest.of(page -1, size, sort);
+
     }
 }
