@@ -11,5 +11,5 @@ public class BuyManageApplication {
 		SpringApplication.run(BuyManageApplication.class, args);
 	}
 
-	
+
 }
