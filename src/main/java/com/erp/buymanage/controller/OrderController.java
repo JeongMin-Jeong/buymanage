@@ -31,8 +31,9 @@ public class OrderController {
     }
 
     @GetMapping("/list")
+
     public void list(PageRequestDTO3 pageRequestDTO, Model model) {
-        log.info("list................" + pageRequestDTO);
+     log.info("list................" + pageRequestDTO);
         model.addAttribute("result", service.getList(pageRequestDTO));
     }
 
@@ -54,7 +55,9 @@ public class OrderController {
     }
 
     @GetMapping({"/read","/modify"})
+
     public void read(long ono, @ModelAttribute("requestDTO") PageRequestDTO3 requestDTO, Model model) {
+
 
         log.info("ono: " + ono);
         OrderDTO dto = service.read(ono);
@@ -72,7 +75,9 @@ public class OrderController {
 
     @PostMapping("/modify")
     public String modify(OrderDTO dto,
+
                          @ModelAttribute("requestDTO") PageRequestDTO3 requestDTO,
+
                          RedirectAttributes redirectAttributes){
 
 
