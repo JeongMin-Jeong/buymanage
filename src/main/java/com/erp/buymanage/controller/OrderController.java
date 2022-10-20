@@ -33,7 +33,7 @@ public class OrderController {
     @GetMapping("/list")
 
     public void list(PageRequestDTO3 pageRequestDTO, Model model) {
-        log.info("list................" + pageRequestDTO);
+     log.info("list................" + pageRequestDTO);
         model.addAttribute("result", service.getList(pageRequestDTO));
     }
 
