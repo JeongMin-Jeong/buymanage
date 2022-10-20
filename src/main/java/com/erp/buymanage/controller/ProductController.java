@@ -1,6 +1,6 @@
 package com.erp.buymanage.controller;
 
-import com.erp.buymanage.dto.PageRequestDTO2;
+import com.erp.buymanage.dto.ProductPageRequestDTO;
 import com.erp.buymanage.dto.ProductDTO;
 import com.erp.buymanage.security.dto.AuthMemberDTO;
 import com.erp.buymanage.service.ProductService;
@@ -26,14 +26,14 @@ public class ProductController {
     @GetMapping("/")
     public String index(){
         log.info(">>>>> ProductController(\"/\")");
-
         return "redirect:/product/list";
     }
 
     @GetMapping("/list")
-    public void list(PageRequestDTO2 pageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMember){
+    public void list(ProductPageRequestDTO productPageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMember){
+
         log.info(">>>>> ProductController(list)");
-        model.addAttribute("result", service.getList(pageRequestDTO));
+        model.addAttribute("result", service.getList(productPageRequestDTO));
     }
 
     @GetMapping("/register")
@@ -44,34 +44,25 @@ public class ProductController {
     @PostMapping("/register")
     public String registerProduct(ProductDTO dto, RedirectAttributes redirectAttributes){
         log.info(">>>>> ProductController(register PostMapping)");
-
         Long pno = service.register(dto);
-
         redirectAttributes.addFlashAttribute("msg", pno);
         return "redirect:/product/list";
     }
 
     @GetMapping({"/read","/modify"})
-    public void read(long pno, @ModelAttribute("requestDTO") PageRequestDTO2 requestDTO, Model model){
-
+    public void read(long pno, @ModelAttribute("requestDTO") ProductPageRequestDTO productPageRequestDTO, Model model){
         log.info(">>>>> ProductController(read,modify GetMapping)");
         log.info(">>>>> pno: " + pno);
-
         ProductDTO dto = service.read(pno);
-
         model.addAttribute("dto", dto);
     }
 
     @PostMapping("/modify")
-    public String modify(ProductDTO dto, @ModelAttribute("requestDTO") PageRequestDTO2 requestDTO, RedirectAttributes redirectAttributes){
-
+    public String modify(ProductDTO dto, @ModelAttribute("requestDTO") ProductPageRequestDTO productPageRequestDTO, RedirectAttributes redirectAttributes){
         log.info(">>>>> ProductController(modify PostMapping)");
-
         service.modify(dto);
-
-        redirectAttributes.addAttribute("page", requestDTO.getPage());
+        redirectAttributes.addAttribute("page", productPageRequestDTO.getPage());
         redirectAttributes.addAttribute("pno", dto.getPno());
-
         return "redirect:/product/read";
     }
 
@@ -79,9 +70,7 @@ public class ProductController {
     public String remove(long pno, RedirectAttributes redirectAttributes){
         log.info(">>>>> ProductController(remove PostMapping)");
         log.info(">>>>> pno: " + pno);
-
         service.remove(pno);
-
         redirectAttributes.addFlashAttribute("msg", pno);
         return "redirect:/product/list";
     }
