@@ -108,6 +108,9 @@ public class StockServiceImpl implements StockService {
             return booleanBuilder;
         }
 
+
+        
+
         if(type2 == null || type2.trim().length() == 0) { //검색 조건이 없는 경우
             return booleanBuilder;
         }
