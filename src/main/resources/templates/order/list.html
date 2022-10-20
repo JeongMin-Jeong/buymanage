@@ -84,131 +84,87 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
-                                <th>발주번호</th>
-                                <th>발주일자</th>
-                                <th>납기일자</th>
-                                <th>마감일자</th>
-                                <th>품목이름</th>
-                                <th>수량</th>
-                                <th>공급단가(원)</th>
-                                <th>납품업체</th>
-                                <th>담당자</th>
-                                <th>발주상태</th>
-                                <th>비고</th>
+                                <th scope="col">발주번호</th>
+                                <th scope="col">발주일자</th>
+                                <th scope="col">납기일자</th>
+                                <th scope="col">마감일자</th>
+                                <th scope="col">품목이름</th>
+                                <th scope="col">수량</th>
+                                <th scope="col">공급단가(원)</th>
+                                <th scope="col">납품업체</th>
+                                <th scope="col">담당자</th>
+                                <th scope="col">발주상태</th>
+                                <th scope="col">비고</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>10008</td>
-                                <td>2022-09-11</td>
-                                <td>2022-09-11</td>
-                                <td>-</td>
-                                <td>CPU(intel 12th i7)</td>
-                                <td>100</td>
-                                <td>600000</td>
-                                <td>용산닷컴</td>
-                                <td>홍길동</td>
-                                <td>조달진행</td>
-                                <td>리포트</td>
+
+                            <tr th:each="dto : ${result.dtoList}">
+                                <th scope="row">
+                                    <a th:href="@{/order/read(ono = ${dto.ono},
+                    page= ${result.page},
+                    type=${pageRequestDTO3.type} ,
+                    keyword = ${pageRequestDTO3.keyword})}">
+                                        [[${dto.ono}]]
+                                    </a>
+                                </th>
+                                <td>[[${dto.orderdate}]]</td>
+                                <td>[[${dto.deliverydate}]]</td>
+                                <td>[[${dto.duedate}]]</td>
+                                <td>[[${dto.opname}]]</td>
+                                <td>[[${dto.oquantity}]]</td>
+                                <td>[[${dto.oprice}]]</td>
+                                <td>[[${dto.ocompany}]]</td>
+                                <td>[[${dto.omanager}]]</td>
+                                <td>[[${dto.ostate}]]</td>
+                                <td>[[${dto.oetc}]]</td>
+
                             </tr>
-                            <tr>
-                                <td>10007</td>
-                                <td>2022-09-11</td>
-                                <td>2022-10-11</td>
-                                <td>-</td>
-                                <td>MAINBOARD(ASUS mx 1288 series)</td>
-                                <td>100</td>
-                                <td>600000</td>
-                                <td>아수스</td>
-                                <td>입꺽정</td>
-                                <td>조달진행</td>
-                                <td>리포트</td>
-                            </tr>
-                            <tr>
-                                <td>10006</td>
-                                <td>2022-09-11</td>
-                                <td>2022-10-11</td>
-                                <td>-</td>
-                                <td>MAINBOARD(ASUS mx 1288 series)</td>
-                                <td>100</td>
-                                <td>600000</td>
-                                <td>아수스</td>
-                                <td>입꺽정</td>
-                                <td>조달진행</td>
-                                <td>리포트</td>
-                            </tr>
-                            <tr>
-                                <td>10005</td>
-                                <td>2022-09-11</td>
-                                <td>2022-10-11</td>
-                                <td>-</td>
-                                <td>MAINBOARD(ASUS mx 1288 series)</td>
-                                <td>100</td>
-                                <td>600000</td>
-                                <td>아수스</td>
-                                <td>입꺽정</td>
-                                <td>조달진행</td>
-                                <td>리포트</td>
-                            </tr>
-                            <tr>
-                                <td>10004</td>
-                                <td>2022-09-11</td>
-                                <td>2022-10-11</td>
-                                <td>-</td>
-                                <td>MAINBOARD(ASUS mx 1288 series)</td>
-                                <td>100</td>
-                                <td>600000</td>
-                                <td>아수스</td>
-                                <td>입꺽정</td>
-                                <td>조달진행</td>
-                                <td>리포트</td>
-                            </tr>
-                            <tr>
-                                <td>10003</td>
-                                <td>2022-09-11</td>
-                                <td>2022-10-11</td>
-                                <td>-</td>
-                                <td>MAINBOARD(ASUS mx 1288 series)</td>
-                                <td>100</td>
-                                <td>600000</td>
-                                <td>아수스</td>
-                                <td>입꺽정</td>
-                                <td>조달진행</td>
-                                <td>리포트</td>
-                            </tr>
-                            <tr>
-                                <td>10002</td>
-                                <td>2022-09-11</td>
-                                <td>2022-10-11</td>
-                                <td>-</td>
-                                <td>MAINBOARD(ASUS mx 1288 series)</td>
-                                <td>100</td>
-                                <td>600000</td>
-                                <td>아수스</td>
-                                <td>입꺽정</td>
-                                <td>조달진행</td>
-                                <td>리포트</td>
-                            </tr>
-                            <tr>
-                                <td>10001</td>
-                                <td>2022-09-11</td>
-                                <td>2022-10-11</td>
-                                <td>-</td>
-                                <td>MAINBOARD(ASUS mx 1288 series)</td>
-                                <td>100</td>
-                                <td>600000</td>
-                                <td>아수스</td>
-                                <td>입꺽정</td>
-                                <td>조달진행</td>
-                                <td>리포트</td>
-                            </tr>
+<!--                            <tr>-->
+<!--                                <td>10008</td>-->
+<!--                                <td>2022-09-11</td>-->
+<!--                                <td>2022-09-11</td>-->
+<!--                                <td>-</td>-->
+<!--                                <td>CPU(intel 12th i7)</td>-->
+<!--                                <td>100</td>-->
+<!--                                <td>600000</td>-->
+<!--                                <td>용산닷컴</td>-->
+<!--                                <td>홍길동</td>-->
+<!--                                <td>조달진행</td>-->
+<!--                                <td>리포트</td>-->
+<!--                            </tr>-->
+
                             </tbody>
                         </table>
+                        <ul class="pagination h-100 justify-content-center align-items-center">
+
+                            <li class="page-item " th:if="${result.prev}">
+                                <a class="page-link" th:href="@{/order/list(page= ${result.start -1},
+                    type=${pageRequestDTO3.type} ,
+                    keyword = ${pageRequestDTO3.keyword} ) }" tabindex="-1">Previous</a>
+                            </li>
+
+                            <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+                                <a class="page-link" th:href="@{/order/list(page = ${page} ,
+                   type=${pageRequestDTO3.type} ,
+                   keyword = ${pageRequestDTO3.keyword}  )}">
+                                    [[${page}]]
+                                </a>
+                            </li>
+
+                            <li class="page-item" th:if="${result.next}">
+                                <a class="page-link" th:href="@{/order/list(page= ${result.end + 1} ,
+                    type=${pageRequestDTO3.type} ,
+                    keyword = ${pageRequestDTO3.keyword} )}">Next</a>
+                            </li>
+
+                        </ul>
 
                         <div style="float: right">
                             &nbsp;<button class="btn btn-outline-secondary deleteBtn" type="button"> 리포트 </button>
                             &nbsp;<button class="btn btn-outline-secondary deleteBtn" type="button">발주삭제</button>
-                            &nbsp;<button class="btn btn-outline-secondary registBtn" type="button">발주등록</button>
+<!--                            &nbsp;<button class="btn btn-outline-secondary registBtn" type="button" >발주등록</button>-->
+                            <a href="/order/register" class="btn btn-outline-secondary registBtn" type="button">발주등록</a>
                         </div>
                     </div><!-- <div class="table-responsive"> -->
                 </div><!-- card-body -->

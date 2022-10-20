@@ -1,8 +1,8 @@
 package com.erp.buymanage.controller;
 
-import com.erp.buymanage.security.dto.AuthMemberDTO;
-import com.erp.buymanage.dto.PageRequestDTO;
+import com.erp.buymanage.dto.PageRequestDTO2;
 import com.erp.buymanage.dto.ProductDTO;
+import com.erp.buymanage.security.dto.AuthMemberDTO;
 import com.erp.buymanage.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -31,10 +31,15 @@ public class ProductController {
     }
 
     @GetMapping("/list")
+<<<<<<< HEAD
     public void list(PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMember){
         log.info(">>>>> ProductController(list)");
         log.info(">>>>> authMember" + authMember);
+=======
+>>>>>>> e6b8b4fa4be81d6e2500f44cd37f95e66334e2c2
 
+    public void list(PageRequestDTO2 pageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMember){
+        log.info(">>>>> ProductController(list)");
         model.addAttribute("result", service.getList(pageRequestDTO));
     }
 
@@ -54,7 +59,8 @@ public class ProductController {
     }
 
     @GetMapping({"/read","/modify"})
-    public void read(long pno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model){
+    public void read(long pno, @ModelAttribute("requestDTO") PageRequestDTO2 requestDTO, Model model){
+
         log.info(">>>>> ProductController(read,modify GetMapping)");
         log.info(">>>>> pno: " + pno);
 
@@ -64,7 +70,8 @@ public class ProductController {
     }
 
     @PostMapping("/modify")
-    public String modify(ProductDTO dto, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, RedirectAttributes redirectAttributes){
+    public String modify(ProductDTO dto, @ModelAttribute("requestDTO") PageRequestDTO2 requestDTO, RedirectAttributes redirectAttributes){
+
         log.info(">>>>> ProductController(modify PostMapping)");
 
         service.modify(dto);
