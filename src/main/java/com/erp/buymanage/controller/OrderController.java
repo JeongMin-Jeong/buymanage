@@ -65,11 +65,11 @@ public class OrderController {
     }
 
     @PostMapping("/remove")
-    public String remove(long ono , RedirectAttributes redirectAttributes) {
+    public String remove(Long ono , RedirectAttributes redirectAttributes) {
         log.info("ono: " + ono);
         service.remove(ono);
         redirectAttributes.addFlashAttribute("msg",ono) ;
-        return "redirect: /order/list";
+        return "redirect:/order/list";
 
     }
 
