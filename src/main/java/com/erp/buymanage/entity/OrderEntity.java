@@ -1,4 +1,4 @@
-package com.erp.erp_buymanage.entity;
+package com.erp.buymanage.entity;
 
 import lombok.*;
 import org.hibernate.annotations.Table;
@@ -19,7 +19,7 @@ public class OrderEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ono;
+    private Long ono;
     private String orderdate;
     private String deliverydate;
     private String duedate;
