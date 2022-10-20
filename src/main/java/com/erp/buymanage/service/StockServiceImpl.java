@@ -1,6 +1,6 @@
 package com.erp.buymanage.service;
 
-import com.erp.buymanage.dto.PageRequestDTO;
+import com.erp.buymanage.dto.StockPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.StockDTO;
 import com.erp.buymanage.entity.QStock;
@@ -41,7 +41,7 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public PageResultDTO<StockDTO, Stock> getList(PageRequestDTO requestDTO) {
+    public PageResultDTO<StockDTO, Stock> getList(StockPageRequestDTO requestDTO) {
 
         Pageable pageable = requestDTO.getPageable(Sort.by("sno").descending());
 
@@ -88,7 +88,7 @@ public class StockServiceImpl implements StockService {
 
     }
 
-    private BooleanBuilder getSearch(PageRequestDTO requestDTO) {   //Querydsl  처리
+    private BooleanBuilder getSearch(StockPageRequestDTO requestDTO) {   //Querydsl  처리
 
         String type1 = requestDTO.getType1();
         String type2 = requestDTO.getType2();

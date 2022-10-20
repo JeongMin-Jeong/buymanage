@@ -103,8 +103,8 @@
                                 <th scope="row">
                                     <a th:href="@{/order/read(ono = ${dto.ono},
                     page= ${result.page},
-                    type=${pageRequestDTO3.type} ,
-                    keyword = ${pageRequestDTO3.keyword})}">
+                    type=${orderPageRequestDTO.type} ,
+                    keyword = ${orderPageRequestDTO.keyword})}">
                                         [[${dto.ono}]]
                                     </a>
                                 </th>
@@ -140,22 +140,22 @@
 
                             <li class="page-item " th:if="${result.prev}">
                                 <a class="page-link" th:href="@{/order/list(page= ${result.start -1},
-                    type=${pageRequestDTO3.type} ,
-                    keyword = ${pageRequestDTO3.keyword} ) }" tabindex="-1">Previous</a>
+                    type=${orderPageRequestDTO.type} ,
+                    keyword = ${orderPageRequestDTO.keyword} ) }" tabindex="-1">Previous</a>
                             </li>
 
                             <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
                                 <a class="page-link" th:href="@{/order/list(page = ${page} ,
-                   type=${pageRequestDTO3.type} ,
-                   keyword = ${pageRequestDTO3.keyword}  )}">
+                   type=${orderPageRequestDTO.type} ,
+                   keyword = ${orderPageRequestDTO.keyword}  )}">
                                     [[${page}]]
                                 </a>
                             </li>
 
                             <li class="page-item" th:if="${result.next}">
                                 <a class="page-link" th:href="@{/order/list(page= ${result.end + 1} ,
-                    type=${pageRequestDTO3.type} ,
-                    keyword = ${pageRequestDTO3.keyword} )}">Next</a>
+                    type=${orderPageRequestDTO.type} ,
+                    keyword = ${orderPageRequestDTO.keyword} )}">Next</a>
                             </li>
 
                         </ul>

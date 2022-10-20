@@ -1,6 +1,6 @@
 package com.erp.buymanage.controller;
 
-import com.erp.buymanage.dto.PageRequestDTO;
+import com.erp.buymanage.dto.StockPageRequestDTO;
 import com.erp.buymanage.dto.StockDTO;
 import com.erp.buymanage.service.StockService;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +26,15 @@ public class StockController {
         return "redirect:/stock/list";
     }
 
+
     @GetMapping("/list")
-    public void list(PageRequestDTO pageRequestDTO, Model model){
+    public void list(StockPageRequestDTO stockPageRequestDTO, Model model){
 
-        log.info("(list)pageRequestDTO : " + pageRequestDTO);
+        log.info("(list)pageRequestDTO : " + stockPageRequestDTO);
 
-        model.addAttribute("result", stockService.getList(pageRequestDTO));
+        model.addAttribute("result", stockService.getList(stockPageRequestDTO));
     }
+
 
     @GetMapping("/register")
     public void register() {
@@ -53,7 +55,7 @@ public class StockController {
     }
 
     @GetMapping({"/read", "/modify"})
-    public void read(long sno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {
+    public void read(long sno, @ModelAttribute("requestDTO") StockPageRequestDTO requestDTO, Model model) {
 
         log.info("(read)sno : " + sno);
 
@@ -75,7 +77,7 @@ public class StockController {
     }
 
     @PostMapping("/modify")
-    public String modify(StockDTO dto, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, RedirectAttributes redirectAttributes) {
+    public String modify(StockDTO dto, @ModelAttribute("requestDTO") StockPageRequestDTO requestDTO, RedirectAttributes redirectAttributes) {
 
         log.info("(modify) dto : " + dto);
 

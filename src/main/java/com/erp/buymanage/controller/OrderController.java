@@ -1,10 +1,9 @@
 package com.erp.buymanage.controller;
 
 import com.erp.buymanage.dto.OrderDTO;
-import com.erp.buymanage.dto.PageRequestDTO3;
+import com.erp.buymanage.dto.OrderPageRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.erp.buymanage.service.OrderService;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.jar.Attributes;
 
 @RequiredArgsConstructor
 @Controller
@@ -31,10 +28,9 @@ public class OrderController {
     }
 
     @GetMapping("/list")
-
-    public void list(PageRequestDTO3 pageRequestDTO, Model model) {
-     log.info("list................" + pageRequestDTO);
-        model.addAttribute("result", service.getList(pageRequestDTO));
+    public void list(OrderPageRequestDTO orderPageRequestDTO, Model model) {
+     log.info("list................" + orderPageRequestDTO);
+        model.addAttribute("result", service.getList(orderPageRequestDTO));
     }
 
     @GetMapping("/register")
@@ -56,7 +52,7 @@ public class OrderController {
 
     @GetMapping({"/read","/modify"})
 
-    public void read(long ono, @ModelAttribute("requestDTO") PageRequestDTO3 requestDTO, Model model) {
+    public void read(long ono, @ModelAttribute("requestDTO") OrderPageRequestDTO requestDTO, Model model) {
 
 
         log.info("ono: " + ono);
@@ -76,7 +72,7 @@ public class OrderController {
     @PostMapping("/modify")
     public String modify(OrderDTO dto,
 
-                         @ModelAttribute("requestDTO") PageRequestDTO3 requestDTO,
+                         @ModelAttribute("requestDTO") OrderPageRequestDTO requestDTO,
 
                          RedirectAttributes redirectAttributes){
 

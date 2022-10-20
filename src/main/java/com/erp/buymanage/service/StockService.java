@@ -1,6 +1,6 @@
 package com.erp.buymanage.service;
 
-import com.erp.buymanage.dto.PageRequestDTO;
+import com.erp.buymanage.dto.StockPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.StockDTO;
 import com.erp.buymanage.entity.Stock;
@@ -8,7 +8,7 @@ import com.erp.buymanage.entity.Stock;
 public interface StockService {
     Long register(StockDTO dto);
 
-    PageResultDTO<StockDTO, Stock> getList(PageRequestDTO requestDTO);
+    PageResultDTO<StockDTO, Stock> getList(StockPageRequestDTO requestDTO);
 
     StockDTO read(Long sno);
 
