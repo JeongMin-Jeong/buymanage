@@ -1,4 +1,4 @@
-package com.erp.erp_buymanage.dto;
+package com.erp.buymanage.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
@@ -18,7 +18,7 @@ import java.sql.Date;
 public class OrderDTO
 
 {
-    private long ono;
+    private Long ono;
     private String orderdate;
     private String deliverydate;
     private String duedate;

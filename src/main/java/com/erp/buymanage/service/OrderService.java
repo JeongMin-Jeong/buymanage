@@ -1,15 +1,15 @@
-package com.erp.erp_buymanage.service;
+package com.erp.buymanage.service;
 
-import com.erp.erp_buymanage.dto.OrderDTO;
-import com.erp.erp_buymanage.dto.PageRequestDTO;
-import com.erp.erp_buymanage.dto.PageResultDTO;
-import com.erp.erp_buymanage.entity.OrderEntity;
+import com.erp.buymanage.dto.OrderDTO;
+import com.erp.buymanage.dto.PageRequestDTO;
+import com.erp.buymanage.dto.PageResultDTO;
+import com.erp.buymanage.entity.OrderEntity;
 
 public interface OrderService {
 
     long register(OrderDTO dto);
     PageResultDTO<OrderDTO, OrderEntity> getList(PageRequestDTO requestDTO);
-    OrderDTO read(long ono);
+    OrderDTO read(Long ono);
 
     default OrderEntity dtoToEntity(OrderDTO dto) {
         OrderEntity entity = OrderEntity.builder()

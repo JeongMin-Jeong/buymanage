@@ -8,7 +8,12 @@
       <!-- card-body -->
       <div class="card-body">
 
-
+          <!-- 페이지번호 -->
+          <input type="hidden" name="page" th:value="${requestDTO.page}"><!-- 페이지번호 -->
+          <!-- 삭제처리에 ono넘기기위한 히든처리 -->
+          <div class="form-group">
+              <input type="hidden" class="form-control" name="ono" th:value="${dto.ono}">
+          </div><!-- 삭제처리에 ono넘기기위한 히든처리 -->
           <div class="form-group" >
             <label>품목코드</label>
             <input type="text" class="form-control" name="pcode" th:value="${dto.pcode}" readonly>

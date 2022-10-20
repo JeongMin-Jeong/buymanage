@@ -9,13 +9,13 @@
       <!-- card-body -->
       <div class="card-body">
 
-        <form th:action="@{/order/register}" th:method="post">
+        <form th:action="@{/order/modify}" th:method="post">
           <!-- 페이지번호 -->
           <input type="hidden" name="page" th:value="${requestDTO.page}"><!-- 페이지번호 -->
-          <!-- 삭제처리에 pno넘기기위한 히든처리 -->
+          <!-- 삭제처리에 ono넘기기위한 히든처리 -->
           <div class="form-group">
             <input type="hidden" class="form-control" name="ono" th:value="${dto.ono}">
-          </div><!-- 삭제처리에 pno넘기기위한 히든처리 -->
+          </div><!-- 삭제처리에 ono넘기기위한 히든처리 -->
           <div class="form-group" >
             <label>품목코드</label>
             <input type="text" class="form-control" name="pcode" th:value="${dto.pcode}" >
@@ -83,11 +83,11 @@
             <label>비고</label>
             <textarea class="form-control" rows="2" name="oetc" th:value="${dto.oetc}" th:text="${dto.oetc}"></textarea>
           </div>
-
           <button type="submit" class="btn btn-primary">수정</button>
 
         </form>
-        <button type = "button" class="btn btn-primary">삭제</button>
+
+        <button type="button" class="btn btn-danger removeBtn">삭제</button>
       </div><!-- card-body -->
     </div><!-- page card -->
 
