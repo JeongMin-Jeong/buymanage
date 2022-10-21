@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService{
     public PageResultDTO<ProductDTO, Product> getList(ProductPageRequestDTO productPageRequestDTO) {
         Pageable pageable = productPageRequestDTO.getPageable(Sort.by("pno").descending());
         BooleanBuilder booleanBuilder = getSearch(productPageRequestDTO); // 검색조건처리
-        Page<Product> result = repository.findAll(pageable); // Querydsl 사용
+        Page<Product> result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
         Function<Product, ProductDTO> fn = (entity -> entityToDto(entity));
         return new PageResultDTO<>(result, fn);
     }
@@ -62,25 +62,41 @@ public class ProductServiceImpl implements ProductService{
         //검색 조건 작성
         BooleanBuilder conditionBuilder = new BooleanBuilder();
 
+        if(ptype1 != null && ptype2 != null && ptype3 != null){
+            conditionBuilder.and(qProduct.ptype1.eq(ptype1));
+            conditionBuilder.and(qProduct.ptype2.eq(ptype2));
+            if (ptype3.contains("a")) {
+                conditionBuilder.or(qProduct.pcode.contains(keyword));
+            }
+            if (ptype3.contains("b")) {
+                conditionBuilder.or(qProduct.pname.contains(keyword));
+            }
+            if (ptype3.contains("c")) {
+                conditionBuilder.or(qProduct.pcontent.contains(keyword));
+            }
+        }
+
         if(ptype1 != null || ptype2 != null) {
             conditionBuilder.and(qProduct.ptype1.eq(ptype1));
             conditionBuilder.and(qProduct.ptype2.eq(ptype2));
             //conditionBuilder.and(qProduct.ptype3.eq(ptype3));
         }
-        if(ptype1 == "" && ptype2 == "") {
-            if (ptype3.contains("code")) {
+
+        if(ptype3 != null) {
+            if (ptype3.contains("a")) {
                 conditionBuilder.or(qProduct.pcode.contains(keyword));
             }
-            if (ptype3.contains("name")) {
+            if (ptype3.contains("b")) {
                 conditionBuilder.or(qProduct.pname.contains(keyword));
             }
-            if (ptype3.contains("content")) {
+            if (ptype3.contains("c")) {
                 conditionBuilder.or(qProduct.pcontent.contains(keyword));
             }
 
         }
         //모든 조건 통합
         booleanBuilder.and(conditionBuilder);
+
         return booleanBuilder;
     }
 
