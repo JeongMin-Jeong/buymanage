@@ -1,6 +1,6 @@
 package com.erp.buymanage.service;
 
-import com.erp.buymanage.dto.PageRequestDTO;
+import com.erp.buymanage.dto.StockPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.StockDTO;
 import com.erp.buymanage.entity.Stock;
@@ -36,7 +36,7 @@ public class StockServiceTests {
     @Test
     public void testList() {
 
-        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(1).size(10).build();
+        StockPageRequestDTO pageRequestDTO = StockPageRequestDTO.builder().page(1).size(10).build();
 
         PageResultDTO<StockDTO, Stock> resultDTO = service.getList(pageRequestDTO);
 
@@ -57,7 +57,7 @@ public class StockServiceTests {
     @Test
     public void testSearch() {
 
-        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+        StockPageRequestDTO pageRequestDTO = StockPageRequestDTO.builder()
                 .page(1)
                 .size(10)
                 .type1("데스크톱")

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+  <th:block th:fragment="content">
+
+    <!-- Begin Page Content -->
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">자재관리</h1>
+    <!-- page card -->
+    <div class="card shadow mb-4">
+
+      <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">목록</h6></div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>품목코드</th>
+              <th>품목이름</th>
+              <th>품목분류1</th>
+              <th>품목분류2</th>
+              <th>입고수량</th>
+              <th>출고수량</th>
+              <th>반품수량</th>
+              <th>재고수량</th>
+              <th>비고</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dto : ${result.dtoList}">
+              <td><input type="checkbox" name="checkbox" th:value="${dto.sno}"></td>
+              <td>[[${dto.scode}]]</td>
+              <td><a th:href="@{/stock/read(sno = ${dto.sno}, page = ${result.page}, type1 = ${pageRequestDTO.type1}, type2 = ${pageRequestDTO.type2}, type3 = ${pageRequestDTO.type3}, keyword = ${pageRequestDTO.keyword})}">[[${dto.sname}]]</a></td>
+              <td>[[${dto.scate1}]]</td>
+              <td>[[${dto.scate2}]]</td>
+              <td>[[${dto.sin}]]</td>
+              <td>[[${dto.sout}]]</td>
+              <td>[[${dto.sreturn}]]</td>
+              <td>[[${dto.stock}]]</td>
+              <td>[[${dto.snote}]]</td>
+            </tr>
+            </tbody>
+          </table>
+
+          <div style="float: right">
+            <button class="btn btn-outline-secondary stockInputBtn" type="button">자재입고</button>
+            <button class="btn btn-outline-secondary stickOutputBtn" type="button">자재출고</button>
+            <button class="btn btn-outline-secondary stockReturnBtn" type="button">자재반품</button>
+            <button class="btn btn-outline-secondary stockRegistBtn" type="button" onclick="location.href='/stock/register';">자재등록</button>
+          </div>
+
+
+        </div>  <!-- 69 line end -->
+
+        <ul class="pagination h-100 justify-content-center align-items-center">
+
+          <li class="page-item " th:if="${result.prev}">
+            <a class="page-link" th:href="@{/stock/list(page= ${result.start -1}, type1 = ${pageRequestDTO.type1}, type2 = ${pageRequestDTO.type2}, type3 = ${pageRequestDTO.type3}, keyword = ${pageRequestDTO.keyword})}" tabindex="-1">Previous</a>
+          </li>
+
+          <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+            <a class="page-link" th:href="@{/stock/list(page = ${page}, type1 = ${pageRequestDTO.type1}, type2 = ${pageRequestDTO.type2}, type3 = ${pageRequestDTO.type3}, keyword = ${pageRequestDTO.keyword})}">
+              [[${page}]]
+            </a>
+          </li>
+
+          <li class="page-item" th:if="${result.next}">
+            <a class="page-link" th:href="@{/stock/list(page= ${result.end + 1}, type1 = ${pageRequestDTO.type1}, type2 = ${pageRequestDTO.type2}, type3 = ${pageRequestDTO.type3}, keyword = ${pageRequestDTO.keyword})}">Next</a>
+          </li>
+        </ul>
+
+      </div>  <!-- 68line end -->
+    </div>  <!-- 12line end -->
+
+    <div class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script th:inline="javascript">
+
+      var msg = [[${msg}]];
+
+      console.log(msg);
+
+      if(msg){
+        $(".modal").modal();
+      }
+
+      var searchForm = $("#searchForm");
+
+      $('.searchBtn').click(function (){
+
+        searchForm.submit();
+
+      });
+
+    </script>
+
+  </th:block>
+</th:block>
