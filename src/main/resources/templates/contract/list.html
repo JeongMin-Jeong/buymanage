@@ -27,9 +27,9 @@
                                         <div class="input-group-prepend">
                                             <select class="form-select" name="cstatus" style="height:50px;">
                                                 <option value="미분류">-분류선택--------------------------------</option>
-                                                <option value="신규">신규</option>
-                                                <option value="완료">완료</option>
-                                                <option value="종료">종료</option>
+                                                <option value="신규계약">신규계약</option>
+                                                <option value="계약완료">계약완료</option>
+                                                <option value="계약종료">계약종료</option>
                                             </select>&nbsp;
                                         </div>
                                     </td>
@@ -40,14 +40,14 @@
                                     <td>
                                         <div class="input-group-prepend">
                                             <select class="form-select" name="ptype3" style="height:50px;">
-                                                <option th:selected="${pageRequestDTO2.ptype3 == null}">-항목선택--------------------------------</option>
-                                                <option value="code" th:selected="${pageRequestDTO2.ptype3 == 'ccode'}">등록번호</option>
-                                                <option value="name" th:selected="${pageRequestDTO2.ptype3 == 'cpartnername'}">납품업체 상호</option>
-                                                <option value="content" th:selected="${pageRequestDTO2.ptype3 == 'pcode'}">품목코드</option>
-                                                <option value="content" th:selected="${pageRequestDTO2.ptype3 == 'cmanager'}">인수자</option>
-                                                <option value="content" th:selected="${pageRequestDTO2.ptype3 == 'pcode'}">납품자</option>
+                                                <option th:selected="${contractPageRequestDTO.type == null}">-항목선택--------------------------------</option>
+                                                <option value="ccode" th:selected="${contractPageRequestDTO.type == 'ccode'}">계약번호</option>
+                                                <option value="pcode" th:selected="${contractPageRequestDTO.type == 'pcode'}">품목코드</option>
+                                                <option value="pname" th:selected="${contractPageRequestDTO.type == 'pname'}">품목이름</option>
+                                                <option value="cpartnername" th:selected="${contractPageRequestDTO.type == 'cpartnername'}">거래처명</option>
+                                                <option value="cmanager" th:selected="${contractPageRequestDTO.type == 'cmanager'}">인수자</option>
                                             </select>&nbsp;
-                                            <input class="form-control" name="keyword" style="height:50px;" th:value="${pageRequestDTO2.keyword}">
+                                            <input class="form-control" name="keyword" style="height:50px;" th:value="${contractPageRequestDTO.keyword}">
                                         </div>
                                     </td>
                                 </tr>
@@ -72,9 +72,10 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">계약번호</th>
+                            <th scope="col">품목코드</th>
                             <th scope="col">품목이름</th>
                             <th scope="col">거래처명</th>
-                            <th scope="col">담당자</th>
+                            <th scope="col">인수자</th>
                             <th scope="col">계약상태</th>
                         </tr>
                         </thead>
@@ -82,6 +83,7 @@
                         <tr th:each="dto: ${result.dtoList}">
                             <td><input type="checkbox" name="contract" value="${dto.cno}"></td>
                             <th><a th:href="@{/contract/read(cno=${dto.cno}, page=${result.page})}">[[${dto.ccode}]]</a></th>
+                            <td>[[${dto.pcode}]]</td>
                             <td>[[${dto.pname}]]</td>
                             <td>[[${dto.cpartnername}]]</td>
                             <td>[[${dto.cmanager}]]</td>
@@ -94,7 +96,7 @@
                     <ul class="pagination h-100 justify-content-center align-items-center">
                         <li class="page-item " th:if="${result.prev}">
                             <a class="page-link"
-                               th:href="@{/product/list(page= ${result.start -1})}"
+                               th:href="@{/contract/list(page= ${result.start -1})}"
                                typetabindex="-1">
                                 Pre
                             </a>
@@ -102,14 +104,14 @@
 
                         <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
                             <a class="page-link"
-                               th:href="@{/product/list(page = ${page})}">
+                               th:href="@{/contract/list(page = ${page})}">
                                 [[${page}]]
                             </a>
                         </li>
 
                         <li class="page-item" th:if="${result.next}">
                             <a class="page-link"
-                               th:href="@{/product/list(page= ${result.end + 1})}">
+                               th:href="@{/contract/list(page= ${result.end + 1})}">
                                 Next
                             </a>
                         </li>

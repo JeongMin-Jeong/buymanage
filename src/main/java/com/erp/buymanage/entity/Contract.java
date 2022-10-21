@@ -18,6 +18,9 @@ public class Contract extends BaseEntity{
     private Long cno;
 
     @Column(length = 50, nullable = false)
+    private String cdate; // 계약일자
+
+    @Column(length = 50, nullable = false)
     private String ccode; // 계약번호
 
     @Column(length = 50, nullable = false)
@@ -39,13 +42,13 @@ public class Contract extends BaseEntity{
     private String pcode; // 품목코드
 
     @Column(length = 50, nullable = false)
-    private String pcount; // 품목수량
-
-    @Column(length = 50, nullable = false)
-    private String pprice; // 품목단가
-
-    @Column(length = 50, nullable = false)
     private String pname; // 품목이름
+
+    @Column(length = 50, nullable = false)
+    private int pcount; // 품목수량
+
+    @Column(length = 50, nullable = false)
+    private int pprice; // 품목단가
 
     @Column(length = 50, nullable = false)
     private String cmanager; // 인수자
@@ -54,15 +57,16 @@ public class Contract extends BaseEntity{
     private String cpartnermanager; // 납품자
 
     @Column(length = 50, nullable = false)
-    private String cdate; // 계약일자
-
-    @Column(length = 50, nullable = false)
-    private String cleadtime; // 리드타임
+    private String cdeliverydate; // 납기일자
 
     @Column(length = 50, nullable = false)
     private String cstatus; // 계약상태(신규,완료,종료)
 
     @Column(length = 255, nullable = false)
     private String cetc; // 비고(양도,양수조건)
+
+    public void changeCstatus(String cstatus){
+        this.cstatus = cstatus;
+    }
 
 }

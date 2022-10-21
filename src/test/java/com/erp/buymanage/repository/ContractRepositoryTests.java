@@ -16,25 +16,25 @@ public class ContractRepositoryTests {
     @Test
     public void insertDummies() {
 
-        IntStream.rangeClosed(1,100).forEach(i -> {
+        IntStream.rangeClosed(61,80).forEach(i -> {
 
             Contract contract = Contract.builder()
-                    .ccode(i + "-" + i + "-" + i)
-                    .cpartnername("납품업체 상호")
-                    .cpartnerceo("납품업체 대표이름")
-                    .cpartneraddr("납품업체 주소")
-                    .cpartnerphone("납품업체 전화번호")
-                    .cpartnerfax("납품업체 팩스번호")
-                    .pcode("품목코드" + i)
-                    .pcount("품목수량" + i)
-                    .pprice("품목단가" + i)
-                    .pname("품목이름" + i)
-                    .cmanager("인수자")
-                    .cpartnermanager("납품자")
-                    .cdate("계약일자")
-                    .cstatus("계약상태(신규,완료,종료)")
+                    .cdate("2022-10-21")
+                    .ccode("계약" + i)
+                    .cpartnername("거래처" + (i-60))
+                    .cpartnerceo("거래처 대표자")
+                    .cpartneraddr("거래처 주소")
+                    .cpartnerphone("거래처 연락처")
+                    .cpartnerfax("거래처 팩스")
+                    .pcode("품목코드" + (i-40))
+                    .pname("품목이름" + (i-30))
+                    .pcount(i)
+                    .pprice(i*10)
+                    .cmanager("인수자2")
+                    .cpartnermanager("납품자2")
+                    .cdeliverydate("2022-10-28")
+                    .cstatus("신규계약")
                     .cetc("비고")
-                    .cleadtime("리드타임")
                     .build();
             System.out.println(repository.save(contract));
         });
