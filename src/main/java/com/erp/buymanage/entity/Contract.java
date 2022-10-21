@@ -3,8 +3,6 @@ package com.erp.buymanage.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.Period;
 
 @Entity
 @Builder
