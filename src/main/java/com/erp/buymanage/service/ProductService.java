@@ -29,6 +29,7 @@ public interface ProductService {
                 .pname(dto.getPname())
                 .ptype1(dto.getPtype1())
                 .ptype2(dto.getPtype2())
+                //.ptype3(dto.getPtype3())
                 .pcontent(dto.getPcontent())
                 .petc(dto.getPetc())
                 .build();
@@ -43,6 +44,7 @@ public interface ProductService {
                 .pname(entity.getPname())
                 .ptype1(entity.getPtype1())
                 .ptype2(entity.getPtype2())
+                //.ptype3(entity.getPtype3())
                 .pcontent(entity.getPcontent())
                 .petc(entity.getPetc())
                 .regdate(entity.getRegDate())

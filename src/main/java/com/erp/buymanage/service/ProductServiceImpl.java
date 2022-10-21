@@ -4,7 +4,10 @@ import com.erp.buymanage.dto.ProductPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.ProductDTO;
 import com.erp.buymanage.entity.Product;
+import com.erp.buymanage.entity.QProduct;
 import com.erp.buymanage.repository.ProductRepository;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -37,10 +40,48 @@ public class ProductServiceImpl implements ProductService{
     @Override // 목록처리
     public PageResultDTO<ProductDTO, Product> getList(ProductPageRequestDTO productPageRequestDTO) {
         Pageable pageable = productPageRequestDTO.getPageable(Sort.by("pno").descending());
-        //BooleanBuilder booleanBuilder = getSearch(requestDTO); // 검색조건처리
+        BooleanBuilder booleanBuilder = getSearch(productPageRequestDTO); // 검색조건처리
         Page<Product> result = repository.findAll(pageable); // Querydsl 사용
         Function<Product, ProductDTO> fn = (entity -> entityToDto(entity));
         return new PageResultDTO<>(result, fn);
+    }
+
+    private BooleanBuilder getSearch(ProductPageRequestDTO productPageRequestDTO) {
+        String ptype1 = productPageRequestDTO.getPtype1();
+        String ptype2 = productPageRequestDTO.getPtype2();
+        String ptype3 = productPageRequestDTO.getPtype3();
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        QProduct qProduct = QProduct.product;
+        String keyword = productPageRequestDTO.getKeyword();
+        BooleanExpression expression = qProduct.pno.gt(0L);   //sno > 0 조건만 생성
+        booleanBuilder.and(expression);
+        if(ptype1 == "" && ptype2 == "" && ptype3 == "") {
+            return booleanBuilder;
+        }
+        //검색 조건 작성
+        BooleanBuilder conditionBuilder = new BooleanBuilder();
+
+        if(ptype1 != null || ptype2 != null) {
+            conditionBuilder.and(qProduct.ptype1.eq(ptype1));
+            conditionBuilder.and(qProduct.ptype2.eq(ptype2));
+            //conditionBuilder.and(qProduct.ptype3.eq(ptype3));
+        }
+        if(ptype1 == "" && ptype2 == "") {
+            if (ptype3.contains("code")) {
+                conditionBuilder.or(qProduct.pcode.contains(keyword));
+            }
+            if (ptype3.contains("name")) {
+                conditionBuilder.or(qProduct.pname.contains(keyword));
+            }
+            if (ptype3.contains("content")) {
+                conditionBuilder.or(qProduct.pcontent.contains(keyword));
+            }
+
+        }
+        //모든 조건 통합
+        booleanBuilder.and(conditionBuilder);
+        return booleanBuilder;
     }
 
     @Override // 조회처리
@@ -57,7 +98,6 @@ public class ProductServiceImpl implements ProductService{
     @Override // 수정처리
     public void modify(ProductDTO dto) {
         Optional<Product> result = repository.findById(dto.getPno());
-
         if(result.isPresent()){
             Product entity = result.get();
             entity.changePname(dto.getPname());

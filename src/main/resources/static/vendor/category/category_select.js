@@ -12,7 +12,7 @@
             else {
                 var citiesOptions = "<option value='' disabled>-분류선택--------------------------------</option>";
                 for (categoryId in subcategory[value]) {
-                    citiesOptions += "<option>" + subcategory[value][categoryId] + "</option>";
+                    citiesOptions += "<option value='" + subcategory[value][categoryId] +"'>" + subcategory[value][categoryId] + "</option>";
                 }
                 document.getElementById("categorySelect").innerHTML = citiesOptions;
             }
@@ -27,7 +27,6 @@
             var searchForm = document.getElementById('searchForm');
             searchForm.method="get";
             //searchForm.action="/product/list";
-
             var category1 = document.getElementById("category").value;
             var category2 = document.getElementById("categorySelect").value;
             var generic1 = document.getElementById("genericSelect").value;
