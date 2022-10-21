@@ -1,7 +1,7 @@
 package com.erp.buymanage.controller;
 
 import com.erp.buymanage.dto.ContractDTO;
-import com.erp.buymanage.dto.PageRequestDTO2;
+import com.erp.buymanage.dto.ContractPageRequestDTO;
 import com.erp.buymanage.security.dto.AuthMemberDTO;
 import com.erp.buymanage.service.ContractService;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +31,9 @@ public class ContractController {
     }
 
     @GetMapping("/list")
-    public void list(PageRequestDTO2 pageRequestDTO2, Model model, @AuthenticationPrincipal AuthMemberDTO authMember){
+    public void list(ContractPageRequestDTO contractPageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMember){
         log.info(">>>>> ContractController(list)");
-        model.addAttribute("result", service.getList(pageRequestDTO2));
+        model.addAttribute("result", service.getList(contractPageRequestDTO));
     }
 
     @GetMapping("/register")
@@ -52,7 +52,7 @@ public class ContractController {
     }
 
     @GetMapping({"/read", "/modify"})
-    public void read(long cno, @ModelAttribute("requestDTO") PageRequestDTO2 pageRequestDTO2, Model model){
+    public void read(long cno, @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, Model model){
         log.info(">>>>> ContractController(read,modify GetMapping)");
 
         ContractDTO dto = service.read(cno);
@@ -61,12 +61,12 @@ public class ContractController {
     }
 
     @PostMapping("/modify")
-    public String modify(ContractDTO dto, @ModelAttribute("requestDTO") PageRequestDTO2 pageRequestDTO2, RedirectAttributes redirectAttributes){
+    public String modify(ContractDTO dto, @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, RedirectAttributes redirectAttributes){
         log.info(">>>>> ContractController(modify PostMapping)");
 
         service.modify(dto);
 
-        redirectAttributes.addAttribute("page", pageRequestDTO2.getPage());
+        redirectAttributes.addAttribute("page", contractPageRequestDTO.getPage());
         redirectAttributes.addAttribute("cno", dto.getCno());
 
         return "redirect:/contract/read";

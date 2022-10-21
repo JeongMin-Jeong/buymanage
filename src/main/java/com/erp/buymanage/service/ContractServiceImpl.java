@@ -1,11 +1,9 @@
 package com.erp.buymanage.service;
 
 import com.erp.buymanage.dto.ContractDTO;
-import com.erp.buymanage.dto.PageRequestDTO2;
+import com.erp.buymanage.dto.ContractPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
-import com.erp.buymanage.dto.ProductDTO;
 import com.erp.buymanage.entity.Contract;
-import com.erp.buymanage.entity.Product;
 import com.erp.buymanage.repository.ContractRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -43,10 +41,10 @@ public class ContractServiceImpl implements ContractService{
     }
 
     @Override // 목록처리
-    public PageResultDTO<ContractDTO, Contract> getList(PageRequestDTO2 pageRequestDTO2) {
+    public PageResultDTO<ContractDTO, Contract> getList(ContractPageRequestDTO contractPageRequestDTO) {
         log.info(">>>>> ContractServiceImpl(getList)");
 
-        Pageable pageable = pageRequestDTO2.getPageable(Sort.by("cno").descending());
+        Pageable pageable = contractPageRequestDTO.getPageable(Sort.by("cno").descending());
 //        BooleanBuilder booleanBuilder = getSearch(requestDTO); // 검색조건처리
         Page<Contract> result = repository.findAll(pageable); // Querydsl 사용
         log.info(">>>>>>>>>> entityToDto");

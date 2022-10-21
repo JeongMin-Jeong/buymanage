@@ -1,6 +1,6 @@
 package com.erp.buymanage.service;
 
-import com.erp.buymanage.dto.PageRequestDTO2;
+import com.erp.buymanage.dto.ProductPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.ProductDTO;
 import com.erp.buymanage.entity.Product;
@@ -10,7 +10,7 @@ public interface ProductService {
     Long register(ProductDTO dto);
 
     // 목록처리
-    PageResultDTO<ProductDTO, Product> getList(PageRequestDTO2 requestDTO);
+    PageResultDTO<ProductDTO, Product> getList(ProductPageRequestDTO productPageRequestDTO);
 
     // 조회처리
     ProductDTO read(Long pno);
@@ -29,6 +29,7 @@ public interface ProductService {
                 .pname(dto.getPname())
                 .ptype1(dto.getPtype1())
                 .ptype2(dto.getPtype2())
+                //.ptype3(dto.getPtype3())
                 .pcontent(dto.getPcontent())
                 .petc(dto.getPetc())
                 .build();
@@ -43,6 +44,7 @@ public interface ProductService {
                 .pname(entity.getPname())
                 .ptype1(entity.getPtype1())
                 .ptype2(entity.getPtype2())
+                //.ptype3(entity.getPtype3())
                 .pcontent(entity.getPcontent())
                 .petc(entity.getPetc())
                 .regdate(entity.getRegDate())

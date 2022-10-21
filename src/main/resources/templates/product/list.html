@@ -25,6 +25,20 @@
                                     <td style="width:100px;">품목분류</td>
                                     <td>
                                         <div class="input-group-prepend">
+                                            <select id="category" name="ptype1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;">
+                                                <option value="" disabled selected>-분류선택--------------------------------</option>
+                                                <option value="DESKTOP" th:selected="${productPageRequestDTO.ptype1 == 'DESKTOP'}">DESKTOP</option>
+                                                <option value="NOTEBOOK" th:selected="${productPageRequestDTO.ptype1 == 'NOTEBOOK'}">NOTEBOOK</option>
+                                                <option value="SERVER" th:selected="${productPageRequestDTO.ptype1 == 'SERVER'}">SERVER</option>
+                                                <option value="ETC" th:selected="${productPageRequestDTO.ptype1 == 'ETC'}">ETC</option>
+                                                <option value="ACCESSORY" th:selected="${productPageRequestDTO.ptype1 == 'ACCESSORY'}">ACCESSORY</option>
+                                                <option value="TOOLS" th:selected="${productPageRequestDTO.ptype1 == 'TOOLS'}">TOOLS</option>
+                                            </select>&nbsp;
+                                            <select id="categorySelect" name="ptype2" size="1" style="height:50px;">
+                                                <option value="" disabled selected>-분류선택--------------------------------</option>
+                                                <option></option>
+                                            </select>&nbsp;
+                                            <!--
                                             <select class="form-select" name="ptype1" style="height:50px;">
                                                 <option value="미분류">-분류선택--------------------------------</option>
                                                 <option value="데스크톱">데스크톱</option>
@@ -40,6 +54,7 @@
                                                 <option value="케이스">케이스</option>
                                                 <option value="파워">파워</option>
                                             </select>
+                                            -->
                                         </div>
                                     </td>
                                 </tr>
@@ -48,19 +63,23 @@
                                     <td style="width:100px;">일반검색</td>
                                     <td>
                                         <div class="input-group-prepend">
-                                            <select class="form-select" name="ptype3" style="height:50px;">
-                                                <option th:selected="${pageRequestDTO2.ptype3 == null}">-항목선택--------------------------------</option>
-                                                <option value="code" th:selected="${pageRequestDTO2.ptype3 == 'code'}">품목코드</option>
-                                                <option value="name" th:selected="${pageRequestDTO2.ptype3 == 'name'}">품목이름</option>
-                                                <option value="content" th:selected="${pageRequestDTO2.ptype3 == 'content'}">품목내용</option>
+                                            <select id="genericSelect" class="form-select" name="ptype3" style="height:50px;">
+                                                <option value="" th:selected="${productPageRequestDTO.ptype3 == null}">-항목선택--------------------------------</option>
+                                                <option value="a" th:selected="${productPageRequestDTO.ptype3 == 'a'}">품목코드</option>
+                                                <option value="b" th:selected="${productPageRequestDTO.ptype3 == 'b'}">품목이름</option>
+                                                <option value="c" th:selected="${productPageRequestDTO.ptype3 == 'c'}">품목내용</option>
                                             </select>&nbsp;
-                                            <input class="form-control" name="keyword" style="height:50px;" th:value="${pageRequestDTO2.keyword}">
+                                            <input id="genericKeyword" type="text" class="form-control" name="keyword" th:value="${productPageRequestDTO.keyword}" style="height:50px;">
                                         </div>
                                     </td>
                                 </tr>
 
                                 <tr style="height:20px;">
-                                    <td colspan="2" style="text-align: right;"><button class="btn btn-outline-secondary btn-search" type="button">검색</button></td>
+                                    <td colspan="2" style="text-align: right;">
+                                        <button class="btn btn-outline-secondary searchBtn" type="button">검색</button>
+                                        <!-- <button class="btn btn-outline-secondary searchBtn" type="button">검색</button> -->
+                                        <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/product/list';">리셋</button>
+                                    </td>
                                 </tr>
                             </table>
                         </div><!-- <div class="input-group"> -->
@@ -88,7 +107,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="dto: ${result.dtoList}">
-                            <td><input type="checkbox" name="product" value="${dto.pno}"></td>
+                            <td>[[${dto.pno}]]</td>
                             <th><a th:href="@{/product/read(pno=${dto.pno}, page=${result.page})}">[[${dto.pcode}]]</a></th>
                             <td>[[${dto.pname}]]</td>
                             <td>[[${dto.ptype1}]]</td>
@@ -99,37 +118,36 @@
                         </tbody>
                     </table>
 
+                    <div style="float: right">
+                        <!-- <button class="btn btn-outline-secondary deleteBtn" type="button">품목삭제</button> -->
+                        <a th:href="@{/product/register}">
+                            <button class="btn btn-outline-secondary registBtn" type="button">품목등록</button>
+                        </a>
+                    </div><br/>
+
                     <!-- 하단 페이지 버튼 -->
                     <ul class="pagination h-100 justify-content-center align-items-center">
                         <li class="page-item " th:if="${result.prev}">
                             <a class="page-link"
                                th:href="@{/product/list(page= ${result.start -1})}"
-                                    typetabindex="-1">
+                               typetabindex="-1">
                                 Pre
                             </a>
                         </li>
-
                         <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
                             <a class="page-link"
                                th:href="@{/product/list(page = ${page})}">
                                 [[${page}]]
                             </a>
                         </li>
-
                         <li class="page-item" th:if="${result.next}">
                             <a class="page-link"
                                th:href="@{/product/list(page= ${result.end + 1})}">
                                 Next
                             </a>
                         </li>
-                    </ul><!-- 하단 페이지 버튼 -->
-
-                    <div style="float: right">
-                        <button class="btn btn-outline-secondary deleteBtn" type="button">품목삭제</button>
-                        <a th:href="@{/product/register}">
-                            <button class="btn btn-outline-secondary registBtn" type="button">품목등록</button>
-                        </a>
-                    </div>
+                    </ul>
+                    <!-- 하단 페이지 버튼 -->
 
                     <!-- 모달창 처리-->
                     <div class="modal" tabindex="-1" role="dialog">
@@ -146,30 +164,27 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-<!--                                    <button type="button" class="btn btn-primary">확인</button>-->
+                                    <!--                                    <button type="button" class="btn btn-primary">확인</button>-->
                                 </div>
                             </div>
                         </div>
                     </div><!-- 신규등록완료시 뜨는 모달창 처리-->
 
                     <script th:inline="javascript">
-                        /* 신규등록완료시 뜨는 모달창 처리 */
                         var msg = [[${msg}]];
                         console.log(msg);
                         if(msg){
                             $(".modal").modal();
-                        }/* 신규등록완료시 뜨는 모달창 처리 */
-
-                        /* 검색시 이벤트 처리*/
+                        }
                         var searchForm = $("#searchForm");
-                        $('.btn-search').click(function (e) {
+                        $('.searchBtn').click(function (){
                             searchForm.submit();
-                        });/* 검색시 이벤트 처리*/
+                        });
                     </script>
 
                 </div><!-- <div class="table-responsive"> -->
             </div><!-- card-body -->
         </div><!-- page card -->
-    <!-- End Page Content -->
+        <!-- End Page Content -->
     </th:block>
 </th:block>

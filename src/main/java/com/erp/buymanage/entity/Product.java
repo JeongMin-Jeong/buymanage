@@ -1,7 +1,6 @@
 package com.erp.buymanage.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity

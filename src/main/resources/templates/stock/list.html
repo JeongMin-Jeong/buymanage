@@ -26,20 +26,20 @@
                                 <td>
                                     <div class="input-group-prepend">
                                         <select class="form-select" name="type1" style="height:50px;">
-                                            <option th:selected="${pageRequestDTO.type1 == null}">-분류선택--------------------------------</option>
-                                            <option value="데스크톱" th:selected="${pageRequestDTO.type1 == '데스크톱'}">데스크톱</option>
-                                            <option value="노트북" th:selected="${pageRequestDTO.type1 == '노트북'}">노트북</option>
-                                            <option value="서버" th:selected="${pageRequestDTO.type1 == '서버'}">서버</option>
-                                            <option value="기타" th:selected="${pageRequestDTO.type1 == '기타'}">기타</option>
+                                            <option value="" th:selected="${stockPageRequestDTO.type1 == null}">-분류선택--------------------------------</option>
+                                            <option value="데스크톱" th:selected="${stockPageRequestDTO.type1 == '데스크톱'}">데스크톱</option>
+                                            <option value="노트북" th:selected="${stockPageRequestDTO.type1 == '노트북'}">노트북</option>
+                                            <option value="서버" th:selected="${stockPageRequestDTO.type1 == '서버'}">서버</option>
+                                            <option value="기타" th:selected="${stockPageRequestDTO.type1 == '기타'}">기타</option>
                                         </select>&nbsp;
                                         <select class="form-select" name="type2" style="height:50px;">
-                                            <option th:selected="${pageRequestDTO.type2 == null}">-분류선택--------------------------------</option>
-                                            <option value="CPU" th:selected="${pageRequestDTO.type2 == 'CPU'}">CPU</option>
-                                            <option value="메인보드" th:selected="${pageRequestDTO.type2 == '메인보드'}">메인보드</option>
-                                            <option value="메모리" th:selected="${pageRequestDTO.type2 == '메모리'}">메모리</option>
-                                            <option value="하드디스크" th:selected="${pageRequestDTO.type2 == '하드디스크'}">하드디스크/SDD</option>
-                                            <option value="케이스" th:selected="${pageRequestDTO.type2 == '케이스'}">케이스</option>
-                                            <option value="파워" th:selected="${pageRequestDTO.type2 == '파워'}">파워</option>
+                                            <option value="" th:selected="${stockPageRequestDTO.type2 == null}">-분류선택--------------------------------</option>
+                                            <option value="CPU" th:selected="${stockPageRequestDTO.type2 == 'CPU'}">CPU</option>
+                                            <option value="메인보드" th:selected="${stockPageRequestDTO.type2 == '메인보드'}">메인보드</option>
+                                            <option value="메모리" th:selected="${stockPageRequestDTO.type2 == '메모리'}">메모리</option>
+                                            <option value="하드디스크" th:selected="${stockPageRequestDTO.type2 == '하드디스크'}">하드디스크/SDD</option>
+                                            <option value="케이스" th:selected="${stockPageRequestDTO.type2 == '케이스'}">케이스</option>
+                                            <option value="파워" th:selected="${stockPageRequestDTO.type2 == '파워'}">파워</option>
                                         </select>
                                     </div>
                                 </td>
@@ -49,11 +49,11 @@
                                 <td>
                                     <div class="input-group-prepend">
                                         <select class="form-select" name="type3" style="height:50px;">
-                                            <option th:selected="${pageRequestDTO.type3 == null}">-항목선택--------------------------------</option>
-                                            <option value="k" th:selected="${pageRequestDTO.type3 == 'k'}">품목코드</option>
-                                            <option value="l" th:selected="${pageRequestDTO.type3 == 'l'}">품목이름</option>
+                                            <option value="" th:selected="${stockPageRequestDTO.type3 == null}">-항목선택--------------------------------</option>
+                                            <option value="k" th:selected="${stockPageRequestDTO.type3 == 'k'}">품목코드</option>
+                                            <option value="l" th:selected="${stockPageRequestDTO.type3 == 'l'}">품목이름</option>
                                         </select>&nbsp;
-                                        <input type="text" class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}" style="height:50px;">
+                                        <input type="text" class="form-control" name="keyword" th:value="${stockPageRequestDTO.keyword}" style="height:50px;">
                                     </div>
                                 </td>
                             </tr>
@@ -94,7 +94,7 @@
                         <tr th:each="dto : ${result.dtoList}">
                             <td><input type="checkbox" name="checkbox" th:value="${dto.sno}"></td>
                             <td>[[${dto.scode}]]</td>
-                            <td><a th:href="@{/stock/read(sno = ${dto.sno}, page = ${result.page}, type1 = ${pageRequestDTO.type1}, type2 = ${pageRequestDTO.type2}, type3 = ${pageRequestDTO.type3}, keyword = ${pageRequestDTO.keyword})}">[[${dto.sname}]]</a></td>
+                            <td><a th:href="@{/stock/read(sno = ${dto.sno}, page = ${result.page}, type1 = ${stockPageRequestDTO.type1}, type2 = ${stockPageRequestDTO.type2}, type3 = ${stockPageRequestDTO.type3}, keyword = ${stockPageRequestDTO.keyword})}">[[${dto.sname}]]</a></td>
                             <td>[[${dto.scate1}]]</td>
                             <td>[[${dto.scate2}]]</td>
                             <td>[[${dto.sin}]]</td>
@@ -119,17 +119,17 @@
                 <ul class="pagination h-100 justify-content-center align-items-center">
 
                     <li class="page-item " th:if="${result.prev}">
-                        <a class="page-link" th:href="@{/stock/list(page= ${result.start -1}, type1 = ${pageRequestDTO.type1}, type2 = ${pageRequestDTO.type2}, type3 = ${pageRequestDTO.type3}, keyword = ${pageRequestDTO.keyword})}" tabindex="-1">Previous</a>
+                        <a class="page-link" th:href="@{/stock/list(page= ${result.start -1}, type1 = ${stockPageRequestDTO.type1}, type2 = ${stockPageRequestDTO.type2}, type3 = ${stockPageRequestDTO.type3}, keyword = ${stockPageRequestDTO.keyword})}" tabindex="-1">Previous</a>
                     </li>
 
                     <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
-                        <a class="page-link" th:href="@{/stock/list(page = ${page}, type1 = ${pageRequestDTO.type1}, type2 = ${pageRequestDTO.type2}, type3 = ${pageRequestDTO.type3}, keyword = ${pageRequestDTO.keyword})}">
+                        <a class="page-link" th:href="@{/stock/list(page = ${page}, type1 = ${stockPageRequestDTO.type1}, type2 = ${stockPageRequestDTO.type2}, type3 = ${stockPageRequestDTO.type3}, keyword = ${stockPageRequestDTO.keyword})}">
                             [[${page}]]
                         </a>
                     </li>
 
                     <li class="page-item" th:if="${result.next}">
-                        <a class="page-link" th:href="@{/stock/list(page= ${result.end + 1}, type1 = ${pageRequestDTO.type1}, type2 = ${pageRequestDTO.type2}, type3 = ${pageRequestDTO.type3}, keyword = ${pageRequestDTO.keyword})}">Next</a>
+                        <a class="page-link" th:href="@{/stock/list(page= ${result.end + 1}, type1 = ${stockPageRequestDTO.type1}, type2 = ${stockPageRequestDTO.type2}, type3 = ${stockPageRequestDTO.type3}, keyword = ${stockPageRequestDTO.keyword})}">Next</a>
                     </li>
                 </ul>
 

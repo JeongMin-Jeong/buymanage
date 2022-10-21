@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript">
+        var subcategory = {
+            DESKTOP: ["CPU", "MEMORY", "DISK"],
+            NOTEBOOK: ["MOBILE_CPU", "MOBILE_MEMORY", "MOBILE_DISK"],
+            SERVER: ["SERVER_CPU", "SERVER_MEMORY", "SERVER_DISK"],
+            ETC: ["CASE", "MONITOR", "KEYBOARD", "MOUSE"]
+        }
+
+        function makeSubmenu(value) {
+            if (value.length == 0) document.getElementById("categorySelect").innerHTML = "<option></option>";
+            else {
+                var citiesOptions = "<option value='' disabled>-소분류--------------------</option>";
+                for (categoryId in subcategory[value]) {
+                    citiesOptions += "<option>" + subcategory[value][categoryId] + "</option>";
+                }
+                document.getElementById("categorySelect").innerHTML = citiesOptions;
+            }
+        }
+
+        function displaySelected() {
+            var country = document.getElementById("category").value;
+            var city = document.getElementById("categorySelect").value;
+            alert(country + "\n" + city);
+        }
+
+        function resetSelection() {
+            document.getElementById("category").selectedIndex = 0;
+            document.getElementById("categorySelect").selectedIndex = 0;
+        }
+    </script>
+</head>
+<body onload="resetSelection()">
+	<select id="category" size="1" onchange="makeSubmenu(this.value)">
+	<option value="" disabled selected>-대분류--------------------</option>
+	<option>DESKTOP</option>
+	<option>NOTEBOOK</option>
+	<option>SERVER</option>
+	<option>ETC</option>
+	</select>
+	<select id="categorySelect" size="1">
+	<option value="" disabled selected>-소분류--------------------</option>
+	<option></option>
+	</select>
+	<button onclick="displaySelected()">선택</button>
+</body>
+</html>

@@ -1,6 +1,6 @@
 package com.erp.buymanage.service;
 
-import com.erp.buymanage.dto.PageRequestDTO2;
+import com.erp.buymanage.dto.ContractPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.ContractDTO;
 import com.erp.buymanage.entity.Contract;
@@ -10,7 +10,7 @@ public interface ContractService {
     Long register(ContractDTO dto);
 
     // 목록처리
-    PageResultDTO<ContractDTO, Contract> getList(PageRequestDTO2 pageRequestDTO2);
+    PageResultDTO<ContractDTO, Contract> getList(ContractPageRequestDTO contractPageRequestDTO);
 
     // 조회처리
     ContractDTO read(Long pno);
