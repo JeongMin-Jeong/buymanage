@@ -11,17 +11,16 @@
 
     <div class="uploadResult"></div>
 
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    <script
+            src="https://code.jquery.com/jquery-3.6.1.min.js"
             integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous">
+    </script>
 
     <script>
         $('.uploadBtn').click(function( ) {
-
             var formData = new FormData();
-
             var inputFile = $("input[type='file']");
-
             var files = inputFile[0].files;
 
             for (var i = 0; i < files.length; i++) {
@@ -45,30 +44,25 @@
                 error: function(jqXHR, textStatus, errorThrown){
                     console.log(textStatus);
                 }
-
             }); //ajax 종료
         }); //json 종료
 
         function showUploadedImages(arr){
-
             console.log(arr);
 
             var divArea = $(".uploadResult");
-
             var str = "";
 
             for(var i = 0; i < arr.length; i++){
                 // divArea.append("<img src='/display?fileName="+arr[i].thumbnailURL+"'>");
-
-
                 str += "<div>";
                 str += "<img src='/display?fileName="+arr[i].thumbnailURL+"'>";
-                str += "<button class='removeBtn' data-name='"+arr[i].imageURL +"'>REMOVE</button>"
+                str += "<button class='removeBtn' data-name='"+arr[i].imageURL +"'>삭제</button>"
                 str += "</div>";
             }
             divArea.append(str);
-
         }
+
         $(".uploadResult").on("click", ".removeBtn", function(e){
 
             var target = $(this);
@@ -83,7 +77,6 @@
                     targetDiv.remove();
                 }
             } )
-
         });
     </script>
 </body>
