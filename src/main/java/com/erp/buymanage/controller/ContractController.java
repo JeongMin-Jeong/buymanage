@@ -25,13 +25,12 @@ public class ContractController {
 
     @GetMapping("/")
     public String index(){
-        log.info(">>>>> ContractController(\"/\")");
+        log.info(">>>>> ContractController(index)");
 
         return "redirect:/contract/list";
     }
 
     @GetMapping("/list")
-
     public void list(PageRequestDTO2 pageRequestDTO2, Model model, @AuthenticationPrincipal AuthMemberDTO authMember){
         log.info(">>>>> ContractController(list)");
         model.addAttribute("result", service.getList(pageRequestDTO2));
@@ -54,32 +53,28 @@ public class ContractController {
 
     @GetMapping({"/read", "/modify"})
     public void read(long cno, @ModelAttribute("requestDTO") PageRequestDTO2 pageRequestDTO2, Model model){
-
         log.info(">>>>> ContractController(read,modify GetMapping)");
-        log.info(">>>>> cno: " + cno);
 
         ContractDTO dto = service.read(cno);
 
         model.addAttribute("dto", dto);
     }
 
-//    @PostMapping("/modify")
-//    public String modify(ContractDTO dto, @ModelAttribute("requestDTO") PageRequestDTO2 pageRequestDTO2, RedirectAttributes redirectAttributes){
-//
-//        log.info(">>>>> ProductController(modify PostMapping)");
-//
-//        service.modify(dto);
-//
-//        redirectAttributes.addAttribute("page", pageRequestDTO2.getPage());
-//        redirectAttributes.addAttribute("pno", dto.getPno());
-//
-//        return "redirect:/contract/read";
-//    }
+    @PostMapping("/modify")
+    public String modify(ContractDTO dto, @ModelAttribute("requestDTO") PageRequestDTO2 pageRequestDTO2, RedirectAttributes redirectAttributes){
+        log.info(">>>>> ContractController(modify PostMapping)");
+
+        service.modify(dto);
+
+        redirectAttributes.addAttribute("page", pageRequestDTO2.getPage());
+        redirectAttributes.addAttribute("cno", dto.getCno());
+
+        return "redirect:/contract/read";
+    }
 
     @PostMapping("/remove")
     public String remove(long cno, RedirectAttributes redirectAttributes){
         log.info(">>>>> ContractController(remove PostMapping)");
-        log.info(">>>>> pno: " + cno);
 
         service.remove(cno);
 

@@ -5,6 +5,8 @@ import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.ContractDTO;
 import com.erp.buymanage.entity.Contract;
 
+import java.time.Period;
+
 public interface ContractService {
     // 등록처리
     Long register(ContractDTO dto);
@@ -19,12 +21,13 @@ public interface ContractService {
     void remove(Long pno);
 
     // 수정처리
-//    void modify(ContractDTO dto);
+    void modify(ContractDTO dto);
 
     // dto -> 엔티티
     default Contract dtoToEntity(ContractDTO dto){
         Contract entity = Contract.builder()
                 .cno(dto.getCno())
+                .cdate(dto.getCdate())
                 .ccode(dto.getCcode())
                 .cpartnername(dto.getCpartnername())
                 .cpartnerceo(dto.getCpartnerceo())
@@ -32,15 +35,14 @@ public interface ContractService {
                 .cpartnerphone(dto.getCpartnerphone())
                 .cpartnerfax(dto.getCpartnerfax())
                 .pcode(dto.getPcode())
+                .pname(dto.getPname())
                 .pcount(dto.getPcount())
                 .pprice(dto.getPprice())
-                .pname(dto.getPname())
                 .cmanager(dto.getCmanager())
                 .cpartnermanager(dto.getCpartnermanager())
-                .cdate(dto.getCdate())
+                .cdeliverydate(dto.getCdeliverydate())
                 .cstatus(dto.getCstatus())
                 .cetc(dto.getCetc())
-                .cleadtime(dto.getCleadtime())
                 .build();
         return entity;
     }
@@ -49,6 +51,7 @@ public interface ContractService {
     default ContractDTO entityToDto(Contract entity){
         ContractDTO dto = ContractDTO.builder()
                 .cno(entity.getCno())
+                .cdate(entity.getCdate())
                 .ccode(entity.getCcode())
                 .cpartnername(entity.getCpartnername())
                 .cpartnerceo(entity.getCpartnerceo())
@@ -56,15 +59,14 @@ public interface ContractService {
                 .cpartnerphone(entity.getCpartnerphone())
                 .cpartnerfax(entity.getCpartnerfax())
                 .pcode(entity.getPcode())
+                .pname(entity.getPname())
                 .pcount(entity.getPcount())
                 .pprice(entity.getPprice())
-                .pname(entity.getPname())
                 .cmanager(entity.getCmanager())
                 .cpartnermanager(entity.getCpartnermanager())
-                .cdate(entity.getCdate())
+                .cdeliverydate(entity.getCdeliverydate())
                 .cstatus(entity.getCstatus())
                 .cetc(entity.getCetc())
-                .cleadtime(entity.getCleadtime())
                 .build();
         return dto;
     }

@@ -14,12 +14,16 @@
                 <div class="card-body">
 
                     <div class="form-group">
+                        <label>계약일자</label>
+                        <input type="date" class="form-control" name="cdate">
+                    </div>
+                    <div class="form-group">
                       <label>계약번호</label>
                       <input type="text" class="form-control" name="ccode">
                     </div>
 
-                </div>
-            </div>
+                </div><!-- card-body -->
+            </div><!-- page card -->
 
             <!-- page card -->
             <div class="card shadow mb-4">
@@ -47,8 +51,8 @@
                         <input type="text" class="form-control" name="cpartnerfax">
                     </div>
 
-                </div>
-            </div>
+                </div><!-- card-body -->
+            </div><!-- page card -->
 
             <!-- page card -->
             <div class="card shadow mb-4">
@@ -72,8 +76,8 @@
                         <input type="text" class="form-control" name="pprice">
                     </div>
 
-                </div>
-            </div>
+                </div><!-- card-body -->
+            </div><!-- page card -->
 
             <!-- page card -->
             <div class="card shadow mb-4">
@@ -89,25 +93,15 @@
                         <input type="text" class="form-control" name="cpartnermanager">
                     </div>
                     <div class="form-group">
-                        <label>계약일자</label>
-                        <input type="date" class="form-control" name="cdate">
+                        <label>납기일자</label>
+                        <input type="date" class="form-control" name="cdeliverydate">
                     </div>
                     <div class="form-group">
-                        <label>계약상태</label>
-                        <select class="form-select" name="cstatus" style="height:40px;">
-                            <option value="미분류">-분류선택--------------------------------</option>
-                            <option value="신규">신규</option>
-                            <option value="완료">완료</option>
-                            <option value="종료">종료</option>
-                        </select>
+                        <input type="hidden" class="form-control" name="cstatus" value="신규계약">
                     </div>
                     <div class="form-group">
                         <label>양도,양수조건</label>
-                        <textarea class="form-control" rows="2" name="cetc"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>리드타임</label>
-                        <input type="text" class="form-control" name="cleadtime">
+                        <textarea class="form-control" rows="3" name="cetc"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary">등록</button>

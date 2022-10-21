@@ -27,9 +27,9 @@
                                         <div class="input-group-prepend">
                                             <select class="form-select" name="cstatus" style="height:50px;">
                                                 <option value="미분류">-분류선택--------------------------------</option>
-                                                <option value="신규">신규</option>
-                                                <option value="완료">완료</option>
-                                                <option value="종료">종료</option>
+                                                <option value="신규계약">신규계약</option>
+                                                <option value="계약완료">계약완료</option>
+                                                <option value="계약종료">계약종료</option>
                                             </select>&nbsp;
                                         </div>
                                     </td>
@@ -41,11 +41,11 @@
                                         <div class="input-group-prepend">
                                             <select class="form-select" name="ptype3" style="height:50px;">
                                                 <option th:selected="${pageRequestDTO2.ptype3 == null}">-항목선택--------------------------------</option>
-                                                <option value="code" th:selected="${pageRequestDTO2.ptype3 == 'ccode'}">등록번호</option>
-                                                <option value="name" th:selected="${pageRequestDTO2.ptype3 == 'cpartnername'}">납품업체 상호</option>
+                                                <option value="code" th:selected="${pageRequestDTO2.ptype3 == 'ccode'}">계약번호</option>
+                                                <option value="name" th:selected="${pageRequestDTO2.ptype3 == 'cpartnername'}">거래처명</option>
                                                 <option value="content" th:selected="${pageRequestDTO2.ptype3 == 'pcode'}">품목코드</option>
                                                 <option value="content" th:selected="${pageRequestDTO2.ptype3 == 'cmanager'}">인수자</option>
-                                                <option value="content" th:selected="${pageRequestDTO2.ptype3 == 'pcode'}">납품자</option>
+                                                <option value="content" th:selected="${pageRequestDTO2.ptype3 == 'cpartnermanager'}">납품자</option>
                                             </select>&nbsp;
                                             <input class="form-control" name="keyword" style="height:50px;" th:value="${pageRequestDTO2.keyword}">
                                         </div>
