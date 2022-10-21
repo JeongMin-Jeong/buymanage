@@ -25,3 +25,13 @@
             document.getElementById("pcode").value = pcode;
             alert("프로덕트코드 생성 완료 하였습니다. : "+ pcode);
         }
+
+        function displayRandomCNum() {
+            //랜덤코드생성
+            //var rnum = Math.random();
+            var rnum = randomString();
+            var cdate = getYmd10();
+            var ccode = "C" + cdate + rnum;
+            document.getElementById("ccode").value = ccode;
+            alert("계약코드 생성 완료 하였습니다. : "+ ccode);
+        }
