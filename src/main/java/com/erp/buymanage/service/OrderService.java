@@ -3,6 +3,7 @@ package com.erp.buymanage.service;
 import com.erp.buymanage.dto.OrderDTO;
 import com.erp.buymanage.dto.OrderPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
+import com.erp.buymanage.dto.ProductDTO;
 import com.erp.buymanage.entity.OrderEntity;
 
 public interface OrderService {

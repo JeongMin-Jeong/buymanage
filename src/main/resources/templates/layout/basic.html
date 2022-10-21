@@ -66,6 +66,7 @@
             <div id="collapsePages3" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <div sec:authorize="hasRole('ORDER')"><a class="collapse-item" href="/order/list">발주관리</a></div>
+                    <div sec:authorize="hasRole('ORDER')"><a class="collapse-item" href="/order/orderrequest">발주요청</a></div>
                 </div>
             </div>
         </li>

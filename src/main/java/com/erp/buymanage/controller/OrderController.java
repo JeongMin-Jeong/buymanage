@@ -90,6 +90,14 @@ public class OrderController {
 
     }
 
+    @GetMapping("/orderrequest")
+    public void orderrequest(OrderPageRequestDTO orderPageRequestDTO, Model model) {
+        log.info("list................" + orderPageRequestDTO);
+        model.addAttribute("result", service.getList(orderPageRequestDTO));
+    }
+
+
+
 
 }
 
