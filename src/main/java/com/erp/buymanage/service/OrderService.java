@@ -9,6 +9,7 @@ public interface OrderService {
 
     long register(OrderDTO dto);
     PageResultDTO<OrderDTO, OrderEntity> getList(OrderPageRequestDTO requestDTO);
+    PageResultDTO<OrderDTO, OrderEntity> getList2(OrderPageRequestDTO requestDTO);
     OrderDTO read(Long ono);
 
     default OrderEntity dtoToEntity(OrderDTO dto) {

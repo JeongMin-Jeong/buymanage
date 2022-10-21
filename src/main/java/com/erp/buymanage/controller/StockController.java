@@ -1,7 +1,9 @@
 package com.erp.buymanage.controller;
 
+import com.erp.buymanage.dto.OrderPageRequestDTO;
 import com.erp.buymanage.dto.StockPageRequestDTO;
 import com.erp.buymanage.dto.StockDTO;
+import com.erp.buymanage.service.OrderService;
 import com.erp.buymanage.service.StockService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class StockController {
 
     private final StockService stockService;
+    private final OrderService orderService;
 
     @GetMapping("/")
     public String index(){
@@ -30,11 +33,18 @@ public class StockController {
     @GetMapping("/list")
     public void list(StockPageRequestDTO stockPageRequestDTO, Model model){
 
-        log.info("(list)pageRequestDTO : " + stockPageRequestDTO);
+        log.info("(list)stockPageRequestDTO : " + stockPageRequestDTO);
 
         model.addAttribute("result", stockService.getList(stockPageRequestDTO));
     }
 
+    @GetMapping("/list2")
+    public void list2(OrderPageRequestDTO orderPageRequestDTO, Model model) {
+
+        log.info("(list2)orderPageRequestDTO : " + orderPageRequestDTO);
+
+        model.addAttribute("result", orderService.getList2(orderPageRequestDTO));
+    }
 
     @GetMapping("/register")
     public void register() {

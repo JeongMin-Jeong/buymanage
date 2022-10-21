@@ -27,12 +27,12 @@
                                         <div class="input-group-prepend">
                                             <select id="category" name="ptype1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;">
                                                 <option value="" disabled selected>-분류선택--------------------------------</option>
-                                                <option th:selected="${productPageRequestDTO.ptype1 == 'DESKTOP'}">DESKTOP</option>
-                                                <option th:selected="${productPageRequestDTO.ptype1 == 'NOTEBOOK'}">NOTEBOOK</option>
-                                                <option th:selected="${productPageRequestDTO.ptype1 == 'SERVER'}">SERVER</option>
-                                                <option th:selected="${productPageRequestDTO.ptype1 == 'ETC'}">ETC</option>
-                                                <option th:selected="${productPageRequestDTO.ptype1 == 'ACCESSORY'}">ACCESSORY</option>
-                                                <option th:selected="${productPageRequestDTO.ptype1 == 'TOOLS'}">TOOLS</option>
+                                                <option value="DESKTOP" th:selected="${productPageRequestDTO.ptype1 == 'DESKTOP'}">DESKTOP</option>
+                                                <option value="NOTEBOOK" th:selected="${productPageRequestDTO.ptype1 == 'NOTEBOOK'}">NOTEBOOK</option>
+                                                <option value="SERVER" th:selected="${productPageRequestDTO.ptype1 == 'SERVER'}">SERVER</option>
+                                                <option value="ETC" th:selected="${productPageRequestDTO.ptype1 == 'ETC'}">ETC</option>
+                                                <option value="ACCESSORY" th:selected="${productPageRequestDTO.ptype1 == 'ACCESSORY'}">ACCESSORY</option>
+                                                <option value="TOOLS" th:selected="${productPageRequestDTO.ptype1 == 'TOOLS'}">TOOLS</option>
                                             </select>&nbsp;
                                             <select id="categorySelect" name="ptype2" size="1" style="height:50px;">
                                                 <option value="" disabled selected>-분류선택--------------------------------</option>
@@ -64,19 +64,21 @@
                                     <td>
                                         <div class="input-group-prepend">
                                             <select id="genericSelect" class="form-select" name="ptype3" style="height:50px;">
-                                                <option value="" disabled selected>-항목선택--------------------------------</option>
-                                                <option value="code" th:selected="${productPageRequestDTO.ptype3 == 'code'}">품목코드</option>
-                                                <option value="name" th:selected="${productPageRequestDTO.ptype3 == 'name'}">품목이름</option>
-                                                <option value="content" th:selected="${productPageRequestDTO.ptype3 == 'content'}">품목내용</option>
+                                                <option value="" th:selected="${productPageRequestDTO.ptype3 == null}">-항목선택--------------------------------</option>
+                                                <option value="a" th:selected="${productPageRequestDTO.ptype3 == 'a'}">품목코드</option>
+                                                <option value="b" th:selected="${productPageRequestDTO.ptype3 == 'b'}">품목이름</option>
+                                                <option value="c" th:selected="${productPageRequestDTO.ptype3 == 'c'}">품목내용</option>
                                             </select>&nbsp;
-                                            <input id="genericKeyword" class="form-control" name="keyword" style="height:50px;" th:value="${productPageRequestDTO.keyword}">
+                                            <input id="genericKeyword" type="text" class="form-control" name="keyword" th:value="${productPageRequestDTO.keyword}" style="height:50px;">
                                         </div>
                                     </td>
                                 </tr>
 
                                 <tr style="height:20px;">
                                     <td colspan="2" style="text-align: right;">
-                                        <button class="btn btn-outline-secondary searchBtn" type="button" onclick="displaySelected()">검색</button>
+                                        <button class="btn btn-outline-secondary searchBtn" type="button">검색</button>
+                                        <!-- <button class="btn btn-outline-secondary searchBtn" type="button">검색</button> -->
+                                        <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/product/list';">리셋</button>
                                     </td>
                                 </tr>
                             </table>
@@ -147,14 +149,6 @@
                     </ul>
                     <!-- 하단 페이지 버튼 -->
 
-
-                    <div style="float: right">
-                        <button class="btn btn-outline-secondary deleteBtn" type="button">품목삭제</button>
-                        <a th:href="@{/product/register}">
-                            <button class="btn btn-outline-secondary registBtn" type="button">품목등록</button>
-                        </a>
-                    </div>
-
                     <!-- 모달창 처리-->
                     <div class="modal" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
@@ -170,30 +164,27 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-<!--                                    <button type="button" class="btn btn-primary">확인</button>-->
+                                    <!--                                    <button type="button" class="btn btn-primary">확인</button>-->
                                 </div>
                             </div>
                         </div>
                     </div><!-- 신규등록완료시 뜨는 모달창 처리-->
 
                     <script th:inline="javascript">
-                        /* 신규등록완료시 뜨는 모달창 처리 */
                         var msg = [[${msg}]];
                         console.log(msg);
                         if(msg){
                             $(".modal").modal();
-                        }/* 신규등록완료시 뜨는 모달창 처리 */
-
-                        /* 검색시 이벤트 처리*/
+                        }
                         var searchForm = $("#searchForm");
-                        $('.btn-search').click(function (e) {
+                        $('.searchBtn').click(function (){
                             searchForm.submit();
-                        });/* 검색시 이벤트 처리*/
+                        });
                     </script>
 
                 </div><!-- <div class="table-responsive"> -->
             </div><!-- card-body -->
         </div><!-- page card -->
-    <!-- End Page Content -->
+        <!-- End Page Content -->
     </th:block>
 </th:block>

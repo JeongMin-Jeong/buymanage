@@ -46,15 +46,11 @@ public class OrderController {
 
         redirectAttributes.addFlashAttribute("msg",ono);
 
-
         return "redirect:/order/list";
     }
 
     @GetMapping({"/read","/modify"})
-
     public void read(long ono, @ModelAttribute("requestDTO") OrderPageRequestDTO requestDTO, Model model) {
-
-
         log.info("ono: " + ono);
         OrderDTO dto = service.read(ono);
         model.addAttribute("dto", dto);

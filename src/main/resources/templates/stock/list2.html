@@ -10,9 +10,10 @@
     <!-- page card -->
     <div class="card shadow mb-4">
 
-      <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">목록</h6></div>
+      <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">발주목록</h6></div>
       <div class="card-body">
         <div class="table-responsive">
+          <form id="modalForm" method="post">
           <table class="table table-bordered" id="dataTable">
             <thead>
             <tr>
@@ -21,34 +22,31 @@
               <th>품목이름</th>
               <th>품목분류1</th>
               <th>품목분류2</th>
-              <th>입고수량</th>
-              <th>출고수량</th>
-              <th>반품수량</th>
-              <th>재고수량</th>
-              <th>비고</th>
+              <th>수량</th>
+              <th>공급단가(원)</th>
+              <th>발주일자</th>
+              <th>발주상태</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="dto : ${result.dtoList}">
-              <td><input type="checkbox" name="checkbox" th:value="${dto.sno}"></td>
-              <td>[[${dto.scode}]]</td>
-              <td><a th:href="@{/stock/read(sno = ${dto.sno}, page = ${result.page}, type1 = ${pageRequestDTO.type1}, type2 = ${pageRequestDTO.type2}, type3 = ${pageRequestDTO.type3}, keyword = ${pageRequestDTO.keyword})}">[[${dto.sname}]]</a></td>
-              <td>[[${dto.scate1}]]</td>
-              <td>[[${dto.scate2}]]</td>
-              <td>[[${dto.sin}]]</td>
-              <td>[[${dto.sout}]]</td>
-              <td>[[${dto.sreturn}]]</td>
-              <td>[[${dto.stock}]]</td>
-              <td>[[${dto.snote}]]</td>
+              <td><input type="radio" name="radio" th:value="${dto.ono}"></td>
+              <td>[[${dto.pcode}]]</td>
+              <td>[[${dto.opname}]]</td>
+              <td>[[${dto.ptype1}]]</td>
+              <td>[[${dto.ptype2}]]</td>
+              <td>[[${dto.oquantity}]]</td>
+              <td>[[${dto.oprice}]]</td>
+              <td>[[${dto.orderdate}]]</td>
+              <td>[[${dto.ostate}]]</td>
             </tr>
             </tbody>
           </table>
+          </form>
 
           <div style="float: right">
             <button class="btn btn-outline-secondary stockInputBtn" type="button">자재입고</button>
-            <button class="btn btn-outline-secondary stickOutputBtn" type="button">자재출고</button>
-            <button class="btn btn-outline-secondary stockReturnBtn" type="button">자재반품</button>
-            <button class="btn btn-outline-secondary stockRegistBtn" type="button" onclick="location.href='/stock/register';">자재등록</button>
+            <button class="btn btn-outline-secondary stockRegistBtn" type="button" onclick="location.href='/order/register';">자재등록</button>
           </div>
 
 
@@ -57,58 +55,89 @@
         <ul class="pagination h-100 justify-content-center align-items-center">
 
           <li class="page-item " th:if="${result.prev}">
-            <a class="page-link" th:href="@{/stock/list(page= ${result.start -1}, type1 = ${pageRequestDTO.type1}, type2 = ${pageRequestDTO.type2}, type3 = ${pageRequestDTO.type3}, keyword = ${pageRequestDTO.keyword})}" tabindex="-1">Previous</a>
+            <a class="page-link" th:href="@{/stock/list2(page= ${result.start -1})}" tabindex="-1">Previous</a>
           </li>
 
           <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
-            <a class="page-link" th:href="@{/stock/list(page = ${page}, type1 = ${pageRequestDTO.type1}, type2 = ${pageRequestDTO.type2}, type3 = ${pageRequestDTO.type3}, keyword = ${pageRequestDTO.keyword})}">
+            <a class="page-link" th:href="@{/stock/list2(page = ${page})}">
               [[${page}]]
             </a>
           </li>
 
           <li class="page-item" th:if="${result.next}">
-            <a class="page-link" th:href="@{/stock/list(page= ${result.end + 1}, type1 = ${pageRequestDTO.type1}, type2 = ${pageRequestDTO.type2}, type3 = ${pageRequestDTO.type3}, keyword = ${pageRequestDTO.keyword})}">Next</a>
+            <a class="page-link" th:href="@{/stock/list2(page= ${result.end + 1})}">Next</a>
           </li>
         </ul>
 
       </div>  <!-- 68line end -->
     </div>  <!-- 12line end -->
 
+    <!-- 모달 시작 -->
     <div class="modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
+            <h5 class="modal-title">자재입고</h5>
+
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+
           <div class="modal-body">
-            <p>Modal body text goes here.</p>
+            <form action="/stock/modify" method="post">
+              <div class="form-group">
+                <input type="hidden" >
+                <label >품목코드</label>
+                <input type="text" class="form-control" name="scode">
+              </div>
+
+              <div class="form-group">
+                <label >품목이름</label>
+                <input type="text" class="form-control" name="sname">
+              </div>
+
+              <div class="form-group">
+                <label >품목분류1</label>
+                <input type="text" class="form-control" name="scate1">
+              </div>
+
+              <div class="form-group">
+                <label >품목분류2</label>
+                <input type="text" class="form-control" name="scate2">
+              </div>
+
+              <div class="form-group">
+                <label >가격</label>
+                <input type="text" class="form-control" name="sreturn">
+              </div>
+
+              <div class="form-gr" style="display: flex; justify-content: space-between;">
+                <div>
+                  <label>입고수량</label>
+                  <input type="text" class="form-control" name="sin">
+                </div>
+
+              </div>
+            </form>
           </div>
+
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-outline-secondary replySave">완료</button>
+            <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">닫기</button>
           </div>
         </div>
       </div>
     </div>
+   <!-- 모달 끝-->
 
     <script th:inline="javascript">
 
-      var msg = [[${msg}]];
+      var modal = $('.modal');
 
-      console.log(msg);
+      $(".stockInputBtn").click(function (){
 
-      if(msg){
-        $(".modal").modal();
-      }
-
-      var searchForm = $("#searchForm");
-
-      $('.searchBtn').click(function (){
-
-        searchForm.submit();
+        modal.modal('show');
 
       });
 
