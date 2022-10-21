@@ -65,9 +65,9 @@
                                         <div class="input-group-prepend">
                                             <select id="genericSelect" class="form-select" name="ptype3" style="height:50px;">
                                                 <option value="" th:selected="${productPageRequestDTO.ptype3 == null}">-항목선택--------------------------------</option>
-                                                <option value="code" th:selected="${productPageRequestDTO.ptype3 == 'code'}">품목코드</option>
-                                                <option value="name" th:selected="${productPageRequestDTO.ptype3 == 'name'}">품목이름</option>
-                                                <option value="content" th:selected="${productPageRequestDTO.ptype3 == 'content'}">품목내용</option>
+                                                <option value="a" th:selected="${productPageRequestDTO.ptype3 == 'a'}">품목코드</option>
+                                                <option value="b" th:selected="${productPageRequestDTO.ptype3 == 'b'}">품목이름</option>
+                                                <option value="c" th:selected="${productPageRequestDTO.ptype3 == 'c'}">품목내용</option>
                                             </select>&nbsp;
                                             <input id="genericKeyword" type="text" class="form-control" name="keyword" th:value="${productPageRequestDTO.keyword}" style="height:50px;">
                                         </div>
@@ -76,7 +76,7 @@
 
                                 <tr style="height:20px;">
                                     <td colspan="2" style="text-align: right;">
-                                        <button class="btn btn-outline-secondary searchBtn" type="button" onclick="displaySelected()">검색</button>
+                                        <button class="btn btn-outline-secondary searchBtn" type="button">검색</button>
                                         <!-- <button class="btn btn-outline-secondary searchBtn" type="button">검색</button> -->
                                         <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/product/list';">리셋</button>
                                     </td>
@@ -164,27 +164,27 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-<!--                                    <button type="button" class="btn btn-primary">확인</button>-->
+                                    <!--                                    <button type="button" class="btn btn-primary">확인</button>-->
                                 </div>
                             </div>
                         </div>
                     </div><!-- 신규등록완료시 뜨는 모달창 처리-->
 
                     <script th:inline="javascript">
-                    var msg = [[${msg}]];
-                    console.log(msg);
-                    if(msg){
-                        $(".modal").modal();
-                    }
-                    var searchForm = $("#searchForm");
-                    $('.searchBtn').click(function (){
-                        searchForm.submit();
-                    });
+                        var msg = [[${msg}]];
+                        console.log(msg);
+                        if(msg){
+                            $(".modal").modal();
+                        }
+                        var searchForm = $("#searchForm");
+                        $('.searchBtn').click(function (){
+                            searchForm.submit();
+                        });
                     </script>
 
                 </div><!-- <div class="table-responsive"> -->
             </div><!-- card-body -->
         </div><!-- page card -->
-    <!-- End Page Content -->
+        <!-- End Page Content -->
     </th:block>
 </th:block>
