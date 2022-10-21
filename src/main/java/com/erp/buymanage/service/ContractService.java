@@ -5,8 +5,6 @@ import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.ContractDTO;
 import com.erp.buymanage.entity.Contract;
 
-import java.time.Period;
-
 public interface ContractService {
     // 등록처리
     Long register(ContractDTO dto);
