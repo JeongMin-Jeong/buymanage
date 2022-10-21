@@ -14,9 +14,9 @@ import java.net.URLEncoder;
 @Builder
 public class ProductImageDTO {
 
-    private String uuid ;
+    private String uuid;
     private String imgName;
-    private String path ;
+    private String path;
 
     public String getImageURL(){
         try{
