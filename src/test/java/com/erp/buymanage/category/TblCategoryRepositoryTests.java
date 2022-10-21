@@ -1,9 +1,5 @@
 package com.erp.buymanage.category;
 
-import com.erp.buymanage.entity.TblCategory;
-import com.erp.buymanage.entity.TblCategoryChild;
-import com.erp.buymanage.repository.TblCategoryRepository;
-import com.erp.buymanage.repository.TblCategoryRepositoryChild;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

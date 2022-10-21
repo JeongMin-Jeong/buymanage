@@ -36,6 +36,5 @@
                 + "분류선택2:"+category2+"\n"
                 + "항목선택3:"+generic1+" 키워드:"+generic2
             );
-
             searchForm.submit();
         }

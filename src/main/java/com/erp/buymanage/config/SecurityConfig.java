@@ -22,13 +22,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                //SAMPLE
                 .antMatchers("/sample/all").permitAll() //모든사용자가 접속가능한 url
                 .antMatchers("/sample/member").hasRole("USER") //USER
-                .antMatchers("/product/list").hasRole("PRODUCT") //PRODUCT
-                .antMatchers("/contract/list").hasRole("CONTRACT") //COTRACT
-                .antMatchers("/order/list").hasRole("ORDER") //ORDER
-                .antMatchers("/stock/list").hasRole("STOCK") //STOCK
                 .antMatchers("/sample/admin").hasRole("ADMIN") //ADMIN
+                //PRODUCT
+                .antMatchers("/product/list").hasRole("PRODUCT")
+                .antMatchers("/product/register").hasRole("PRODUCT")
+                .antMatchers("/product/read").hasRole("PRODUCT")
+                .antMatchers("/product/modify").hasRole("PRODUCT")
+                .antMatchers("/product/delete").hasRole("PRODUCT")
+
+                //CONTRACT
+                .antMatchers("/contract/list").hasRole("CONTRACT")
+                .antMatchers("/contract/register").hasRole("CONTRACT")
+                .antMatchers("/contract/read").hasRole("CONTRACT")
+                .antMatchers("/contract/modify").hasRole("CONTRACT")
+
+                //ORDER
+                .antMatchers("/order/list").hasRole("ORDER") //ORDER
+                .antMatchers("/order/register").hasRole("CONTRACT")
+                .antMatchers("/order/read").hasRole("CONTRACT")
+                .antMatchers("/order/modify").hasRole("CONTRACT")
+
+                //STOCK
+                .antMatchers("/stock/list").hasRole("STOCK") //STOCK
+
         ;
         http.formLogin();//인증문제 발생시 오류화면 대신 로그인화면 출력
 //        http.formLogin()
