@@ -99,7 +99,7 @@
                 </div>
                 <div class="form-group">
                     <label>양도,양수조건</label>
-                    <textarea class="form-control" rows="3" name="cetc" th:value="${dto.cetc}" readonly></textarea>
+                    <textarea class="form-control" rows="3" name="cetc" readonly>[[${dto.cetc}]]</textarea>
                 </div>
 
                 <a th:href="@{/contract/modify(cno=${dto.cno}, page=${requestDTO.page})}">

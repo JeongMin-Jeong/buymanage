@@ -47,5 +47,4 @@ public class Product extends BaseEntity{
     public void changePcontent(String pcontent) { this.pcontent = pcontent; }
     public void changePetc(String petc) { this.petc = petc; }
 
-
 }
