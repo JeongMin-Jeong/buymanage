@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService{
     @Transactional
     @Override // 등록처리
     public Long register(ProductDTO dto) {
-        log.info(">>>>> ProductServiceImpl (register)");
+//        log.info(">>>>> ProductServiceImpl (register)");
 //        log.info(">>>>> dto");
 //        log.info(">>>>> dtoToEntity");
 //        Product entity = dtoToEntity(dto);
@@ -46,14 +46,13 @@ public class ProductServiceImpl implements ProductService{
 
         Map<String , Object> entityMap = dtoToEntity(dto);
         Product entity =(Product) entityMap.get("product");
-        log.info(">>>>> Product dtoToEntity");
+        List<ProductImage> productImageList= (List<ProductImage>) entityMap.get("imgList");
+        log.info(">>>>> Product,entity dtoToEntity");
+
         repository.save(entity);
         log.info(">>>>> ProductRepository 저장");
-
-        List<ProductImage> productImageList= (List<ProductImage>) entityMap.get("imgList");
-        log.info(">>>>> ProductImage dtoToEntity");
-        productImageList.forEach(productImage -> {
-            imageRepository.save(productImage);
+        productImageList.forEach(imageEntity -> {
+            imageRepository.save(imageEntity);
         });
         log.info(">>>>> ProductImageRepository 저장");
 

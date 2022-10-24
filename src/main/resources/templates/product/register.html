@@ -1,31 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<style>
-    .uploadResult {
-        width: 100%;
-        background-color: #eaecf4;
-        margin-top: 10px;
-    }
-
-    .uploadResult ul {
-        display: flex;
-        flex-flow: row;
-        justify-content: center;
-        align-items: center;
-        vertical-align: top;
-        overflow: auto;
-    }
-
-    .uploadResult ul li {
-        list-style: none;
-        padding: 10px;
-        margin-left: 2em;
-    }
-
-    .uploadResult ul li img {
-        width: 100px;
-    }
-</style>
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
     <th:block th:fragment="content">
@@ -76,11 +50,41 @@
                         <label class="custom-file-label" data-browse="찾기.."></label>
                     </div>
                 </div>
+                <!-- 섬네일처리 -->
+                <div class="box">
+                </div>
+
+                <style>
+                    .uploadResult {
+                        width: 100%;
+                        background-color: #eaecf4;
+                        margin-top: 10px;
+                    }
+
+                    .uploadResult ul {
+                        display: flex;
+                        flex-flow: row;
+                        justify-content: center;
+                        align-items: center;
+                        vertical-align: top;
+                        overflow: auto;
+                    }
+
+                    .uploadResult ul li {
+                        list-style: none;
+                        padding: 10px;
+                        margin-left: 2em;
+                    }
+
+                    .uploadResult ul li img {
+                        width: 100px;
+                    }
+                </style>
+
                 <div class="uploadResult">
                     <ul>
-
                     </ul>
-                </div>
+                </div><!-- 섬네일처리 -->
 
                 <button type="submit" class="btn btn-primary">등록</button>
                 <a th:href="@{/product/list}"><button type="button" class="btn btn-info">목록</button></a>
@@ -88,7 +92,10 @@
             </div><!-- card-body -->
         </div><!-- page card -->
 
+
+
         <script>
+            <!-- 섬네일처리 -->
             $(document).ready(function(e) {
                 var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
                 var maxSize = 10485760; //10MB
@@ -156,7 +163,7 @@
                     var str ="";
 
                     $(uploadResultArr).each(function(i, obj) {
-                        str += "<li data-name='" + obj.fileName + "' data-path='"+obj.folderPath+"' data-uuid='"+obj.uuid+"'>";
+                        str += "<li data-name='" + obj.fileName + "' data-path='" + obj.folderPath + "' data-uuid='" + obj.uuid + "'>";
                         str + " <div>";
                         str += "<button type='button' data-file=\'" + obj.imageURL + "\' "
                         str += "class='btn-warning btn-sm'>X</button><br>";
@@ -194,9 +201,9 @@
                     $(".uploadResult li").each(function(i,obj){
                         var target = $(obj);
 
-                        str += "<input type='hidden' name='imageDTOList["+i+"].imgName' value='"+target.data('name') +"'>";
-                        str += "<input type='hidden' name='imageDTOList["+i+"].path' value='"+target.data('path')+"'>";
-                        str += "<input type='hidden' name='imageDTOList["+i+"].uuid' value='"+target.data('uuid')+"'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].imgName' value='" + target.data('name') + "'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].path' value='" + target.data('path') + "'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].uuid' value='" + target.data('uuid') + "'>";
                     });
 
                     //태그들이 추가된 것을 확인한 후에 comment를 제거
@@ -205,7 +212,7 @@
                     $("form").submit();
 
                 });
-            });
+            });<!-- 섬네일처리 -->
         </script>
 
     </th:block>

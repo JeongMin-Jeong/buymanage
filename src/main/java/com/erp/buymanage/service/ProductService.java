@@ -63,13 +63,13 @@ public interface ProductService {
         if(imageDTOList != null && imageDTOList.size() > 0) {
             List<ProductImage> productImageList = imageDTOList.stream().map(productImageDTO ->
                 {
-                    ProductImage ImageEntity = ProductImage.builder()
-                            .uuid(productImageDTO.getUuid())
-                            .imgName(productImageDTO.getImgName())
+                    ProductImage productImage = ProductImage.builder()
                             .path(productImageDTO.getPath())
+                            .imgName(productImageDTO.getImgName())
+                            .uuid(productImageDTO.getUuid())
                             .product(entity)
                             .build();
-                    return ImageEntity;
+                    return productImage;
                 }).collect(Collectors.toList());  //객체를 새로운 리스트로 만드는 방법
             entityMap.put("imgList", productImageList);
         }
