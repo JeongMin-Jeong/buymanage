@@ -17,6 +17,7 @@ public class Stock extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sno;
 
+
     @Column(nullable = false)
     private String scode;
 
@@ -37,7 +38,7 @@ public class Stock extends BaseEntity{
 
     private int stock;
 
-    @Column(nullable = false)
+
     private String snote;
 
     public void changeCode(String scode) {

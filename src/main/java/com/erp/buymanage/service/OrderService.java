@@ -4,6 +4,7 @@ import com.erp.buymanage.dto.OrderDTO;
 import com.erp.buymanage.dto.OrderPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.entity.OrderEntity;
+import com.querydsl.core.types.Order;
 
 public interface OrderService {
 
@@ -59,6 +60,8 @@ public interface OrderService {
     void remove(Long ono);
 
     void modify(OrderDTO dto);
+
+    void inputModify(OrderDTO dto);
 
 
 }

@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -26,16 +28,31 @@ public class StockServiceImpl implements StockService {
     private final StockRepository stockRepository;
 
     @Override
-    public Long register(StockDTO dto) {
+    public Long register(StockDTO dto){
+
+        int sin = dto.getSin();
+        String scode = dto.getScode();
 
         log.info("DTO---------------------");
         log.info(dto);
 
         Stock entity = dtoToEntity(dto);
 
+        List<Stock> stockList = stockRepository.findAll();
+        List<String> list = new ArrayList();
+
+        for (Stock stockEntity : stockList ) {
+            if(!stockEntity.getScode().equals(scode)) {
+                list.add(stockEntity.getScode());
+            }
+            if (stockEntity.getScode().equals(dto.getScode())){
+                stockRepository.updateSin(sin,scode);
+                break;
+            }
+        }
+
         log.info(entity);
 
-        stockRepository.save(entity);
 
         return entity.getSno();
     }
@@ -53,6 +70,8 @@ public class StockServiceImpl implements StockService {
 
         return new PageResultDTO<>(result, fn);
     }
+
+
 
     @Override
     public StockDTO read(Long sno) {

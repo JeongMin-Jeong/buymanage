@@ -1,5 +1,6 @@
 package com.erp.buymanage.controller;
 
+import com.erp.buymanage.dto.OrderDTO;
 import com.erp.buymanage.dto.OrderPageRequestDTO;
 import com.erp.buymanage.dto.StockPageRequestDTO;
 import com.erp.buymanage.dto.StockDTO;
@@ -7,13 +8,13 @@ import com.erp.buymanage.service.OrderService;
 import com.erp.buymanage.service.StockService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/stock")
@@ -51,7 +52,7 @@ public class StockController {
         log.info("register get.....");
     }
 
-    @PostMapping("/register")
+    /*@PostMapping("/register")
     public String registerPost(StockDTO dto, RedirectAttributes redirectAttributes) {
 
         log.info("(register)dto : " + dto);
@@ -62,7 +63,24 @@ public class StockController {
         redirectAttributes.addFlashAttribute("msg", sno);
 
         return "redirect:/stock/list";
+    }*/
+
+    @PostMapping("/inputregister")
+    public String inputRegister(StockDTO dto) {
+
+        log.info("(inputRegister) dto : " + dto);
+
+        OrderDTO orderDTO = new OrderDTO();
+        long ono = Long.parseLong(dto.getSnote());
+
+        orderDTO.setOno(ono);
+        orderDTO.setOstate("입고처리");
+        orderService.inputModify(orderDTO);
+        stockService.register(dto);
+
+        return "redirect:/stock/list2";
     }
+
 
     @GetMapping({"/read", "/modify"})
     public void read(long sno, @ModelAttribute("requestDTO") StockPageRequestDTO requestDTO, Model model) {
@@ -72,6 +90,21 @@ public class StockController {
         StockDTO dto = stockService.read(sno);
 
         model.addAttribute("dto", dto);
+    }
+
+    @GetMapping("/modalread")
+    @ResponseBody
+    public OrderDTO modalread(@RequestParam Map<String, Object> param) {
+
+        System.out.println("컨트롤러 ono : " + param.get("ono"));
+
+        String str = (String)param.get("ono");
+
+        long ono = Long.parseLong(str);
+
+        OrderDTO dto = orderService.read(ono);
+
+        return dto;
     }
 
     @PostMapping("/remove")

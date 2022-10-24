@@ -87,12 +87,11 @@
                             <th>출고수량</th>
                             <th>반품수량</th>
                             <th>재고수량</th>
-                            <th>비고</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="dto : ${result.dtoList}">
-                            <td><input type="checkbox" name="checkbox" th:value="${dto.sno}"></td>
+                            <td><input type="radio" name="radio" th:value="${dto.sno}"></td>
                             <td>[[${dto.scode}]]</td>
                             <td><a th:href="@{/stock/read(sno = ${dto.sno}, page = ${result.page}, type1 = ${stockPageRequestDTO.type1}, type2 = ${stockPageRequestDTO.type2}, type3 = ${stockPageRequestDTO.type3}, keyword = ${stockPageRequestDTO.keyword})}">[[${dto.sname}]]</a></td>
                             <td>[[${dto.scate1}]]</td>
@@ -101,7 +100,6 @@
                             <td>[[${dto.sout}]]</td>
                             <td>[[${dto.sreturn}]]</td>
                             <td>[[${dto.stock}]]</td>
-                            <td>[[${dto.snote}]]</td>
                         </tr>
                         </tbody>
                     </table>

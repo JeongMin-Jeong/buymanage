@@ -34,6 +34,7 @@ public class OrderServiceImpl implements OrderService {
         log.info(entity);
 
         repository.save(entity);
+
         return entity.getOno();
 
     }
@@ -99,9 +100,19 @@ public class OrderServiceImpl implements OrderService {
             entity.changeOrderdate(dto.getOrderdate());
 
 
-                    repository.save(entity);
+            repository.save(entity);
         }
 
     }
 
+    @Override
+    public void inputModify(OrderDTO dto) {
+        Optional<OrderEntity> result = repository.findById(dto.getOno());
+
+        if(result.isPresent()) {
+            OrderEntity entity = result.get();
+            entity.changeOstate(dto.getOstate());
+            repository.save(entity);
+        }
+    }
 }

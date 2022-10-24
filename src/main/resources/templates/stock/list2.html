@@ -13,36 +13,34 @@
       <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">발주목록</h6></div>
       <div class="card-body">
         <div class="table-responsive">
-          <form id="modalForm" method="post">
-          <table class="table table-bordered" id="dataTable">
-            <thead>
-            <tr>
-              <th>#</th>
-              <th>품목코드</th>
-              <th>품목이름</th>
-              <th>품목분류1</th>
-              <th>품목분류2</th>
-              <th>수량</th>
-              <th>공급단가(원)</th>
-              <th>발주일자</th>
-              <th>발주상태</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="dto : ${result.dtoList}">
-              <td><input type="radio" name="radio" th:value="${dto.ono}"></td>
-              <td>[[${dto.pcode}]]</td>
-              <td>[[${dto.opname}]]</td>
-              <td>[[${dto.ptype1}]]</td>
-              <td>[[${dto.ptype2}]]</td>
-              <td>[[${dto.oquantity}]]</td>
-              <td>[[${dto.oprice}]]</td>
-              <td>[[${dto.orderdate}]]</td>
-              <td>[[${dto.ostate}]]</td>
-            </tr>
-            </tbody>
-          </table>
-          </form>
+            <table class="table table-bordered" id="dataTable">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>품목코드</th>
+                <th>품목이름</th>
+                <th>품목분류1</th>
+                <th>품목분류2</th>
+                <th>수량</th>
+                <th>공급단가(원)</th>
+                <th>발주일자</th>
+                <th>발주상태</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="dto : ${result.dtoList}">
+                <td><input type="radio" name="radio" th:value="${dto.ono}"></td>
+                <td>[[${dto.pcode}]]</td>
+                <td>[[${dto.opname}]]</td>
+                <td>[[${dto.ptype1}]]</td>
+                <td>[[${dto.ptype2}]]</td>
+                <td>[[${dto.oquantity}]]</td>
+                <td>[[${dto.oprice}]]</td>
+                <td>[[${dto.orderdate}]]</td>
+                <td>[[${dto.ostate}]]</td>
+              </tr>
+              </tbody>
+            </table>
 
           <div style="float: right">
             <button class="btn btn-outline-secondary stockInputBtn" type="button">자재입고</button>
@@ -85,37 +83,37 @@
           </div>
 
           <div class="modal-body">
-            <form action="/stock/modify" method="post">
+            <form action="/stock/register" method="post" id="modalForm">
+              <input type="hidden" name="snote" id="snote">
               <div class="form-group">
-                <input type="hidden" >
                 <label >품목코드</label>
-                <input type="text" class="form-control" name="scode">
+                <input type="text" class="form-control" name="scode" id="scode">
               </div>
 
               <div class="form-group">
                 <label >품목이름</label>
-                <input type="text" class="form-control" name="sname">
+                <input type="text" class="form-control" name="sname" id="sname">
               </div>
 
               <div class="form-group">
                 <label >품목분류1</label>
-                <input type="text" class="form-control" name="scate1">
+                <input type="text" class="form-control" name="scate1" id="scate1">
               </div>
 
               <div class="form-group">
                 <label >품목분류2</label>
-                <input type="text" class="form-control" name="scate2">
+                <input type="text" class="form-control" name="scate2" id="scate2">
               </div>
 
               <div class="form-group">
                 <label >가격</label>
-                <input type="text" class="form-control" name="sreturn">
+                <input type="text" class="form-control" name="sreturn" id="sreturn">
               </div>
 
               <div class="form-gr" style="display: flex; justify-content: space-between;">
                 <div>
                   <label>입고수량</label>
-                  <input type="text" class="form-control" name="sin">
+                  <input type="text" class="form-control" name="sin" id="sin">
                 </div>
 
               </div>
@@ -123,15 +121,40 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary replySave">완료</button>
+            <button type="button" class="btn btn-outline-secondary inputSave">완료</button>
             <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">닫기</button>
           </div>
         </div>
       </div>
     </div>
-   <!-- 모달 끝-->
+    <!-- 모달 끝-->
 
     <script th:inline="javascript">
+
+      $(document).on("click","input[name=radio]",function () {
+
+        var ono = $(this).val();
+
+        $.ajax({
+          url:"/stock/modalread",
+          type:'get',
+          data: {"ono":ono},
+          contentType:"application/json",
+          success:function (data){
+            $("#scode").val(data.pcode);
+            $("#sname").val(data.opname);
+            $("#scate1").val(data.ptype1);
+            $("#scate2").val(data.ptype2);
+            $("#sreturn").val(data.oprice);
+            $("#sin").val(data.oquantity);
+            $("#snote").val(data.ono);
+          },
+          error:function (){
+            alert("실패");
+          }
+        }); //ajax end
+
+      }); //radio end
 
       var modal = $('.modal');
 
@@ -139,6 +162,17 @@
 
         modal.modal('show');
 
+      }); //stockInputBtn end
+
+      var modalForm = $("#modalForm");
+
+      $(".inputSave").click(function () {
+        modalForm
+                .attr("action", "/stock/inputregister")
+                .attr("method", "post");
+
+        modalForm.submit();
+        modal.modal.hide();
       });
 
     </script>
