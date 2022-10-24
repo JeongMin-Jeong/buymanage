@@ -25,7 +25,7 @@ public interface OrderService {
                 .oquantity(dto.getOquantity())
                 .ostate(dto.getOstate())
                 .oetc(dto.getOetc())
-
+                .ocode(dto.getOcode())
                 .ptype1(dto.getPtype1())
                 .ptype2(dto.getPtype2())
                 .pcode(dto.getPcode())
@@ -46,7 +46,7 @@ public interface OrderService {
                 .oquantity(entity.getOquantity())
                 .ostate(entity.getOstate())
                 .oetc(entity.getOetc())
-
+                .ocode(entity.getOcode())
                 .ptype1(entity.getPtype1())
                 .ptype2(entity.getPtype2())
                 .pcode(entity.getPcode())

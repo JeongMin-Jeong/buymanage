@@ -9,6 +9,11 @@
       <div class="card-body">
 
         <form th:action="@{/order/register}" th:method="post">
+          <div class="form-group">
+            <label>발주코드</label>
+            <input type="text" class="form-control" name="ocode" id="ocode" placeholder="클릭하세요!!!" onclick="displayRandomoNum();" readonly>
+          </div>
+
           <div class="form-group" >
             <label>품목코드</label>
             <input type="text" class="form-control" name="pcode" placeholder="P0000" >
