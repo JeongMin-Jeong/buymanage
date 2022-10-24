@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
   <th:block th:fragment="content">
-    <h1 class="mt-4">품목정보 등록 페이지</h1>
+
+    <h1 class="h3 mb-2 text-gray-800">자재정보 등록하기</h1>
     <!-- page card -->
     <div class="card shadow mb-4">
       <!-- card-body -->
@@ -10,15 +11,16 @@
 
         <form th:action="@{/stock/register}" th:method="post">
           <div class="form-group">
-            <label>품목코드</label>
-            <input type="text" class="form-control" name="scode" placeholder="P0000">
+            <label>자재코드</label>
+            <!-- <input type="text" class="form-control" name="scode" placeholder="P0000"> -->
+            <input type="text" class="form-control" name="scode" id="scode" placeholder="클릭하세요!!!" onclick="displayRandomSNum();" readonly>
           </div>
           <div class="form-group">
-            <label>품목이름</label>
+            <label>자재이름</label>
             <input type="text" class="form-control" name="sname">
           </div>
           <div class="form-group">
-            <label>품목분류</label><br/>
+            <label>자재분류</label><br/>
             <select id="category" name="type1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;">
               <option value="" disabled selected>-분류선택--------------------------------</option>
               <option value="DESKTOP">DESKTOP</option>
