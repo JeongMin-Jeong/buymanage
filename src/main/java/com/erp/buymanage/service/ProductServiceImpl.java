@@ -4,7 +4,9 @@ import com.erp.buymanage.dto.ProductPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.ProductDTO;
 import com.erp.buymanage.entity.Product;
+import com.erp.buymanage.entity.ProductImage;
 import com.erp.buymanage.entity.QProduct;
+import com.erp.buymanage.repository.ProductImageRepository;
 import com.erp.buymanage.repository.ProductRepository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -14,6 +16,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -23,17 +29,33 @@ import java.util.function.Function;
 public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository repository;
+    private final ProductImageRepository imageRepository;
 
+    @Transactional
     @Override // 등록처리
     public Long register(ProductDTO dto) {
+//        log.info(">>>>> ProductServiceImpl (register)");
+//        log.info(">>>>> dto");
+//        log.info(">>>>> dtoToEntity");
+//        Product entity = dtoToEntity(dto);
+//        log.info(">>>>> entity");
+//        log.info(">>>>> repository에 저장");
+//        repository.save(entity);
+//        log.info(">>>>> return entity.getPno()");
+//        return entity.getPno();
 
-        log.info(">>>>> dto");
-        log.info(">>>>> dtoToEntity");
-        Product entity = dtoToEntity(dto);
-        log.info(">>>>> entity");
-        log.info(">>>>> repository에 저장");
+        Map<String , Object> entityMap = dtoToEntity(dto);
+        Product entity =(Product) entityMap.get("product");
+        List<ProductImage> productImageList= (List<ProductImage>) entityMap.get("imgList");
+        log.info(">>>>> Product,entity dtoToEntity");
+
         repository.save(entity);
-        log.info(">>>>> return entity.getPno()");
+        log.info(">>>>> ProductRepository 저장");
+        productImageList.forEach(imageEntity -> {
+            imageRepository.save(imageEntity);
+        });
+        log.info(">>>>> ProductImageRepository 저장");
+
         return entity.getPno();
     }
 

@@ -5,7 +5,7 @@
 
   <th:block th:fragment="content">
 
-    <h1 class="mt-4">자재 수정</h1>
+    <h1 class="h3 mb-2 text-gray-800">자재정보 수정하기</h1>
 
     <form action="/stock/modify" method="post">
       <input type="hidden" name="sno" th:value="${dto.sno}">
@@ -16,7 +16,7 @@
       <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
     <div class="form-group">
       <label >품목코드</label>
-      <input type="text" class="form-control" name="scode" th:value="${dto.scode}">
+      <input type="text" class="form-control" name="scode" th:value="${dto.scode}" readonly>
     </div>
 
     <div class="form-group">
@@ -25,14 +25,22 @@
     </div>
 
     <div class="form-group">
-      <label >품목분류1</label>
+      <label >품목분류</label>
       <input type="text" class="form-control" name="scate1" th:value="${dto.scate1}">
-    </div>
-
-
-    <div class="form-group">
-      <label >품목분류2</label>
+      <select id="category" name="scate1" size="1" onchange="makeSubmenu(this.value);selectscate1(this.value);" style="width:100%;height:50px;">
+        <option value="" disabled selected>-분류선택--------------------------------</option>
+        <option value="DESKTOP">DESKTOP</option>
+        <option value="NOTEBOOK">NOTEBOOK</option>
+        <option value="SERVER">SERVER</option>
+        <option value="ETC">ETC</option>
+        <option value="ACCESSORY">ACCESSORY</option>
+        <option value="TOOLS">TOOLS</option>
+      </select>&nbsp;
       <input type="text" class="form-control" name="scate2" th:value="${dto.scate2}">
+      <select id="categorySelect" name="scate2" size="1" style="width:100%;height:50px;" onchange="selectscate2(this.value);">
+        <option value="" disabled selected>-분류선택--------------------------------</option>
+        <option></option>
+      </select>&nbsp;
     </div>
 
     <div class="form-gr" style="display: flex; justify-content: space-between;">
@@ -101,23 +109,29 @@
 
       var actionForm = $("form");
 
-      $(".readModifyBtn").click(function () {
+          /* 대,중분류 select박스 선택값에 따라 input값 변경처리 jQuery */
+          var selectscate1 = function(value){
+            $("[name=scate1]").val(value);
+          }
 
-        if(!confirm("수정하시겠습니까?")) {
-          return;
-        }
+          /* 대,중분류 select박스 선택값에 따라 input값 변경처리 jQuery */
+          var selectscate2 = function(value){
+            $("[name=scate2]").val(value);
+          }
 
-        actionForm
+
+          $(".readModifyBtn").click(function () {
+            if(!confirm("수정하시겠습니까?")) {
+            return;
+          }
+
+          actionForm
                 .attr("action", "/stock/modify")
                 .attr("method", "post");
-
-        actionForm.submit();
-
-      });
-
+          actionForm.submit();
+          });
     </script>
 
   </th:block>
-
 </th:block>
 

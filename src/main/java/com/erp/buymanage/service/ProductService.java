@@ -1,9 +1,16 @@
 package com.erp.buymanage.service;
 
+import com.erp.buymanage.dto.ProductImageDTO;
 import com.erp.buymanage.dto.ProductPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.ProductDTO;
 import com.erp.buymanage.entity.Product;
+import com.erp.buymanage.entity.ProductImage;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public interface ProductService {
     // 등록처리
@@ -22,18 +29,53 @@ public interface ProductService {
     void modify(ProductDTO dto);
 
     // dto -> 엔티티
-    default Product dtoToEntity(ProductDTO dto){
+//    default Product dtoToEntity(ProductDTO dto){
+//        Product entity = Product.builder()
+//                .pno(dto.getPno())
+//                .pcode(dto.getPcode())
+//                .pname(dto.getPname())
+//                .ptype1(dto.getPtype1())
+//                .ptype2(dto.getPtype2())
+//                //.ptype3(dto.getPtype3())
+//                .pcontent(dto.getPcontent())
+//                .petc(dto.getPetc())
+//                .build();
+//        return entity;
+//    }
+    default Map<String, Object> dtoToEntity(ProductDTO dto){
+        System.out.println(">>>>> ProductService (dtoToEntity)");
+
+        Map<String, Object> entityMap = new HashMap<>();
+
         Product entity = Product.builder()
                 .pno(dto.getPno())
                 .pcode(dto.getPcode())
                 .pname(dto.getPname())
                 .ptype1(dto.getPtype1())
                 .ptype2(dto.getPtype2())
+                //.ptype3(dto.getPtype3())
                 .pcontent(dto.getPcontent())
                 .petc(dto.getPetc())
                 .build();
-        return entity;
+        entityMap.put("product", entity);
+
+        List<ProductImageDTO> imageDTOList = dto.getImageDTOList();
+        if(imageDTOList != null && imageDTOList.size() > 0) {
+            List<ProductImage> productImageList = imageDTOList.stream().map(productImageDTO ->
+                {
+                    ProductImage productImage = ProductImage.builder()
+                            .path(productImageDTO.getPath())
+                            .imgName(productImageDTO.getImgName())
+                            .uuid(productImageDTO.getUuid())
+                            .product(entity)
+                            .build();
+                    return productImage;
+                }).collect(Collectors.toList());  //객체를 새로운 리스트로 만드는 방법
+            entityMap.put("imgList", productImageList);
+        }
+        return entityMap;
     }
+
 
     // 엔티티 -> dto
     default ProductDTO entityToDto(Product entity){
@@ -43,6 +85,7 @@ public interface ProductService {
                 .pname(entity.getPname())
                 .ptype1(entity.getPtype1())
                 .ptype2(entity.getPtype2())
+                //.ptype3(entity.getPtype3())
                 .pcontent(entity.getPcontent())
                 .petc(entity.getPetc())
                 .regdate(entity.getRegDate())
