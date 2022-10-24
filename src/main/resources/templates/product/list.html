@@ -6,7 +6,7 @@
 
         <!-- Begin Page Content -->
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">품목정보 목록보기</h1>
+        <h1 class="h3 mb-2 text-gray-800">품목관리</h1>
         <!-- page card -->
         <div class="card shadow mb-4">
 
@@ -112,7 +112,10 @@
                             <td>[[${dto.pname}]]</td>
                             <td>[[${dto.ptype1}]]</td>
                             <td>[[${dto.ptype2}]]</td>
-                            <td></td>
+                            <td>
+                                <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
+                                     th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
+                            </td>
                             <td>[[${dto.petc}]]</td>
                         </tr>
                         </tbody>

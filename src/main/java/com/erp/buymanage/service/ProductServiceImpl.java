@@ -18,9 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 
 @Service
@@ -59,12 +57,25 @@ public class ProductServiceImpl implements ProductService{
         return entity.getPno();
     }
 
-    @Override // 목록처리
-    public PageResultDTO<ProductDTO, Product> getList(ProductPageRequestDTO productPageRequestDTO) {
+    //    @Override // 목록처리
+//    public PageResultDTO<ProductDTO, Product> getList(ProductPageRequestDTO productPageRequestDTO) {
+//        Pageable pageable = productPageRequestDTO.getPageable(Sort.by("pno").descending());
+//        BooleanBuilder booleanBuilder = getSearch(productPageRequestDTO); // 검색조건처리
+//        Page<Product> result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
+//        Function<Product, ProductDTO> fn = (entity -> entityToDto(entity));
+//        return new PageResultDTO<>(result, fn);
+//    }
+    @Override
+    public PageResultDTO<ProductDTO, Object[]> getList(ProductPageRequestDTO productPageRequestDTO) {
         Pageable pageable = productPageRequestDTO.getPageable(Sort.by("pno").descending());
-        BooleanBuilder booleanBuilder = getSearch(productPageRequestDTO); // 검색조건처리
-        Page<Product> result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
-        Function<Product, ProductDTO> fn = (entity -> entityToDto(entity));
+
+        Page<Object[]> result = repository.getListPage(pageable);
+
+        Function<Object[], ProductDTO> fn = (arr -> entityToDto(
+                (Product)arr[0] ,
+                (List<ProductImage>)(Arrays.asList((ProductImage)arr[1]))
+        ));
+
         return new PageResultDTO<>(result, fn);
     }
 
@@ -122,10 +133,24 @@ public class ProductServiceImpl implements ProductService{
         return booleanBuilder;
     }
 
-    @Override // 조회처리
+    //    @Override // 조회처리
+//    public ProductDTO read(Long pno) {
+//        Optional<Product> result = repository.findById(pno);
+//        return result.isPresent() ? entityToDto(result.get()) : null;
+//    }
+    @Override
     public ProductDTO read(Long pno) {
-        Optional<Product> result = repository.findById(pno);
-        return result.isPresent() ? entityToDto(result.get()) : null;
+        List<Object[]> result = repository.getMovieWithAll(pno);
+
+        Product entity = (Product) result.get(0)[0];
+
+        List<ProductImage> productImageList = new ArrayList<>();
+
+        result.forEach(arr -> {
+            ProductImage productImage = (ProductImage)arr[1];
+            productImageList.add(productImage);
+        });
+        return entityToDto(entity, productImageList);
     }
 
     @Override // 삭제처리
