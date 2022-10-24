@@ -4,7 +4,7 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
     <th:block th:fragment="content">
 
-        <h1 class="mt-4">품목정보 수정 페이지</h1>
+        <h1 class="h3 mb-2 text-gray-800">품목정보 수정하기</h1>
         <!-- page card -->
         <div class="card shadow mb-4">
             <!-- card-body -->
@@ -44,11 +44,11 @@
                     </div>
                     <div class="form-group">
                         <label>품목설명</label>
-                        <textarea class="form-control" rows="5" name="pcontent" th:value="${dto.pcontent}"></textarea>
+                        <textarea class="form-control" rows="5" name="pcontent">[[${dto.pcontent}]]</textarea>
                     </div>
                     <div class="form-group">
                         <label>기타참고</label>
-                        <textarea class="form-control" rows="2" name="petc" th:value="${dto.petc}"></textarea>
+                        <textarea class="form-control" rows="2" name="petc">[[${dto.petc}]]</textarea>
                     </div>
                     <div class="form-group">
                         <label>첨부파일</label>

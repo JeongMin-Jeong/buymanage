@@ -6,7 +6,7 @@
 
         <!-- Begin Page Content -->
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">계약관리</h1>
+        <h1 class="h3 mb-2 text-gray-800">계약정보 목록보기</h1>
         <!-- page card -->
         <div class="card shadow mb-4">
 
@@ -71,7 +71,7 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">계약번호</th>
+                            <th scope="col">계약코드</th>
                             <th scope="col">품목코드</th>
                             <th scope="col">품목이름</th>
                             <th scope="col">거래처명</th>
@@ -81,8 +81,8 @@
                         </thead>
                         <tbody>
                         <tr th:each="dto: ${result.dtoList}">
-                            <td><input type="checkbox" name="contract" value="${dto.cno}"></td>
-                            <th><a th:href="@{/contract/read(cno=${dto.cno}, page=${result.page})}">[[${dto.ccode}]]</a></th>
+                            <td><a th:href="@{/contract/read(cno=${dto.cno}, page=${result.page})}">[[${dto.cno}]]</a></td>
+                            <th>[[${dto.ccode}]]</th>
                             <td>[[${dto.pcode}]]</td>
                             <td>[[${dto.pname}]]</td>
                             <td>[[${dto.cpartnername}]]</td>
