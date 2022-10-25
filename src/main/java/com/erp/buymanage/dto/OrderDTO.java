@@ -3,9 +3,12 @@ package com.erp.buymanage.dto;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.sql.Date;
-
+import java.time.LocalDateTime;
 
 
 @NoArgsConstructor
@@ -19,6 +22,7 @@ public class OrderDTO
 
 {
     private Long ono;
+    private String ocode;
     private String orderdate;
     private String deliverydate;
     private String duedate;
@@ -50,4 +54,19 @@ public class OrderDTO
 //        this.ostate = ostate;
 //        this.oetc = oetc;
 //    }
+//@Entity(name = "test_jojo")
+//@Getter
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//public class Jojo {
+//
+//    @Id
+//    @GeneratedValue
+//    @Column(name = "jo_id")
+//    private Long joId;
+//
+//    @Column
+//    private LocalDateTime regDate;
+//
+//}
+
 }
