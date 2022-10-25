@@ -70,7 +70,6 @@ public class ContractServiceImpl implements ContractService{
 
         if(ctype1 != null && ctype2 != null) {
             conditionBuilder.and(qContract.cstatus.eq(ctype1));
-            //conditionBuilder.and(qContract.cstatus.eq(ctype2));
             if (ctype2.contains("cc")) {
                 conditionBuilder.or(qContract.ccode.contains(keyword));
             }
@@ -90,15 +89,6 @@ public class ContractServiceImpl implements ContractService{
 
         if(ctype1 != null ){
             conditionBuilder.and(qContract.cstatus.eq(ctype1));
-//            if (ctype1.contains("NEW")) {
-//                conditionBuilder.and(qContract.cstatus.eq("NEW"));
-//            }
-//            if (ctype1.contains("DONE")) {
-//                conditionBuilder.and(qContract.cstatus.eq("DONE"));
-//            }
-//            if (ctype1.contains("TERMINATION")) {
-//                conditionBuilder.and(qContract.cstatus.eq("TERMINATION"));
-//            }
         }
 
         if(ctype2 != null) {
