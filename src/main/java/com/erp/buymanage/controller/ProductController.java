@@ -38,31 +38,29 @@ public class ProductController {
     }
 
     @GetMapping("/register")
-    public void register(){
+    public void register(@AuthenticationPrincipal AuthMemberDTO authMember){
         log.info(">>>>> ProductController (register GetMapping)");
     }
 
     @PostMapping("/register")
     public String register(ProductDTO dto, RedirectAttributes redirectAttributes){
         log.info(">>>>> ProductController (register PostMapping)");
-
         Long pno = service.register(dto);
         redirectAttributes.addFlashAttribute("msg", pno);
         return "redirect:/product/list";
     }
 
     @GetMapping({"/read","/modify"})
-    public void read(long pno, @ModelAttribute("requestDTO") ProductPageRequestDTO productPageRequestDTO, Model model){
-        log.info(">>>>> ProductController (read,modify GetMapping)");
-
+    public void read(long pno, @ModelAttribute("requestDTO") ProductPageRequestDTO productPageRequestDTO, Model model,@AuthenticationPrincipal AuthMemberDTO authMember){
+        log.info(">>>>> ProductController(read,modify GetMapping)");
+        log.info(">>>>> pno: " + pno);
         ProductDTO dto = service.read(pno);
         model.addAttribute("dto", dto);
     }
 
     @PostMapping("/modify")
-    public String modify(ProductDTO dto, @ModelAttribute("requestDTO") ProductPageRequestDTO productPageRequestDTO, RedirectAttributes redirectAttributes){
-        log.info(">>>>> ProductController (modify PostMapping)");
-
+    public String modify(ProductDTO dto, @ModelAttribute("requestDTO") ProductPageRequestDTO productPageRequestDTO, RedirectAttributes redirectAttributes,@AuthenticationPrincipal AuthMemberDTO authMember){
+        log.info(">>>>> ProductController(modify PostMapping)");
         service.modify(dto);
         redirectAttributes.addAttribute("page", productPageRequestDTO.getPage());
         redirectAttributes.addAttribute("pno", dto.getPno());
