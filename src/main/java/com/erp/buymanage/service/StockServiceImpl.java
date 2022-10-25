@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -44,15 +45,17 @@ public class StockServiceImpl implements StockService {
         for (Stock stockEntity : stockList ) {
             if(!stockEntity.getScode().equals(scode)) {
                 list.add(stockEntity.getScode());
-            }
-            if (stockEntity.getScode().equals(dto.getScode())){
+            } else if (stockEntity.getScode().equals(dto.getScode())){
+                list.add(dto.getScode());
                 stockRepository.updateSin(sin,scode);
                 break;
             }
         }
+        if (!list.contains(scode)){
+            stockRepository.save(entity);
+        }
 
         log.info(entity);
-
 
         return entity.getSno();
     }
