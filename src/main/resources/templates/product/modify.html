@@ -4,7 +4,7 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
     <th:block th:fragment="content">
 
-        <h1 class="mt-4">품목정보 수정 페이지</h1>
+        <h1 class="h3 mb-2 text-gray-800">품목정보 수정하기</h1>
         <!-- page card -->
         <div class="card shadow mb-4">
             <!-- card-body -->
@@ -25,35 +25,30 @@
                         <input type="text" class="form-control" name="pname" th:value="${dto.pname}">
                     </div>
                     <div class="form-group">
-                        <label>대분류</label>
+                        <label>품목분류</label>
                         <input type="text" class="form-control" name="ptype1" th:value="${dto.ptype1}" readonly>
-                        <select class="form-select" style="height:50px;" onchange="selectptype1(this.value);">
-                            <option value="미분류">-분류선택--------------------------------</option>
-                            <option value="데스크톱">데스크톱</option>
-                            <option value="노트북">노트북</option>
-                            <option value="서버">서버</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>중분류</label>
+                        <select id="category" name="ptype1" size="1" onchange="makeSubmenu(this.value);selectptype1(this.value);" style="width:100%;height:50px;">
+                            <option value="" disabled selected>-분류선택--------------------------------</option>
+                            <option value="DESKTOP">DESKTOP</option>
+                            <option value="NOTEBOOK">NOTEBOOK</option>
+                            <option value="SERVER">SERVER</option>
+                            <option value="ETC">ETC</option>
+                            <option value="ACCESSORY">ACCESSORY</option>
+                            <option value="TOOLS">TOOLS</option>
+                        </select>&nbsp;
                         <input type="text" class="form-control" name="ptype2" th:value="${dto.ptype2}" readonly>
-                        <select class="form-select" style="height:50px;" onchange="selectptype2(this.value);">
-                            <option value="미분류">-분류선택--------------------------------</option>
-                            <option value="CPU">CPU</option>
-                            <option value="메인보드">메인보드</option>
-                            <option value="메모리">메모리</option>
-                            <option value="하드디스크">하드디스크/SDD</option>
-                            <option value="케이스">케이스</option>
-                            <option value="파워">파워</option>
-                        </select>
+                        <select id="categorySelect" name="ptype2" size="1" style="width:100%;height:50px;" onchange="selectptype2(this.value);">
+                            <option value="" disabled selected>-분류선택--------------------------------</option>
+                            <option></option>
+                        </select>&nbsp;
                     </div>
                     <div class="form-group">
-                        <label>설명</label>
-                        <textarea class="form-control" rows="5" name="pcontent" th:value="${dto.pcontent}"></textarea>
+                        <label>품목설명</label>
+                        <textarea class="form-control" rows="5" name="pcontent">[[${dto.pcontent}]]</textarea>
                     </div>
                     <div class="form-group">
-                        <label>비고</label>
-                        <textarea class="form-control" rows="2" name="petc" th:value="${dto.petc}"></textarea>
+                        <label>기타참고</label>
+                        <textarea class="form-control" rows="2" name="petc">[[${dto.petc}]]</textarea>
                     </div>
                     <div class="form-group">
                         <label>첨부파일</label>

@@ -30,6 +30,7 @@ public interface OrderService {
                 .ptype2(dto.getPtype2())
                 .pcode(dto.getPcode())
                 .pcontent(dto.getPcontent())
+                .ocode(dto.getOcode())
                 .build();
             return entity;
     }
@@ -51,6 +52,7 @@ public interface OrderService {
                 .ptype2(entity.getPtype2())
                 .pcode(entity.getPcode())
                 .pcontent(entity.getPcontent())
+                .ocode(entity.getOcode())
                 .build();
         return dto;
 

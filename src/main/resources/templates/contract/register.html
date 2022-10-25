@@ -4,7 +4,7 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
   <th:block th:fragment="content">
 
-    <h1 class="mt-4">계약정보 등록 페이지</h1>
+      <h1 class="h3 mb-2 text-gray-800">계약정보 등록하기</h1>
 
         <form th:action="@{/contract/register}" th:method="post">
 
@@ -12,14 +12,17 @@
             <div class="card shadow mb-4">
                 <!-- card-body -->
                 <div class="card-body">
-
                     <div class="form-group">
-                      <label>계약번호</label>
-                      <input type="text" class="form-control" name="ccode">
+                        <label>계약번호</label>
+                        <!-- <input type="text" class="form-control" name="ccode"> -->
+                        <input type="text" class="form-control" name="ccode" id="ccode" placeholder="클릭하세요!!!" onclick="displayRandomCNum();" readonly>
                     </div>
-
-                </div>
-            </div>
+                    <div class="form-group">
+                        <label>계약일자</label>
+                        <input type="date" class="form-control" name="cdate">
+                    </div>
+                </div><!-- card-body -->
+            </div><!-- page card -->
 
             <!-- page card -->
             <div class="card shadow mb-4">
@@ -47,8 +50,8 @@
                         <input type="text" class="form-control" name="cpartnerfax">
                     </div>
 
-                </div>
-            </div>
+                </div><!-- card-body -->
+            </div><!-- page card -->
 
             <!-- page card -->
             <div class="card shadow mb-4">
@@ -72,8 +75,8 @@
                         <input type="text" class="form-control" name="pprice">
                     </div>
 
-                </div>
-            </div>
+                </div><!-- card-body -->
+            </div><!-- page card -->
 
             <!-- page card -->
             <div class="card shadow mb-4">
@@ -89,28 +92,19 @@
                         <input type="text" class="form-control" name="cpartnermanager">
                     </div>
                     <div class="form-group">
-                        <label>계약일자</label>
-                        <input type="date" class="form-control" name="cdate">
+                        <label>납기일자</label>
+                        <input type="date" class="form-control" name="cdeliverydate">
                     </div>
                     <div class="form-group">
-                        <label>계약상태</label>
-                        <select class="form-select" name="cstatus" style="height:40px;">
-                            <option value="미분류">-분류선택--------------------------------</option>
-                            <option value="신규">신규</option>
-                            <option value="완료">완료</option>
-                            <option value="종료">종료</option>
-                        </select>
+                        <input type="hidden" class="form-control" name="cstatus" value="신규계약">
                     </div>
                     <div class="form-group">
                         <label>양도,양수조건</label>
-                        <textarea class="form-control" rows="2" name="cetc"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>리드타임</label>
-                        <input type="text" class="form-control" name="cleadtime">
+                        <textarea class="form-control" rows="3" name="cetc"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary">등록</button>
+                    <a th:href="@{/contract/list}"><button type="button" class="btn btn-info">목록</button></a>
 
                 </div><!-- card-body -->
             </div><!-- page card -->

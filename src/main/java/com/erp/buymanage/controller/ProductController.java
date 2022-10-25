@@ -26,24 +26,26 @@ public class ProductController {
     @GetMapping("/")
     public String index(){
         log.info(">>>>> ProductController(\"/\")");
+
         return "redirect:/product/list";
     }
 
     @GetMapping("/list")
     public void list(ProductPageRequestDTO productPageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMember){
-
         log.info(">>>>> ProductController(list)");
+
         model.addAttribute("result", service.getList(productPageRequestDTO));
     }
 
     @GetMapping("/register")
     public void register(){
-        log.info(">>>>> ProductController(register GetMapping)");
+        log.info(">>>>> ProductController (register GetMapping)");
     }
 
     @PostMapping("/register")
-    public String registerProduct(ProductDTO dto, RedirectAttributes redirectAttributes){
-        log.info(">>>>> ProductController(register PostMapping)");
+    public String register(ProductDTO dto, RedirectAttributes redirectAttributes){
+        log.info(">>>>> ProductController (register PostMapping)");
+
         Long pno = service.register(dto);
         redirectAttributes.addFlashAttribute("msg", pno);
         return "redirect:/product/list";

@@ -2,21 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
   <th:block th:fragment="content">
-    <h1 class="mt-4">품목정보 등록 페이지</h1>
+
+    <h1 class="h3 mb-2 text-gray-800">발주정보 등록하기</h1>
     <!-- page card -->
     <div class="card shadow mb-4">
       <!-- card-body -->
       <div class="card-body">
 
         <form th:action="@{/order/register}" th:method="post">
-          <div class="form-group">
-            <label>발주코드</label>
-            <input type="text" class="form-control" name="ocode" id="ocode" placeholder="클릭하세요!!!" onclick="displayRandomoNum();" readonly>
-          </div>
-
           <div class="form-group" >
-            <label>품목코드</label>
-            <input type="text" class="form-control" name="pcode" placeholder="P0000" >
+            <label>발주코드</label>
+            <!-- <input type="text" class="form-control" name="pcode" placeholder="P0000" > -->
+            <input type="text" class="form-control" name="ocode" id="ocode" placeholder="클릭하세요!!!" onclick="displayRandomONum();" readonly>
           </div>
 
           <div class="form-group" >
@@ -48,20 +45,20 @@
           </div>
           <div class="form-group"  >
             <label>수량</label> <input type="text" class="form-control" id="oquantity" name="oquantity" >
-            <label>공급단가(원)</label> <input type="text"  class="form-control"id="oprice" name="oprice" >
+            <label>공급단가(원)</label> <input type="text"  class="form-control"id="oprice" name="oprice"  >
           </div>
           <div >
-          <div class="form-group"  >
-            <label>납품업체</label> <input type="text" class="form-control" id="ocompany" name="ocompany" >
-            <label>담당자</label> <input type="text" class="form-control" id="omanager" name="omanager" >
-          </div>
+            <div class="form-group"  >
+              <label>납품업체</label> <input type="text" class="form-control" id="ocompany" name="ocompany" >
+              <label>담당자</label> <input type="text" class="form-control" id="omanager" name="omanager" >
+            </div>
           </div>
           <div >
-          <div class="form-group" >
-            <label>발주일자</label><input type="date" class="form-control" name="orderdate">
-            <label>납기일자</label><input type="date" class="form-control" name="deliverydate">
-            <label>마감일자</label><input type="date" class="form-control" name="duedate">
-          </div>
+            <div class="form-group" >
+              <label>발주일자</label><input type="date" class="form-control" name="orderdate">
+              <label>납기일자</label><input type="date" class="form-control" name="deliverydate">
+              <label>마감일자</label><input type="date" class="form-control" name="duedate">
+            </div>
           </div>
           <div class="form-group" >
             <label>발주상태</label>
@@ -69,11 +66,11 @@
               <option value="발주상태">---------------------------------</option>
               <option value="구매발주">구매발주</option>
               <option value="입고처리">입고처리</option>
-              <option value="반품처리">반품처리</option>
+              <option value="발품처리">발품처리</option>
               <option value="마감완료">마감완료</option>
             </select>
           </div>
-            <div class="form-group">
+          <div class="form-group">
             <label>설명</label>
             <textarea class="form-control" rows="5" name="pcontent"></textarea>
           </div>

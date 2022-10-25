@@ -20,6 +20,7 @@ public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ono;
+
     private String ocode;
     private String orderdate;
     private String deliverydate;
@@ -74,6 +75,6 @@ public class OrderEntity {
     public void changePcontent(String pcontent){
         this.pcontent = pcontent;
     }
-    public  void changeOcode(String ocode) {this.ocode=ocode;}
+//    public  void changeOcode(String ocode) {this.ocode=ocode;}
 
 }
