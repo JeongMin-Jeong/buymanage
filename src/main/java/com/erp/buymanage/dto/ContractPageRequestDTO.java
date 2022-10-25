@@ -14,9 +14,9 @@ public class ContractPageRequestDTO {
 
     private int page;
     private int size;
-    private String type;
+    private String ctype1;
+    private String ctype2;
     private String keyword;
-
 
     public ContractPageRequestDTO(){
         this.page = 1;
@@ -24,8 +24,6 @@ public class ContractPageRequestDTO {
     }
 
     public Pageable getPageable(Sort sort){
-
         return PageRequest.of(page -1, size, sort);
-
     }
 }

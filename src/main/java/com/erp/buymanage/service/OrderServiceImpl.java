@@ -5,7 +5,10 @@ import com.erp.buymanage.dto.OrderDTO;
 import com.erp.buymanage.dto.OrderPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.entity.OrderEntity;
+import com.erp.buymanage.entity.QOrderEntity;
+import com.erp.buymanage.entity.Stock;
 import com.erp.buymanage.repository.OrderRepository;
+import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -31,6 +34,7 @@ public class OrderServiceImpl implements OrderService {
         log.info(entity);
 
         repository.save(entity);
+
         return entity.getOno();
 
     }
@@ -41,8 +45,24 @@ public class OrderServiceImpl implements OrderService {
         Page<OrderEntity> result = repository.findAll(pageable);
 
         Function<OrderEntity,OrderDTO> fn = (entity -> entityToDto(entity));
-        return new PageResultDTO<>(result,fn);
 
+        return new PageResultDTO<>(result,fn);
+    }
+    @Override
+    public PageResultDTO<OrderDTO, OrderEntity> getList2(OrderPageRequestDTO requestDTO) {
+        Pageable pageable = requestDTO.getPageable(Sort.by("ono").descending());
+
+        QOrderEntity qOrderEntity = QOrderEntity.orderEntity;
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+        booleanBuilder.and(qOrderEntity.ostate.eq("검수완료"));
+
+        Page<OrderEntity> result = repository.findAll(booleanBuilder, pageable);
+
+        Function<OrderEntity,OrderDTO> fn = (entity -> entityToDto(entity));
+
+        return new PageResultDTO<>(result,fn);
     }
     @Override
     public OrderDTO read(Long ono) {
@@ -80,11 +100,24 @@ public class OrderServiceImpl implements OrderService {
             entity.changeOrderdate(dto.getOrderdate());
 
 
-                    repository.save(entity);
+            repository.save(entity);
         }
 
     }
 
 
+
+
+
+    @Override
+    public void inputModify(OrderDTO dto) {
+        Optional<OrderEntity> result = repository.findById(dto.getOno());
+
+        if(result.isPresent()) {
+            OrderEntity entity = result.get();
+            entity.changeOstate(dto.getOstate());
+            repository.save(entity);
+        }
+    }
 
 }
