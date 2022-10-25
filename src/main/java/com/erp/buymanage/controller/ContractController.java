@@ -36,12 +36,12 @@ public class ContractController {
     }
 
     @GetMapping("/register")
-    public void register(@AuthenticationPrincipal AuthMemberDTO authMember){
+    public void register(){
         log.info(">>>>> ContractController(register GetMapping)");
     }
 
     @PostMapping("/register")
-    public String registerContract(ContractDTO dto, RedirectAttributes redirectAttributes, @AuthenticationPrincipal AuthMemberDTO authMember){
+    public String registerContract(ContractDTO dto, RedirectAttributes redirectAttributes){
         log.info(">>>>> ContractController(register PostMapping)");
         Long cno = service.register(dto);
         redirectAttributes.addFlashAttribute("msg", cno);
@@ -49,14 +49,14 @@ public class ContractController {
     }
 
     @GetMapping({"/read", "/modify"})
-    public void read(long cno, @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMember){
+    public void read(long cno, @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, Model model){
         log.info(">>>>> ContractController(read,modify GetMapping)");
         ContractDTO dto = service.read(cno);
         model.addAttribute("dto", dto);
     }
 
     @PostMapping("/modify")
-    public String modify(ContractDTO dto, @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, RedirectAttributes redirectAttributes, @AuthenticationPrincipal AuthMemberDTO authMember){
+    public String modify(ContractDTO dto, @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, RedirectAttributes redirectAttributes){
         log.info(">>>>> ContractController(modify PostMapping)");
         service.modify(dto);
         redirectAttributes.addAttribute("page", contractPageRequestDTO.getPage());
