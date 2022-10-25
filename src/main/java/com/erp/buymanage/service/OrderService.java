@@ -4,11 +4,13 @@ import com.erp.buymanage.dto.OrderDTO;
 import com.erp.buymanage.dto.OrderPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.entity.OrderEntity;
+import com.querydsl.core.types.Order;
 
 public interface OrderService {
 
     long register(OrderDTO dto);
     PageResultDTO<OrderDTO, OrderEntity> getList(OrderPageRequestDTO requestDTO);
+    PageResultDTO<OrderDTO, OrderEntity> getList2(OrderPageRequestDTO requestDTO);
     OrderDTO read(Long ono);
 
     default OrderEntity dtoToEntity(OrderDTO dto) {
@@ -58,6 +60,8 @@ public interface OrderService {
     void remove(Long ono);
 
     void modify(OrderDTO dto);
+
+    void inputModify(OrderDTO dto);
 
 
 }

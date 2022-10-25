@@ -6,7 +6,7 @@
 
         <!-- Begin Page Content -->
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">자재관리</h1>
+        <h1 class="h3 mb-2 text-gray-800">자재현황</h1>
         <!-- page card -->
         <div class="card shadow mb-4">
 
@@ -87,7 +87,7 @@
             </div><!-- <div class="card-body"> -->
 
 
-            <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">목록</h6></div>
+            <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">자재목록</h6></div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable">
@@ -102,12 +102,11 @@
                             <th>출고수량</th>
                             <th>반품수량</th>
                             <th>재고수량</th>
-                            <th>비고</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="dto : ${result.dtoList}">
-                            <td><input type="checkbox" name="checkbox" th:value="${dto.sno}"></td>
+                            <td><input type="radio" name="radio" th:value="${dto.sno}"></td>
                             <td>[[${dto.scode}]]</td>
                             <td><a th:href="@{/stock/read(sno = ${dto.sno}, page = ${result.page}, type1 = ${stockPageRequestDTO.type1}, type2 = ${stockPageRequestDTO.type2}, type3 = ${stockPageRequestDTO.type3}, keyword = ${stockPageRequestDTO.keyword})}">[[${dto.sname}]]</a></td>
                             <td>[[${dto.scate1}]]</td>
@@ -116,15 +115,12 @@
                             <td>[[${dto.sout}]]</td>
                             <td>[[${dto.sreturn}]]</td>
                             <td>[[${dto.stock}]]</td>
-                            <td>[[${dto.snote}]]</td>
                         </tr>
                         </tbody>
                     </table>
 
                     <div style="float: right">
-                        <button class="btn btn-outline-secondary stockInputBtn" type="button">자재입고</button>
                         <button class="btn btn-outline-secondary stickOutputBtn" type="button">자재출고</button>
-                        <button class="btn btn-outline-secondary stockReturnBtn" type="button">자재반품</button>
                         <button class="btn btn-outline-secondary stockRegistBtn" type="button" onclick="location.href='/stock/register';">자재등록</button>
                     </div>
 
