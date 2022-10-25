@@ -2,6 +2,8 @@ package com.erp.buymanage.entity;
 
 import lombok.*;
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -34,6 +36,8 @@ public class Product extends BaseEntity{
     @Column(length = 255, nullable = false)
     private String petc; // 비고
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    private Set<ProductImage> productImages = new HashSet<>();
 
     public void changePname(String pname){
         this.pname = pname;

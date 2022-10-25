@@ -84,7 +84,8 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
-                                <th scope="col">발주번호</th>
+                                <th scope="col">#</th>
+                                <th scope="col">발주코드</th>
                                 <th scope="col">발주일자</th>
                                 <th scope="col">납기일자</th>
                                 <th scope="col">마감일자</th>
@@ -100,14 +101,16 @@
                             <tbody>
 
                             <tr th:each="dto : ${result.dtoList}">
-                                <th scope="row">
-                                    <a th:href="@{/order/read(ono = ${dto.ono},
-                    page= ${result.page},
-                    type=${orderPageRequestDTO.type} ,
-                    keyword = ${orderPageRequestDTO.keyword})}">
-                                        [[${dto.ono}]]
-                                    </a>
-                                </th>
+
+                                <td><input type="checkbox" name="checkbox" th:value="${dto.ono}"></td>
+                                                                <th scope="row">
+                                                                    <a th:href="@{/order/read(ono = ${dto.ono},
+                                                    page= ${result.page},
+                                                    type=${orderPageRequestDTO.type} ,
+                                                    keyword = ${orderPageRequestDTO.keyword})}">
+                                                                        [[${dto.ocode}]]
+                                                                    </a>
+                                                                </th>
                                 <td>[[${dto.orderdate}]]</td>
                                 <td>[[${dto.deliverydate}]]</td>
                                 <td>[[${dto.duedate}]]</td>
@@ -118,6 +121,7 @@
                                 <td>[[${dto.omanager}]]</td>
                                 <td>[[${dto.ostate}]]</td>
                                 <td>[[${dto.oetc}]]</td>
+
 
                             </tr>
 <!--                            <tr>-->

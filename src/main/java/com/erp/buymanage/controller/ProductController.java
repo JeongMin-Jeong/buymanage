@@ -25,14 +25,14 @@ public class ProductController {
 
     @GetMapping("/")
     public String index(){
-        log.info(">>>>> ProductController(\"/\")");
+        log.info(">>>>> ProductController (index)");
 
         return "redirect:/product/list";
     }
 
     @GetMapping("/list")
     public void list(ProductPageRequestDTO productPageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMember){
-        log.info(">>>>> ProductController(list)");
+        log.info(">>>>> ProductController (list)");
 
         model.addAttribute("result", service.getList(productPageRequestDTO));
     }
@@ -69,8 +69,8 @@ public class ProductController {
 
     @PostMapping("/remove")
     public String remove(long pno, RedirectAttributes redirectAttributes){
-        log.info(">>>>> ProductController(remove PostMapping)");
-        log.info(">>>>> pno: " + pno);
+        log.info(">>>>> ProductController (remove PostMapping)");
+
         service.remove(pno);
         redirectAttributes.addFlashAttribute("msg", pno);
         return "redirect:/product/list";

@@ -18,9 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 
 @Service
@@ -34,41 +32,41 @@ public class ProductServiceImpl implements ProductService{
     @Transactional
     @Override // 등록처리
     public Long register(ProductDTO dto) {
-//        log.info(">>>>> ProductServiceImpl (register)");
-//        log.info(">>>>> dto");
-//        log.info(">>>>> dtoToEntity");
-//        Product entity = dtoToEntity(dto);
-//        log.info(">>>>> entity");
-//        log.info(">>>>> repository에 저장");
-//        repository.save(entity);
-//        log.info(">>>>> return entity.getPno()");
-//        return entity.getPno();
+        log.info(">>>>> ProductServiceImpl (register)");
 
         Map<String , Object> entityMap = dtoToEntity(dto);
         Product entity =(Product) entityMap.get("product");
         List<ProductImage> productImageList= (List<ProductImage>) entityMap.get("imgList");
-        log.info(">>>>> Product,entity dtoToEntity");
+        log.info(">>>>>>>>>> dtoToEntity");
 
         repository.save(entity);
-        log.info(">>>>> ProductRepository 저장");
+        log.info(">>>>>>>>>> ProductRepository 저장");
         productImageList.forEach(imageEntity -> {
             imageRepository.save(imageEntity);
         });
-        log.info(">>>>> ProductImageRepository 저장");
+        log.info(">>>>>>>>>> ProductImageRepository 저장");
 
         return entity.getPno();
     }
 
     @Override // 목록처리
-    public PageResultDTO<ProductDTO, Product> getList(ProductPageRequestDTO productPageRequestDTO) {
+    public PageResultDTO<ProductDTO, Object[]> getList(ProductPageRequestDTO productPageRequestDTO) {
+        log.info(">>>>> ProductServiceImpl (getList)");
+
         Pageable pageable = productPageRequestDTO.getPageable(Sort.by("pno").descending());
-        BooleanBuilder booleanBuilder = getSearch(productPageRequestDTO); // 검색조건처리
-        Page<Product> result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
-        Function<Product, ProductDTO> fn = (entity -> entityToDto(entity));
+        Page<Object[]> result = repository.getListPage(pageable);
+
+        Function<Object[], ProductDTO> fn = (arr -> entityToDto(
+                (Product)arr[0] ,
+                (List<ProductImage>)(Arrays.asList((ProductImage)arr[1]))
+        ));
+
         return new PageResultDTO<>(result, fn);
     }
 
     private BooleanBuilder getSearch(ProductPageRequestDTO productPageRequestDTO) {
+        log.info(">>>>> ProductServiceImpl (getSearch)");
+
         String ptype1 = productPageRequestDTO.getPtype1();
         String ptype2 = productPageRequestDTO.getPtype2();
         String ptype3 = productPageRequestDTO.getPtype3();
@@ -124,17 +122,30 @@ public class ProductServiceImpl implements ProductService{
 
     @Override // 조회처리
     public ProductDTO read(Long pno) {
-        Optional<Product> result = repository.findById(pno);
-        return result.isPresent() ? entityToDto(result.get()) : null;
+        log.info(">>>>> ProductServiceImpl (read)");
+
+        List<Object[]> result = repository.getMovieWithAll(pno);
+        Product entity = (Product) result.get(0)[0];
+
+        List<ProductImage> productImageList = new ArrayList<>();
+        result.forEach(arr -> {
+            ProductImage productImage = (ProductImage)arr[1];
+            productImageList.add(productImage);
+        });
+        return entityToDto(entity, productImageList);
     }
 
     @Override // 삭제처리
     public void remove(Long pno) {
+        log.info(">>>>> ProductServiceImpl (remove)");
+
         repository.deleteById(pno);
     }
 
     @Override // 수정처리
     public void modify(ProductDTO dto) {
+        log.info(">>>>> ProductServiceImpl (modify)");
+
         Optional<Product> result = repository.findById(dto.getPno());
         if(result.isPresent()){
             Product entity = result.get();
