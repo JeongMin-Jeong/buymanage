@@ -10,8 +10,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long>, QuerydslPredicateExecutor<Product> {
-    //@Query("SELECT m, avg(coalesce(r.grade,0)), count(distinct r) " +
-    //        "FROM Movie m LEFT OUTER JOIN Review r ON r.movie = m GROUP BY m")
     @Query("SELECT p, pi " +
             "FROM Product p " +
             "LEFT OUTER JOIN ProductImage pi ON pi.product = p " + //영화이미지에 대한 조건 추가

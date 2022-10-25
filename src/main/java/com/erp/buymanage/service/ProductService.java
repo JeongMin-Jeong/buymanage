@@ -29,19 +29,6 @@ public interface ProductService {
     void modify(ProductDTO dto);
 
     // dto -> 엔티티
-//    default Product dtoToEntity(ProductDTO dto){
-//        Product entity = Product.builder()
-//                .pno(dto.getPno())
-//                .pcode(dto.getPcode())
-//                .pname(dto.getPname())
-//                .ptype1(dto.getPtype1())
-//                .ptype2(dto.getPtype2())
-//                //.ptype3(dto.getPtype3())
-//                .pcontent(dto.getPcontent())
-//                .petc(dto.getPetc())
-//                .build();
-//        return entity;
-//    }
     default Map<String, Object> dtoToEntity(ProductDTO dto){
         System.out.println(">>>>> ProductService (dtoToEntity)");
 
@@ -78,21 +65,6 @@ public interface ProductService {
 
 
     // 엔티티 -> dto
-//    default ProductDTO entityToDto(Product entity){
-//        ProductDTO dto = ProductDTO.builder()
-//                .pno(entity.getPno())
-//                .pcode(entity.getPcode())
-//                .pname(entity.getPname())
-//                .ptype1(entity.getPtype1())
-//                .ptype2(entity.getPtype2())
-//                //.ptype3(entity.getPtype3())
-//                .pcontent(entity.getPcontent())
-//                .petc(entity.getPetc())
-//                .regdate(entity.getRegDate())
-//                .moddate(entity.getModDate())
-//                .build();
-//        return dto;
-//    }
     default ProductDTO entityToDto(Product entity, List<ProductImage> productImages){
         ProductDTO dto = ProductDTO.builder()
                 .pno(entity.getPno())
