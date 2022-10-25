@@ -35,7 +35,7 @@ function displayRandomCNum() {
     var ccode = "C" + cdate + rnum;
     document.getElementById("ccode").value = ccode;
     alert("계약코드 생성 완료 하였습니다. : "+ ccode);
-    document.getElementById("ccode").disabled = true;
+    // document.getElementById("ccode").disabled = true;
 }
 
 function displayRandomSNum() {
@@ -46,7 +46,7 @@ function displayRandomSNum() {
     var scode = "S" + cdate + rnum;
     document.getElementById("scode").value = scode;
     alert("자재코드 생성 완료 하였습니다. : "+ scode);
-    document.getElementById("scode").disabled = true;
+    // document.getElementById("scode").disabled = true;
 }
 
 function displayRandomONum() {
@@ -57,5 +57,5 @@ function displayRandomONum() {
     var ocode = "O" + cdate + rnum;
     document.getElementById("ocode").value = ocode;
     alert("발주코드 생성 완료 하였습니다. : "+ ocode);
-    document.getElementById("ocode").disabled = true;
+    // document.getElementById("ocode").disabled = true;
 }

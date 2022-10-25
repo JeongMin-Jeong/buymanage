@@ -75,6 +75,6 @@ public class OrderEntity {
     public void changePcontent(String pcontent){
         this.pcontent = pcontent;
     }
-//    public  void changeOcode(String ocode) {this.ocode=ocode;}
+    public  void changeOcode(String ocode) {this.ocode=ocode;}
 
 }

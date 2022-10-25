@@ -78,6 +78,7 @@ public class OrderServiceImpl implements OrderService {
             entity.changeOstate(dto.getOstate());
             entity.changeOquantity(dto.getOquantity());
             entity.changeOrderdate(dto.getOrderdate());
+            entity.changeOcode(dto.getOcode());
 
 
                     repository.save(entity);

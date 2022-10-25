@@ -37,8 +37,8 @@
                         <tr th:each="dto: ${result.dtoList}">
                             <td><input type="radio" name="radio" th:value="${dto.cno}"></td>
 <!--                            <td><a th:href="@{/contract/read(cno=${dto.cno}, page=${result.page})}">[[${dto.cno}]]</a></td>-->
-<!--                                                        <th><a th:href="@{/order/register(ccode=${dto.ccode}, page=${result.page})}">[[${dto.ccode}]]</a></th>-->
-                            <th>[[${dto.ccode}]]</th>
+                                                        <th><a th:href="@{/order/register(ccode=${dto.ccode}, page=${result.page})}">[[${dto.ccode}]]</a></th>
+<!--                            <th>[[${dto.ccode}]]</th>-->
                             <td>[[${dto.pname}]]</td>
                                                         <td>[[${dto.cpartnername}]]</td>
                                                         <td>[[${dto.pcount}]]</td>
