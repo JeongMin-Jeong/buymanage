@@ -32,25 +32,28 @@ public class ProductServiceImpl implements ProductService{
     @Transactional
     @Override // 등록처리
     public Long register(ProductDTO dto) {
+        log.info(">>>>> ProductServiceImpl (register)");
+
         Map<String , Object> entityMap = dtoToEntity(dto);
         Product entity =(Product) entityMap.get("product");
         List<ProductImage> productImageList= (List<ProductImage>) entityMap.get("imgList");
-        log.info(">>>>> Product,entity dtoToEntity");
+        log.info(">>>>>>>>>> dtoToEntity");
 
         repository.save(entity);
-        log.info(">>>>> ProductRepository 저장");
+        log.info(">>>>>>>>>> ProductRepository 저장");
         productImageList.forEach(imageEntity -> {
             imageRepository.save(imageEntity);
         });
-        log.info(">>>>> ProductImageRepository 저장");
+        log.info(">>>>>>>>>> ProductImageRepository 저장");
 
         return entity.getPno();
     }
 
     @Override // 목록처리
     public PageResultDTO<ProductDTO, Object[]> getList(ProductPageRequestDTO productPageRequestDTO) {
-        Pageable pageable = productPageRequestDTO.getPageable(Sort.by("pno").descending());
+        log.info(">>>>> ProductServiceImpl (getList)");
 
+        Pageable pageable = productPageRequestDTO.getPageable(Sort.by("pno").descending());
         Page<Object[]> result = repository.getListPage(pageable);
 
         Function<Object[], ProductDTO> fn = (arr -> entityToDto(
@@ -62,6 +65,8 @@ public class ProductServiceImpl implements ProductService{
     }
 
     private BooleanBuilder getSearch(ProductPageRequestDTO productPageRequestDTO) {
+        log.info(">>>>> ProductServiceImpl (getSearch)");
+
         String ptype1 = productPageRequestDTO.getPtype1();
         String ptype2 = productPageRequestDTO.getPtype2();
         String ptype3 = productPageRequestDTO.getPtype3();
@@ -117,12 +122,12 @@ public class ProductServiceImpl implements ProductService{
 
     @Override // 조회처리
     public ProductDTO read(Long pno) {
-        List<Object[]> result = repository.getMovieWithAll(pno);
+        log.info(">>>>> ProductServiceImpl (read)");
 
+        List<Object[]> result = repository.getMovieWithAll(pno);
         Product entity = (Product) result.get(0)[0];
 
         List<ProductImage> productImageList = new ArrayList<>();
-
         result.forEach(arr -> {
             ProductImage productImage = (ProductImage)arr[1];
             productImageList.add(productImage);
@@ -132,11 +137,15 @@ public class ProductServiceImpl implements ProductService{
 
     @Override // 삭제처리
     public void remove(Long pno) {
+        log.info(">>>>> ProductServiceImpl (remove)");
+
         repository.deleteById(pno);
     }
 
     @Override // 수정처리
     public void modify(ProductDTO dto) {
+        log.info(">>>>> ProductServiceImpl (modify)");
+
         Optional<Product> result = repository.findById(dto.getPno());
         if(result.isPresent()){
             Product entity = result.get();

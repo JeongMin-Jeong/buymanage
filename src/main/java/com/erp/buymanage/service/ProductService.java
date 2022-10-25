@@ -66,6 +66,8 @@ public interface ProductService {
 
     // 엔티티 -> dto
     default ProductDTO entityToDto(Product entity, List<ProductImage> productImages){
+        System.out.println(">>>>> ProductService (entityToDto)");
+
         ProductDTO dto = ProductDTO.builder()
                 .pno(entity.getPno())
                 .pcode(entity.getPcode())
@@ -87,7 +89,6 @@ public interface ProductService {
         }).collect(Collectors.toList());
 
         dto.setImageDTOList(imageDTOList);
-
         return dto;
     }
 }

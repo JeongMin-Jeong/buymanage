@@ -18,9 +18,7 @@ public class ProductImage {
     private Long ino;
 
     private String uuid;
-
     private String imgName;
-
     private String path ;
 
     @ManyToOne(fetch = FetchType.LAZY)

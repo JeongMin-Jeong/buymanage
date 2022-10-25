@@ -25,14 +25,14 @@ public class ProductController {
 
     @GetMapping("/")
     public String index(){
-        log.info(">>>>> ProductController(\"/\")");
+        log.info(">>>>> ProductController (index)");
 
         return "redirect:/product/list";
     }
 
     @GetMapping("/list")
     public void list(ProductPageRequestDTO productPageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMember){
-        log.info(">>>>> ProductController(list)");
+        log.info(">>>>> ProductController (list)");
 
         model.addAttribute("result", service.getList(productPageRequestDTO));
     }
@@ -53,15 +53,16 @@ public class ProductController {
 
     @GetMapping({"/read","/modify"})
     public void read(long pno, @ModelAttribute("requestDTO") ProductPageRequestDTO productPageRequestDTO, Model model){
-        log.info(">>>>> ProductController(read,modify GetMapping)");
-        log.info(">>>>> pno: " + pno);
+        log.info(">>>>> ProductController (read,modify GetMapping)");
+
         ProductDTO dto = service.read(pno);
         model.addAttribute("dto", dto);
     }
 
     @PostMapping("/modify")
     public String modify(ProductDTO dto, @ModelAttribute("requestDTO") ProductPageRequestDTO productPageRequestDTO, RedirectAttributes redirectAttributes){
-        log.info(">>>>> ProductController(modify PostMapping)");
+        log.info(">>>>> ProductController (modify PostMapping)");
+
         service.modify(dto);
         redirectAttributes.addAttribute("page", productPageRequestDTO.getPage());
         redirectAttributes.addAttribute("pno", dto.getPno());
@@ -70,8 +71,8 @@ public class ProductController {
 
     @PostMapping("/remove")
     public String remove(long pno, RedirectAttributes redirectAttributes){
-        log.info(">>>>> ProductController(remove PostMapping)");
-        log.info(">>>>> pno: " + pno);
+        log.info(">>>>> ProductController (remove PostMapping)");
+
         service.remove(pno);
         redirectAttributes.addFlashAttribute("msg", pno);
         return "redirect:/product/list";
