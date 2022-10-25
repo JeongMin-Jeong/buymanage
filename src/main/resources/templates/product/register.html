@@ -7,89 +7,89 @@
         <h1 class="h3 mb-2 text-gray-800">품목정보 등록하기</h1>
         <!-- page card -->
         <div class="card shadow mb-4">
-        <!-- card-body -->
-        <div class="card-body">
+            <!-- card-body -->
+            <div class="card-body">
 
-            <form id="registForm" th:action="@{/product/register}" th:method="post">
-            <div class="form-group">
-                <label>품목코드</label>
-                <input type="text" class="form-control" name="pcode" id="pcode" placeholder="클릭하세요!!!" onclick="displayRandomNum();" readonly>
-            </div>
-            <div class="form-group">
-                <label>품목이름</label>
-                <input type="text" class="form-control" name="pname">
-            </div>
-            <div class="form-group">
-                <label>품목분류</label><br/>
-                <select id="category" name="ptype1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;">
-                    <option value="" disabled selected>-분류선택--------------------------------</option>
-                    <option value="DESKTOP">DESKTOP</option>
-                    <option value="NOTEBOOK">NOTEBOOK</option>
-                    <option value="SERVER">SERVER</option>
-                    <option value="ETC">ETC</option>
-                    <option value="ACCESSORY">ACCESSORY</option>
-                    <option value="TOOLS">TOOLS</option>
-                </select>&nbsp;
-                <select id="categorySelect" name="ptype2" size="1" style="height:50px;">
-                    <option value="" disabled selected>-분류선택--------------------------------</option>
-                    <option></option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>품목설명</label>
-                <textarea class="form-control" rows="5" name="pcontent"></textarea>
-            </div>
-            <div class="form-group">
-                <label>비고</label>
-                <textarea class="form-control" rows="2" name="petc"></textarea>
-            </div>
-            <div class="form-group">
-                    <label>첨부파일</label>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input files" id="fileInput" multiple>
-                        <label class="custom-file-label" data-browse="찾기.."></label>
+                <form id="registForm" th:action="@{/product/register}" th:method="post">
+                    <div class="form-group">
+                        <label>품목코드</label>
+                        <input type="text" class="form-control" name="pcode" id="pcode" placeholder="클릭하세요!!!" onclick="displayRandomNum();" readonly>
                     </div>
-                </div>
-                <!-- 섬네일처리 -->
-                <div class="box">
-                </div>
+                    <div class="form-group">
+                        <label>품목이름</label>
+                        <input type="text" class="form-control" name="pname">
+                    </div>
+                    <div class="form-group">
+                        <label>품목분류</label><br/>
+                        <select id="category" name="ptype1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;">
+                            <option value="" disabled selected>-분류선택--------------------------------</option>
+                            <option value="DESKTOP">DESKTOP</option>
+                            <option value="NOTEBOOK">NOTEBOOK</option>
+                            <option value="SERVER">SERVER</option>
+                            <option value="ETC">ETC</option>
+                            <option value="ACCESSORY">ACCESSORY</option>
+                            <option value="TOOLS">TOOLS</option>
+                        </select>&nbsp;
+                        <select id="categorySelect" name="ptype2" size="1" style="height:50px;">
+                            <option value="" disabled selected>-분류선택--------------------------------</option>
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>품목설명</label>
+                        <textarea class="form-control" rows="5" name="pcontent"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>비고</label>
+                        <textarea class="form-control" rows="2" name="petc"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>첨부파일</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input files" id="fileInput" multiple>
+                            <label class="custom-file-label" data-browse="찾기.."></label>
+                        </div>
+                    </div>
+                    <!-- 섬네일처리 -->
+                    <div class="box">
+                    </div>
 
-                <style>
-                    .uploadResult {
-                        width: 100%;
-                        background-color: #eaecf4;
-                        margin-top: 10px;
-                    }
+                    <style>
+                        .uploadResult {
+                            width: 100%;
+                            background-color: #eaecf4;
+                            margin-top: 10px;
+                        }
 
-                    .uploadResult ul {
-                        display: flex;
-                        flex-flow: row;
-                        justify-content: center;
-                        align-items: center;
-                        vertical-align: top;
-                        overflow: auto;
-                    }
+                        .uploadResult ul {
+                            display: flex;
+                            flex-flow: row;
+                            justify-content: center;
+                            align-items: center;
+                            vertical-align: top;
+                            overflow: auto;
+                        }
 
-                    .uploadResult ul li {
-                        list-style: none;
-                        padding: 10px;
-                        margin-left: 2em;
-                    }
+                        .uploadResult ul li {
+                            list-style: none;
+                            padding: 10px;
+                            margin-left: 2em;
+                        }
 
-                    .uploadResult ul li img {
-                        width: 100px;
-                    }
-                </style>
+                        .uploadResult ul li img {
+                            width: 100px;
+                        }
+                    </style>
 
-                <div class="uploadResult">
-                    <ul>
-                    </ul>
-                </div><!-- 섬네일처리 -->
+                    <div class="uploadResult">
+                        <ul>
+                        </ul>
+                    </div><!-- 섬네일처리 -->
 
-                <button type="submit" class="btn btn-primary">등록</button>
-                <a th:href="@{/product/list}"><button type="button" class="btn btn-info">목록</button></a>
+                    <button type="submit" class="btn btn-primary">등록</button>
+                    <a th:href="@{/product/list}"><button type="button" class="btn btn-info">목록</button></a>
 
-            </form>
+                </form>
             </div><!-- card-body -->
         </div><!-- page card -->
 
