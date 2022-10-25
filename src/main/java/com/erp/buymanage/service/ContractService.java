@@ -13,10 +13,13 @@ public interface ContractService {
     PageResultDTO<ContractDTO, Contract> getList(ContractPageRequestDTO contractPageRequestDTO);
 
     // 조회처리
-    ContractDTO read(Long pno);
+    //ContractDTO read(Long pno); //2022-10-24 JJH pno->cno
+    ContractDTO read(Long cno);
 
     // 삭제처리
-    void remove(Long pno);
+    //void remove(Long pno); //2022-10-24 JJH pno->cno
+    void remove(Long cno);
+
 
     // 수정처리
     void modify(ContractDTO dto);
