@@ -25,6 +25,20 @@
                                 <td style="width:100px;">품목분류</td>
                                 <td>
                                     <div class="input-group-prepend">
+                                        <select id="category" name="type1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;">
+                                            <option value="" disabled selected>-분류선택--------------------------------</option>
+                                            <option value="DESKTOP" th:selected="${stockPageRequestDTO.type1 == 'DESKTOP'}">DESKTOP</option>
+                                            <option value="NOTEBOOK" th:selected="${stockPageRequestDTO.type1 == 'NOTEBOOK'}">NOTEBOOK</option>
+                                            <option value="SERVER" th:selected="${stockPageRequestDTO.type1 == 'SERVER'}">SERVER</option>
+                                            <option value="ETC" th:selected="${stockPageRequestDTO.type1 == 'ETC'}">ETC</option>
+                                            <option value="ACCESSORY" th:selected="${stockPageRequestDTO.type1 == 'ACCESSORY'}">ACCESSORY</option>
+                                            <option value="TOOLS" th:selected="${stockPageRequestDTO.type1 == 'TOOLS'}">TOOLS</option>
+                                        </select>&nbsp;
+                                        <select id="categorySelect" name="type1" size="1" style="height:50px;">
+                                            <option value="" disabled selected>-분류선택--------------------------------</option>
+                                            <option></option>
+                                        </select>&nbsp;
+                                        <!--
                                         <select class="form-select" name="type1" style="height:50px;">
                                             <option value="" th:selected="${stockPageRequestDTO.type1 == null}">-분류선택--------------------------------</option>
                                             <option value="데스크톱" th:selected="${stockPageRequestDTO.type1 == '데스크톱'}">데스크톱</option>
@@ -41,6 +55,7 @@
                                             <option value="케이스" th:selected="${stockPageRequestDTO.type2 == '케이스'}">케이스</option>
                                             <option value="파워" th:selected="${stockPageRequestDTO.type2 == '파워'}">파워</option>
                                         </select>
+                                        -->
                                     </div>
                                 </td>
                             </tr>

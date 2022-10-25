@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+
+        <!-- Begin Page Content -->
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">메인페이지</h1>
+        <!-- page card -->
+        <div class="card shadow mb-4">
+
+            <!-- card-header -->
+            <div class="card-header py-3"><h8 class="m-0 font-weight-bold text-primary">대시보드</h8></div>
+            <!-- card-body -->
+            <div class="card-body">
+                <!-- div -->
+                <div>
+                메인페이지 입니다.
+
+                </div>
+                <!-- div -->
+            </div>
+            <!-- <div class="card-body"> -->
+        </div>
+        <!-- page card -->
+        <!-- End Page Content -->
+    </th:block>
+</th:block>

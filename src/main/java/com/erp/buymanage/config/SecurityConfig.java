@@ -22,13 +22,43 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+
+                //ROOT페이지
+                .antMatchers("/").hasRole("USER") //USER
+
+                //SAMPLE
                 .antMatchers("/sample/all").permitAll() //모든사용자가 접속가능한 url
                 .antMatchers("/sample/member").hasRole("USER") //USER
-                .antMatchers("/product/list").hasRole("PRODUCT") //PRODUCT
-                .antMatchers("/contract/list").hasRole("CONTRACT") //COTRACT
-                .antMatchers("/order/list").hasRole("ORDER") //ORDER
-                .antMatchers("/stock/list").hasRole("STOCK") //STOCK
                 .antMatchers("/sample/admin").hasRole("ADMIN") //ADMIN
+
+                //PRODUCT
+                .antMatchers("/product/list").hasRole("PRODUCT")
+                .antMatchers("/product/register").hasRole("PRODUCT")
+                .antMatchers("/product/read").hasRole("PRODUCT")
+                .antMatchers("/product/modify").hasRole("PRODUCT")
+                .antMatchers("/product/delete").hasRole("ADMIN")
+
+                //CONTRACT
+                .antMatchers("/contract/list").hasRole("CONTRACT")
+                .antMatchers("/contract/register").hasRole("CONTRACT")
+                .antMatchers("/contract/read").hasRole("CONTRACT")
+                .antMatchers("/contract/modify").hasRole("CONTRACT")
+                .antMatchers("/contract/delete").hasRole("ADMIN")
+
+                //ORDER
+                .antMatchers("/order/list").hasRole("ORDER") //ORDER
+                .antMatchers("/order/register").hasRole("ORDER")
+                .antMatchers("/order/read").hasRole("ORDER")
+                .antMatchers("/order/modify").hasRole("ORDER")
+                .antMatchers("/order/delete").hasRole("ADMIN")
+
+                //STOCK
+                .antMatchers("/stock/list").hasRole("STOCK") //STOCK
+                .antMatchers("/stock/register").hasRole("STOCK")
+                .antMatchers("/stock/read").hasRole("STOCK")
+                .antMatchers("/stock/modify").hasRole("STOCK")
+                .antMatchers("/stock/delete").hasRole("ADMIN")
+
         ;
         http.formLogin();//인증문제 발생시 오류화면 대신 로그인화면 출력
 //        http.formLogin()
