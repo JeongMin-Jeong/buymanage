@@ -85,6 +85,7 @@
           <div class="modal-body">
             <form action="/stock/register" method="post" id="modalForm">
               <input type="hidden" name="snote" id="snote">
+              <input type="hidden" name="requester" id="requester">
               <div class="form-group">
                 <label >품목코드</label>
                 <input type="text" class="form-control" name="scode" id="scode">
@@ -148,6 +149,7 @@
             $("#sreturn").val(data.oprice);
             $("#sin").val(data.oquantity);
             $("#snote").val(data.ono);
+            $("#requester").val(data.omanager);
           },
           error:function (){
             alert("실패");
