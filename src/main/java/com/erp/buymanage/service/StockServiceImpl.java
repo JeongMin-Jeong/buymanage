@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -32,29 +33,36 @@ public class StockServiceImpl implements StockService {
 
         int sin = dto.getSin();
         String scode = dto.getScode();
+        long sno = 0L;
 
         log.info("DTO---------------------");
         log.info(dto);
 
         Stock entity = dtoToEntity(dto);
-
+        Stock history = stockRepository.findByScode(scode);
         List<Stock> stockList = stockRepository.findAll();
         List<String> list = new ArrayList();
 
         for (Stock stockEntity : stockList ) {
             if(!stockEntity.getScode().equals(scode)) {
                 list.add(stockEntity.getScode());
-            }
-            if (stockEntity.getScode().equals(dto.getScode())){
+            } else if (stockEntity.getScode().equals(dto.getScode())){
+                list.add(dto.getScode());
                 stockRepository.updateSin(sin,scode);
+                sno = history.getSno();
+                System.out.println("확인 필요한 코드 Update==========================" + sno);
                 break;
             }
+        }
+        if (!list.contains(scode)){
+            stockRepository.save(entity);
+            sno = entity.getSno();
+            System.out.println("확인 필요한 코드 Insert==========================" + sno);
         }
 
         log.info(entity);
 
-
-        return entity.getSno();
+        return sno;
     }
 
     @Override
@@ -70,8 +78,6 @@ public class StockServiceImpl implements StockService {
 
         return new PageResultDTO<>(result, fn);
     }
-
-
 
     @Override
     public StockDTO read(Long sno) {
@@ -148,7 +154,7 @@ public class StockServiceImpl implements StockService {
             conditionBuilder.and(qStock.scate2.eq(type2));
         }
 
-        if(type1 == "" && type2 == "") {
+        if(type3 != null) {
             if (type3.contains("k")) {
                 conditionBuilder.or(qStock.scode.contains(keyword));
             }
@@ -161,5 +167,16 @@ public class StockServiceImpl implements StockService {
         booleanBuilder.and(conditionBuilder);
 
         return booleanBuilder;
+    }
+
+    @Override
+    public void outModify(StockDTO dto) {
+        Optional<Stock> result = stockRepository.findById(dto.getSno());
+
+        if (result.isPresent()) {
+            Stock entity = result.get();
+            entity.changeOut(dto.getSout());
+            stockRepository.save(entity);
+        }
     }
 }
