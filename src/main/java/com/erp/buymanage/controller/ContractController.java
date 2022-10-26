@@ -26,7 +26,6 @@ public class ContractController {
     @GetMapping("/")
     public String index(){
         log.info(">>>>> ContractController(index)");
-
         return "redirect:/contract/list";
     }
 
@@ -44,9 +43,7 @@ public class ContractController {
     @PostMapping("/register")
     public String registerContract(ContractDTO dto, RedirectAttributes redirectAttributes){
         log.info(">>>>> ContractController(register PostMapping)");
-
         Long cno = service.register(dto);
-
         redirectAttributes.addFlashAttribute("msg", cno);
         return "redirect:/contract/list";
     }
@@ -54,32 +51,24 @@ public class ContractController {
     @GetMapping({"/read", "/modify"})
     public void read(long cno, @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, Model model){
         log.info(">>>>> ContractController(read,modify GetMapping)");
-
         ContractDTO dto = service.read(cno);
-
         model.addAttribute("dto", dto);
     }
 
     @PostMapping("/modify")
     public String modify(ContractDTO dto, @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, RedirectAttributes redirectAttributes){
         log.info(">>>>> ContractController(modify PostMapping)");
-
         service.modify(dto);
-
         redirectAttributes.addAttribute("page", contractPageRequestDTO.getPage());
         redirectAttributes.addAttribute("cno", dto.getCno());
-
         return "redirect:/contract/read";
     }
 
     @PostMapping("/remove")
     public String remove(long cno, RedirectAttributes redirectAttributes){
         log.info(">>>>> ContractController(remove PostMapping)");
-
         service.remove(cno);
-
         redirectAttributes.addFlashAttribute("msg", cno);
         return "redirect:/contract/list";
     }
 }
-
