@@ -76,15 +76,17 @@ public class OrderController {
     public String modify(OrderDTO dto,@ModelAttribute("requestDTO") OrderPageRequestDTO requestDTO, RedirectAttributes redirectAttributes){
         log.info("post modify.........................................");
         log.info("dto: " + dto);
-
         orderService.modify(dto);
-
         redirectAttributes.addAttribute("page", requestDTO.getPage());
         redirectAttributes.addAttribute("ono",dto.getOno());
-
-
         return "redirect:/order/read";
+    }
 
+    @GetMapping("/popup")
+    public void popup(ContractPageRequestDTO contractPageRequestDTO, Model model) {
+        log.info("popup get...");
+        log.info("(list2)contractPageRequestDTO : \" + contractPageRequestDTO");
+        model.addAttribute("result", contractService.getList2(contractPageRequestDTO));
     }
 
     @GetMapping("/list2")
@@ -92,10 +94,6 @@ public class OrderController {
         log.info("(list2)contractPageRequestDTO : \" + contractPageRequestDTO");
         model.addAttribute("result", contractService.getList2(contractPageRequestDTO));
     }
-
-
-
-
 
 
 }
