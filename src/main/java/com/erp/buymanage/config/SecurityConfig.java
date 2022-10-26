@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+//import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @Log4j2
@@ -53,12 +53,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/order/delete").hasRole("ADMIN")
 
                 //STOCK
-                .antMatchers("/stock/list").hasRole("STOCK") //STOCK
+                .antMatchers("/stock/list").hasRole("STOCK")
+                .antMatchers("/stock/list2").hasRole("STOCK")
                 .antMatchers("/stock/register").hasRole("STOCK")
                 .antMatchers("/stock/read").hasRole("STOCK")
                 .antMatchers("/stock/modify").hasRole("STOCK")
                 .antMatchers("/stock/delete").hasRole("ADMIN")
-
         ;
         http.formLogin();//인증문제 발생시 오류화면 대신 로그인화면 출력
 //        http.formLogin()

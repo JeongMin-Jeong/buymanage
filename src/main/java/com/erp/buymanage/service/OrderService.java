@@ -3,6 +3,7 @@ package com.erp.buymanage.service;
 import com.erp.buymanage.dto.OrderDTO;
 import com.erp.buymanage.dto.OrderPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
+import com.erp.buymanage.dto.ProductDTO;
 import com.erp.buymanage.entity.OrderEntity;
 import com.querydsl.core.types.Order;
 
@@ -26,11 +27,12 @@ public interface OrderService {
                 .oquantity(dto.getOquantity())
                 .ostate(dto.getOstate())
                 .oetc(dto.getOetc())
-
+                .ocode(dto.getOcode())
                 .ptype1(dto.getPtype1())
                 .ptype2(dto.getPtype2())
                 .pcode(dto.getPcode())
                 .pcontent(dto.getPcontent())
+                .ocode(dto.getOcode())
                 .build();
             return entity;
     }
@@ -47,11 +49,12 @@ public interface OrderService {
                 .oquantity(entity.getOquantity())
                 .ostate(entity.getOstate())
                 .oetc(entity.getOetc())
-
+                .ocode(entity.getOcode())
                 .ptype1(entity.getPtype1())
                 .ptype2(entity.getPtype2())
                 .pcode(entity.getPcode())
                 .pcontent(entity.getPcontent())
+                .ocode(entity.getOcode())
                 .build();
         return dto;
 

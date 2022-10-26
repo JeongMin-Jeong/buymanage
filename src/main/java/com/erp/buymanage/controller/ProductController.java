@@ -40,7 +40,7 @@ public class ProductController {
     }
 
     @GetMapping("/register")
-    public void register(){
+    public void register(@AuthenticationPrincipal AuthMemberDTO authMember){
         log.info(">>>>> ProductController (register GetMapping)");
     }
 

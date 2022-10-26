@@ -6,7 +6,9 @@ import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.ProductPageRequestDTO;
 import com.erp.buymanage.entity.Contract;
 import com.erp.buymanage.entity.QContract;
+
 import com.erp.buymanage.entity.QProduct;
+
 import com.erp.buymanage.repository.ContractRepository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -140,6 +142,18 @@ public class ContractServiceImpl implements ContractService{
 
             repository.save(entity);
         }
+    }
+
+    @Override // 목록처리
+    public PageResultDTO<ContractDTO, Contract> getList2(ContractPageRequestDTO contractPageRequestDTO) {
+        log.info(">>>>> ContractServiceImpl(getList2)");
+
+        Pageable pageable = contractPageRequestDTO.getPageable(Sort.by("cno").descending());
+//        BooleanBuilder booleanBuilder = getSearch(requestDTO); // 검색조건처리
+        Page<Contract> result = repository.findAll(pageable); // Querydsl 사용
+        log.info(">>>>>>>>>> entityToDto");
+        Function<Contract, ContractDTO> fn = (entity -> entityToDto(entity));
+        return new PageResultDTO<>(result, fn);
     }
 
 }

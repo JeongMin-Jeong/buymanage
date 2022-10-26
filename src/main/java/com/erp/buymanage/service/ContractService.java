@@ -11,7 +11,7 @@ public interface ContractService {
 
     // 목록처리
     PageResultDTO<ContractDTO, Contract> getList(ContractPageRequestDTO contractPageRequestDTO);
-
+    PageResultDTO<ContractDTO, Contract> getList2(ContractPageRequestDTO contractPageRequestDTO);
     // 조회처리
     //ContractDTO read(Long pno); //2022-10-24 JJH pno->cno
     ContractDTO read(Long cno);
