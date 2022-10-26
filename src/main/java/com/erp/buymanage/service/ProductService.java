@@ -26,12 +26,10 @@ public interface ProductService {
     void remove(Long pno);
 
     // 수정처리
-    void modify(ProductDTO dto);
+//    void modify(ProductDTO dto);
 
     // dto -> 엔티티
     default Map<String, Object> dtoToEntity(ProductDTO dto){
-        System.out.println(">>>>> ProductService (dtoToEntity)");
-
         Map<String, Object> entityMap = new HashMap<>();
 
         Product entity = Product.builder()
@@ -63,11 +61,8 @@ public interface ProductService {
         return entityMap;
     }
 
-
     // 엔티티 -> dto
     default ProductDTO entityToDto(Product entity, List<ProductImage> productImages){
-        System.out.println(">>>>> ProductService (entityToDto)");
-
         ProductDTO dto = ProductDTO.builder()
                 .pno(entity.getPno())
                 .pcode(entity.getPcode())

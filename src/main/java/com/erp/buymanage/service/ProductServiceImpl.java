@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService{
         Map<String , Object> entityMap = dtoToEntity(dto);
         Product entity =(Product) entityMap.get("product");
         List<ProductImage> productImageList= (List<ProductImage>) entityMap.get("imgList");
-        log.info(">>>>>>>>>> dtoToEntity");
+        log.info(">>>>>>>>>> ProductService (dtoToEntity)");
 
         repository.save(entity);
         log.info(">>>>>>>>>> ProductRepository 저장");
@@ -60,6 +60,7 @@ public class ProductServiceImpl implements ProductService{
                 (Product)arr[0] ,
                 (List<ProductImage>)(Arrays.asList((ProductImage)arr[1]))
         ));
+        log.info(">>>>>>>>>> ProductService (entityToDto)");
 
         return new PageResultDTO<>(result, fn);
     }
@@ -124,7 +125,7 @@ public class ProductServiceImpl implements ProductService{
     public ProductDTO read(Long pno) {
         log.info(">>>>> ProductServiceImpl (read)");
 
-        List<Object[]> result = repository.getMovieWithAll(pno);
+        List<Object[]> result = repository.getProductWithAll(pno);
         Product entity = (Product) result.get(0)[0];
 
         List<ProductImage> productImageList = new ArrayList<>();
@@ -140,21 +141,5 @@ public class ProductServiceImpl implements ProductService{
         log.info(">>>>> ProductServiceImpl (remove)");
 
         repository.deleteById(pno);
-    }
-
-    @Override // 수정처리
-    public void modify(ProductDTO dto) {
-        log.info(">>>>> ProductServiceImpl (modify)");
-
-        Optional<Product> result = repository.findById(dto.getPno());
-        if(result.isPresent()){
-            Product entity = result.get();
-            entity.changePname(dto.getPname());
-            entity.changePtype1(dto.getPtype1());
-            entity.changePtype2(dto.getPtype2());
-            entity.changePcontent(dto.getPcontent());
-            entity.changePetc(dto.getPetc());
-            repository.save(entity);
-        }
     }
 }

@@ -47,6 +47,9 @@ dependencies {
 	//섬네일 라이브러리 추가
 	// https://mvnrepository.com/artifact/net.coobird/thumbnailator
 	implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.17'
+	// 전달용 dto사용하여 엔티티 -> dto, dto -> 엔티티과정을 대신하게 해줌
+	// https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.9'
 }
 
 

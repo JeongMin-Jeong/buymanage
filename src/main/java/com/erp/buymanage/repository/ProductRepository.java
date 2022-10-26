@@ -20,5 +20,5 @@ public interface ProductRepository extends JpaRepository<Product, Long>, Queryds
             "FROM Product p " +
             "LEFT OUTER JOIN ProductImage pi on pi.product = p " +
             "WHERE p.pno =:pno GROUP BY pi")
-    List<Object[]> getMovieWithAll(Long pno);
+    List<Object[]> getProductWithAll(Long pno);
 }
