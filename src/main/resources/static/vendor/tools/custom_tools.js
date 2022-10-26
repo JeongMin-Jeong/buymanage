@@ -72,3 +72,13 @@
         window.open(url, name, option); // 새로운 창이 뜨면서 팝업이 생성됩니다.
     }
 
+    function ContractDataSend() {
+
+        var pname = document.getElementById("pname").value;
+        window.opener.document.getElementById("pname").value =pname;
+        self.close();
+    }
+
+
+
+

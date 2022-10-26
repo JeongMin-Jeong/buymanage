@@ -15,6 +15,7 @@ public interface ContractService {
     // 조회처리
     //ContractDTO read(Long pno); //2022-10-24 JJH pno->cno
     ContractDTO read(Long cno);
+    ContractDTO read2(Long cno);
 
     // 삭제처리
     //void remove(Long pno); //2022-10-24 JJH pno->cno

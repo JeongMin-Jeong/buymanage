@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/contract")
+
 @Log4j2
 @RequiredArgsConstructor // 자동 주입을 위한 어노테이션
 public class ContractController {
@@ -48,7 +49,7 @@ public class ContractController {
         return "redirect:/contract/list";
     }
 
-    @GetMapping({"/read", "/modify"})
+    @GetMapping({"/read", "/modify" })
     public void read(long cno, @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, Model model){
         log.info(">>>>> ContractController(read,modify GetMapping)");
         ContractDTO dto = service.read(cno);
@@ -71,5 +72,8 @@ public class ContractController {
         redirectAttributes.addFlashAttribute("msg", cno);
         return "redirect:/contract/list";
     }
+
+
+
 }
 

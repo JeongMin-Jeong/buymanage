@@ -1,5 +1,6 @@
 package com.erp.buymanage.controller;
 
+import com.erp.buymanage.dto.ContractDTO;
 import com.erp.buymanage.dto.ContractPageRequestDTO;
 import com.erp.buymanage.dto.OrderDTO;
 import com.erp.buymanage.dto.OrderPageRequestDTO;
@@ -87,6 +88,12 @@ public class OrderController {
         log.info("popup get...");
         log.info("(list2)contractPageRequestDTO : \" + contractPageRequestDTO");
         model.addAttribute("result", contractService.getList2(contractPageRequestDTO));
+
+    }
+    public void read2(long cno, @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, Model model){
+        log.info(">>>>> OrderController(/order/register GetMapping)");
+        ContractDTO dto = contractService.read(cno);
+        model.addAttribute("dto", dto);
     }
 
     @GetMapping("/list2")
@@ -94,6 +101,7 @@ public class OrderController {
         log.info("(list2)contractPageRequestDTO : \" + contractPageRequestDTO");
         model.addAttribute("result", contractService.getList2(contractPageRequestDTO));
     }
+
 
 
 }

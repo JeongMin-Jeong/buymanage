@@ -159,5 +159,11 @@ public class ContractServiceImpl implements ContractService{
         Function<Contract, ContractDTO> fn = (entity -> entityToDto(entity));
         return new PageResultDTO<>(result, fn);
   }
+    @Override // 조회처리
+    public ContractDTO read2(Long cno) {
+        log.info(">>>>> ContractServiceImpl(read)");
 
+        Optional<Contract> result = repository.findById(cno);
+        return result.isPresent() ? entityToDto(result.get()) : null;
+    }
 }

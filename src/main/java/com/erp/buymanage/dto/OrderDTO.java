@@ -54,19 +54,6 @@ public class OrderDTO
 //        this.ostate = ostate;
 //        this.oetc = oetc;
 //    }
-//@Entity(name = "test_jojo")
-//@Getter
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
-//public class Jojo {
-//
-//    @Id
-//    @GeneratedValue
-//    @Column(name = "jo_id")
-//    private Long joId;
-//
-//    @Column
-//    private LocalDateTime regDate;
-//
-//}
+
 
 }
