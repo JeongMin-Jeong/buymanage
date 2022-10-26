@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-//import org.zerock.mreview.dto.UploadResultDTO;
 import com.erp.buymanage.dto.UploadResultDTO;
 
 import java.io.File;
@@ -121,19 +120,20 @@ public class UploadController {
 
     @GetMapping("/display")
     public ResponseEntity<byte[]> getFile(String fileName, String size) {
-        log.info(">>>>> UploadController (getFile)");
 
         ResponseEntity<byte[]> result = null;
 
         try {
             String srcFileName =  URLDecoder.decode(fileName,"UTF-8");
-            File file = new File(uploadPath +File.separator+ srcFileName);
 
+            File file = new File(uploadPath +File.separator+ srcFileName);
+            String oriFileName = file.getName().substring(2);
             if(size != null && size.equals("1")){
-                file  = new File(file.getParent(), file.getName().substring(2));
+                file  = new File(file.getParent(), oriFileName);
             }
 
             HttpHeaders header = new HttpHeaders();
+
             //MIME타입 처리
             header.add("Content-Type", Files.probeContentType(file.toPath()));
             //파일 데이터 처리
@@ -144,6 +144,5 @@ public class UploadController {
         }
         return result;
     }
-
 }
 
