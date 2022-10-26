@@ -4,21 +4,19 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
   <th:block th:fragment="content">
 
-    <h1 class="mt-4">계약상세보기 페이지</h1>
+    <h1 class="h3 mb-2 text-gray-800">계약정보 상세보기</h1>
         <!-- page card -->
         <div class="card shadow mb-4">
             <!-- card-body -->
             <div class="card-body">
-
+                <div class="form-group">
+                    <label>계약코드</label>
+                    <input type="text" class="form-control" name="ccode" th:value="${dto.ccode}" readonly>
+                </div>
                 <div class="form-group">
                     <label>계약일자</label>
                     <input type="date" class="form-control" name="cdate" th:value="${dto.cdate}" readonly>
                 </div>
-                <div class="form-group">
-                  <label>계약번호</label>
-                  <input type="text" class="form-control" name="ccode" th:value="${dto.ccode}" readonly>
-                </div>
-
             </div><!-- card-body -->
         </div><!-- page card -->
 
@@ -29,23 +27,23 @@
 
                 <div class="form-group">
                     <label>거래처명</label>
-                    <input type="text" class="form-control" name="cpartnername" th:value="${dto.ccode}" readonly>
+                    <input type="text" class="form-control" name="cpartnername" th:value="${dto.cpartnername}" readonly>
                 </div>
                 <div class="form-group">
                     <label>거래처 대표자</label>
-                    <input type="text" class="form-control" name="cpartnerceo" th:value="${dto.ccode}" readonly>
+                    <input type="text" class="form-control" name="cpartnerceo" th:value="${dto.cpartnerceo}" readonly>
                 </div>
                 <div class="form-group">
                     <label>거래처 주소</label>
-                    <input type="text" class="form-control" name="cpartneraddr" th:value="${dto.ccode}" readonly>
+                    <input type="text" class="form-control" name="cpartneraddr" th:value="${dto.cpartneraddr}" readonly>
                 </div>
                 <div class="form-group">
                     <label>거래처 연락처</label>
-                    <input type="text" class="form-control" name="cpartnerphone" th:value="${dto.ccode}" readonly>
+                    <input type="text" class="form-control" name="cpartnerphone" th:value="${dto.cpartnerphone}" readonly>
                 </div>
                 <div class="form-group">
                     <label>거래처 팩스</label>
-                    <input type="text" class="form-control" name="cpartnerfax" th:value="${dto.ccode}" readonly>
+                    <input type="text" class="form-control" name="cpartnerfax" th:value="${dto.cpartnerfax}" readonly>
                 </div>
 
             </div><!-- card-body -->
@@ -58,16 +56,18 @@
 
                 <div class="form-group">
                     <label>품목코드</label>
-                    <input type="text" class="form-control" name="pcode" th:value="${dto.ccode}" readonly>
+                    <input type="text" class="form-control" name="pcode" th:value="${dto.pcode}" readonly>
                 </div>
                 <div class="form-group">
                     <label>품목이름</label>
-                    <input type="text" class="form-control" name="pname" th:value="${dto.ccode}" readonly>
+                    <input type="text" class="form-control" name="pname" th:value="${dto.pname}" readonly>
                 </div>
+                <!--
                 <div class="form-group">
                     <label>품목수량</label>
                     <input type="text" class="form-control" name="pcount" th:value="${dto.pcount}" readonly>
                 </div>
+                -->
                 <div class="form-group">
                     <label>품목단가</label>
                     <input type="text" class="form-control" name="pprice" th:value="${dto.pprice}" readonly>
@@ -103,7 +103,7 @@
                 </div>
 
                 <a th:href="@{/contract/modify(cno=${dto.cno}, page=${requestDTO.page})}">
-                    <button type="button" class="btn btn-primary">계약상태 수정</button>
+                    <button type="button" class="btn btn-primary">수정</button>
                 </a>
                 <a th:href="@{/contract/list(page=${requestDTO.page})}">
                     <button type="button" class="btn btn-info">목록</button>

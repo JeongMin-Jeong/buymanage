@@ -4,7 +4,7 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
   <th:block th:fragment="content">
 
-    <h1 class="mt-4">계약상태 수정 페이지</h1>
+    <h1 class="h3 mb-2 text-gray-800">계약정보 수정하기</h1>
       <!-- page card -->
       <div class="card shadow mb-4">
           <!-- card-body -->
@@ -12,25 +12,28 @@
               <form th:action="@{/contract/modify}" th:method="post">
                 <input type="hidden" class="form-control" name="page" th:value="${requestDTO.page}">
                 <input type="hidden" class="form-control" name="cno" th:value="${dto.cno}">
-                <input type="hidden" class="form-control" name="cdate" th:value="${dto.cdate}" readonly>
-                <input type="hidden" class="form-control" name="ccode" th:value="${dto.ccode}" readonly>
-                <input type="hidden" class="form-control" name="cpartnername" th:value="${dto.cpartnername}" readonly>
-                <input type="hidden" class="form-control" name="cpartnerceo" th:value="${dto.cpartnerceo}" readonly>
-                <input type="hidden" class="form-control" name="cpartneraddr" th:value="${dto.cpartneraddr}" readonly>
-                <input type="hidden" class="form-control" name="cpartnerphone" th:value="${dto.cpartnerphone}" readonly>
-                <input type="hidden" class="form-control" name="cpartnerfax" th:value="${dto.cpartnerfax}" readonly>
-                <input type="hidden" class="form-control" name="pcode" th:value="${dto.pcode}" readonly>
-                <input type="hidden" class="form-control" name="pname" th:value="${dto.pname}" readonly>
-                <input type="hidden" class="form-control" name="pcount" th:value="${dto.pcount}" readonly>
-                <input type="hidden" class="form-control" name="pprice" th:value="${dto.pprice}" readonly>
-                <input type="hidden" class="form-control" name="cmanager" th:value="${dto.cmanager}" readonly>
-                <input type="hidden" class="form-control" name="cpartnermanager" th:value="${dto.cpartnermanager}" readonly>
-                <input type="hidden" class="form-control" name="cdeliverydate" th:value="${dto.cdeliverydate}" readonly>
+                <!--
+                //<input type="hidden" class="form-control" name="cdate" th:value="${dto.cdate}" readonly>
+                //<input type="hidden" class="form-control" name="ccode" th:value="${dto.ccode}" readonly>
+                //<input type="hidden" class="form-control" name="cpartnername" th:value="${dto.cpartnername}" readonly>
+                //<input type="hidden" class="form-control" name="cpartnerceo" th:value="${dto.cpartnerceo}" readonly>
+                //<input type="hidden" class="form-control" name="cpartneraddr" th:value="${dto.cpartneraddr}" readonly>
+                //<input type="hidden" class="form-control" name="cpartnerphone" th:value="${dto.cpartnerphone}" readonly>
+                //<input type="hidden" class="form-control" name="cpartnerfax" th:value="${dto.cpartnerfax}" readonly>
+                //<input type="hidden" class="form-control" name="pcode" th:value="${dto.pcode}" readonly>
+                //<input type="hidden" class="form-control" name="pname" th:value="${dto.pname}" readonly>
+                //<input type="hidden" class="form-control" name="pcount" th:value="${dto.pcount}" readonly>
+                //<input type="hidden" class="form-control" name="pprice" th:value="${dto.pprice}" readonly>
+                //<input type="hidden" class="form-control" name="cmanager" th:value="${dto.cmanager}" readonly>
+                //<input type="hidden" class="form-control" name="cpartnermanager" th:value="${dto.cpartnermanager}" readonly>
+                //<input type="hidden" class="form-control" name="cdeliverydate" th:value="${dto.cdeliverydate}" readonly>
+                -->
                 <div class="form-group">
                     <label>계약상태</label>
                     <input type="text" class="form-control" name="cstatus" th:value="${dto.cstatus}" readonly>
-                    <select class="form-select" style="height:50px;" onchange="selectcstatus(this.value);">
+                    <select class="form-select" style="height:50px;width:100%;" onchange="selectcstatus(this.value);">
                         <option value="미분류">-분류선택--------------------------------</option>
+                        <option value="신규계약">신규계약</option>
                         <option value="계약완료">계약완료</option>
                         <option value="계약종료">계약종료</option>
                     </select>
@@ -42,10 +45,112 @@
 
                   <button type="button" class="btn btn-primary modifyBtn">수정</button>
                   <button type="button" class="btn btn-info listBtn">목록</button>
-                  <button type="button" class="btn btn-danger removeBtn">계약서 삭제</button>
+                  <button type="button" class="btn btn-danger removeBtn">삭제</button>
 
           </div><!-- card-body -->
       </div><!-- page card -->
+
+      <!-- page card -->
+      <div class="card shadow mb-4">
+          <!-- card-body -->
+          <div class="card-body">
+              <div class="form-group">
+                  <label>계약코드</label>
+                  <input type="text" class="form-control" name="ccode" th:value="${dto.ccode}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>계약일자</label>
+                  <input type="date" class="form-control" name="cdate" th:value="${dto.cdate}" readonly>
+              </div>
+          </div><!-- card-body -->
+      </div><!-- page card -->
+
+      <!-- page card -->
+      <div class="card shadow mb-4">
+          <!-- card-body -->
+          <div class="card-body">
+
+              <div class="form-group">
+                  <label>거래처명</label>
+                  <input type="text" class="form-control" name="cpartnername" th:value="${dto.cpartnername}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>거래처 대표자</label>
+                  <input type="text" class="form-control" name="cpartnerceo" th:value="${dto.cpartnerceo}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>거래처 주소</label>
+                  <input type="text" class="form-control" name="cpartneraddr" th:value="${dto.cpartneraddr}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>거래처 연락처</label>
+                  <input type="text" class="form-control" name="cpartnerphone" th:value="${dto.cpartnerphone}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>거래처 팩스</label>
+                  <input type="text" class="form-control" name="cpartnerfax" th:value="${dto.cpartnerfax}" readonly>
+              </div>
+
+          </div><!-- card-body -->
+      </div><!-- page card -->
+
+      <!-- page card -->
+      <div class="card shadow mb-4">
+          <!-- card-body -->
+          <div class="card-body">
+              <div class="form-group">
+                  <label>품목코드</label>
+                  <input type="text" class="form-control" name="pcode" th:value="${dto.pcode}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>품목이름</label>
+                  <input type="text" class="form-control" name="pname" th:value="${dto.pname}" readonly>
+              </div>
+
+              <!--
+              <div class="form-group">
+                  <label>품목수량</label>
+
+              </div>
+              -->
+              <input type="hidden" class="form-control" name="pcount" th:value="${dto.pcount}" readonly>
+
+              <div class="form-group">
+                  <label>품목단가</label>
+                  <input type="text" class="form-control" name="pprice" th:value="${dto.pprice}" readonly>
+              </div>
+          </div><!-- card-body -->
+      </div><!-- page card -->
+
+      <!-- page card -->
+      <div class="card shadow mb-4">
+          <!-- card-body -->
+          <div class="card-body">
+              <div class="form-group">
+                  <label>인수자</label>
+                  <input type="text" class="form-control" name="cmanager" th:value="${dto.cmanager}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>납품자</label>
+                  <input type="text" class="form-control" name="cpartnermanager" th:value="${dto.cpartnermanager}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>납기일자</label>
+                  <input type="date" class="form-control" name="cdeliverydate" th:value="${dto.cdeliverydate}" readonly>
+              </div>
+              <!--
+              <div class="form-group">
+                  <label>계약상태</label>
+                  <input type="text" class="form-control" name="cstatus" th:value="${dto.cstatus}" readonly>
+              </div>
+              -->
+              <div class="form-group">
+                  <label>양도,양수조건</label>
+                  <textarea class="form-control" rows="3" name="cetc" readonly>[[${dto.cetc}]]</textarea>
+              </div>
+          </div><!-- card-body -->
+      </div><!-- page card -->
+
 
       <script th:inline="javascript">
           /* select박스 선택값에 따라 input값 변경처리*/
