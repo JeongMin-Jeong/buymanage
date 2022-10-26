@@ -57,6 +57,8 @@ public class ContractServiceImpl implements ContractService{
     private BooleanBuilder getSearch(ContractPageRequestDTO contractPageRequestDTO) {
         String ctype1 = contractPageRequestDTO.getCtype1();
         String ctype2 = contractPageRequestDTO.getCtype2();
+        if(ctype1 == ""){ ctype1 = null; }
+        if(ctype2 == ""){ ctype2 = null; }
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         QContract qContract = QContract.contract;
@@ -71,44 +73,42 @@ public class ContractServiceImpl implements ContractService{
         BooleanBuilder conditionBuilder = new BooleanBuilder();
 
         if(ctype1 != null && ctype2 != null) {
-            conditionBuilder.and(qContract.cstatus.eq(ctype1));
             if (ctype2.contains("cc")) {
-                conditionBuilder.or(qContract.ccode.contains(keyword));
+                conditionBuilder.and(qContract.ccode.contains(keyword));
             }
             if (ctype2.equals("pc")) {
-                conditionBuilder.or(qContract.pcode.contains(keyword));
+                conditionBuilder.and(qContract.pcode.contains(keyword));
             }
             if (ctype2.equals("pn")) {
-                conditionBuilder.or(qContract.pname.contains(keyword));
+                conditionBuilder.and(qContract.pname.contains(keyword));
             }
             if (ctype2.contains("cp")) {
-                conditionBuilder.or(qContract.cpartnername.contains(keyword));
+                conditionBuilder.and(qContract.cpartnername.contains(keyword));
             }
             if (ctype2.contains("cm")) {
-                conditionBuilder.or(qContract.cmanager.contains(keyword));
+                conditionBuilder.and(qContract.cmanager.contains(keyword));
             }
-        }
-
-        if(ctype1 != null ){
             conditionBuilder.and(qContract.cstatus.eq(ctype1));
-        }
-
-        if(ctype2 != null) {
+        } else if (ctype1 == null && ctype2 != null) {
             if (ctype2.contains("cc")) {
-                conditionBuilder.or(qContract.ccode.contains(keyword));
+                conditionBuilder.and(qContract.ccode.contains(keyword));
             }
             if (ctype2.equals("pc")) {
-                conditionBuilder.or(qContract.pcode.contains(keyword));
+                conditionBuilder.and(qContract.pcode.contains(keyword));
             }
             if (ctype2.equals("pn")) {
-                conditionBuilder.or(qContract.pname.contains(keyword));
+                conditionBuilder.and(qContract.pname.contains(keyword));
             }
             if (ctype2.contains("cp")) {
-                conditionBuilder.or(qContract.cpartnername.contains(keyword));
+                conditionBuilder.and(qContract.cpartnername.contains(keyword));
             }
             if (ctype2.contains("cm")) {
-                conditionBuilder.or(qContract.cmanager.contains(keyword));
+                conditionBuilder.and(qContract.cmanager.contains(keyword));
             }
+        } else if (ctype1 != null && ctype2 == null) {
+            conditionBuilder.and(qContract.cstatus.eq(ctype1));
+        } else if (ctype1 == null && ctype2 == null){
+
         }
 
         //모든 조건 통합
@@ -148,12 +148,16 @@ public class ContractServiceImpl implements ContractService{
     public PageResultDTO<ContractDTO, Contract> getList2(ContractPageRequestDTO contractPageRequestDTO) {
         log.info(">>>>> ContractServiceImpl(getList2)");
 
+        //Pageable pageable = contractPageRequestDTO.getPageable(Sort.by("cno").descending());
         Pageable pageable = contractPageRequestDTO.getPageable(Sort.by("cno").descending());
-//        BooleanBuilder booleanBuilder = getSearch(requestDTO); // 검색조건처리
-        Page<Contract> result = repository.findAll(pageable); // Querydsl 사용
+        //BooleanBuilder booleanBuilder = getSearch(requestDTO); // 검색조건처리
+        BooleanBuilder booleanBuilder = getSearch(contractPageRequestDTO); // 검색조건처리
+        //Page<Contract> result = repository.findAll(pageable); // Querydsl 사용
+        Page<Contract> result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
+
         log.info(">>>>>>>>>> entityToDto");
         Function<Contract, ContractDTO> fn = (entity -> entityToDto(entity));
         return new PageResultDTO<>(result, fn);
-    }
+  }
 
 }

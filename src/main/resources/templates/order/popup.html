@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+<th:block th:replace="~{/layout/popup :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
-
         <!-- Begin Page Content -->
+
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">계약정보 목록보기</h1>
+        <h1 class="h3 mb-2 text-gray-800">&nbsp;</h1>
+
         <!-- page card -->
         <div class="card shadow mb-4">
 
             <!-- card-header -->
-            <div class="card-header py-3"><h8 class="m-0 font-weight-bold text-primary">검색</h8></div>
+            <div class="card-header py-3"><h8 class="m-0 font-weight-bold text-primary">계약검색</h8></div>
             <!-- card-body -->
             <div class="card-body">
                 <!-- div -->
                 <div>
-                        <!-- <div class="input-group"> -->
-                        <form action="/contract/list" method="get" id="searchForm">
+                    <!--
+                    <form action="/contract/list" method="get" id="searchForm">
+                        <div class="form-group">
+                            <label>계약코드</label>
+                            <input type="text" class="form-control" name="ccode">
+                        </div><br>
+                        <div class="form-group" style="text-align: right;">
+                            <input type="button" value="검색">
+                        </div>
+                    </form>
+                    -->
+
+                    <!-- <div class="input-group"> -->
+                    <form action="/order/popup" method="get" id="searchForm">
                         <div class="input-group">
                             <input type="hidden" name="page" value="1">
                             <table style="width: 100%;">
@@ -26,26 +39,17 @@
                                     <td>
                                         <div class="input-group-prepend">
                                             <select class="form-select" name="ctype1" style="height:50px;">
-                                                <option value="" th:selected="${contractPageRequestDTO.ctype1 == null}">-분류선택--------------------------------</option>
-                                                <option value="신규계약" th:selected="${contractPageRequestDTO.ctype1 == '신규계약'}">신규계약</option>
-                                                <option value="계약완료" th:selected="${contractPageRequestDTO.ctype1 == '계약완료'}">계약완료</option>
-                                                <option value="계약종료" th:selected="${contractPageRequestDTO.ctype1 == '계약종료'}">계약종료</option>
+                                                <option value="계약완료" selected>계약완료</option>
                                             </select>&nbsp;
                                         </div>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <td style="width:100px;">일반검색</td>
                                     <td>
                                         <div class="input-group-prepend">
                                             <select class="form-select" name="ctype2" style="height:50px;">
-                                                <option value="" th:selected="${contractPageRequestDTO.ctype2 == null}">-항목선택--------------------------------</option>
-                                                <option value="cc" th:selected="${contractPageRequestDTO.ctype2 == 'cc'}">계약코드</option>
-                                                <option value="pc" th:selected="${contractPageRequestDTO.ctype2 == 'pc'}">품목코드</option>
-                                                <option value="pn" th:selected="${contractPageRequestDTO.ctype2 == 'pn'}">품목이름</option>
-                                                <option value="cp" th:selected="${contractPageRequestDTO.ctype2 == 'cp'}">거래처명</option>
-                                                <option value="cm" th:selected="${contractPageRequestDTO.ctype2 == 'cm'}">인수자</option>
+                                                <option value="cc" selected>계약코드</option>
                                             </select>&nbsp;
                                             <input class="form-control" name="keyword" style="height:50px;" th:value="${contractPageRequestDTO.keyword}">
                                         </div>
@@ -55,19 +59,21 @@
                                 <tr style="height:20px;">
                                     <td colspan="2" style="text-align: right;">
                                         <button class="btn btn-outline-secondary btn-search" type="button">검색</button>
-                                        <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/contract/list';">리셋</button>
+                                        <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/order/popup';">리셋</button>
+                                        <button class="btn btn-outline-secondary closeBtn" type="button" onclick="self.opener=self; self.close();">닫기</button>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <!-- <div class="input-group"> -->
-                        </form>
-
-                </div><!-- div -->
-            </div><!-- <div class="card-body"> -->
+                    </form>
+                </div>
+                <!-- </>div> -->
+            </div>
+            <!-- card-body -->
 
             <!-- card-header -->
-            <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">목록</h6></div>
+            <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">계약목록</h6></div>
             <!-- card-body -->
             <div class="card-body">
                 <!-- <div class="table-responsive"> -->
@@ -77,10 +83,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">계약코드</th>
-                            <th scope="col">품목코드</th>
                             <th scope="col">품목이름</th>
-                            <th scope="col">거래처명</th>
-                            <th scope="col">인수자</th>
                             <th scope="col">계약상태</th>
                         </tr>
                         </thead>
@@ -88,10 +91,7 @@
                         <tr th:each="dto: ${result.dtoList}">
                             <td><a th:href="@{/contract/read(cno=${dto.cno}, page=${result.page})}">[[${dto.cno}]]</a></td>
                             <th>[[${dto.ccode}]]</th>
-                            <td>[[${dto.pcode}]]</td>
                             <td>[[${dto.pname}]]</td>
-                            <td>[[${dto.cpartnername}]]</td>
-                            <td>[[${dto.cmanager}]]</td>
                             <td>[[${dto.cstatus}]]</td>
                         </tr>
                         </tbody>
@@ -122,42 +122,10 @@
                         </li>
                     </ul><!-- 하단 페이지 버튼 -->
 
-                    <div style="float: right">
-                        <!-- <button class="btn btn-outline-secondary deleteBtn" type="button">계약삭제</button> -->
-                        <a th:href="@{/contract/register}">
-                            <button class="btn btn-outline-secondary registBtn" type="button">계약등록</button>
-                        </a>
-                    </div>
+                    <br/>
 
-                    <!-- 모달창 처리-->
-                    <div class="modal" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">변경사항</h5>
-                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>정상적으로 처리되었습니다.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                    <!--                                    <button type="button" class="btn btn-primary">확인</button>-->
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- 신규등록완료시 뜨는 모달창 처리-->
 
                     <script th:inline="javascript">
-                        /* 신규등록완료시 뜨는 모달창 처리 */
-                        var msg = [[${msg}]];
-                        console.log(msg);
-                        if(msg){
-                            $(".modal").modal();
-                        }/* 신규등록완료시 뜨는 모달창 처리 */
-
                         /* 검색시 이벤트 처리*/
                         var searchForm = $("#searchForm");
                         $('.btn-search').click(function (e) {
@@ -165,9 +133,13 @@
                         });/* 검색시 이벤트 처리*/
                     </script>
 
-                </div><!-- <div class="table-responsive"> -->
-            </div><!-- card-body -->
-        </div><!-- page card -->
+
+                </div>
+                <!-- <div class="table-responsive"> -->
+            </div>
+            <!-- card-body -->
+        </div>
+        <!-- page card -->
         <!-- End Page Content -->
     </th:block>
 </th:block>
