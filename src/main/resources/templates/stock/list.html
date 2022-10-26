@@ -34,7 +34,7 @@
                                             <option value="ACCESSORY" th:selected="${stockPageRequestDTO.type1 == 'ACCESSORY'}">ACCESSORY</option>
                                             <option value="TOOLS" th:selected="${stockPageRequestDTO.type1 == 'TOOLS'}">TOOLS</option>
                                         </select>&nbsp;
-                                        <select id="categorySelect" name="type1" size="1" style="height:50px;">
+                                        <select id="categorySelect" name="type2" size="1" style="height:50px;">
                                             <option value="" disabled selected>-분류선택--------------------------------</option>
                                             <option></option>
                                         </select>&nbsp;
@@ -75,7 +75,7 @@
                             <tr style="height:20px;">
                                 <td colspan="2" style="text-align: right;">
                                     <button class="btn btn-outline-secondary searchBtn" type="button">검색</button>
-                                    <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/stock/list';">초기화</button>
+                                    <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/stock/list';">리셋</button>
                                 </td>
                             </tr>
 
@@ -102,6 +102,7 @@
                             <th>출고수량</th>
                             <th>재고수량</th>
                             <th>공급단가(원)</th>
+                            <th>재고금액</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -113,14 +114,15 @@
                             <td>[[${dto.scate2}]]</td>
                             <td>[[${dto.sin}]]</td>
                             <td>[[${dto.sout}]]</td>
-                            <td>[[${dto.stock}]]</td>
+                            <td>[[${dto.sin}-${dto.sout}]]</td>
                             <td>[[${dto.sreturn}]]</td>
+                            <td>[[(${dto.sin}-${dto.sout})*${dto.sreturn}]]</td>
                         </tr>
                         </tbody>
                     </table>
 
                     <div style="float: right">
-                        <button class="btn btn-outline-secondary stickOutputBtn" type="button">자재출고</button>
+                        <button class="btn btn-outline-secondary stockOutputBtn" type="button">자재출고</button>
                         <button class="btn btn-outline-secondary stockRegistBtn" type="button" onclick="location.href='/stock/register';">자재등록</button>
                     </div>
 
@@ -147,12 +149,12 @@
             </div>  <!-- 68line end -->
         </div>  <!-- 12line end -->
 
-        <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal2" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal2" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -160,21 +162,139 @@
                         <p>Modal body text goes here.</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal2">Close</button>
                         <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- 모달 시작 -->
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">자재출고</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form action="/stock/register" method="post" id="modalForm">
+                            <input type="hidden" name="sno" id="sno">
+                            <div class="form-group">
+                                <label >품목코드</label>
+                                <input type="text" class="form-control" name="scode" id="scode">
+                            </div>
+
+                            <div class="form-group">
+                                <label >품목이름</label>
+                                <input type="text" class="form-control" name="sname" id="sname">
+                            </div>
+
+                            <div class="form-group">
+                                <label >품목분류1</label>
+                                <input type="text" class="form-control" name="scate1" id="scate1">
+                            </div>
+
+                            <div class="form-group">
+                                <label >품목분류2</label>
+                                <input type="text" class="form-control" name="scate2" id="scate2">
+                            </div>
+
+                            <div class="form-group">
+                                <label >가격</label>
+                                <input type="text" class="form-control" name="sreturn" id="sreturn">
+                            </div>
+
+                            <div class="form-gr" style="display: flex; justify-content: space-between;">
+                                <div>
+                                    <label>출고수량</label>
+                                    <input type="text" class="form-control" name="sout" id="sout">
+                                </div>
+                                <div>
+                                    <label>출고요청자</label>
+                                    <input type="text" class="form-control" name="requester" id="requester">
+                                </div>
+                            </div>
+                            <div class="form-gr" style="display: flex; justify-content: space-between;">
+                                <div>
+                                    <label>재고수량</label>
+                                    <input type="text" class="form-control" name="stock" id="stock" readonly>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary outputSave">완료</button>
+                        <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 모달 끝-->
+
         <script th:inline="javascript">
+
+            $(document).on("click","input[name=radio]",function () {
+
+                var sno = $(this).val();
+
+                $.ajax({
+                    url:"/stock/modalread2",
+                    type:'get',
+                    data: {"sno":sno},
+                    contentType:"application/json",
+                    success:function (data){
+                        $("#scode").val(data.scode);
+                        $("#sname").val(data.sname);
+                        $("#scate1").val(data.scate1);
+                        $("#scate2").val(data.scate2);
+                        $("#sreturn").val(data.sreturn);
+                        $("#sno").val(data.sno);
+                        $("#stock").val(data.sin-data.sout);
+                    },
+                    error:function (){
+                        alert("실패");
+                    }
+                }); //ajax end
+
+            }); //radio end
+
+            var modal = $('.modal');
+
+            $(".stockOutputBtn").click(function (){
+
+                modal.modal('show');
+
+            });
+
+            var modalForm = $("#modalForm");
+            var sout = $("#sout").val();
+            var stock = $("#stock").val();
+
+            $(".outputSave").click(function () {
+                if(stock > sout) {
+                    modalForm
+                        .attr("action", "/stock/outModify")
+                        .attr("method", "post");
+
+                    modalForm.submit();
+                    modal.modal.hide();
+                } else {
+                    alert("재고수량 확인")
+                }
+            });
 
             var msg = [[${msg}]];
 
             console.log(msg);
 
             if(msg){
-                $(".modal").modal();
+                $(".modal2").modal();
             }
 
             var searchForm = $("#searchForm");
