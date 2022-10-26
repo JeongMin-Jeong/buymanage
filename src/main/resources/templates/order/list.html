@@ -103,7 +103,14 @@
                             <tr th:each="dto : ${result.dtoList}">
 
                                 <td><input type="checkbox" name="checkbox" th:value="${dto.ono}"></td>
-                                <th><a th:href="@{/order/read(ono=${dto.ono}, page=${result.page})}">[[${dto.ocode}]]</a></th>
+                                                                <th scope="row">
+                                                                    <a th:href="@{/order/read(ono = ${dto.ono},
+                                                    page= ${result.page},
+                                                    type=${orderPageRequestDTO.type} ,
+                                                    keyword = ${orderPageRequestDTO.keyword})}">
+                                                                        [[${dto.ocode}]]
+                                                                    </a>
+                                                                </th>
                                 <td>[[${dto.orderdate}]]</td>
                                 <td>[[${dto.deliverydate}]]</td>
                                 <td>[[${dto.duedate}]]</td>

@@ -68,5 +68,4 @@ public class Contract extends BaseEntity{
     public void changeCstatus(String cstatus){
         this.cstatus = cstatus;
     }
-
 }
