@@ -77,7 +77,8 @@ public interface ProductService {
                 .build();
 
         List<ProductImageDTO> imageDTOList = productImages.stream().map(productImage -> {
-            return ProductImageDTO.builder().imgName(productImage.getImgName())
+            return ProductImageDTO.builder()
+                    .imgName(productImage.getImgName())
                     .path(productImage.getPath())
                     .uuid(productImage.getUuid())
                     .build();

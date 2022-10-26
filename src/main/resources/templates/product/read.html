@@ -85,5 +85,20 @@
 
         </div><!-- card-body -->
     </div><!-- page card -->
+
+    <script>
+        $(document).ready(function(e) {
+            <!-- 섬네일 클릭시 원본크기 보기 -->
+            $(".uploadResult li").click(function() {
+                var file = $(this).data('file');
+
+                console.log(file);
+
+                $('.imageModal .modal-body').html("<img style='width:100%' src='/display?fileName="+file+"&size=1' >")
+                $(".imageModal").modal("show");
+            });<!-- 섬네일 클릭시 원본크기 보기 -->
+        });
+    </script>
+
     </th:block>
 </th:block>
