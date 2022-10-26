@@ -127,14 +127,11 @@ public class UploadController {
 
         try {
             String srcFileName =  URLDecoder.decode(fileName,"UTF-8");
-            log.info(">>>>>>>>>> srcFileName: " + srcFileName);
             File file = new File(uploadPath +File.separator+ srcFileName);
-            log.info(">>>>>>>>>> 섬file: " + file);
 
             if(size != null && size.equals("1")){
                 file  = new File(file.getParent(), file.getName().substring(2));
             }
-            log.info(">>>>>>>>>> 원file: " + file);
 
             HttpHeaders header = new HttpHeaders();
             //MIME타입 처리

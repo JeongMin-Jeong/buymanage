@@ -66,6 +66,7 @@ public class ProductController {
         log.info(">>>>> ProductController (modify PostMapping)");
 
         Long pno = dto.getPno();
+
         Long newPno = pno + 1;
         dto.setPno(newPno);
 

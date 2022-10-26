@@ -17,7 +17,8 @@ public interface ProductService {
     Long register(ProductDTO dto);
 
     // 목록처리
-    PageResultDTO<ProductDTO, Object[]> getList(ProductPageRequestDTO productPageRequestDTO);
+//    PageResultDTO<ProductDTO, Object[]> getList(ProductPageRequestDTO productPageRequestDTO);
+    PageResultDTO<ProductDTO, Product> getList(ProductPageRequestDTO productPageRequestDTO);
 
     // 조회처리
     ProductDTO read(Long pno);
@@ -85,6 +86,21 @@ public interface ProductService {
         }).collect(Collectors.toList());
 
         dto.setImageDTOList(imageDTOList);
+        return dto;
+    }
+    default ProductDTO entityToDto2(Product entity){
+        ProductDTO dto = ProductDTO.builder()
+                .pno(entity.getPno())
+                .pcode(entity.getPcode())
+                .pname(entity.getPname())
+                .ptype1(entity.getPtype1())
+                .ptype2(entity.getPtype2())
+                //.ptype3(entity.getPtype3())
+                .pcontent(entity.getPcontent())
+                .petc(entity.getPetc())
+                .regdate(entity.getRegDate())
+                .moddate(entity.getModDate())
+                .build();
         return dto;
     }
 }
