@@ -10,7 +10,6 @@
             <!-- card-body -->
             <div class="card-body">
                 <form th:action="@{/product/modify}" th:method="post">
-<!--                <form role="form" method="post" enctype="multipart/form-data" th:object="${dto}">-->
                     <!-- 페이지번호 -->
                     <input type="hidden" name="page" th:value="${requestDTO.page}"><!-- 페이지번호 -->
                     <!-- 삭제처리에 pno넘기기위한 히든처리 -->
@@ -28,7 +27,7 @@
                     <div class="form-group">
                         <label>품목분류</label>
                         <input type="text" class="form-control" name="ptype1" th:value="${dto.ptype1}" readonly>
-                        <select id="category" name="type1" size="1" onchange="makeSubmenu(this.value);selectptype1(this.value);" style="width:100%;height:50px;">
+                        <select id="category" name="type1" size="1" onchange="makeSubmenu(this.value);selectptype1(this.value);" style="width:100%;height:40px;">
                             <option value="" disabled selected>-분류선택--------------------------------</option>
                             <option value="DESKTOP">DESKTOP</option>
                             <option value="NOTEBOOK">NOTEBOOK</option>
@@ -38,7 +37,7 @@
                             <option value="TOOLS">TOOLS</option>
                         </select>&nbsp;
                         <input type="text" class="form-control" name="ptype2" th:value="${dto.ptype2}" readonly>
-                        <select id="categorySelect" name="type2" size="1" style="width:100%;height:50px;" onchange="selectptype2(this.value);">
+                        <select id="categorySelect" name="type2" size="1" style="width:100%;height:40px;" onchange="selectptype2(this.value);">
                             <option value="" disabled selected>-분류선택--------------------------------</option>
                             <option></option>
                         </select>&nbsp;

@@ -69,12 +69,14 @@ public class ProductController {
         Long newPno = pno + 1;
         dto.setPno(newPno);
 
+        String pcode = dto.getPcode();
+        dto.setPcode(pcode);
+
         service.remove(pno);
         service.register(dto);
 
         redirectAttributes.addAttribute("page", productPageRequestDTO.getPage());
         redirectAttributes.addAttribute("pno", pno);
-//        return "redirect:/product/read";
         return "redirect:/product/list";
     }
 
