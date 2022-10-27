@@ -2,8 +2,10 @@ package com.erp.buymanage.controller;
 
 import com.erp.buymanage.dto.ContractDTO;
 import com.erp.buymanage.dto.ContractPageRequestDTO;
+import com.erp.buymanage.dto.ProductPageRequestDTO;
 import com.erp.buymanage.security.dto.AuthMemberDTO;
 import com.erp.buymanage.service.ContractService;
+import com.erp.buymanage.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,12 +19,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/contract")
-
 @Log4j2
 @RequiredArgsConstructor // 자동 주입을 위한 어노테이션
 public class ContractController {
 
     private final ContractService service;
+    private final ProductService productService;
 
     @GetMapping("/")
     public String index(){
@@ -49,7 +51,7 @@ public class ContractController {
         return "redirect:/contract/list";
     }
 
-    @GetMapping({"/read", "/modify" })
+    @GetMapping({"/read", "/modify"})
     public void read(long cno, @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, Model model){
         log.info(">>>>> ContractController(read,modify GetMapping)");
         ContractDTO dto = service.read(cno);
@@ -73,7 +75,12 @@ public class ContractController {
         return "redirect:/contract/list";
     }
 
-
+    @GetMapping("/popup")
+    public void popup(ProductPageRequestDTO productPageRequestDTO, Model model) {
+        log.info("product popup get...");
+        log.info("(list)ProductPageRequestDTO : \" + productPageRequestDTO");
+        model.addAttribute("result", productService.getList2(productPageRequestDTO));
+    }
 
 }
 

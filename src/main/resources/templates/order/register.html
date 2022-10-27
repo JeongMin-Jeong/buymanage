@@ -12,24 +12,33 @@
       <div class="card-body">
 
         <form th:action="@{/order/register}" th:method="post">
+
           <div class="form-group" >
             <label>발주코드</label>
-            <!-- <input type="text" class="form-control" name="pcode" placeholder="P0000" > -->
+
             <input type="text" class="form-control" name="ocode" id="ocode" placeholder="클릭하세요!!!" onclick="displayRandomONum();" readonly>
           </div>
 
           <div class="form-group" >
             <label>계약선택</label>
-            <input type="text" class="form-control" name="ptype1" placeholder="클릭하세요!!!" onclick="orderRegistOpenPopup()" readonly>
-            <!-- <input type="text" class="form-control" name="ptype2" readonly> -->
-          </div>
-          <div class="form-group" >
+            <input type="text" class="form-control" name="ccode" id="ccode" placeholder="클릭하세요!!!" onclick="orderRegistOpenPopup()" readonly>
+             </div>
+
+          <div class="form-group">
             <label>품목이름</label>
-            <input type="text" class="form-control" name="pname" id="pname" >
+            <input type="text" class="form-control" name="pname" id="pname" readonly>
+          </div>
+          <div class="form-group">
+            <label>품목분류1</label>
+            <input type="text" class="form-control" name="ptype1" id="ptype1" readonly>
+          </div>
+          <div class="form-group">
+            <label>품목분류2</label>
+            <input type="text" class="form-control" name="ptype2" id="ptype2" readonly>
           </div>
           <div class="form-group"  >
-            <label>수량</label> <input type="text" class="form-control" id="oquantity" name="pcount"  >
-            <label>공급단가(원)</label> <input type="text"  class="form-control"id="oprice" name="pprice"  >
+            <label>수량</label> <input type="text" class="form-control" id="oquantity" name="oquantity" >
+            <label>공급단가(원)</label> <input type="text"  class="form-control"id="oprice" name="oprice"  >
           </div>
           <div >
             <div class="form-group"  >

@@ -73,7 +73,19 @@ public class ProductServiceImpl implements ProductService{
         return new PageResultDTO<>(result, fn);
     }
 
-//    private BooleanBuilder getSearch(ProductPageRequestDTO productPageRequestDTO) {
+    @Override // 목록처리
+    public PageResultDTO<ProductDTO, Product> getList2(ProductPageRequestDTO productPageRequestDTO) {
+        log.info(">>>>> ProductServiceImpl(getList2)");
+        Pageable pageable = productPageRequestDTO.getPageable(Sort.by("pno").descending());
+        BooleanBuilder booleanBuilder = getSearch(productPageRequestDTO); // 검색조건처리
+        Page<Product> result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
+        log.info(">>>>>>>>>> entityToDto");
+        Function<Product, ProductDTO> fn = (entity -> entityToDto2(entity));
+        return new PageResultDTO<>(result, fn);
+    }
+
+
+    //    private BooleanBuilder getSearch(ProductPageRequestDTO productPageRequestDTO) {
 //        log.info(">>>>> ProductServiceImpl (getSearch)");
 //
 //        String ptype1 = productPageRequestDTO.getPtype1();

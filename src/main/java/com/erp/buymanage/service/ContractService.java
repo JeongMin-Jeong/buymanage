@@ -15,7 +15,6 @@ public interface ContractService {
     // 조회처리
     //ContractDTO read(Long pno); //2022-10-24 JJH pno->cno
     ContractDTO read(Long cno);
-    ContractDTO read2(Long cno);
 
     // 삭제처리
     //void remove(Long pno); //2022-10-24 JJH pno->cno
@@ -38,6 +37,8 @@ public interface ContractService {
                 .cpartnerfax(dto.getCpartnerfax())
                 .pcode(dto.getPcode())
                 .pname(dto.getPname())
+                .ptype1(dto.getPtype1())
+                .ptype2(dto.getPtype2())
                 .pcount(dto.getPcount())
                 .pprice(dto.getPprice())
                 .cmanager(dto.getCmanager())
@@ -62,6 +63,8 @@ public interface ContractService {
                 .cpartnerfax(entity.getCpartnerfax())
                 .pcode(entity.getPcode())
                 .pname(entity.getPname())
+                .ptype1(entity.getPtype1())
+                .ptype2(entity.getPtype2())
                 .pcount(entity.getPcount())
                 .pprice(entity.getPprice())
                 .cmanager(entity.getCmanager())

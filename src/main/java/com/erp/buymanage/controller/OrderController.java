@@ -1,6 +1,5 @@
 package com.erp.buymanage.controller;
 
-import com.erp.buymanage.dto.ContractDTO;
 import com.erp.buymanage.dto.ContractPageRequestDTO;
 import com.erp.buymanage.dto.OrderDTO;
 import com.erp.buymanage.dto.OrderPageRequestDTO;
@@ -19,7 +18,6 @@ import com.erp.buymanage.service.OrderService;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -89,13 +87,6 @@ public class OrderController {
         log.info("popup get...");
         log.info("(list2)contractPageRequestDTO : \" + contractPageRequestDTO");
         model.addAttribute("result", contractService.getList2(contractPageRequestDTO));
-
-    }
-    @GetMapping("/popup2")
-    public void read2(long cno, @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, Model model){
-        log.info(">>>>> OrderController(/order/register GetMapping)");
-        ContractDTO dto = contractService.read(cno);
-        model.addAttribute("dto", dto);
     }
 
     @GetMapping("/list2")
@@ -103,7 +94,6 @@ public class OrderController {
         log.info("(list2)contractPageRequestDTO : \" + contractPageRequestDTO");
         model.addAttribute("result", contractService.getList2(contractPageRequestDTO));
     }
-
 
 
 }
