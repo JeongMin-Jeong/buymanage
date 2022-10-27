@@ -23,7 +23,7 @@
         var cdate = getYmd10();
         var pcode = "P" + cdate + rnum;
         document.getElementById("pcode").value = pcode;
-        alert("프로덕트코드 생성 완료 하였습니다. : "+ pcode);
+        alert("품목코드 생성 완료 하였습니다. : "+ pcode);
         //document.getElementById("pcode").disabled = true;
     }
 
