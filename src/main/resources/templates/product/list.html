@@ -26,7 +26,7 @@
                                     <td>
                                         <div class="input-group-prepend">
                                             <select id="category" name="ptype1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;">
-                                                <option value="" th:selected="${productPageRequestDTO.ptype1 == ''}" disabled>-분류선택--------------------------------</option>
+                                                <option value="" th:selected="${productPageRequestDTO.ptype1 == null}" disabled>-분류선택--------------------------------</option>
                                                 <option value="DESKTOP" th:selected="${productPageRequestDTO.ptype1 == 'DESKTOP'}">DESKTOP</option>
                                                 <option value="NOTEBOOK" th:selected="${productPageRequestDTO.ptype1 == 'NOTEBOOK'}">NOTEBOOK</option>
                                                 <option value="SERVER" th:selected="${productPageRequestDTO.ptype1 == 'SERVER'}">SERVER</option>
@@ -38,23 +38,6 @@
                                                 <option value="" disabled selected>-분류선택--------------------------------</option>
                                                 <option></option>
                                             </select>&nbsp;
-                                            <!--
-                                            <select class="form-select" name="ptype1" style="height:50px;">
-                                                <option value="미분류">-분류선택--------------------------------</option>
-                                                <option value="데스크톱">데스크톱</option>
-                                                <option value="노트북">노트북</option>
-                                                <option value="서버">서버</option>
-                                            </select>&nbsp;
-                                            <select class="form-select" name="ptype2" style="height:50px;">
-                                                <option value="미분류">-분류선택--------------------------------</option>
-                                                <option value="CPU">CPU</option>
-                                                <option value="메인보드">메인보드</option>
-                                                <option value="메모리">메모리</option>
-                                                <option value="하드디스크">하드디스크/SDD</option>
-                                                <option value="케이스">케이스</option>
-                                                <option value="파워">파워</option>
-                                            </select>
-                                            -->
                                         </div>
                                     </td>
                                 </tr>
@@ -64,10 +47,9 @@
                                     <td>
                                         <div class="input-group-prepend">
                                             <select id="genericSelect" class="form-select" name="ptype3" style="height:50px;">
-                                                <option value="" th:selected="${productPageRequestDTO.ptype3 == ''}">-항목선택--------------------------------</option>
-                                                <option value="a" th:selected="${productPageRequestDTO.ptype3 == 'a'}">품목코드</option>
-                                                <option value="b" th:selected="${productPageRequestDTO.ptype3 == 'b'}">품목이름</option>
-                                                <option value="c" th:selected="${productPageRequestDTO.ptype3 == 'c'}">품목내용</option>
+                                                <option value="" th:selected="${productPageRequestDTO.ptype3 == null}">-항목선택--------------------------------</option>
+                                                <option value="pc" th:selected="${productPageRequestDTO.ptype3 == 'pc'}">품목코드</option>
+                                                <option value="pn" th:selected="${productPageRequestDTO.ptype3 == 'pn'}">품목이름</option>
                                             </select>&nbsp;
                                             <input id="genericKeyword" type="text" class="form-control" name="keyword" th:value="${productPageRequestDTO.keyword}" style="height:50px;">
                                         </div>
@@ -77,7 +59,6 @@
                                 <tr style="height:20px;">
                                     <td colspan="2" style="text-align: right;">
                                         <button class="btn btn-outline-secondary searchBtn" type="button">검색</button>
-                                        <!-- <button class="btn btn-outline-secondary searchBtn" type="button">검색</button> -->
                                         <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/product/list';">리셋</button>
                                     </td>
                                 </tr>
@@ -101,7 +82,7 @@
                             <th scope="col">품목이름</th>
                             <th scope="col">품목분류1</th>
                             <th scope="col">품목분류2</th>
-                            <th scope="col">도면(사진)</th>
+<!--                            <th scope="col">도면(사진)</th>-->
                             <th scope="col">비고</th>
                         </tr>
                         </thead>
@@ -112,17 +93,16 @@
                             <td>[[${dto.pname}]]</td>
                             <td>[[${dto.ptype1}]]</td>
                             <td>[[${dto.ptype2}]]</td>
-                            <td>
-                                <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
-                                     th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >
-                            </td>
+<!--                            <td>-->
+<!--                                <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"-->
+<!--                                     th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >-->
+<!--                            </td>-->
                             <td>[[${dto.petc}]]</td>
                         </tr>
                         </tbody>
                     </table>
 
                     <div style="float: right">
-                        <!-- <button class="btn btn-outline-secondary deleteBtn" type="button">품목삭제</button> -->
                         <a th:href="@{/product/register}">
                             <button class="btn btn-outline-secondary registBtn" type="button">품목등록</button>
                         </a>
@@ -167,7 +147,6 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                    <!--                                    <button type="button" class="btn btn-primary">확인</button>-->
                                 </div>
                             </div>
                         </div>

@@ -17,7 +17,8 @@ public interface ProductService {
     Long register(ProductDTO dto);
 
     // 목록처리
-    PageResultDTO<ProductDTO, Object[]> getList(ProductPageRequestDTO productPageRequestDTO);
+//    PageResultDTO<ProductDTO, Object[]> getList(ProductPageRequestDTO productPageRequestDTO);
+    PageResultDTO<ProductDTO, Product> getList(ProductPageRequestDTO productPageRequestDTO);
 
     // 조회처리
     ProductDTO read(Long pno);
@@ -26,12 +27,10 @@ public interface ProductService {
     void remove(Long pno);
 
     // 수정처리
-    void modify(ProductDTO dto);
+//    void modify(ProductDTO dto);
 
     // dto -> 엔티티
     default Map<String, Object> dtoToEntity(ProductDTO dto){
-        System.out.println(">>>>> ProductService (dtoToEntity)");
-
         Map<String, Object> entityMap = new HashMap<>();
 
         Product entity = Product.builder()
@@ -63,11 +62,8 @@ public interface ProductService {
         return entityMap;
     }
 
-
     // 엔티티 -> dto
     default ProductDTO entityToDto(Product entity, List<ProductImage> productImages){
-        System.out.println(">>>>> ProductService (entityToDto)");
-
         ProductDTO dto = ProductDTO.builder()
                 .pno(entity.getPno())
                 .pcode(entity.getPcode())
@@ -82,13 +78,29 @@ public interface ProductService {
                 .build();
 
         List<ProductImageDTO> imageDTOList = productImages.stream().map(productImage -> {
-            return ProductImageDTO.builder().imgName(productImage.getImgName())
+            return ProductImageDTO.builder()
+                    .imgName(productImage.getImgName())
                     .path(productImage.getPath())
                     .uuid(productImage.getUuid())
                     .build();
         }).collect(Collectors.toList());
 
         dto.setImageDTOList(imageDTOList);
+        return dto;
+    }
+    default ProductDTO entityToDto2(Product entity){
+        ProductDTO dto = ProductDTO.builder()
+                .pno(entity.getPno())
+                .pcode(entity.getPcode())
+                .pname(entity.getPname())
+                .ptype1(entity.getPtype1())
+                .ptype2(entity.getPtype2())
+                //.ptype3(entity.getPtype3())
+                .pcontent(entity.getPcontent())
+                .petc(entity.getPetc())
+                .regdate(entity.getRegDate())
+                .moddate(entity.getModDate())
+                .build();
         return dto;
     }
 }

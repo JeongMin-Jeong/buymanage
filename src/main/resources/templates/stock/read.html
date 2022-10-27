@@ -40,12 +40,12 @@
         <input type="text" class="form-control" name="sout" th:value="${dto.sout}" readonly>
       </div>
       <div>
-        <label>반품수량</label>
-        <input type="text" class="form-control" name="sreturn" th:value="${dto.sreturn}" readonly>
-      </div>
-      <div>
         <label>재고수량</label>
         <input type="text" class="form-control" name="stock" th:value="${dto.stock}" readonly>
+      </div>
+      <div>
+        <label>공급단가(원)</label>
+        <input type="text" class="form-control" name="sreturn" th:value="${dto.sreturn}" readonly>
       </div>
     </div>
 
@@ -54,6 +54,13 @@
       <textarea class="form-control" rows="5" name="snote" readonly>[[${dto.snote}]]</textarea>
     </div>
     </form>
+
+    <div>
+    <div th:each="hdto : ${result}">
+      <span>[[${hdto.regDate}]]</span>&nbsp;&nbsp;&nbsp;<span>[[${hdto.text}]]</span>&nbsp;&nbsp;&nbsp;<span>[[${hdto.requester}]]</span>
+    </div>
+    </div>
+
 
     <a th:href="@{/stock/modify(sno = ${dto.sno}, page=${requestDTO.page}, type1 = ${requestDTO.type1}, type2 = ${requestDTO.type2}, type3 = ${requestDTO.type3}, keyword = ${requestDTO.keyword})}">
       <button type="button" class="btn btn-outline-secondary readModifyBtn">수정</button>

@@ -1,9 +1,7 @@
 package com.erp.buymanage.controller;
 
-import com.erp.buymanage.dto.OrderDTO;
-import com.erp.buymanage.dto.OrderPageRequestDTO;
-import com.erp.buymanage.dto.StockPageRequestDTO;
-import com.erp.buymanage.dto.StockDTO;
+import com.erp.buymanage.dto.*;
+import com.erp.buymanage.service.HistoryService;
 import com.erp.buymanage.service.OrderService;
 import com.erp.buymanage.service.StockService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -24,6 +23,7 @@ public class StockController {
 
     private final StockService stockService;
     private final OrderService orderService;
+    private final HistoryService historyService;
 
     @GetMapping("/")
     public String index(){
@@ -52,7 +52,7 @@ public class StockController {
         log.info("register get.....");
     }
 
-    /*@PostMapping("/register")
+    @PostMapping("/register")
     public String registerPost(StockDTO dto, RedirectAttributes redirectAttributes) {
 
         log.info("(register)dto : " + dto);
@@ -63,20 +63,27 @@ public class StockController {
         redirectAttributes.addFlashAttribute("msg", sno);
 
         return "redirect:/stock/list";
-    }*/
+    }
 
     @PostMapping("/inputregister")
     public String inputRegister(StockDTO dto) {
 
         log.info("(inputRegister) dto : " + dto);
 
+        long sno = stockService.register(dto);
         OrderDTO orderDTO = new OrderDTO();
         long ono = Long.parseLong(dto.getSnote());
-
         orderDTO.setOno(ono);
         orderDTO.setOstate("입고처리");
         orderService.inputModify(orderDTO);
-        stockService.register(dto);
+
+        HistoryDTO historyDTO = new HistoryDTO();
+        historyDTO.setSno(sno);
+        System.out.println("HistoryDTO ============================== " +sno);
+        historyDTO.setText(dto.getSin() + "개 입고");
+        historyDTO.setRequester(dto.getRequester());
+        System.out.println("HistoryDTO ============================== " +dto.getRequester());
+        historyService.register(historyDTO);
 
         return "redirect:/stock/list2";
     }
@@ -89,7 +96,10 @@ public class StockController {
 
         StockDTO dto = stockService.read(sno);
 
+        //List<HistoryDTO> historyDTOList = historyService.getList(sno);
+
         model.addAttribute("dto", dto);
+        model.addAttribute("result", historyService.getList(sno));
     }
 
     @GetMapping("/modalread")
@@ -103,6 +113,21 @@ public class StockController {
         long ono = Long.parseLong(str);
 
         OrderDTO dto = orderService.read(ono);
+
+        return dto;
+    }
+
+    @GetMapping("/modalread2")
+    @ResponseBody
+    public StockDTO modalread2(@RequestParam Map<String, Object> param) {
+
+        System.out.println("컨트롤러 sno : " + param.get("sno"));
+
+        String str = (String)param.get("sno");
+
+        long sno = Long.parseLong(str);
+
+        StockDTO dto = stockService.read(sno);
 
         return dto;
     }
@@ -134,5 +159,20 @@ public class StockController {
         redirectAttributes.addAttribute("sno", dto.getSno());
 
         return "redirect:/stock/read";
+    }
+
+    @PostMapping("/outModify")
+    public String outModify(StockDTO dto){
+
+        System.out.println("outModift 확인 데이터 =======================================" + dto.getSno());
+        HistoryDTO historyDTO = new HistoryDTO();
+        historyDTO.setSno(dto.getSno());
+        historyDTO.setText(dto.getSout() + "개 출고");
+        historyDTO.setRequester(dto.getRequester());
+        System.out.println("HistoryDTO ============================== " +dto.getRequester());
+        historyService.register(historyDTO);
+        stockService.outModify(dto);
+
+        return "redirect:/stock/list";
     }
 }

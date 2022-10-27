@@ -9,11 +9,13 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/product")
@@ -45,26 +47,38 @@ public class ProductController {
     @PostMapping("/register")
     public String register(ProductDTO dto, RedirectAttributes redirectAttributes){
         log.info(">>>>> ProductController (register PostMapping)");
-        Long pno = service.register(dto);
-        redirectAttributes.addFlashAttribute("msg", pno);
+
+        service.register(dto);
+        redirectAttributes.addFlashAttribute("pno", dto.getPno());
         return "redirect:/product/list";
     }
 
-    @GetMapping({"/read","/modify"})
-    public void read(long pno, @ModelAttribute("requestDTO") ProductPageRequestDTO productPageRequestDTO, Model model,@AuthenticationPrincipal AuthMemberDTO authMember){
-        log.info(">>>>> ProductController(read,modify GetMapping)");
-        log.info(">>>>> pno: " + pno);
+    @GetMapping({"/read", "/modify"})
+    public void read(long pno, @ModelAttribute("requestDTO") ProductPageRequestDTO productPageRequestDTO, Model model){
+        log.info(">>>>> ProductController (read,modify GetMapping)");
+
         ProductDTO dto = service.read(pno);
         model.addAttribute("dto", dto);
     }
 
     @PostMapping("/modify")
-    public String modify(ProductDTO dto, @ModelAttribute("requestDTO") ProductPageRequestDTO productPageRequestDTO, RedirectAttributes redirectAttributes,@AuthenticationPrincipal AuthMemberDTO authMember){
-        log.info(">>>>> ProductController(modify PostMapping)");
-        service.modify(dto);
+    public String modify(ProductDTO dto, @ModelAttribute("requestDTO") ProductPageRequestDTO productPageRequestDTO, RedirectAttributes redirectAttributes){
+        log.info(">>>>> ProductController (modify PostMapping)");
+
+        Long pno = dto.getPno();
+
+        Long newPno = pno + 1;
+        dto.setPno(newPno);
+
+        String pcode = dto.getPcode();
+        dto.setPcode(pcode);
+
+        service.remove(pno);
+        service.register(dto);
+
         redirectAttributes.addAttribute("page", productPageRequestDTO.getPage());
-        redirectAttributes.addAttribute("pno", dto.getPno());
-        return "redirect:/product/read";
+        redirectAttributes.addAttribute("pno", pno);
+        return "redirect:/product/list";
     }
 
     @PostMapping("/remove")
@@ -72,7 +86,7 @@ public class ProductController {
         log.info(">>>>> ProductController (remove PostMapping)");
 
         service.remove(pno);
-        redirectAttributes.addFlashAttribute("msg", pno);
+        redirectAttributes.addFlashAttribute("pno", pno);
         return "redirect:/product/list";
     }
 }

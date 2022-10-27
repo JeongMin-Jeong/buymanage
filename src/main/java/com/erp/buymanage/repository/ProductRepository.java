@@ -14,11 +14,11 @@ public interface ProductRepository extends JpaRepository<Product, Long>, Queryds
             "FROM Product p " +
             "LEFT OUTER JOIN ProductImage pi ON pi.product = p " +
             "GROUP BY p")
-    Page<Object[]> getListPage(Pageable pageable);
+    List<Object[]> getListPage(Pageable pageable);
 
     @Query("SELECT p, pi " +
             "FROM Product p " +
             "LEFT OUTER JOIN ProductImage pi on pi.product = p " +
             "WHERE p.pno =:pno GROUP BY pi")
-    List<Object[]> getMovieWithAll(Long pno);
+    List<Object[]> getProductWithAll(Long pno);
 }

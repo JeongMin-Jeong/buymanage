@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-//import org.zerock.mreview.dto.UploadResultDTO;
 import com.erp.buymanage.dto.UploadResultDTO;
 
 import java.io.File;
@@ -97,33 +96,6 @@ public class UploadController {
         return folderPath;
     }
 
-//    @GetMapping("/display")
-//    public ResponseEntity<byte[]> getFile(String fileName) {
-//
-//        ResponseEntity<byte[]> result = null;
-//
-//        try {
-//            String srcFileName =  URLDecoder.decode(fileName,"UTF-8");
-//
-//            log.info("fileName: " + srcFileName);
-//
-//            File file = new File(uploadPath +File.separator+ srcFileName);
-//
-//            log.info("file: " + file);
-//
-//            HttpHeaders header = new HttpHeaders();
-//
-//            //MIME타입 처리
-//            header.add("Content-Type", Files.probeContentType(file.toPath()));
-//            //파일 데이터 처리
-//            result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
-//        } catch (Exception e) {
-//            log.error(e.getMessage());
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//        return result;
-//    }
-
     @PostMapping("/removeFile")
     public ResponseEntity<Boolean> removeFile(String fileName){
 
@@ -154,15 +126,11 @@ public class UploadController {
         try {
             String srcFileName =  URLDecoder.decode(fileName,"UTF-8");
 
-            log.info("fileName: " + srcFileName);
-
             File file = new File(uploadPath +File.separator+ srcFileName);
-
+            String oriFileName = file.getName().substring(2);
             if(size != null && size.equals("1")){
-                file  = new File(file.getParent(), file.getName().substring(2));
+                file  = new File(file.getParent(), oriFileName);
             }
-
-            log.info("file: " + file);
 
             HttpHeaders header = new HttpHeaders();
 
@@ -176,6 +144,5 @@ public class UploadController {
         }
         return result;
     }
-
 }
 

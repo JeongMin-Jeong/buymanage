@@ -38,6 +38,8 @@ public class Stock extends BaseEntity{
 
     private int stock;
 
+    private String requester;
+
 
     private String snote;
 
