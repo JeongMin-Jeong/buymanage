@@ -1,9 +1,7 @@
 package com.erp.buymanage.service;
 
-import com.erp.buymanage.dto.ProductImageDTO;
-import com.erp.buymanage.dto.ProductPageRequestDTO;
-import com.erp.buymanage.dto.PageResultDTO;
-import com.erp.buymanage.dto.ProductDTO;
+import com.erp.buymanage.dto.*;
+import com.erp.buymanage.entity.Contract;
 import com.erp.buymanage.entity.Product;
 import com.erp.buymanage.entity.ProductImage;
 
@@ -19,6 +17,8 @@ public interface ProductService {
     // 목록처리
 //    PageResultDTO<ProductDTO, Object[]> getList(ProductPageRequestDTO productPageRequestDTO);
     PageResultDTO<ProductDTO, Product> getList(ProductPageRequestDTO productPageRequestDTO);
+
+    PageResultDTO<ProductDTO, Product> getList2(ProductPageRequestDTO productPageRequestDTO);
 
     // 조회처리
     ProductDTO read(Long pno);

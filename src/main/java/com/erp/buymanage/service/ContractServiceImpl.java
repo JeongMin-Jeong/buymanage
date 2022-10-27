@@ -3,12 +3,8 @@ package com.erp.buymanage.service;
 import com.erp.buymanage.dto.ContractDTO;
 import com.erp.buymanage.dto.ContractPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
-import com.erp.buymanage.dto.ProductPageRequestDTO;
 import com.erp.buymanage.entity.Contract;
 import com.erp.buymanage.entity.QContract;
-
-import com.erp.buymanage.entity.QProduct;
-
 import com.erp.buymanage.repository.ContractRepository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -18,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -65,7 +60,7 @@ public class ContractServiceImpl implements ContractService{
         String keyword = contractPageRequestDTO.getKeyword();
         BooleanExpression expression = qContract.cno.gt(0L);   //sno > 0 조건만 생성
         booleanBuilder.and(expression);
-        if(ctype1 == "" && ctype2 == "") {
+        if(ctype1 == null && ctype2 == null) {
             return booleanBuilder;
         }
 
@@ -158,6 +153,6 @@ public class ContractServiceImpl implements ContractService{
         log.info(">>>>>>>>>> entityToDto");
         Function<Contract, ContractDTO> fn = (entity -> entityToDto(entity));
         return new PageResultDTO<>(result, fn);
-  }
+    }
 
 }

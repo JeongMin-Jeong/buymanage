@@ -26,6 +26,8 @@ public class ContractDTO {
     private String cpartnerfax; // 거래처 팩스
     private String pcode; // 품목코드
     private String pname; // 품목이름
+    private String ptype1; // 대분류
+    private String ptype2; // 중분류
     private int pcount; // 품목수량
     private int pprice; // 품목단가
     private String cmanager; // 인수자
