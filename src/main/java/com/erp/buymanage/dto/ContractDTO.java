@@ -28,11 +28,7 @@ public class ContractDTO {
     private String pname; // 품목이름
     private String ptype1; // 대분류
     private String ptype2; // 중분류
-    private int pcount; // 품목수량
     private int pprice; // 품목단가
-    private String cmanager; // 인수자
-    private String cpartnermanager; // 납품자
-    private String cdeliverydate; // 납기일자
     private String cstatus; // 계약상태(신규,완료,종료)
     private String cetc; // 비고(양도,양수조건)
     private LocalDateTime regdate, moddate; // 등록일, 수정일
