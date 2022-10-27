@@ -85,18 +85,29 @@
                             <th scope="col">#</th>
                             <th scope="col">계약코드</th>
                             <th scope="col">품목이름</th>
+                            <th scope="col">품목분류1</th>
+                            <th scope="col">품목분류2</th>
                             <th scope="col">계약상태</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="dto: ${result.dtoList}">
-                            <td><a th:href="@{/contract/read(cno=${dto.cno}, page=${result.page})}">[[${dto.cno}]]</a></td>
-                            <th>[[${dto.ccode}]]</th>
+                            <td>[[${dto.cno}]]</td>
+                            <th><a href="#" th:ccode="${dto.ccode}"
+                                   th:pname="${dto.pname}"
+                                   th:ptype1="${dto.ptype1}"
+                                   th:ptype2="${dto.ptype2}"
+                                   th:onclick="returnParentWindows2(this.getAttribute('ccode'),this.getAttribute('pname'),this.getAttribute('ptype1'),this.getAttribute('ptype2'));">[[${dto.ccode}]]</a>
+                            </th>
+
                             <td>[[${dto.pname}]]</td>
+                            <td>[[${dto.ptype1}]]</td>
+                            <td>[[${dto.ptype2}]]</td>
                             <td>[[${dto.cstatus}]]</td>
                         </tr>
                         </tbody>
                     </table>
+
 
                     <!-- 하단 페이지 버튼 -->
                     <ul class="pagination h-100 justify-content-center align-items-center">
