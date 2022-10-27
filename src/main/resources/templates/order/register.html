@@ -38,21 +38,24 @@
           </div>
           <div class="form-group"  >
             <label>수량</label> <input type="text" class="form-control" id="oquantity" name="oquantity" >
-            <label>공급단가(원)</label> <input type="text"  class="form-control"id="oprice" name="oprice"  >
+            <label>품목단가</label> <input type="text"  class="form-control"id="pprice" name="pprice" readonly >
           </div>
-          <div >
+
             <div class="form-group"  >
-              <label>납품업체</label> <input type="text" class="form-control" id="ocompany" name="ocompany" >
-              <label>담당자</label> <input type="text" class="form-control" id="omanager" name="omanager" >
+              <label>납품업체</label>
+              <input type="text" class="form-control" id="cpartnername" name="cpartnername" readonly >
             </div>
+          <div class="form-group"  >
+          <label>담당자</label> <input type="text" class="form-control" id="omanager" name="omanager" >
           </div>
-          <div >
+
+
             <div class="form-group" >
               <label>발주일자</label><input type="date" class="form-control" name="orderdate">
               <label>납기일자</label><input type="date" class="form-control" name="deliverydate">
-              <label>마감일자</label><input type="date" class="form-control" name="duedate">
+
             </div>
-          </div>
+
           <div class="form-group" >
             <label>발주상태</label>
             <select class="form-select" name="ostate" id="ostate" style="height:40px;width:100%" onchange="disabledSelectvalue();">

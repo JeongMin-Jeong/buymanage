@@ -93,16 +93,17 @@
         opener.document.getElementById('ptype1').value = ptype1;
         opener.document.getElementById('ptype2').value = ptype2;
         self.close();
-<<<<<<< HEAD
+
     }
-    function returnParentWindows2(ccode,pname,ptype1,ptype2){
+    function returnParentWindows2(ccode,pname,ptype1,ptype2,pprice,cpartnername){
 
         opener.document.getElementById('ccode').value = ccode;
         opener.document.getElementById('pname').value = pname;
         opener.document.getElementById('ptype1').value = ptype1;
         opener.document.getElementById('ptype2').value = ptype2;
+        opener.document.getElementById('pprice').value = pprice;
+        opener.document.getElementById('cpartnername').value = cpartnername;
         self.close();
     }
-=======
-    }
->>>>>>> e92067f92c651b124795a68a3d09d0ad8f5f0dd9
+
+
