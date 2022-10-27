@@ -79,15 +79,15 @@
                             <th scope="col">계약코드</th>
                             <th scope="col">품목코드</th>
                             <th scope="col">품목이름</th>
-                            <th scope="col">거래처명</th>
+                            <th scope="col">품목이름</th>
                             <th scope="col">인수자</th>
                             <th scope="col">계약상태</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="dto: ${result.dtoList}">
-                            <td><a th:href="@{/contract/read(cno=${dto.cno}, page=${result.page})}">[[${dto.cno}]]</a></td>
-                            <th>[[${dto.ccode}]]</th>
+                            <td>[[${dto.cno}]]</td>
+                            <th><a th:href="@{/contract/read(cno=${dto.cno}, page=${result.page})}">[[${dto.ccode}]]</a></th>
                             <td>[[${dto.pcode}]]</td>
                             <td>[[${dto.pname}]]</td>
                             <td>[[${dto.cpartnername}]]</td>

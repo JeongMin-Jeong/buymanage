@@ -2,8 +2,10 @@ package com.erp.buymanage.controller;
 
 import com.erp.buymanage.dto.ContractDTO;
 import com.erp.buymanage.dto.ContractPageRequestDTO;
+import com.erp.buymanage.dto.ProductPageRequestDTO;
 import com.erp.buymanage.security.dto.AuthMemberDTO;
 import com.erp.buymanage.service.ContractService;
+import com.erp.buymanage.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ContractController {
 
     private final ContractService service;
+    private final ProductService productService;
 
     @GetMapping("/")
     public String index(){
@@ -71,5 +74,13 @@ public class ContractController {
         redirectAttributes.addFlashAttribute("msg", cno);
         return "redirect:/contract/list";
     }
+
+    @GetMapping("/popup")
+    public void popup(ProductPageRequestDTO productPageRequestDTO, Model model) {
+        log.info("product popup get...");
+        log.info("(list)ProductPageRequestDTO : \" + productPageRequestDTO");
+        model.addAttribute("result", productService.getList2(productPageRequestDTO));
+    }
+
 }
 

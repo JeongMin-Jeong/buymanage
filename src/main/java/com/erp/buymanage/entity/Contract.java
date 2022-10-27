@@ -1,7 +1,6 @@
 package com.erp.buymanage.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity
@@ -43,6 +42,12 @@ public class Contract extends BaseEntity{
 
     @Column(length = 100, nullable = false)
     private String pname; // 품목이름
+
+    @Column(length = 50, nullable = false)
+    private String ptype1; // 대분류
+
+    @Column(length = 50, nullable = false)
+    private String ptype2; // 중분류
 
     @Column(length = 100, nullable = false)
     private int pcount; // 품목수량

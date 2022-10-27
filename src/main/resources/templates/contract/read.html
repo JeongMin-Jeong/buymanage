@@ -20,6 +20,45 @@
             </div><!-- card-body -->
         </div><!-- page card -->
 
+      <!-- page card -->
+      <div class="card shadow mb-4">
+          <!-- card-body -->
+          <div class="card-body">
+
+              <div class="form-group">
+                  <label>품목코드</label>
+                  <input type="text" class="form-control" name="pcode" th:value="${dto.pcode}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>품목이름</label>
+                  <input type="text" class="form-control" name="pname" th:value="${dto.pname}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>품목분류1</label>
+                  <input type="text" class="form-control" name="ptype1" th:value="${dto.ptype1}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>품목분류2</label>
+                  <input type="text" class="form-control" name="ptype2" th:value="${dto.ptype2}" readonly>
+              </div>
+
+              <!--
+              <div class="form-group">
+                  <label>품목수량</label>
+                  <input type="text" class="form-control" name="pcount" th:value="${dto.pcount}" readonly>
+              </div>
+              -->
+              <div class="form-group">
+                  <label>품목단가</label>
+                  <input type="text" class="form-control" name="pprice" th:value="${dto.pprice}" readonly>
+              </div>
+
+          </div><!-- card-body -->
+        </div><!-- page card -->
+
+
+
+
         <!-- page card -->
         <div class="card shadow mb-4">
             <!-- card-body -->
@@ -44,33 +83,6 @@
                 <div class="form-group">
                     <label>거래처 팩스</label>
                     <input type="text" class="form-control" name="cpartnerfax" th:value="${dto.cpartnerfax}" readonly>
-                </div>
-
-            </div><!-- card-body -->
-        </div><!-- page card -->
-
-        <!-- page card -->
-        <div class="card shadow mb-4">
-            <!-- card-body -->
-            <div class="card-body">
-
-                <div class="form-group">
-                    <label>품목코드</label>
-                    <input type="text" class="form-control" name="pcode" th:value="${dto.pcode}" readonly>
-                </div>
-                <div class="form-group">
-                    <label>품목이름</label>
-                    <input type="text" class="form-control" name="pname" th:value="${dto.pname}" readonly>
-                </div>
-                <!--
-                <div class="form-group">
-                    <label>품목수량</label>
-                    <input type="text" class="form-control" name="pcount" th:value="${dto.pcount}" readonly>
-                </div>
-                -->
-                <div class="form-group">
-                    <label>품목단가</label>
-                    <input type="text" class="form-control" name="pprice" th:value="${dto.pprice}" readonly>
                 </div>
 
             </div><!-- card-body -->
