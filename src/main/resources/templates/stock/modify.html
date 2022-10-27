@@ -28,7 +28,7 @@
       <label >품목분류</label>
       <input type="text" class="form-control" name="cate1" th:value="${dto.scate1}">
       <select id="category" name="scate1" size="1" onchange="makeSubmenu(this.value);selectscate1(this.value);" style="width:100%;height:50px;">
-        <option value="" disabled selected>-분류선택--------------------------------</option>
+        <option value="" disabled selected>----------------분류선택----------------</option>
         <option value="DESKTOP">DESKTOP</option>
         <option value="NOTEBOOK">NOTEBOOK</option>
         <option value="SERVER">SERVER</option>
@@ -38,7 +38,7 @@
       </select>&nbsp;
       <input type="text" class="form-control" name="cate2" th:value="${dto.scate2}">
       <select id="categorySelect" name="scate2" size="1" style="width:100%;height:50px;" onchange="selectscate2(this.value);">
-        <option value="" disabled selected>-분류선택--------------------------------</option>
+        <option value="" disabled selected>----------------분류선택----------------</option>
         <option></option>
       </select>&nbsp;
     </div>
