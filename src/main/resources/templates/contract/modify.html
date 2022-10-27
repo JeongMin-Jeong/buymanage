@@ -87,13 +87,6 @@
                   <label>품목분류2</label>
                   <input type="text" class="form-control" name="ptype2" th:value="${dto.ptype2}" readonly>
               </div>
-              <!--
-              <div class="form-group">
-                  <label>품목수량</label>
-              </div>
-              -->
-              <input type="hidden" class="form-control" name="pcount" th:value="${dto.pcount}" readonly>
-
               <div class="form-group">
                   <label>품목단가</label>
                   <input type="text" class="form-control" name="pprice" th:value="${dto.pprice}" readonly>
@@ -136,18 +129,6 @@
       <div class="card shadow mb-4">
           <!-- card-body -->
           <div class="card-body">
-              <div class="form-group">
-                  <label>인수자</label>
-                  <input type="text" class="form-control" name="cmanager" th:value="${dto.cmanager}" readonly>
-              </div>
-              <div class="form-group">
-                  <label>납품자</label>
-                  <input type="text" class="form-control" name="cpartnermanager" th:value="${dto.cpartnermanager}" readonly>
-              </div>
-              <div class="form-group">
-                  <label>납기일자</label>
-                  <input type="date" class="form-control" name="cdeliverydate" th:value="${dto.cdeliverydate}" readonly>
-              </div>
               <!--
               <div class="form-group">
                   <label>계약상태</label>

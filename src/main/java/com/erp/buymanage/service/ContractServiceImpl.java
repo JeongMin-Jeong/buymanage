@@ -27,29 +27,30 @@ public class ContractServiceImpl implements ContractService{
     @Override // 등록처리
     public Long register(ContractDTO dto) {
         log.info(">>>>> ContractServiceImpl(register)");
-        log.info(">>>>>>>>>> dto");
-        log.info(">>>>>>>>>> dtoToEntity");
-        Contract entity = dtoToEntity(dto);
 
-        log.info(">>>>>>>>>> entity");
-        log.info(">>>>>>>>>> repository에 저장");
+        Contract entity = dtoToEntity(dto);
+        log.info(">>>>>>>>>> dtoToEntity");
+
         repository.save(entity);
-        log.info(">>>>>>>>>> return entity.getCno()");
+        log.info(">>>>>>>>>> repository에 저장");
+
         return entity.getCno();
     }
 
     @Override // 목록처리
     public PageResultDTO<ContractDTO, Contract> getList(ContractPageRequestDTO contractPageRequestDTO) {
         log.info(">>>>> ContractServiceImpl(getList)");
+
         Pageable pageable = contractPageRequestDTO.getPageable(Sort.by("cno").descending());
         BooleanBuilder booleanBuilder = getSearch(contractPageRequestDTO); // 검색조건처리
         Page<Contract> result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
-        log.info(">>>>>>>>>> entityToDto");
         Function<Contract, ContractDTO> fn = (entity -> entityToDto(entity));
         return new PageResultDTO<>(result, fn);
     }
 
     private BooleanBuilder getSearch(ContractPageRequestDTO contractPageRequestDTO) {
+        log.info(">>>>> ContractServiceImpl(getSearch)");
+
         String ctype1 = contractPageRequestDTO.getCtype1();
         String ctype2 = contractPageRequestDTO.getCtype2();
         if(ctype1 == ""){ ctype1 = null; }
@@ -60,7 +61,7 @@ public class ContractServiceImpl implements ContractService{
         String keyword = contractPageRequestDTO.getKeyword();
         BooleanExpression expression = qContract.cno.gt(0L);   //sno > 0 조건만 생성
         booleanBuilder.and(expression);
-        if(ctype1 == null && ctype2 == null) {
+        if(ctype1 == "" && ctype2 == "") {
             return booleanBuilder;
         }
 
@@ -80,9 +81,6 @@ public class ContractServiceImpl implements ContractService{
             if (ctype2.contains("cp")) {
                 conditionBuilder.and(qContract.cpartnername.contains(keyword));
             }
-            if (ctype2.contains("cm")) {
-                conditionBuilder.and(qContract.cmanager.contains(keyword));
-            }
             conditionBuilder.and(qContract.cstatus.eq(ctype1));
         } else if (ctype1 == null && ctype2 != null) {
             if (ctype2.contains("cc")) {
@@ -97,9 +95,6 @@ public class ContractServiceImpl implements ContractService{
             if (ctype2.contains("cp")) {
                 conditionBuilder.and(qContract.cpartnername.contains(keyword));
             }
-            if (ctype2.contains("cm")) {
-                conditionBuilder.and(qContract.cmanager.contains(keyword));
-            }
         } else if (ctype1 != null && ctype2 == null) {
             conditionBuilder.and(qContract.cstatus.eq(ctype1));
         } else if (ctype1 == null && ctype2 == null){
@@ -110,7 +105,6 @@ public class ContractServiceImpl implements ContractService{
         booleanBuilder.and(conditionBuilder);
         return booleanBuilder;
     }
-
 
     @Override // 조회처리
     public ContractDTO read(Long cno) {
@@ -129,6 +123,8 @@ public class ContractServiceImpl implements ContractService{
 
     @Override // 수정처리
     public void modify(ContractDTO dto) {
+        log.info(">>>>> ContractServiceImpl(modify)");
+
         Optional<Contract> result = repository.findById(dto.getCno());
 
         if(result.isPresent()){
@@ -150,7 +146,6 @@ public class ContractServiceImpl implements ContractService{
         //Page<Contract> result = repository.findAll(pageable); // Querydsl 사용
         Page<Contract> result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
 
-        log.info(">>>>>>>>>> entityToDto");
         Function<Contract, ContractDTO> fn = (entity -> entityToDto(entity));
         return new PageResultDTO<>(result, fn);
     }
