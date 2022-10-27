@@ -37,7 +37,7 @@ public class StockServiceImpl implements StockService {
 
         log.info("DTO---------------------");
         log.info(dto);
-
+        dto.setStock(dto.getSin());
         Stock entity = dtoToEntity(dto);
         Stock history = stockRepository.findByScode(scode);
         List<Stock> stockList = stockRepository.findAll();
@@ -176,6 +176,7 @@ public class StockServiceImpl implements StockService {
         if (result.isPresent()) {
             Stock entity = result.get();
             entity.changeOut(dto.getSout());
+            entity.changeStock2(dto.getSout());
             stockRepository.save(entity);
         }
     }
