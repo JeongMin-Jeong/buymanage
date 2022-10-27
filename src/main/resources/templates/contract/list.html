@@ -26,7 +26,7 @@
                                     <td>
                                         <div class="input-group-prepend">
                                             <select class="form-select" name="ctype1" style="height:50px;">
-                                                <option value="" th:selected="${contractPageRequestDTO.ctype1 == null}">-분류선택--------------------------------</option>
+                                                <option value="" th:selected="${contractPageRequestDTO.ctype1 == null}" disabled>----------------분류선택----------------</option>
                                                 <option value="신규계약" th:selected="${contractPageRequestDTO.ctype1 == '신규계약'}">신규계약</option>
                                                 <option value="계약완료" th:selected="${contractPageRequestDTO.ctype1 == '계약완료'}">계약완료</option>
                                                 <option value="계약종료" th:selected="${contractPageRequestDTO.ctype1 == '계약종료'}">계약종료</option>
@@ -40,7 +40,7 @@
                                     <td>
                                         <div class="input-group-prepend">
                                             <select class="form-select" name="ctype2" style="height:50px;">
-                                                <option value="" th:selected="${contractPageRequestDTO.ctype2 == null}">-항목선택--------------------------------</option>
+                                                <option value="" th:selected="${contractPageRequestDTO.ctype2 == null}">----------------분류선택----------------</option>
                                                 <option value="cc" th:selected="${contractPageRequestDTO.ctype2 == 'cc'}">계약코드</option>
                                                 <option value="pc" th:selected="${contractPageRequestDTO.ctype2 == 'pc'}">품목코드</option>
                                                 <option value="pn" th:selected="${contractPageRequestDTO.ctype2 == 'pn'}">품목이름</option>

@@ -21,6 +21,6 @@ public class History extends BaseEntity{
 
     private String requester;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Stock stock;
 }
