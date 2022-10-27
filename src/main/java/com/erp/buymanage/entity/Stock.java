@@ -52,7 +52,8 @@ public class Stock extends BaseEntity{
     public void changeIn(int sin) { this.sin += sin; }
     public void changeOut(int sout) { this.sout += sout; }
     public void changeReturn(int sreturn) { this.sreturn = sreturn; }
-    public void changeStock(int stock) { this.stock = stock; }
+    public void changeStock1(int sin) { this.stock = +sin; }
+    public void changeStock2(int sout) { this.stock -= sout; }
     public void changeNote(String snote) { this.snote = snote; }
 
 }

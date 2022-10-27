@@ -14,7 +14,7 @@ public interface StockRepository extends JpaRepository<Stock, Long>, QuerydslPre
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE tbl_stock set sin = sin + :sin where scode = :scode", nativeQuery = true)
+    @Query(value = "UPDATE tbl_stock set sin = sin + :sin, stock = stock + :sin where scode = :scode", nativeQuery = true)
     public void updateSin(@Param("sin") int sin, @Param("scode") String scode);
 
     public Stock findByScode(String scode);
