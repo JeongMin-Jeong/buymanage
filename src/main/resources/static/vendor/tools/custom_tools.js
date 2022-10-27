@@ -74,7 +74,6 @@
 
     function ContractDataSend() {
 
-        var pname = document.getElementById("pname").value;
         window.opener.document.getElementById("pname").value =pname;
         self.close();
     }

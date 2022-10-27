@@ -19,6 +19,7 @@ import com.erp.buymanage.service.OrderService;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -90,6 +91,7 @@ public class OrderController {
         model.addAttribute("result", contractService.getList2(contractPageRequestDTO));
 
     }
+    @GetMapping("/popup2")
     public void read2(long cno, @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, Model model){
         log.info(">>>>> OrderController(/order/register GetMapping)");
         ContractDTO dto = contractService.read(cno);
