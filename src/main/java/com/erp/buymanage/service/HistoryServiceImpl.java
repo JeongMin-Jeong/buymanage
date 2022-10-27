@@ -30,8 +30,9 @@ public class HistoryServiceImpl implements HistoryService{
     @Override
     public List<HistoryDTO> getList(Long sno) {
 
-        List<History> result = historyRepository.getHistoriesByStockOrderByHno(Stock.builder().sno(sno).build());
+        List<History> result = historyRepository.getHistoriesByStockOrderByHnoDesc(Stock.builder().sno(sno).build());
 
         return result.stream().map(history -> entityToDTO(history)).collect(Collectors.toList());
     }
+
 }

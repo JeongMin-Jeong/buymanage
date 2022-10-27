@@ -41,23 +41,23 @@
       </div>
       <div>
         <label>재고수량</label>
-        <input type="text" class="form-control" name="stock" th:value="${dto.stock}" readonly>
+        <input type="text" class="form-control" name="stock" th:value="${dto.sin}-${dto.sout}" readonly>
       </div>
       <div>
-        <label>공급단가(원)</label>
-        <input type="text" class="form-control" name="sreturn" th:value="${dto.sreturn}" readonly>
+        <label>공급단가</label>
+        <input type="text" class="form-control" name="sreturn" th:value="${#numbers.formatInteger(dto.sreturn, 1, 'COMMA') + '원'}" readonly>
       </div>
     </div>
 
     <div class="form-group">
       <label >비고</label>
-      <textarea class="form-control" rows="5" name="snote" readonly>[[${dto.snote}]]</textarea>
+      <textarea class="form-control" rows="5" name="snote" readonly></textarea>
     </div>
     </form>
 
     <div>
     <div th:each="hdto : ${result}">
-      <span>[[${hdto.regDate}]]</span>&nbsp;&nbsp;&nbsp;<span>[[${hdto.text}]]</span>&nbsp;&nbsp;&nbsp;<span>[[${hdto.requester}]]</span>
+      <span th:text="${#temporals.format(hdto.regDate, 'yyyy-MM-dd HH:mm:ss')}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>[[${hdto.text}]]</span>&nbsp;&nbsp;&nbsp;&nbsp;<div><label>신청자:</label>[[${hdto.requester}]]</div>
     </div>
     </div>
 

@@ -26,7 +26,7 @@
                                 <td>
                                     <div class="input-group-prepend">
                                         <select id="category" name="type1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;">
-                                            <option value="" disabled selected>-분류선택--------------------------------</option>
+                                            <option value="" th:selected="${stockPageRequestDTO.type1 == null}" disabled>----------------분류선택----------------</option>
                                             <option value="DESKTOP" th:selected="${stockPageRequestDTO.type1 == 'DESKTOP'}">DESKTOP</option>
                                             <option value="NOTEBOOK" th:selected="${stockPageRequestDTO.type1 == 'NOTEBOOK'}">NOTEBOOK</option>
                                             <option value="SERVER" th:selected="${stockPageRequestDTO.type1 == 'SERVER'}">SERVER</option>
@@ -35,7 +35,7 @@
                                             <option value="TOOLS" th:selected="${stockPageRequestDTO.type1 == 'TOOLS'}">TOOLS</option>
                                         </select>&nbsp;
                                         <select id="categorySelect" name="type2" size="1" style="height:50px;">
-                                            <option value="" disabled selected>-분류선택--------------------------------</option>
+                                            <option value="" disabled selected>----------------분류선택----------------</option>
                                             <option></option>
                                         </select>&nbsp;
                                         <!--
@@ -64,7 +64,7 @@
                                 <td>
                                     <div class="input-group-prepend">
                                         <select class="form-select" name="type3" style="height:50px;">
-                                            <option value="" th:selected="${stockPageRequestDTO.type3 == null}">-항목선택--------------------------------</option>
+                                            <option value="" th:selected="${stockPageRequestDTO.type3 == null}">----------------항목선택----------------</option>
                                             <option value="k" th:selected="${stockPageRequestDTO.type3 == 'k'}">품목코드</option>
                                             <option value="l" th:selected="${stockPageRequestDTO.type3 == 'l'}">품목이름</option>
                                         </select>&nbsp;
@@ -101,7 +101,7 @@
                             <th>입고수량</th>
                             <th>출고수량</th>
                             <th>재고수량</th>
-                            <th>공급단가(원)</th>
+                            <th>공급단가</th>
                             <th>재고금액</th>
                         </tr>
                         </thead>
@@ -115,8 +115,8 @@
                             <td>[[${dto.sin}]]</td>
                             <td>[[${dto.sout}]]</td>
                             <td>[[${dto.sin}-${dto.sout}]]</td>
-                            <td>[[${dto.sreturn}]]</td>
-                            <td>[[(${dto.sin}-${dto.sout})*${dto.sreturn}]]</td>
+                            <td th:text="${#numbers.formatInteger(dto.sreturn, 1, 'COMMA') + '원'}"></td>
+                            <td th:text="${#numbers.formatInteger((dto.sin-dto.sout)*dto.sreturn, 1, 'COMMA') + '원'}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -149,28 +149,28 @@
             </div>  <!-- 68line end -->
         </div>  <!-- 12line end -->
 
-        <div class="modal2" tabindex="-1" role="dialog">
+        <!-- 모달창 처리-->
+        <div class="modal" tabindex="-1" role="dialog" id="cmodal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal2" aria-label="Close">
+                        <h5 class="modal-title">변경사항</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Modal body text goes here.</p>
+                        <p>정상적으로 처리되었습니다.</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal2">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
                     </div>
                 </div>
             </div>
-        </div>
+        </div><!-- 신규등록완료시 뜨는 모달창 처리-->
 
         <!-- 모달 시작 -->
-        <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal" tabindex="-1" role="dialog" id="omodal">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -186,27 +186,27 @@
                             <input type="hidden" name="sno" id="sno">
                             <div class="form-group">
                                 <label >품목코드</label>
-                                <input type="text" class="form-control" name="scode" id="scode">
+                                <input type="text" class="form-control" name="scode" id="scode" readonly>
                             </div>
 
                             <div class="form-group">
                                 <label >품목이름</label>
-                                <input type="text" class="form-control" name="sname" id="sname">
+                                <input type="text" class="form-control" name="sname" id="sname" readonly>
                             </div>
 
                             <div class="form-group">
                                 <label >품목분류1</label>
-                                <input type="text" class="form-control" name="scate1" id="scate1">
+                                <input type="text" class="form-control" name="scate1" id="scate1" readonly>
                             </div>
 
                             <div class="form-group">
                                 <label >품목분류2</label>
-                                <input type="text" class="form-control" name="scate2" id="scate2">
+                                <input type="text" class="form-control" name="scate2" id="scate2" readonly>
                             </div>
 
                             <div class="form-group">
                                 <label >가격</label>
-                                <input type="text" class="form-control" name="sreturn" id="sreturn">
+                                <input type="text" class="form-control" name="sreturn" id="sreturn" readonly>
                             </div>
 
                             <div class="form-gr" style="display: flex; justify-content: space-between;">
@@ -215,7 +215,7 @@
                                     <input type="text" class="form-control" name="sout" id="sout">
                                 </div>
                                 <div>
-                                    <label>출고요청자</label>
+                                    <label>신청자</label>
                                     <input type="text" class="form-control" name="requester" id="requester">
                                 </div>
                             </div>
@@ -264,7 +264,7 @@
 
             }); //radio end
 
-            var modal = $('.modal');
+            var modal = $("#omodal");
 
             $(".stockOutputBtn").click(function (){
 
@@ -284,6 +284,7 @@
 
                     modalForm.submit();
                     modal.modal.hide();
+
                 } else {
                     alert("재고수량 확인")
                 }
@@ -294,7 +295,7 @@
             console.log(msg);
 
             if(msg){
-                $(".modal2").modal();
+                $("#cmodal").modal();
             }
 
             var searchForm = $("#searchForm");

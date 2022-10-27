@@ -118,6 +118,9 @@ public class StockServiceImpl implements StockService {
         String type1 = requestDTO.getType1();
         String type2 = requestDTO.getType2();
         String type3 = requestDTO.getType3();
+        if(type1 == ""){type1 = null;}
+        if(type2 == ""){type2 = null;}
+        if(type3 == ""){type3 = null;}
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
@@ -138,30 +141,27 @@ public class StockServiceImpl implements StockService {
         //검색 조건 작성
         BooleanBuilder conditionBuilder = new BooleanBuilder();
 
-        if(type1 != null && type2 != null && type3 != null) {
-            conditionBuilder.and(qStock.scate1.eq(type1));
-            conditionBuilder.and(qStock.scate2.eq(type2));
+        if(type2 != null && type3 != null) {
             if (type3.contains("k")) {
-                conditionBuilder.or(qStock.scode.contains(keyword));
+                conditionBuilder.and(qStock.scode.contains(keyword));
             }
-            if (type3.contains("l")) {
-                conditionBuilder.or(qStock.sname.contains(keyword));
+            if (type3.equals("l")) {
+                conditionBuilder.and(qStock.sname.contains(keyword));
             }
+            conditionBuilder.and(qStock.scate2.eq(type2));
+        } else if (type2 == null && type3 != null) {
+            if (type3.contains("k")) {
+                conditionBuilder.and(qStock.scode.contains(keyword));
+            }
+            if (type3.equals("l")) {
+                conditionBuilder.and(qStock.sname.contains(keyword));
+            }
+        } else if (type2 != null && type3 == null) {
+            conditionBuilder.and(qStock.scate2.eq(type2));
+        } else if (type2 == null && type3 == null){
+
         }
 
-        if(type1 != null || type2 != null) {
-            conditionBuilder.and(qStock.scate1.eq(type1));
-            conditionBuilder.and(qStock.scate2.eq(type2));
-        }
-
-        if(type3 != null) {
-            if (type3.contains("k")) {
-                conditionBuilder.or(qStock.scode.contains(keyword));
-            }
-            if (type3.contains("l")) {
-                conditionBuilder.or(qStock.sname.contains(keyword));
-            }
-        }
 
         //모든 조건 통합
         booleanBuilder.and(conditionBuilder);

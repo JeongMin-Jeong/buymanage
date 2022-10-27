@@ -23,7 +23,7 @@
         var cdate = getYmd10();
         var pcode = "P" + cdate + rnum;
         document.getElementById("pcode").value = pcode;
-        alert("프로덕트코드 생성 완료 하였습니다. : "+ pcode);
+        alert("품목코드 생성 완료 하였습니다. : "+ pcode);
         //document.getElementById("pcode").disabled = true;
     }
 
@@ -93,6 +93,7 @@
         opener.document.getElementById('ptype1').value = ptype1;
         opener.document.getElementById('ptype2').value = ptype2;
         self.close();
+<<<<<<< HEAD
     }
     function returnParentWindows2(ccode,pname,ptype1,ptype2){
 
@@ -102,3 +103,6 @@
         opener.document.getElementById('ptype2').value = ptype2;
         self.close();
     }
+=======
+    }
+>>>>>>> e92067f92c651b124795a68a3d09d0ad8f5f0dd9
