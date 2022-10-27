@@ -87,6 +87,8 @@
                             <th scope="col">품목이름</th>
                             <th scope="col">품목분류1</th>
                             <th scope="col">품목분류2</th>
+                            <th scope="col">품목단가</th>
+                            <th scope="col">납품업체</th>
                             <th scope="col">계약상태</th>
                         </tr>
                         </thead>
@@ -97,13 +99,18 @@
                                    th:pname="${dto.pname}"
                                    th:ptype1="${dto.ptype1}"
                                    th:ptype2="${dto.ptype2}"
-                                   th:onclick="returnParentWindows2(this.getAttribute('ccode'),this.getAttribute('pname'),this.getAttribute('ptype1'),this.getAttribute('ptype2'));">[[${dto.ccode}]]</a>
+                                   th:pprice="${dto.pprice}"
+                                   th:cpartnername="${dto.cpartnername}"
+                                   th:onclick="returnParentWindows2(this.getAttribute('ccode'),this.getAttribute('pname'),this.getAttribute('ptype1'),this.getAttribute('ptype2'),this.getAttribute('pprice'),this.getAttribute('cpartnername'));">[[${dto.ccode}]]</a>
                             </th>
 
                             <td>[[${dto.pname}]]</td>
                             <td>[[${dto.ptype1}]]</td>
                             <td>[[${dto.ptype2}]]</td>
+                            <td>[[${dto.pprice}]]</td>
+                            <td>[[${dto.cpartnername}]]</td>
                             <td>[[${dto.cstatus}]]</td>
+
                         </tr>
                         </tbody>
                     </table>
