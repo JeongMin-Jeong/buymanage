@@ -104,7 +104,7 @@
 
     //발주등록시 계약정보 선택용 팝업
     function orderRegistOpenPopup() {
-      	var width = 800;
+      	var width = 1200;
        	var height = 600;
        	var left = (window.screen.width / 2) - (width/2);
        	var top = (window.screen.height / 4);
