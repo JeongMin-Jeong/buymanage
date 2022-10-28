@@ -82,7 +82,7 @@
         var rnum = randomString();
         var cdate = getYmd10();
         //var scode = "P" + cdate + rnum;
-        var scode = "P" + cdate + "P" + category1 + "C" + category2 + rnum;
+        var scode = "S" + cdate + "P" + category1 + "C" + category2 + rnum;
         document.getElementById("scode").value = scode;
 
         alert("자재코드 생성 완료 하였습니다. : "+ scode);

@@ -22,7 +22,7 @@
                         <input type="hidden" name="page" value="1">
                         <table style="width: 100%;">
                             <tr>
-                                <td style="width:100px;">품목분류</td>
+                                <td style="width:100px;">자재분류</td>
                                 <td>
                                     <div class="input-group-prepend">
                                         <select id="category" name="type1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;">
@@ -65,8 +65,8 @@
                                     <div class="input-group-prepend">
                                         <select class="form-select" name="type3" style="height:50px;">
                                             <option value="" th:selected="${stockPageRequestDTO.type3 == null}">----------------항목선택----------------</option>
-                                            <option value="k" th:selected="${stockPageRequestDTO.type3 == 'k'}">품목코드</option>
-                                            <option value="l" th:selected="${stockPageRequestDTO.type3 == 'l'}">품목이름</option>
+                                            <option value="k" th:selected="${stockPageRequestDTO.type3 == 'k'}">자재코드</option>
+                                            <option value="l" th:selected="${stockPageRequestDTO.type3 == 'l'}">자재이름</option>
                                         </select>&nbsp;
                                         <input type="text" class="form-control" name="keyword" th:value="${stockPageRequestDTO.keyword}" style="height:50px;">
                                     </div>
@@ -94,10 +94,10 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>품목코드</th>
-                            <th>품목이름</th>
-                            <th>품목분류1</th>
-                            <th>품목분류2</th>
+                            <th>자재코드</th>
+                            <th>자재이름</th>
+                            <th>자재분류1</th>
+                            <th>자재분류2</th>
                             <th>입고수량</th>
                             <th>출고수량</th>
                             <th>재고수량</th>
@@ -108,8 +108,8 @@
                         <tbody>
                         <tr th:each="dto : ${result.dtoList}">
                             <td><input type="radio" name="radio" th:value="${dto.sno}"></td>
-                            <td>[[${dto.scode}]]</td>
-                            <td><a th:href="@{/stock/read(sno = ${dto.sno}, page = ${result.page}, type1 = ${stockPageRequestDTO.type1}, type2 = ${stockPageRequestDTO.type2}, type3 = ${stockPageRequestDTO.type3}, keyword = ${stockPageRequestDTO.keyword})}">[[${dto.sname}]]</a></td>
+                            <td><a th:href="@{/stock/read(sno = ${dto.sno}, page = ${result.page}, type1 = ${stockPageRequestDTO.type1}, type2 = ${stockPageRequestDTO.type2}, type3 = ${stockPageRequestDTO.type3}, keyword = ${stockPageRequestDTO.keyword})}">[[${dto.scode}]]</a></td>
+                            <td>[[${dto.sname}]]</td>
                             <td>[[${dto.scate1}]]</td>
                             <td>[[${dto.scate2}]]</td>
                             <td>[[${dto.sin}]]</td>
