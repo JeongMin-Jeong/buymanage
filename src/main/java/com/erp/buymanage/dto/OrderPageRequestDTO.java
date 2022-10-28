@@ -14,7 +14,8 @@ public class OrderPageRequestDTO {
 
     private int page;
     private int size;
-    private String type;
+    private String otype1;
+    private String otype2;
     private String keyword;
 
 
