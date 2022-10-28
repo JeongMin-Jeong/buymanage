@@ -19,7 +19,6 @@ public interface OrderService {
                 .ono(dto.getOno())
                 .deliverydate(dto.getDeliverydate())
                 .orderdate(dto.getOrderdate())
-
                 .omanager(dto.getOmanager())
                 .pname(dto.getPname())
                 .pprice(dto.getPprice())
@@ -41,7 +40,6 @@ public interface OrderService {
                 .ono(entity.getOno())
                 .deliverydate(entity.getDeliverydate())
                 .orderdate(entity.getOrderdate())
-
                 .omanager(entity.getOmanager())
                 .pname(entity.getPname())
                 .pprice(entity.getPprice())
