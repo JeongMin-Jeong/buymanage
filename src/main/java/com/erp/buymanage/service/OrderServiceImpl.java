@@ -71,17 +71,17 @@ public class OrderServiceImpl implements OrderService {
         Optional<OrderEntity> result = repository.findById(dto.getOno());
         if(result.isPresent())  {
             OrderEntity entity = result.get();
-            entity.changePcode(dto.getPcode());
+            entity.changeOcode(dto.getOcode());
             entity.changePcontent(dto.getPcontent());
             entity.changePtype1(dto.getPtype1());
             entity.changePtype2(dto.getPtype2());
-            entity.changeduedate(dto.getDuedate());
-            entity.changeOcompany(dto.getOcompany());
+
+            entity.changeCpartnername(dto.getCpartnername());
             entity.changeDeliverydate(dto.getDeliverydate());
             entity.changeOmanager(dto.getOmanager());
-            entity.changeOpname(dto.getOpname());
+            entity.changePname(dto.getPname());
             entity.changeOetc(dto.getOetc());
-            entity.changeOprice(dto.getOprice());
+            entity.changePprice(dto.getPprice());
             entity.changeOstate(dto.getOstate());
             entity.changeOquantity(dto.getOquantity());
             entity.changeOrderdate(dto.getOrderdate());

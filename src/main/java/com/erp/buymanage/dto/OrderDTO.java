@@ -25,11 +25,11 @@ public class OrderDTO
     private String ocode;
     private String orderdate;
     private String deliverydate;
-    private String duedate;
-    private String opname;
+
+    private String pname;
     private int oquantity;
-    private int oprice;
-    private String ocompany;
+    private int pprice;
+    private String cpartnername;
     private String omanager;
     private String ostate;
     private String oetc;

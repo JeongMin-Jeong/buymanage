@@ -15,8 +15,8 @@
               <input type="hidden" class="form-control" name="ono" th:value="${dto.ono}">
           </div><!-- 삭제처리에 ono넘기기위한 히든처리 -->
           <div class="form-group" >
-            <label>품목코드</label>
-            <input type="text" class="form-control" name="pcode" th:value="${dto.pcode}" readonly>
+            <label>발주코드</label>
+            <input type="text" class="form-control" name="ocode" th:value="${dto.ocode}" readonly>
           </div>
 
           <div class="form-group" >
@@ -30,15 +30,15 @@
           </div>
           <div class="form-group" >
             <label>품목이름</label>
-            <input type="text" class="form-control" name="opname" th:value="${dto.opname}" readonly>
+            <input type="text" class="form-control" name="pname" th:value="${dto.pname}" readonly>
           </div>
           <div class="form-group"  >
             <label>수량</label> <input type="text" class="form-control" id="oquantity" name="oquantity" th:value="${dto.oquantity}" readonly >
-            <label>공급단가(원)</label> <input type="text"  class="form-control"id="oprice" name="oprice" th:value="${dto.oprice}" readonly>
+            <label>공급단가(원)</label> <input type="text"  class="form-control"id="pprice" name="pprice" th:value="${dto.pprice}" readonly>
           </div>
           <div >
             <div class="form-group"  >
-              <label>납품업체</label> <input type="text" class="form-control" id="ocompany" name="ocompany" th:value="${dto.ocompany}" readonly>
+              <label>납품업체</label> <input type="text" class="form-control" id="cpartnername" name="cpartnername" th:value="${dto.cpartnername}" readonly>
               <label>담당자</label> <input type="text" class="form-control" id="omanager" name="omanager"  th:value="${dto.omanager}" readonly>
             </div>
           </div>
@@ -46,7 +46,7 @@
             <div class="form-group" >
               <label>발주일자</label><input type="date" class="form-control" name="orderdate" th:value="${dto.orderdate}"readonly>
               <label>납기일자</label><input type="date" class="form-control" name="deliverydate" th:value="${dto.deliverydate}"readonly>
-              <label>마감일자</label><input type="date" class="form-control" name="duedate" th:value="${dto.duedate}"readonly>
+
             </div>
           </div>
           <div class="form-group" >
