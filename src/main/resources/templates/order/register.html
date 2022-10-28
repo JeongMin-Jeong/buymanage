@@ -12,18 +12,14 @@
       <div class="card-body">
 
         <form th:action="@{/order/register}" th:method="post">
-
-          <div class="form-group" >
-            <label>발주코드</label>
-
-            <input type="text" class="form-control" name="ocode" id="ocode" placeholder="클릭하세요!!!" onclick="displayRandomONum();" readonly>
-          </div>
-
           <div class="form-group" >
             <label>계약선택</label>
             <input type="text" class="form-control" name="ccode" id="ccode" placeholder="클릭하세요!!!" onclick="orderRegistOpenPopup()" readonly>
-             </div>
-
+          </div>
+          <div class="form-group" >
+            <label>발주코드</label>
+            <input type="text" class="form-control" name="ocode" id="ocode" placeholder="계약을 선택하세요!!!" readonly>
+          </div>
           <div class="form-group">
             <label>품목이름</label>
             <input type="text" class="form-control" name="pname" id="pname" readonly>
