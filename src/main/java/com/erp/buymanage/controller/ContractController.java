@@ -2,9 +2,11 @@ package com.erp.buymanage.controller;
 
 import com.erp.buymanage.dto.ContractDTO;
 import com.erp.buymanage.dto.ContractPageRequestDTO;
+import com.erp.buymanage.dto.PartnerPageRequestDTO;
 import com.erp.buymanage.dto.ProductPageRequestDTO;
 import com.erp.buymanage.security.dto.AuthMemberDTO;
 import com.erp.buymanage.service.ContractService;
+import com.erp.buymanage.service.PartnerService;
 import com.erp.buymanage.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -25,6 +27,7 @@ public class ContractController {
 
     private final ContractService service;
     private final ProductService productService;
+    private final PartnerService partnerService;
 
     @GetMapping("/")
     public String index(){
@@ -80,6 +83,18 @@ public class ContractController {
         log.info("product popup get...");
         log.info("(list)ProductPageRequestDTO : \" + productPageRequestDTO");
         model.addAttribute("result", productService.getList2(productPageRequestDTO));
+    }
+
+    @GetMapping("/partnerList")
+    public void partnerList(PartnerPageRequestDTO partnerPageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMember){
+        log.info(">>>>> ContractController(partnerList)");
+        model.addAttribute("result", partnerService.getList(partnerPageRequestDTO));
+    }
+
+    @GetMapping("/partnerPopup")
+    public void partnerPopup(PartnerPageRequestDTO partnerPageRequestDTO, Model model) {
+        log.info(">>>>> ContractController (partnerPopup)");
+        model.addAttribute("result", partnerService.getList(partnerPageRequestDTO));
     }
 
     @GetMapping("/tradeprint")

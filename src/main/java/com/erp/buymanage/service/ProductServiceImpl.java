@@ -156,36 +156,36 @@ public class ProductServiceImpl implements ProductService{
         booleanBuilder.and(expression);
         if(ptype1 == "" && ptype2 == "" && ptype3 == "") {
             return booleanBuilder;
+        }
+
+        //검색 조건 작성
+        BooleanBuilder conditionBuilder = new BooleanBuilder();
+
+        if(ptype2 != null && ptype3 != null) {
+            if (ptype3.contains("pc")) {
+                conditionBuilder.and(qProduct.pcode.contains(keyword));
+            }
+            if (ptype3.equals("pn")) {
+                conditionBuilder.and(qProduct.pname.contains(keyword));
+            }
+            conditionBuilder.and(qProduct.ptype2.eq(ptype2));
+        } else if (ptype2 == null && ptype3 != null) {
+            if (ptype3.contains("pc")) {
+                conditionBuilder.and(qProduct.pcode.contains(keyword));
+            }
+            if (ptype3.equals("pn")) {
+                conditionBuilder.and(qProduct.pname.contains(keyword));
+            }
+        } else if (ptype2 != null && ptype3 == null) {
+            conditionBuilder.and(qProduct.ptype2.eq(ptype2));
+        } else if (ptype2 == null && ptype3 == null){
+
+        }
+
+        //모든 조건 통합
+        booleanBuilder.and(conditionBuilder);
+        return booleanBuilder;
     }
-
-    //검색 조건 작성
-    BooleanBuilder conditionBuilder = new BooleanBuilder();
-
-    if(ptype2 != null && ptype3 != null) {
-        if (ptype3.contains("pc")) {
-            conditionBuilder.and(qProduct.pcode.contains(keyword));
-        }
-        if (ptype3.equals("pn")) {
-            conditionBuilder.and(qProduct.pname.contains(keyword));
-        }
-        conditionBuilder.and(qProduct.ptype2.eq(ptype2));
-    } else if (ptype2 == null && ptype3 != null) {
-        if (ptype3.contains("pc")) {
-            conditionBuilder.and(qProduct.pcode.contains(keyword));
-        }
-        if (ptype3.equals("pn")) {
-            conditionBuilder.and(qProduct.pname.contains(keyword));
-        }
-    } else if (ptype2 != null && ptype3 == null) {
-        conditionBuilder.and(qProduct.ptype2.eq(ptype2));
-    } else if (ptype2 == null && ptype3 == null){
-
-    }
-
-    //모든 조건 통합
-    booleanBuilder.and(conditionBuilder);
-    return booleanBuilder;
-}
 
     @Override // 조회처리
     public ProductDTO read(Long pno) {
