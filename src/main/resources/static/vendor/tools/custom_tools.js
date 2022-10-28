@@ -1,62 +1,104 @@
     function getYmd10() {
         //yyyy-mm-dd 포맷 날짜 생성
         var d = new Date();
+        //var result = d.getFullYear();
         var result = d.getFullYear() + "" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "" + (d.getDate() > 9 ? d.getDate().toString() : "0" + d.getDate().toString());
         return result;
     }
 
     function randomString() {
-        const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ'
-        const stringLength = 4
-        let randomstring = ''
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const stringLength = 2;
+        let randomstring = '';
         for (let i = 0; i < stringLength; i++) {
-            const rnum = Math.floor(Math.random() * chars.length)
-            randomstring += chars.substring(rnum, rnum + 1)
+            const rnum = Math.floor(Math.random() * chars.length);
+            randomstring += chars.substring(rnum, rnum + 1);
         }
-        return randomstring
+        chars2 = '0123456789';
+        stringLength2 = 2;
+        let randomstring2 = '';
+        for (let i = 0; i < stringLength2; i++) {
+            const rnum = Math.floor(Math.random() * chars2.length);
+            randomstring2 += chars2.substring(rnum, rnum + 1);
+        }
+        return randomstring+randomstring2;
+    }
+
+    function randomString2() {
+        const chars = '0123456789';
+        const stringLength = 2;
+        let randomstring = '';
+        for (let i = 0; i < stringLength; i++) {
+            const rnum = Math.floor(Math.random() * chars.length);
+            randomstring += chars.substring(rnum, rnum + 1);
+        }
+        return randomstring;
     }
 
     function displayRandomNum() {
         //프로덕트랜덤코드생성
         //var rnum = Math.random();
+        var target1 = document.getElementById("category");
+        var target2 = document.getElementById("categorySelect");
+        var category1 = target1.selectedIndex;
+        var category2 = target2.selectedIndex;
+        //alert('선택된 옵션 value 값=' + target1.options[target1.selectedIndex].value);     // 옵션 value 값
+        //alert('선택된 옵션 value 값=' + target2.options[target2.selectedIndex].value);     // 옵션 value 값
+        //alert('선택된 옵션 text 값=' + target2.options[target2.selectedIndex].text);     // 옵션 text 값
+        //alert('선택된 옵션 value 값=' + target2.options[target2.selectedIndex].value);     // 옵션 value 값
+
         var rnum = randomString();
         var cdate = getYmd10();
-        var pcode = "P" + cdate + rnum;
+        var pcode = "P" + cdate + "P" + category1 + "C" + category2 + rnum;
         document.getElementById("pcode").value = pcode;
         alert("품목코드 생성 완료 하였습니다. : "+ pcode);
         //document.getElementById("pcode").disabled = true;
     }
 
-    function displayRandomCNum() {
+    function displayRandomCNum(pcode) {
         //계약랜덤코드생성
         //var rnum = Math.random();
-        var rnum = randomString();
-        var cdate = getYmd10();
-        var ccode = "C" + cdate + rnum;
-        document.getElementById("ccode").value = ccode;
-        alert("계약코드 생성 완료 하였습니다. : "+ ccode);
+        var rnum = randomString2();
+        //var cdate = getYmd10();
+        var ccode = pcode.replace('P','C') + rnum;
+        //document.getElementById("ccode").value = ccode;
+        opener.document.getElementById('ccode').value = ccode;
+        //alert("계약코드 생성 완료 하였습니다. : "+ ccode);
         //document.getElementById("ccode").disabled = true;
     }
 
     function displayRandomSNum() {
         //자재랜덤코드생성
         //var rnum = Math.random();
+        var target1 = document.getElementById("category");
+        var target2 = document.getElementById("categorySelect");
+        var category1 = target1.selectedIndex;
+        var category2 = target2.selectedIndex;
+        //alert('선택된 옵션 value 값=' + target1.options[target1.selectedIndex].value);     // 옵션 value 값
+        //alert('선택된 옵션 value 값=' + target2.options[target2.selectedIndex].value);     // 옵션 value 값
+        //alert('선택된 옵션 text 값=' + target2.options[target2.selectedIndex].text);     // 옵션 text 값
+        //alert('선택된 옵션 value 값=' + target2.options[target2.selectedIndex].value);     // 옵션 value 값
+
         var rnum = randomString();
         var cdate = getYmd10();
-        var scode = "S" + cdate + rnum;
+        //var scode = "P" + cdate + rnum;
+        var scode = "P" + cdate + "P" + category1 + "C" + category2 + rnum;
         document.getElementById("scode").value = scode;
+
         alert("자재코드 생성 완료 하였습니다. : "+ scode);
         //document.getElementById("scode").disabled = true;
     }
 
-    function displayRandomONum() {
+    function displayRandomONum(ccode) {
         //발주랜덤코드생성
         //var rnum = Math.random();
-        var rnum = randomString();
-        var cdate = getYmd10();
-        var ocode = "O" + cdate + rnum;
-        document.getElementById("ocode").value = ocode;
-        alert("발주코드 생성 완료 하였습니다. : "+ ocode);
+        //var cdate = getYmd10();
+        var rnum = randomString2();
+        //var ocode = "O" + cdate + rnum;
+        var ocode = ccode.replace('C','O') + rnum;
+        opener.document.getElementById('ocode').value = ocode;
+        //document.getElementById("ocode").value = ocode;
+        //alert("발주코드 생성 완료 하였습니다. : "+ ocode);
         //document.getElementById("ocode").disabled = true;
     }
 
@@ -92,17 +134,18 @@
         opener.document.getElementById('pname').value = pname;
         opener.document.getElementById('ptype1').value = ptype1;
         opener.document.getElementById('ptype2').value = ptype2;
+        displayRandomCNum(pcode);
         self.close();
-
     }
-    function returnParentWindows2(ccode,pname,ptype1,ptype2,pprice,cpartnername){
 
+    function returnParentWindows2(ccode,pname,ptype1,ptype2,pprice,cpartnername){
         opener.document.getElementById('ccode').value = ccode;
         opener.document.getElementById('pname').value = pname;
         opener.document.getElementById('ptype1').value = ptype1;
         opener.document.getElementById('ptype2').value = ptype2;
         opener.document.getElementById('pprice').value = pprice;
         opener.document.getElementById('cpartnername').value = cpartnername;
+        displayRandomONum(ccode);
         self.close();
     }
 

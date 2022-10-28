@@ -11,15 +11,6 @@
 
         <form th:action="@{/stock/register}" th:method="post">
           <div class="form-group">
-            <label>자재코드</label>
-            <!-- <input type="text" class="form-control" name="scode" placeholder="P0000"> -->
-            <input type="text" class="form-control" name="scode" id="scode" placeholder="클릭하세요!!!" onclick="displayRandomSNum();" readonly>
-          </div>
-          <div class="form-group">
-            <label>자재이름</label>
-            <input type="text" class="form-control" name="sname">
-          </div>
-          <div class="form-group">
             <label>자재분류</label><br/>
             <select id="category" name="scate1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;">
               <option value="" disabled selected>----------------분류선택----------------</option>
@@ -39,7 +30,7 @@
               <option value="기타">기타</option>
             </select>
             -->
-            <select id="categorySelect" name="scate2" size="1" style="height:50px;">
+            <select id="categorySelect" name="scate2" size="1" style="height:50px;" onchange="displayRandomSNum();">
               <option value="" disabled selected>----------------분류선택----------------</option>
               <option></option>
             </select>
@@ -55,6 +46,15 @@
               <option value="파워">파워</option>
             </select>
             -->
+          </div>
+          <div class="form-group">
+            <label>자재코드</label>
+            <!-- <input type="text" class="form-control" name="scode" placeholder="P0000"> -->
+            <input type="text" class="form-control" name="scode" id="scode" placeholder="품목분류를 선택하세요!!!" readonly>
+          </div>
+          <div class="form-group">
+            <label>자재이름</label>
+            <input type="text" class="form-control" name="sname">
           </div>
           <div class="form-group">
             <label>비고</label>
