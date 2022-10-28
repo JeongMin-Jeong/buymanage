@@ -23,6 +23,9 @@ public class Contract extends BaseEntity{
     private String ccode; // 계약번호
 
     @Column(length = 100, nullable = false)
+    private String cpartnerno; // 납품업체 사업자등록번호
+
+    @Column(length = 100, nullable = false)
     private String cpartnername; // 납품업체 상호
 
     @Column(length = 100, nullable = false)

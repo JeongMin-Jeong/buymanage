@@ -19,11 +19,12 @@ public class ContractDTO {
 
     private String cdate; // 계약일자
     private String ccode; // 계약번호
-    private String cpartnername; // 거래처명
-    private String cpartnerceo; // 거래처 대표자
-    private String cpartneraddr; // 거래처 주소
-    private String cpartnerphone; // 거래처 연락처
-    private String cpartnerfax; // 거래처 팩스
+    private String cpartnerno; // 납품업체 사업자등록번호
+    private String cpartnername; // 납품업체 상호
+    private String cpartnerceo; // 납품업체 대표자
+    private String cpartneraddr; // 납품업체 주소
+    private String cpartnerphone; // 납품업체 연락처
+    private String cpartnerfax; // 납품업체 팩스
     private String pcode; // 품목코드
     private String pname; // 품목이름
     private String ptype1; // 대분류
