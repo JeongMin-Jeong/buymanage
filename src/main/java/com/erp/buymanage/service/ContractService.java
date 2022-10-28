@@ -12,6 +12,7 @@ public interface ContractService {
     // 목록처리
     PageResultDTO<ContractDTO, Contract> getList(ContractPageRequestDTO contractPageRequestDTO);
     PageResultDTO<ContractDTO, Contract> getList2(ContractPageRequestDTO contractPageRequestDTO);
+
     // 조회처리
     //ContractDTO read(Long pno); //2022-10-24 JJH pno->cno
     ContractDTO read(Long cno);
@@ -30,6 +31,7 @@ public interface ContractService {
                 .cno(dto.getCno())
                 .cdate(dto.getCdate())
                 .ccode(dto.getCcode())
+                .cpartnerno(dto.getCpartnerno())
                 .cpartnername(dto.getCpartnername())
                 .cpartnerceo(dto.getCpartnerceo())
                 .cpartneraddr(dto.getCpartneraddr())
@@ -39,11 +41,7 @@ public interface ContractService {
                 .pname(dto.getPname())
                 .ptype1(dto.getPtype1())
                 .ptype2(dto.getPtype2())
-                .pcount(dto.getPcount())
                 .pprice(dto.getPprice())
-                .cmanager(dto.getCmanager())
-                .cpartnermanager(dto.getCpartnermanager())
-                .cdeliverydate(dto.getCdeliverydate())
                 .cstatus(dto.getCstatus())
                 .cetc(dto.getCetc())
                 .build();
@@ -56,6 +54,7 @@ public interface ContractService {
                 .cno(entity.getCno())
                 .cdate(entity.getCdate())
                 .ccode(entity.getCcode())
+                .cpartnerno(entity.getCpartnerno())
                 .cpartnername(entity.getCpartnername())
                 .cpartnerceo(entity.getCpartnerceo())
                 .cpartneraddr(entity.getCpartneraddr())
@@ -65,11 +64,7 @@ public interface ContractService {
                 .pname(entity.getPname())
                 .ptype1(entity.getPtype1())
                 .ptype2(entity.getPtype2())
-                .pcount(entity.getPcount())
                 .pprice(entity.getPprice())
-                .cmanager(entity.getCmanager())
-                .cpartnermanager(entity.getCpartnermanager())
-                .cdeliverydate(entity.getCdeliverydate())
                 .cstatus(entity.getCstatus())
                 .cetc(entity.getCetc())
                 .build();
