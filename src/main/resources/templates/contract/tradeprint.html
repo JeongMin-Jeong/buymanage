@@ -42,11 +42,11 @@
 <div id="command_bar">
   A4용지를 준비하고 인쇄방향을 가로로 설정하세요. &nbsp; <input type="button" value="인쇄하기" onclick="printNow()" /> <input type="button" value="뒤로" onclick="window.history.go(-1)" />
 </div>
-<table width="460" border="0" cellspacing="0" cellpadding="0" align="<?=$prtAlign?>" style="table-layout:auto">
+<table width="700" border="0" cellspacing="0" cellpadding="0" align="<?=$prtAlign?>" style="table-layout:auto">
   <tr>
     <?php for ($copy_=1; $copy_<=2; $copy_++) { ?>
     <td>
-      <table width="460" cellpadding="0" cellspacing="0" class="border_out">
+      <table width="700" cellpadding="0" cellspacing="0" class="border_out">
         <tr height="44">
           <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
@@ -58,9 +58,15 @@
                   <td class="border_in" align="center" style="border-top-style:none">일련번호</td>
                 </tr>
                 <tr>
-                  <td class="border_in" align="center" style="border-top-style:none;border-bottom-style:none;">&nbsp;</td>
-                  <td align="center" class="border_in" style="border-top-style:none;border-bottom-style:none;">&nbsp;</td>
-                  <td align="center" class="border_in" style="border-top-style:none;border-bottom-style:none;">&nbsp;</td>
+                  <td class="border_in" align="center" style="border-top-style:none;border-bottom-style:none;">
+                    [[${dto.cdate}]]
+                  </td>
+                  <td align="center" class="border_in" style="border-top-style:none;border-bottom-style:none;">
+                    1
+                  </td>
+                  <td align="center" class="border_in" style="border-top-style:none;border-bottom-style:none;">
+                    [[${dto.ccode}]]
+                  </td>
                 </tr>
               </table></td>
             </tr>
@@ -82,7 +88,7 @@
                       <td width="75%" class="border_in">
                         <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
                           <tr>
-                            <td align="center"><strong style="font-size:11px">&nbsp;</strong></td>
+                            <td align="center"><strong style="font-size:11px">컴스클럽</strong></td>
                             <td width="25%" align="center" class="l_dot" style="font-size:12px;">귀하</td>
                           </tr>
                         </table>
@@ -91,11 +97,15 @@
                     <tr height="30">
                       <td align="center" class="border_in" style="border-top-style:none">사업장<br />
                         주 소</td>
-                      <td class="border_in" style="border-top-style:none" align="center">&nbsp;</td>
+                      <td class="border_in" style="border-top-style:none" align="center">
+                        경기도 수원시 영통구 영통로217번길 6
+                      </td>
                     </tr>
                     <tr height="30">
                       <td align="center" class="border_in" style="border-top-style:none">전화번호</td>
-                      <td class="border_in" style="border-top-style:none" align="center">&nbsp;</td>
+                      <td class="border_in" style="border-top-style:none" align="center">
+                        1588-8980
+                      </td>
                     </tr>
                     <tr height="30">
                       <td align="center" class="border_in" style="border-top-style:none">합계금액</td>
@@ -112,35 +122,44 @@
                   <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr height="30">
                       <td width="47" align="center" class="border_in">등록번호</td>
-                      <td class="border_in" align="center"><span style="font-size:13px;font-weight:bold">&nbsp;</span></td>
+                      <td class="border_in" align="center"><span style="font-size:13px;font-weight:bold">
+                        [[${dto.cpartnerno}]]
+                      </span></td>
                     </tr>
                     <tr height="30">
-                      <td align="center" class="border_in" style="border-top-style:none">상
-                        호<br />
-                        (법인명) </td>
+                      <td align="center" class="border_in" style="border-top-style:none">상 호<br />(법인명) </td>
                       <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
-                          <td class="border_in" style="border-top-style:none" align="center"><strong style="font-size:11px">&nbsp;</strong></td>
+                          <td class="border_in" style="border-top-style:none" align="center"><strong style="font-size:11px">
+                            [[${dto.cpartnername}]]
+                          </strong></td>
                           <td class="border_in" style="border-top-style:none" align="center" width="15">성<br />
                             명</span></td>
-                          <td class="border_in" style="border-top-style:none" align="left">&nbsp;&nbsp;<strong style="font-size:11px">&nbsp;</strong> (인)<?=$prtCompany['sign_img']?></td>
+                          <td class="border_in" style="border-top-style:none" align="left">&nbsp;&nbsp;<strong style="font-size:11px">
+                            [[${dto.cpartnerceo}]]
+                          </strong> (인)<?=$prtCompany['sign_img']?></td>
                         </tr>
                       </table></td>
                     </tr>
                     <tr height="30">
                       <td align="center" class="border_in" style="border-top-style:none">사업장<br />
                         주 소</td>
-                      <td class="border_in" style="border-top-style:none" align="center">&nbsp;</td>
+                      <td class="border_in" style="border-top-style:none" align="center">
+                        [[${dto.cpartneraddr}]]
+                      </td>
                     </tr>
                     <tr height="30">
-                      <td align="center" class="border_in" style="border-top-style:none">업
-                        태</td>
+                      <td align="center" class="border_in" style="border-top-style:none">전화번호</td>
                       <td><table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
-                          <td class="border_in" style="border-top-style:none" align="center">&nbsp;</td>
-                          <td class="border_in" style="border-top-style:none" width="15" align="center">종<br />
-                            목</td>
-                          <td class="border_in" style="border-top-style:none" align="center">&nbsp;</td>
+                          <td class="border_in" style="border-top-style:none" align="center">
+                            [[${dto.cpartnerphone}]]
+                          </td>
+                          <td class="border_in" style="border-top-style:none" width="15" align="center">팩<br />
+                            스</td>
+                          <td class="border_in" style="border-top-style:none" align="center">
+                            [[${dto.cpartnerfax}]]
+                          </td>
                         </tr>
                       </table></td>
                     </tr>

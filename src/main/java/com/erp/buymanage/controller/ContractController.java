@@ -82,5 +82,12 @@ public class ContractController {
         model.addAttribute("result", productService.getList2(productPageRequestDTO));
     }
 
+    @GetMapping("/tradeprint")
+    public void tradeprint(long cno, @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, Model model){
+        log.info(">>>>> ContractController(tradeprint GetMapping)");
+        ContractDTO dto = service.read(cno);
+        model.addAttribute("dto", dto);
+    }
+
 }
 
