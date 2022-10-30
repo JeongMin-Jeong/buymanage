@@ -16,7 +16,7 @@ public class HistoryServiceTests {
     @Test
     public void testGetList() {
 
-        Long sno = 6L;
+        Long sno = 25L;
 
         List<HistoryDTO> historyDTOList = service.getList(sno);
 
