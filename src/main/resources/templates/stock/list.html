@@ -116,12 +116,13 @@
                             <td>[[${dto.sout}]]</td>
                             <td>[[${dto.stock}]]</td>
                             <td th:text="${#numbers.formatInteger(dto.sreturn, 1, 'COMMA') + '원'}"></td>
-                            <td th:text="${#numbers.formatInteger((dto.sin-dto.sout)*dto.sreturn, 1, 'COMMA') + '원'}"></td>
+                            <td th:text="${#numbers.formatInteger(dto.stock*dto.sreturn, 1, 'COMMA') + '원'}"></td>
                         </tr>
                         </tbody>
                     </table>
 
                     <div style="float: right">
+                        <button class="btn btn-outline-secondary stockchartBtn" type="button">리포트</button>
                         <button class="btn btn-outline-secondary stockOutputBtn" type="button">자재출고</button>
                         <button class="btn btn-outline-secondary stockRegistBtn" type="button" onclick="location.href='/stock/register';">자재등록</button>
                     </div>
@@ -169,6 +170,53 @@
             </div>
         </div><!-- 신규등록완료시 뜨는 모달창 처리-->
 
+        <!-- 차트 모달-->
+        <div class="modal" tabindex="-1" role="dialog" id="chartModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">자재 리포트</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <!--<span aria-hidden="true">&times;</span>-->
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!--<div class="container">-->
+                            <!--<div>-->
+                                <input type="hidden" name="chartScode" id="chartScode">
+
+                                <select name="selectMonth" id="selectMonth">
+                                    <option value="01">JAN</option>
+                                    <option value="02">FEB</option>
+                                    <option value="03">MAR</option>
+                                    <option value="04">APR</option>
+                                    <option value="05">MAY</option>
+                                    <option value="06">JUN</option>
+                                    <option value="07">JUL</option>
+                                    <option value="08">AUG</option>
+                                    <option value="09">SEP</option>
+                                    <option value="10">OCT</option>
+                                    <option value="11">NOV</option>
+                                    <option value="12">DEC</option>
+                                </select>
+
+                                <button type="button" id="btn">확인</button>
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div id="graph" style="width: 80%; margin: 30px;">
+                            <div>
+                                <canvas id="canvas" height="350" width="600"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- 차트 모달 END -->
+
         <!-- 모달 시작 -->
         <div class="modal" tabindex="-1" role="dialog" id="omodal">
             <div class="modal-dialog" role="document">
@@ -184,7 +232,6 @@
                     <div class="modal-body">
                         <form action="/stock/register" method="post" id="modalForm">
                             <input type="hidden" name="sno" id="sno">
-                            <input type="hidden" name="sin" id="sin">
                             <div class="form-group">
                                 <label >품목코드</label>
                                 <input type="text" class="form-control" name="scode" id="scode" readonly>
@@ -256,8 +303,8 @@
                         $("#scate2").val(data.scate2);
                         $("#sreturn").val(data.sreturn);
                         $("#sno").val(data.sno);
-                        $("#sin").val(data.sin);
                         $("#stock").val(data.stock);
+                        $("#chartScode").val(data.scode);
                     },
                     error:function (){
                         alert("실패");
@@ -274,13 +321,15 @@
 
             });
 
+            var chartModal = $("#chartModal");
+
+            $(".stockchartBtn").click(function (){
+               chartModal.modal('show');
+            });
+
             var modalForm = $("#modalForm");
-            var sout = $("#sout").val();
 
             $(".outputSave").click(function () {
-
-                console.log("아래 sout = " + sout);
-                console.log("아래 stock = " + stock);
 
                 if ($("#stock").val() >= $("#sout").val()) {
                     modalForm
@@ -310,6 +359,85 @@
                 searchForm.submit();
 
             });
+
+           /* $(document).ready(function() {*/
+
+
+                var chartLabels = []; // 받아올 데이터를 저장할 배열 선언
+                var chartData = [];
+                var month="";
+                var scode="";
+                var scode2="";
+
+
+                function createChart() {
+
+                    var ctx = document.getElementById("canvas").getContext("2d");
+                    LineChartDemo = Chart.Line(ctx, {
+                        data : lineChartData,
+                        options : {
+                            scales : {
+                                yAxes : [ {
+                                    ticks : {
+                                        beginAtZero : true
+                                    }
+                                } ]
+                            }
+                        }
+                    });
+                }
+
+                $('#selectMonth').change(function() {
+                    var changeMonth = $('#selectMonth option:selected').val();
+                    var changescode = $("#chartScode").val();
+                    month = changeMonth;
+                    scode = changescode;
+                    console.log('month:'+month);
+                    console.log('scode:'+scode);
+                });
+
+                //버튼을 클릭하면 차트가 그려짐
+                $('#btn').click(function(){
+
+                    chartLabels = [];
+                    chartData=[];
+
+                    //getJson으로 데이터
+                    $.getJSON("/stock/chartmodal", {
+                        month : month,
+                        scode : scode
+                    }, function(data) {
+                        $.each(data, function(key, value) {
+                            console.log(value)
+
+                            chartLabels.push(value.date);
+                            chartData.push(value.amount);
+                            scode2 = value.scode;
+                        });
+
+                        lineChartData = {
+                            labels : chartLabels,
+                            datasets : [ {
+                                label : scode2 + " 재고금액",
+                                backgroundColor:"#bfdaf9",
+                                borderColor: "#80b6f4",
+                                pointBorderColor: "#80b6f4",
+                                pointBackgroundColor: "#80b6f4",
+                                pointHoverBackgroundColor: "#80b6f4",
+                                pointHoverBorderColor: "#80b6f4",
+                                fill: false,
+                                borderWidth: 4,
+                                data : chartData
+                            } ]
+
+                        }
+                        createChart();
+
+                    });
+                })
+
+
+            /*})*/
 
         </script>
 
