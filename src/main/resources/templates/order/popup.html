@@ -98,12 +98,13 @@
                         <tr th:each="dto: ${result.dtoList}">
                             <td>[[${dto.cno}]]</td>
                             <th><a href="#" th:ccode="${dto.ccode}"
+                                   th:pcode="${dto.pcode}"
                                    th:pname="${dto.pname}"
                                    th:ptype1="${dto.ptype1}"
                                    th:ptype2="${dto.ptype2}"
                                    th:pprice="${dto.pprice}"
                                    th:cpartnername="${dto.cpartnername}"
-                                   th:onclick="returnParentWindows2(this.getAttribute('ccode'),this.getAttribute('pname'),this.getAttribute('ptype1'),this.getAttribute('ptype2'),this.getAttribute('pprice'),this.getAttribute('cpartnername'));">[[${dto.ccode}]]</a>
+                                   th:onclick="returnParentWindows2(this.getAttribute('ccode'),this.getAttribute('pcode'),this.getAttribute('pname'),this.getAttribute('ptype1'),this.getAttribute('ptype2'),this.getAttribute('pprice'),this.getAttribute('cpartnername'));">[[${dto.ccode}]]</a>
                             </th>
 
                             <td>[[${dto.pname}]]</td>

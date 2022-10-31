@@ -165,8 +165,9 @@
     }
 
     //계약등록시 품목코드를 팝업창에서 선택하면 부모창에 폼목코드,이름 자동입력 및 계약코드 랜덤 자동생성 입력??
-    function returnParentWindows2(ccode,pname,ptype1,ptype2,pprice,cpartnername){
+    function returnParentWindows2(ccode,pcode,pname,ptype1,ptype2,pprice,cpartnername){
         opener.document.getElementById('ccode').value = ccode;
+        opener.document.getElementById('pcode').value = pcode;
         opener.document.getElementById('pname').value = pname;
         opener.document.getElementById('ptype1').value = ptype1;
         opener.document.getElementById('ptype2').value = ptype2;

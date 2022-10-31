@@ -98,12 +98,8 @@
                     <textarea class="form-control" rows="2" name="oetc"   th:value="${dto.oetc}" th:text="${dto.oetc}"readonly></textarea>
                 </div>
 
-                <a th:href="@{/order/modify(ono=${dto.ono}, page=${requestDTO.page})}">
-                    <button type="button" class="btn btn-primary">수정</button>
-                </a>
-                <a th:href="@{/order/list(page=${requestDTO.page})}">
-                    <button type="button" class="btn btn-info">목록</button>
-                </a>
+                <a th:href="@{/order/modify(ono=${dto.ono}, page=${requestDTO.page})}"><button type="button" class="btn btn-primary">수정</button></a>
+                <a th:href="@{/order/list(page=${requestDTO.page})}"><button type="button" class="btn btn-info">목록</button></a>
                 <button type="button" class="btn btn-warning" onclick="inspectionRegistOpenPopup();">검수</button>
 
 
