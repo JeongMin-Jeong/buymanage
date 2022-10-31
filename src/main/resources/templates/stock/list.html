@@ -38,27 +38,10 @@
                                             <option value="" disabled selected>----------------분류선택----------------</option>
                                             <option></option>
                                         </select>&nbsp;
-                                        <!--
-                                        <select class="form-select" name="type1" style="height:50px;">
-                                            <option value="" th:selected="${stockPageRequestDTO.type1 == null}">-분류선택--------------------------------</option>
-                                            <option value="데스크톱" th:selected="${stockPageRequestDTO.type1 == '데스크톱'}">데스크톱</option>
-                                            <option value="노트북" th:selected="${stockPageRequestDTO.type1 == '노트북'}">노트북</option>
-                                            <option value="서버" th:selected="${stockPageRequestDTO.type1 == '서버'}">서버</option>
-                                            <option value="기타" th:selected="${stockPageRequestDTO.type1 == '기타'}">기타</option>
-                                        </select>&nbsp;
-                                        <select class="form-select" name="type2" style="height:50px;">
-                                            <option value="" th:selected="${stockPageRequestDTO.type2 == null}">-분류선택--------------------------------</option>
-                                            <option value="CPU" th:selected="${stockPageRequestDTO.type2 == 'CPU'}">CPU</option>
-                                            <option value="메인보드" th:selected="${stockPageRequestDTO.type2 == '메인보드'}">메인보드</option>
-                                            <option value="메모리" th:selected="${stockPageRequestDTO.type2 == '메모리'}">메모리</option>
-                                            <option value="하드디스크" th:selected="${stockPageRequestDTO.type2 == '하드디스크'}">하드디스크/SDD</option>
-                                            <option value="케이스" th:selected="${stockPageRequestDTO.type2 == '케이스'}">케이스</option>
-                                            <option value="파워" th:selected="${stockPageRequestDTO.type2 == '파워'}">파워</option>
-                                        </select>
-                                        -->
                                     </div>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td style="width:100px;">일반검색</td>
                                 <td>
@@ -72,20 +55,18 @@
                                     </div>
                                 </td>
                             </tr>
+
                             <tr style="height:20px;">
                                 <td colspan="2" style="text-align: right;">
                                     <button class="btn btn-outline-secondary searchBtn" type="button">검색</button>
                                     <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/stock/list';">리셋</button>
                                 </td>
                             </tr>
-
                         </table>
-
                     </div><!-- <div class="input-group"> -->
                     </form>
                 </div><!-- div -->
             </div><!-- <div class="card-body"> -->
-
 
             <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">자재목록</h6></div>
             <div class="card-body">
@@ -127,241 +108,210 @@
                         <button class="btn btn-outline-secondary stockRegistBtn" type="button" onclick="location.href='/stock/register';">자재등록</button>
                     </div>
 
+                    <!-- 하단 페이지 버튼 -->
+                    <ul class="pagination h-100 justify-content-center align-items-center">
+                        <li class="page-item " th:if="${result.prev}">
+                            <a class="page-link" th:href="@{/stock/list(page= ${result.start -1}, type1 = ${stockPageRequestDTO.type1}, type2 = ${stockPageRequestDTO.type2}, type3 = ${stockPageRequestDTO.type3}, keyword = ${stockPageRequestDTO.keyword})}" tabindex="-1">Previous</a>
+                        </li>
+                        <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+                            <a class="page-link" th:href="@{/stock/list(page = ${page}, type1 = ${stockPageRequestDTO.type1}, type2 = ${stockPageRequestDTO.type2}, type3 = ${stockPageRequestDTO.type3}, keyword = ${stockPageRequestDTO.keyword})}">
+                                [[${page}]]
+                            </a>
+                        </li>
+                        <li class="page-item" th:if="${result.next}">
+                            <a class="page-link" th:href="@{/stock/list(page= ${result.end + 1}, type1 = ${stockPageRequestDTO.type1}, type2 = ${stockPageRequestDTO.type2}, type3 = ${stockPageRequestDTO.type3}, keyword = ${stockPageRequestDTO.keyword})}">Next</a>
+                        </li>
+                    </ul><!-- 하단 페이지 버튼 -->
 
-                </div>  <!-- 69 line end -->
+                    <!-- 모달창 처리-->
+                    <div class="modal" tabindex="-1" role="dialog" id="cmodal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">변경사항</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>정상적으로 처리되었습니다.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- 신규등록완료시 뜨는 모달창 처리-->
 
-                <ul class="pagination h-100 justify-content-center align-items-center">
+                    <!-- 차트 모달-->
+                    <div class="modal" tabindex="-1" role="dialog" id="chartModal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
 
-                    <li class="page-item " th:if="${result.prev}">
-                        <a class="page-link" th:href="@{/stock/list(page= ${result.start -1}, type1 = ${stockPageRequestDTO.type1}, type2 = ${stockPageRequestDTO.type2}, type3 = ${stockPageRequestDTO.type3}, keyword = ${stockPageRequestDTO.keyword})}" tabindex="-1">Previous</a>
-                    </li>
+                                <div class="modal-header">
+                                    <h5 class="modal-title">자재 리포트</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
 
-                    <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
-                        <a class="page-link" th:href="@{/stock/list(page = ${page}, type1 = ${stockPageRequestDTO.type1}, type2 = ${stockPageRequestDTO.type2}, type3 = ${stockPageRequestDTO.type3}, keyword = ${stockPageRequestDTO.keyword})}">
-                            [[${page}]]
-                        </a>
-                    </li>
+                                <div class="modal-body">
+                                    <input type="hidden" name="chartScode" id="chartScode">
+                                    <select name="selectMonth" id="selectMonth">
+                                        <option value="01">JAN</option>
+                                        <option value="02">FEB</option>
+                                        <option value="03">MAR</option>
+                                        <option value="04">APR</option>
+                                        <option value="05">MAY</option>
+                                        <option value="06">JUN</option>
+                                        <option value="07">JUL</option>
+                                        <option value="08">AUG</option>
+                                        <option value="09">SEP</option>
+                                        <option value="10">OCT</option>
+                                        <option value="11">NOV</option>
+                                        <option value="12">DEC</option>
+                                    </select>
+                                    <button type="button" id="btn">확인</button>
+                                    <div id="graph" style="width: 80%; margin: 30px;">
+                                        <div>
+                                            <canvas id="canvas" height="350" width="600"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
 
-                    <li class="page-item" th:if="${result.next}">
-                        <a class="page-link" th:href="@{/stock/list(page= ${result.end + 1}, type1 = ${stockPageRequestDTO.type1}, type2 = ${stockPageRequestDTO.type2}, type3 = ${stockPageRequestDTO.type3}, keyword = ${stockPageRequestDTO.keyword})}">Next</a>
-                    </li>
-                </ul>
-
-            </div>  <!-- 68line end -->
-        </div>  <!-- 12line end -->
-
-        <!-- 모달창 처리-->
-        <div class="modal" tabindex="-1" role="dialog" id="cmodal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">변경사항</h5>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>정상적으로 처리되었습니다.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                    </div>
-                </div>
-            </div>
-        </div><!-- 신규등록완료시 뜨는 모달창 처리-->
-
-        <!-- 차트 모달-->
-        <div class="modal" tabindex="-1" role="dialog" id="chartModal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">자재 리포트</h5>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <!--<span aria-hidden="true">&times;</span>-->
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!--<div class="container">-->
-                            <!--<div>-->
-                                <input type="hidden" name="chartScode" id="chartScode">
-
-                                <select name="selectMonth" id="selectMonth">
-                                    <option value="01">JAN</option>
-                                    <option value="02">FEB</option>
-                                    <option value="03">MAR</option>
-                                    <option value="04">APR</option>
-                                    <option value="05">MAY</option>
-                                    <option value="06">JUN</option>
-                                    <option value="07">JUL</option>
-                                    <option value="08">AUG</option>
-                                    <option value="09">SEP</option>
-                                    <option value="10">OCT</option>
-                                    <option value="11">NOV</option>
-                                    <option value="12">DEC</option>
-                                </select>
-
-                                <button type="button" id="btn">확인</button>
-                            <!--</div>-->
-                        <!--</div>-->
-                        <div id="graph" style="width: 80%; margin: 30px;">
-                            <div>
-                                <canvas id="canvas" height="350" width="600"></canvas>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </div><!-- 차트 모달 END -->
+                </div><!-- 차트 모달 END -->
 
-        <!-- 모달 시작 -->
-        <div class="modal" tabindex="-1" role="dialog" id="omodal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">자재출고</h5>
+                <!-- 모달 시작 -->
+                <div class="modal" tabindex="-1" role="dialog" id="omodal">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
 
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <form action="/stock/register" method="post" id="modalForm">
-                            <input type="hidden" name="sno" id="sno">
-                            <div class="form-group">
-                                <label >품목코드</label>
-                                <input type="text" class="form-control" name="scode" id="scode" readonly>
+                            <div class="modal-header">
+                                <h5 class="modal-title">자재출고</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
 
-                            <div class="form-group">
-                                <label >품목이름</label>
-                                <input type="text" class="form-control" name="sname" id="sname" readonly>
+                            <div class="modal-body">
+                                <form action="/stock/register" method="post" id="modalForm">
+                                    <input type="hidden" name="sno" id="sno">
+                                    <div class="form-group">
+                                        <label >품목코드</label>
+                                        <input type="text" class="form-control" name="scode" id="scode" readonly>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label >품목이름</label>
+                                        <input type="text" class="form-control" name="sname" id="sname" readonly>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label >품목분류1</label>
+                                        <input type="text" class="form-control" name="scate1" id="scate1" readonly>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label >품목분류2</label>
+                                        <input type="text" class="form-control" name="scate2" id="scate2" readonly>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label >가격</label>
+                                        <input type="text" class="form-control" name="sreturn" id="sreturn" readonly>
+                                    </div>
+
+                                    <div class="form-gr" style="display: flex; justify-content: space-between;">
+                                        <div>
+                                            <label>출고수량</label>
+                                            <input type="text" class="form-control" name="sout" id="sout">
+                                        </div>
+                                        <div>
+                                            <label>신청자</label>
+                                            <input type="text" class="form-control" name="requester" id="requester">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-gr" style="display: flex; justify-content: space-between;">
+                                        <div>
+                                            <label>재고수량</label>
+                                            <input type="text" class="form-control" name="stock" id="stock" readonly>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
 
-                            <div class="form-group">
-                                <label >품목분류1</label>
-                                <input type="text" class="form-control" name="scate1" id="scate1" readonly>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary outputSave">완료</button>
+                                <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">닫기</button>
                             </div>
-
-                            <div class="form-group">
-                                <label >품목분류2</label>
-                                <input type="text" class="form-control" name="scate2" id="scate2" readonly>
-                            </div>
-
-                            <div class="form-group">
-                                <label >가격</label>
-                                <input type="text" class="form-control" name="sreturn" id="sreturn" readonly>
-                            </div>
-
-                            <div class="form-gr" style="display: flex; justify-content: space-between;">
-                                <div>
-                                    <label>출고수량</label>
-                                    <input type="text" class="form-control" name="sout" id="sout">
-                                </div>
-                                <div>
-                                    <label>신청자</label>
-                                    <input type="text" class="form-control" name="requester" id="requester">
-                                </div>
-                            </div>
-                            <div class="form-gr" style="display: flex; justify-content: space-between;">
-                                <div>
-                                    <label>재고수량</label>
-                                    <input type="text" class="form-control" name="stock" id="stock" readonly>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary outputSave">완료</button>
-                        <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">닫기</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- 모달 끝-->
+                <!-- 모달 끝-->
 
-        <script th:inline="javascript">
+                <script th:inline="javascript">
+                $(document).on("click","input[name=radio]",function () {
+                    var sno = $(this).val();
 
-            $(document).on("click","input[name=radio]",function () {
+                    $.ajax({
+                        url:"/stock/modalread2",
+                        type:'get',
+                        data: {"sno":sno},
+                        contentType:"application/json",
+                        success:function (data){
+                            $("#scode").val(data.scode);
+                            $("#sname").val(data.sname);
+                            $("#scate1").val(data.scate1);
+                            $("#scate2").val(data.scate2);
+                            $("#sreturn").val(data.sreturn);
+                            $("#sno").val(data.sno);
+                            $("#stock").val(data.stock);
+                            $("#chartScode").val(data.scode);
+                        },
+                        error:function (){
+                            alert("실패");
+                        }
+                    }); //ajax end
+                }); //radio end
 
-                var sno = $(this).val();
+                var modal = $("#omodal");
+                $(".stockOutputBtn").click(function (){
+                    modal.modal('show');
+                });
 
-                $.ajax({
-                    url:"/stock/modalread2",
-                    type:'get',
-                    data: {"sno":sno},
-                    contentType:"application/json",
-                    success:function (data){
-                        $("#scode").val(data.scode);
-                        $("#sname").val(data.sname);
-                        $("#scate1").val(data.scate1);
-                        $("#scate2").val(data.scate2);
-                        $("#sreturn").val(data.sreturn);
-                        $("#sno").val(data.sno);
-                        $("#stock").val(data.stock);
-                        $("#chartScode").val(data.scode);
-                    },
-                    error:function (){
-                        alert("실패");
+                var chartModal = $("#chartModal");
+                $(".stockchartBtn").click(function (){
+                   chartModal.modal('show');
+                });
+
+                var modalForm = $("#modalForm");
+                $(".outputSave").click(function () {
+                    if ($("#stock").val() >= $("#sout").val()) {
+                        modalForm
+                            .attr("action", "/stock/outModify")
+                            .attr("method", "post");
+                        modalForm.submit();
+                        modal.modal.hide();
+                    } else {
+                        alert("재고수량 확인")
                     }
-                }); //ajax end
+                });
 
-            }); //radio end
-
-            var modal = $("#omodal");
-
-            $(".stockOutputBtn").click(function (){
-
-                modal.modal('show');
-
-            });
-
-            var chartModal = $("#chartModal");
-
-            $(".stockchartBtn").click(function (){
-               chartModal.modal('show');
-            });
-
-            var modalForm = $("#modalForm");
-
-            $(".outputSave").click(function () {
-
-                if ($("#stock").val() >= $("#sout").val()) {
-                    modalForm
-                        .attr("action", "/stock/outModify")
-                        .attr("method", "post");
-
-                    modalForm.submit();
-                    modal.modal.hide();
-                } else {
-                    alert("재고수량 확인")
+                var msg = [[${msg}]];
+                console.log(msg);
+                if(msg){
+                    $("#cmodal").modal();
                 }
 
-            });
-
-            var msg = [[${msg}]];
-
-            console.log(msg);
-
-            if(msg){
-                $("#cmodal").modal();
-            }
-
-            var searchForm = $("#searchForm");
-
-            $('.searchBtn').click(function (){
-
-                searchForm.submit();
-
-            });
-
-           /* $(document).ready(function() {*/
-
+                var searchForm = $("#searchForm");
+                $('.searchBtn').click(function (){
+                    searchForm.submit();
+                });
 
                 var chartLabels = []; // 받아올 데이터를 저장할 배열 선언
                 var chartData = [];
@@ -369,9 +319,7 @@
                 var scode="";
                 var scode2="";
 
-
                 function createChart() {
-
                     var ctx = document.getElementById("canvas").getContext("2d");
                     LineChartDemo = Chart.Line(ctx, {
                         data : lineChartData,
@@ -398,7 +346,6 @@
 
                 //버튼을 클릭하면 차트가 그려짐
                 $('#btn').click(function(){
-
                     chartLabels = [];
                     chartData=[];
 
@@ -429,17 +376,13 @@
                                 borderWidth: 4,
                                 data : chartData
                             } ]
-
                         }
                         createChart();
 
                     });
                 })
-
-
-            /*})*/
-
-        </script>
-
+                </script>
+            </div>  <!-- 68line end -->
+        </div>  <!-- 12line end -->
     </th:block>
 </th:block>
