@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class MemberDTO {
     private String email;
-    private String from_social;
     private String name;
     private String password;
+    private Boolean from_social;
     private LocalDateTime regdate, moddate; // 등록일, 수정일
 }
