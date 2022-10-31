@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
-  <th:block th:fragment="content">
-
-    <h1 class="h3 mb-2 text-gray-800">계약정보 상세보기</h1>
+    <th:block th:fragment="content">
+        <h1 class="h3 mb-2 text-gray-800">계약정보 상세보기</h1>
         <!-- page card -->
         <div class="card shadow mb-4">
             <!-- card-body -->
@@ -34,32 +34,32 @@
 
         <!-- page card -->
         <div class="card shadow mb-4">
-          <!-- card-body -->
-          <div class="card-body">
-          <h3>품목 정보</h3><br/>
+            <!-- card-body -->
+            <div class="card-body">
+            <h3>품목 정보</h3><br/>
 
-              <div class="form-group">
+                <div class="form-group">
                   <label>코드</label>
                   <input type="text" class="form-control" name="pcode" th:value="${dto.pcode}" readonly>
-              </div>
-              <div class="form-group">
+                </div>
+                <div class="form-group">
                   <label>이름</label>
                   <input type="text" class="form-control" name="pname" th:value="${dto.pname}" readonly>
-              </div>
-              <div class="form-group">
+                </div>
+                <div class="form-group">
                   <label>분류1</label>
                   <input type="text" class="form-control" name="ptype1" th:value="${dto.ptype1}" readonly>
-              </div>
-              <div class="form-group">
+                </div>
+                <div class="form-group">
                   <label>분류2</label>
                   <input type="text" class="form-control" name="ptype2" th:value="${dto.ptype2}" readonly>
-              </div>
-              <div class="form-group">
+                </div>
+                <div class="form-group">
                   <label>단가</label>
                   <input type="text" class="form-control" name="pprice" th:value="${dto.pprice}" readonly>
-              </div>
+                </div>
 
-          </div><!-- card-body -->
+            </div><!-- card-body -->
         </div><!-- page card -->
 
 
@@ -94,9 +94,7 @@
                     <input type="text" class="form-control" name="cpartnerfax" th:value="${dto.cpartnerfax}" readonly>
                 </div>
 
-                <a th:href="@{/contract/tradeprint(cno=${dto.cno}, page=${requestDTO.page})}">
-                    <button type="button" class="btn btn-warning">거래명세서</button>
-                </a>
+                <button type="button" class="btn btn-warning" th:value="${dto.cno}" th:onclick="tradePrintOpenPopup(this.value);">거래명세서</button>
                 <a th:href="@{/contract/modify(cno=${dto.cno}, page=${requestDTO.page})}">
                     <button type="button" class="btn btn-primary">수정</button>
                 </a>
@@ -106,6 +104,5 @@
 
             </div><!-- card-body -->
         </div><!-- page card -->
-
-  </th:block>
+    </th:block>
 </th:block>

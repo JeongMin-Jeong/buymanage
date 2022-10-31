@@ -17,8 +17,7 @@ public interface ProductService {
     // 목록처리
 //    PageResultDTO<ProductDTO, Object[]> getList(ProductPageRequestDTO productPageRequestDTO);
     PageResultDTO<ProductDTO, Product> getList(ProductPageRequestDTO productPageRequestDTO);
-
-    PageResultDTO<ProductDTO, Product> getList2(ProductPageRequestDTO productPageRequestDTO);
+//    PageResultDTO<ProductDTO, Product> getList2(ProductPageRequestDTO productPageRequestDTO);
 
     // 조회처리
     ProductDTO read(Long pno);
