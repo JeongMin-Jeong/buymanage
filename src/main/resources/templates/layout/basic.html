@@ -58,6 +58,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <div sec:authorize="hasRole('PRODUCT')"><a class="collapse-item" href="/product/list">품목관리</a></div>
                     <div sec:authorize="hasRole('CONTRACT')"><a class="collapse-item" href="/contract/list">계약관리</a></div>
+                    <div sec:authorize="hasRole('ORDER')"><a class="collapse-item" href="/transferPlan/list">조달계획관리</a></div>
                 </div>
             </div>
         </li>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+
+        <!-- Begin Page Content -->
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">조달계획 목록보기</h1>
+        <!-- page card -->
+        <div class="card shadow mb-4">
+
+            <!-- card-header -->
+            <div class="card-header py-3"><h8 class="m-0 font-weight-bold text-primary">검색</h8></div>
+            <!-- card-body -->
+            <div class="card-body">
+                <!-- div -->
+                <div>
+                    <form action="/transferPlan/list" method="get" id="searchForm">
+                    <!-- input-group -->
+                    <div class="input-group">
+                        <input type="hidden" name="page" value="1">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width:100px;">일반검색</td>
+                                <td>
+                                    <div class="input-group-prepend">
+                                        <select class="form-select" name="type" style="height:50px;">
+                                            <option value="" th:selected="${transferPlanPageRequestDTO.type == null}">----------------분류선택----------------</option>
+                                            <option value="pc" th:selected="${transferPlanPageRequestDTO.type == 'pc'}">품목코드</option>
+                                            <option value="pn" th:selected="${transferPlanPageRequestDTO.type == 'pn'}">품목이름</option>
+                                            <option value="tp" th:selected="${transferPlanPageRequestDTO.type == 'tp'}">자재소요공정</option>
+                                        </select>&nbsp;
+                                        <input class="form-control" name="keyword" style="height:50px;" th:value="${transferPlanPageRequestDTO.keyword}">
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr style="height:20px;">
+                                <td colspan="2" style="text-align: right;">
+                                    <button class="btn btn-outline-secondary searchBtn" type="button">검색</button>
+                                    <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/transferPlan/list';">리셋</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div><!-- input-group -->
+                    </form>
+                </div><!-- div -->
+            </div><!-- <div class="card-body"> -->
+
+            <!-- card-header -->
+            <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">목록</h6></div>
+            <!-- card-body -->
+            <div class="card-body">
+                <!-- table-responsive -->
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">품목코드</th>
+                            <th scope="col">품목이름</th>
+                            <th scope="col">자재소요공정</th>
+                            <th scope="col">자재소요일정</th>
+                            <th scope="col">자재소요량</th>
+                            <th scope="col">조달납기</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="dto: ${result.dtoList}">
+                            <td>[[${dto.tno}]]</td>
+                            <th><a th:href="@{/transferPlan/read(tno=${dto.tno}, page=${result.page})}">[[${dto.pcode}]]</a></th>
+                            <td>[[${dto.pname}]]</td>
+                            <td>[[${dto.tuseprocess}]]</td>
+                            <td>[[${dto.tusedate}]]</td>
+                            <td>[[${dto.tusecount}]]</td>
+                            <td>[[${dto.deliverydate}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div style="float: right">
+                        <a th:href="@{/transferPlan/register}">
+                            <button class="btn btn-outline-secondary registBtn" type="button">계약등록</button>
+                        </a>
+                    </div><br/>
+
+                    <!-- 하단 페이지 버튼 -->
+                    <ul class="pagination h-100 justify-content-center align-items-center">
+                        <li class="page-item " th:if="${result.prev}">
+                            <a class="page-link"
+                               th:href="@{/transferPlan/list(page= ${result.start -1})}"
+                               typetabindex="-1">
+                                이전
+                            </a>
+                        </li>
+                        <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+                            <a class="page-link"
+                               th:href="@{/transferPlan/list(page = ${page})}">
+                                [[${page}]]
+                            </a>
+                        </li>
+                        <li class="page-item" th:if="${result.next}">
+                            <a class="page-link"
+                               th:href="@{/transferPlan/list(page= ${result.end + 1})}">
+                                다음
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- 하단 페이지 버튼 -->
+
+                    <!-- 모달창 처리-->
+                    <div class="modal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">변경사항</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>정상적으로 처리되었습니다.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- 신규등록완료시 뜨는 모달창 처리-->
+
+                    <script th:inline="javascript">
+                        /* 신규등록완료시 뜨는 모달창 처리 */
+                        var msg = [[${msg}]];
+                        console.log(msg);
+                        if(msg){
+                            $(".modal").modal();
+                        }/* 신규등록완료시 뜨는 모달창 처리 */
+
+                        /* 검색시 이벤트 처리*/
+                        var searchForm = $("#searchForm");
+                        $('.searchBtn').click(function (e) {
+                            searchForm.submit();
+                        });/* 검색시 이벤트 처리*/
+                    </script>
+
+                </div><!-- table-responsive -->
+            </div><!-- card-body -->
+        </div><!-- page card -->
+        <!-- End Page Content -->
+    </th:block>
+</th:block>
