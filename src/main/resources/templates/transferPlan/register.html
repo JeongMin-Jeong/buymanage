@@ -5,9 +5,9 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
   <th:block th:fragment="content">
 
-      <h1 class="h3 mb-2 text-gray-800">계약정보 등록하기</h1>
+      <h1 class="h3 mb-2 text-gray-800">조달계획 등록하기</h1>
 
-        <form th:action="@{/contract/register}" th:method="post">
+        <form th:action="@{/transferPlan/register}" th:method="post">
 
             <!-- page card -->
             <div class="card shadow mb-4">
