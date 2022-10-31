@@ -1,4 +1,4 @@
-package com.erp.buymanage.security.repository;
+package com.erp.buymanage.repository;
 
 import com.erp.buymanage.entity.TblMember;
 import org.springframework.data.jpa.repository.JpaRepository;
