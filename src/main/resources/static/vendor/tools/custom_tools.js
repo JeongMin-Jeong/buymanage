@@ -141,7 +141,19 @@
         window.open(url, name, option); // 새로운 창이 뜨면서 팝업이 생성됩니다.
     }
 
-    //계약등록시 품목코드를 팝업창에서 선택하면 부모창에 폼목코드,이름 자동입력 및 계약코드 랜덤 자동생성 입력
+    //거래명세서 클릭시 프린트화면 팝업
+    function tradePrintOpenPopup(cno) {
+        var width = 1200;
+        var height = 600;
+        var left = (window.screen.width / 2) - (width/2);
+        var top = (window.screen.height / 4);
+        var url = "/contract/tradeprint?cno=" + cno;
+        var name = "거래명세서 출력"; // 팝업의 이름을 입력해줍니다.
+        //윈도우 속성 지정
+        var option = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=no, location=no, titlebar=yes';
+        window.open(url, name, option); // 새로운 창이 뜨면서 팝업이 생성됩니다.
+    }
+
     function returnParentWindows(pcode,pname,ptype1,ptype2){
         //alert("pcode : " + pcode + " / pname : " + pname);
         opener.document.getElementById('pcode').value = pcode;

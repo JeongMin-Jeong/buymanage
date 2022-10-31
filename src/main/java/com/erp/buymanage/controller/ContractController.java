@@ -82,7 +82,7 @@ public class ContractController {
     public void popup(ProductPageRequestDTO productPageRequestDTO, Model model) {
         log.info("product popup get...");
         log.info("(list)ProductPageRequestDTO : \" + productPageRequestDTO");
-        model.addAttribute("result", productService.getList2(productPageRequestDTO));
+        model.addAttribute("result", productService.getList(productPageRequestDTO));
     }
 
     @GetMapping("/partnerList")
@@ -103,6 +103,5 @@ public class ContractController {
         ContractDTO dto = service.read(cno);
         model.addAttribute("dto", dto);
     }
-
 }
 
