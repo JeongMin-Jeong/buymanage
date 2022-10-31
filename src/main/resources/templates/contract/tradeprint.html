@@ -40,9 +40,9 @@
 
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <div id="command_bar">
-  자재입고 후 출력가능합니다.
-<!--  A4용지를 준비하고 인쇄방향을 가로로 설정하세요. &nbsp; -->
-<!--  <input type="button" value="인쇄하기" onclick="printNow()" /> <input type="button" value="뒤로" onclick="window.history.go(-1)" />-->
+<!--  자재입고 후 출력가능합니다.-->
+  A4용지를 준비하고 인쇄방향을 가로로 설정하세요. &nbsp;
+  <input type="button" value="인쇄하기" onclick="printNow()" /> <input type="button" value="뒤로" onclick="window.history.go(-1)" />
 </div>
 <table width="1000" border="0" cellspacing="0" cellpadding="0" align="<?=$prtAlign?>" style="table-layout:auto">
   <tr>
@@ -174,9 +174,8 @@
         <tr>
           <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="border_in" style="border-top-style:none;border-left-style:none">
             <tr height="30">
-              <td class="border_in" style="border-top-style:none;border-left-style:none" align="center">월</td>
-              <td class="border_in" style="border-top-style:none;border-left-style:none" align="center">일</td>
-              <td class="tl_dot" style="border-top-style:none" align="center">품 &nbsp; &nbsp; 목</td>
+              <td class="border_in" style="border-top-style:none;border-left-style:none" align="center">날짜</td>
+              <td class="tl_dot" style="border-top-style:none" align="center">품 목</td>
               <td class="tl_dot" style="border-top-style:none" align="center">규 격</td>
               <td class="tl_dot" style="border-top-style:none" align="center">수 량</td>
               <td class="tl_dot" style="border-top-style:none" align="center">단 가</td>
@@ -186,15 +185,14 @@
             </tr>
             <?php for ($i=0, $maxi=count($prtArticle); $i<$maxi; $i++) { ?>
             <tr height="30">
-              <td class="lb_dot" style="border-top-style:none;border-left-style:none" align="center">&nbsp;</td>
-              <td class="lb_dot" style="border-top-style:none" align="center"><?=$prtArticle[$i]['day']?></td>
-              <td class="lb_dot" style="border-top-style:none" align="center"><?=$prtArticle[$i]['article']?></td>
-              <td class="lb_dot" style="border-top-style:none" align="center"><?=$prtArticle[$i]['type']?></td>
-              <td class="lb_dot" style="border-top-style:none" align="right"><?=$prtArticle[$i]['pcs']?> &nbsp; </td>
-              <td class="lb_dot" style="border-top-style:none" align="right"><?=$prtArticle[$i]['price_each']?> &nbsp; </td>
-              <td class="lb_dot" style="border-top-style:none" align="right"><?=$prtArticle[$i]['pay_type']?> &nbsp; </td>
-              <td class="lb_dot" style="border-top-style:none" align="right"><?=$prtArticle[$i]['amount']?> &nbsp; </td>
-              <td class="lb_dot" style="border-top-style:none" align="center"><?=$prtArticle[$i]['note']?></td>
+              <td class="lb_dot" style="border-top-style:none;border-left-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['day']?></td>
+              <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['article']?>[[${dto.pname}]]</td>
+              <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['type']?></td>
+              <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['pcs']?></td>
+              <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center" th:text="${#numbers.formatInteger(dto.pprice, 1, 'COMMA') + '원'}"><?=$prtArticle[$i]['price_each']?></td>
+              <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['pay_type']?> &nbsp; </td>
+              <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['amount']?> &nbsp; </td>
+              <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['note']?></td>
             </tr>
             <?php } ?>
           </table>

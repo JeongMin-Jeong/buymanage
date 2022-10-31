@@ -115,7 +115,7 @@
         window.open(url, name, option); // 새로운 창이 뜨면서 팝업이 생성됩니다.
     }
 
-    //발주등록시 계약정보 선택용 팝업
+    //계약등록시 품목 선택용 팝업
     function contractRegistOpenPopup() {
       	var width = 1200;
        	var height = 600;
@@ -136,6 +136,19 @@
         var top = (window.screen.height / 4);
         var url = "/contract/partnerPopup";
         var name = "납품업체 팝업"; // 팝업의 이름을 입력해줍니다.
+        //윈도우 속성 지정
+        var option = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=no, location=no, titlebar=yes';
+        window.open(url, name, option); // 새로운 창이 뜨면서 팝업이 생성됩니다.
+    }
+
+    //조달계획등록시 품목 선택용 팝업
+    function transferPlanRegistOpenPopup() {
+        var width = 1200;
+        var height = 600;
+        var left = (window.screen.width / 2) - (width/2);
+        var top = (window.screen.height / 4);
+        var url = "/transferPlan/popup";
+        var name = "품목코드선택 팝업"; // 팝업의 이름을 입력해줍니다.
         //윈도우 속성 지정
         var option = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=no, location=no, titlebar=yes';
         window.open(url, name, option); // 새로운 창이 뜨면서 팝업이 생성됩니다.
@@ -184,6 +197,12 @@
         opener.document.getElementById('cpartneraddr').value = cpartneraddr;
         opener.document.getElementById('cpartnerphone').value = cpartnerphone;
         opener.document.getElementById('cpartnerfax').value = cpartnerfax;
+        self.close();
+    }
+
+    function returnParentWindows4(pcode,pname){
+        opener.document.getElementById('pcode').value = pcode;
+        opener.document.getElementById('pname').value = pname;
         self.close();
     }
 
