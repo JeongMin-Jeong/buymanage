@@ -55,6 +55,7 @@ public class OrderServiceImpl implements OrderService {
         QOrderEntity qOrderEntity = QOrderEntity.orderEntity;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(qOrderEntity.ostate.eq("검수완료"));
+        booleanBuilder.or(qOrderEntity.ostate.eq("마감완료"));
         Page<OrderEntity> result = repository.findAll(booleanBuilder, pageable);
         Function<OrderEntity,OrderDTO> fn = (entity -> entityToDto(entity));
         return new PageResultDTO<>(result,fn);
@@ -94,7 +95,7 @@ public class OrderServiceImpl implements OrderService {
             }
             conditionBuilder.and(qOrderEntity.ostate.eq(otype1));
         } else if (otype1 == null && otype2 != null) {
-            if (otype2.equals("oc")) {
+            if (otype2.contains("oc")) {
                 conditionBuilder.and(qOrderEntity.ocode.contains(keyword));
             }
             if (otype2.equals("pn")) {
@@ -136,6 +137,7 @@ public class OrderServiceImpl implements OrderService {
             entity.changePcontent(dto.getPcontent());
             entity.changePtype1(dto.getPtype1());
             entity.changePtype2(dto.getPtype2());
+
             entity.changeCpartnername(dto.getCpartnername());
             entity.changeDeliverydate(dto.getDeliverydate());
             entity.changeOmanager(dto.getOmanager());
