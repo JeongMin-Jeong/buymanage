@@ -174,7 +174,7 @@
         <tr>
           <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="border_in" style="border-top-style:none;border-left-style:none">
             <tr height="30">
-              <td class="border_in" style="border-top-style:none;border-left-style:none" align="center">날짜</td>
+              <td class="border_in" style="border-top-style:none;border-left-style:none" align="center">날 짜</td>
               <td class="tl_dot" style="border-top-style:none" align="center">품 목</td>
               <td class="tl_dot" style="border-top-style:none" align="center">규 격</td>
               <td class="tl_dot" style="border-top-style:none" align="center">수 량</td>
@@ -188,10 +188,11 @@
               <td class="lb_dot" style="border-top-style:none;border-left-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['day']?></td>
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['article']?>[[${dto.pname}]]</td>
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['type']?></td>
-              <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['pcs']?></td>
+              <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['pcs']?>[[${param.sin}]]</td>
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center" th:text="${#numbers.formatInteger(dto.pprice, 1, 'COMMA') + '원'}"><?=$prtArticle[$i]['price_each']?></td>
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['pay_type']?> &nbsp; </td>
-              <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['amount']?> &nbsp; </td>
+              <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center">[[${param.sin * dto.pprice}]]</td>
+              <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['amount']?></td>
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['note']?></td>
             </tr>
             <?php } ?>
