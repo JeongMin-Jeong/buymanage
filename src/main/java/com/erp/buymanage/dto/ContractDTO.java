@@ -13,7 +13,8 @@ import java.time.Period;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ContractDTO {
+public class
+ContractDTO {
 
     private Long cno; // 자동번호부여
 

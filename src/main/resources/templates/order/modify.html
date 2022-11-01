@@ -17,6 +17,24 @@
             <input type="hidden" class="form-control" name="ono" th:value="${dto.ono}" readonly>
           </div><!-- 삭제처리에 ono넘기기위한 히든처리 -->
           <div class="form-group" >
+            <div >
+              <div class="form-group" >
+                <label>발주일자</label><input type="date" class="form-control" name="orderdate" th:value="${dto.orderdate}">
+                <label>납기일자</label><input type="date" class="form-control" name="deliverydate" th:value="${dto.deliverydate}">
+
+              </div>
+            </div>
+            <div class="form-group" >
+              <label>발주상태</label>
+              <select class="form-select" name="ostate" style="height:40px;" th:value="${dto.ostate}">
+                <option value="발주상태">---------------------------------</option>
+                <option value="구매발주" >구매발주</option>
+                <option value="입고처리">입고처리</option>
+                <option value="반품처리">반품처리</option>
+                <option value="마감완료">마감완료</option>
+              </select>
+            </div>
+
             <label>발주코드</label>
             <input type="text" class="form-control" name="ocode" th:value="${dto.ocode}" readonly>
           </div>
@@ -37,7 +55,7 @@
           </div>
           <div class="form-group"  >
             <label>수량</label> <input type="text" class="form-control" id="oquantity" name="oquantity" th:value="${dto.oquantity}" readonly >
-            <label>공급단가(원)</label> <input type="text"  class="form-control"id="pprice" name="pprice" th:value="${dto.pprice}" >
+            <label>공급단가(원)</label> <input type="text"  class="form-control"id="pprice" name="pprice" th:value="${dto.pprice}" readonly >
           </div>
           <div >
             <div class="form-group"  >
@@ -45,23 +63,7 @@
               <label>담당자</label> <input type="text" class="form-control" id="omanager" name="omanager"  th:value="${dto.omanager}" readonly>
             </div>
           </div>
-          <div >
-            <div class="form-group" >
-              <label>발주일자</label><input type="date" class="form-control" name="orderdate" th:value="${dto.orderdate}">
-              <label>납기일자</label><input type="date" class="form-control" name="deliverydate" th:value="${dto.deliverydate}">
 
-            </div>
-          </div>
-          <div class="form-group" >
-            <label>발주상태</label>
-            <select class="form-select" name="ostate" style="height:40px;" th:value="${dto.ostate}">
-              <option value="발주상태">---------------------------------</option>
-              <option value="구매발주" >구매발주</option>
-              <option value="입고처리">입고처리</option>
-              <option value="반품처리">반품처리</option>
-              <option value="마감완료">마감완료</option>
-            </select>
-          </div>
           <div class="form-group">
             <label>설명</label>
             <textarea class="form-control" rows="5" name="pcontent" th:value="${dto.pcontent}" th:text="${dto.pcontent}"></textarea>
