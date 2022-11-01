@@ -160,7 +160,7 @@
         var height = 600;
         var left = (window.screen.width / 2) - (width/2);
         var top = (window.screen.height / 4);
-        var url = "/contract/tradeprint?cno=" + cno;
+        var url = "/contract/tradeprint?cno=" + cno + "&sin=50";
         var name = "거래명세서 출력"; // 팝업의 이름을 입력해줍니다.
         //윈도우 속성 지정
         var option = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=no, location=no, titlebar=yes';
