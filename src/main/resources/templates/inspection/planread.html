@@ -4,7 +4,7 @@
 <th:block th:replace="~{/layout/popup :: setContent(~{this :: content})}">
     <th:block th:fragment="content">
         <form id="registForm" th:action="@{/inspection/planreg}" th:method="post">
-        <h1 class="h3 mb-2 text-gray-800">검수계획 등록</h1>
+        <h1 class="h3 mb-2 text-gray-800">검수계획 보기</h1>
 
         <!-- page card -->
         <div class="card shadow mb-4">
@@ -14,13 +14,13 @@
                 <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">1차 검수</h6></div>
                 <div class="form-group">
                     <label>검수날짜</label><br/>
-                    <input type="date" class="form-control" name="inspection_date1">
+                    <input type="date" class="form-control" name="inspection_date1" readonly>
                     <label>검수담당자</label><br/>
-                    <input type="text" class="form-control" name="inspection_prime1">
+                    <input type="text" class="form-control" name="inspection_prime1" readonly>
                     <label>검수진척도</label>
-                    <input type="text" class="form-control" name="inspection_degree1" placeholder="1~5 입력하세요!!">
+                    <input type="text" class="form-control" name="inspection_degree1" placeholder="1~5 입력하세요!!" readonly>
                     <label>검수내용</label>
-                    <textarea class="form-control" rows="2" name="inspection_etc1"></textarea>
+                    <textarea class="form-control" rows="2" name="inspection_etc1" readonly></textarea>
                 </div>
             </div>
             <!-- card-body -->
@@ -34,13 +34,13 @@
                 <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">2차 검수</h6></div>
                 <div class="form-group">
                     <label>검수날짜</label><br/>
-                    <input type="date" class="form-control" name="inspection_date2">
+                    <input type="date" class="form-control" name="inspection_date2" readonly>
                     <label>검수담당자</label><br/>
-                    <input type="text" class="form-control" name="inspection_prime2">
+                    <input type="text" class="form-control" name="inspection_prime2" readonly>
                     <label>검수진척도</label>
-                    <input type="text" class="form-control" name="inspection_degree2" placeholder="1~5 입력하세요!!">
+                    <input type="text" class="form-control" name="inspection_degree2" placeholder="1~5 입력하세요!!" readonly>
                     <label>검수내용</label>
-                    <textarea class="form-control" rows="2" name="inspection_etc2"></textarea>
+                    <textarea class="form-control" rows="2" name="inspection_etc2" readonly></textarea>
                 </div>
             </div>
             <!-- card-body -->
@@ -53,7 +53,6 @@
             <div class="card-body">
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">등록</button>
-                    <a href="/inspection/planread/"><button type="button" class="btn btn-primary">보기</button></a>
                     <button type="button" class="btn btn-info" onclick="self.close();">닫기</button>
                 </div>
             </div>

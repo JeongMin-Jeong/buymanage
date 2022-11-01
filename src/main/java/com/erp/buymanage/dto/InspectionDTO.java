@@ -1,25 +1,17 @@
-package com.erp.buymanage.entity;
+package com.erp.buymanage.dto;
 
-import lombok.*;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
-
-@Entity(name="tbl_inspection")
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
-public class Inspection {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ino;
+public class InspectionDTO {
+    private Long ino; // 자동번호부여
     private Long ono_fk;
     private String inspection_date1;
     private int inspection_degree1;
