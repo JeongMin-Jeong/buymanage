@@ -45,6 +45,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/contract/modify").hasRole("CONTRACT")
                 .antMatchers("/contract/delete").hasRole("ADMIN")
 
+                //TRANSFERPLAN
+                .antMatchers("/transferPlan/list").hasRole("ORDER")
+                .antMatchers("/transferPlan/register").hasRole("ORDER")
+                .antMatchers("/transferPlan/read").hasRole("ORDER")
+                .antMatchers("/transferPlan/modify").hasRole("ORDER")
+                .antMatchers("/transferPlan/delete").hasRole("ADMIN")
+
                 //ORDER
                 .antMatchers("/order/list").hasRole("ORDER") //ORDER
                 .antMatchers("/order/register").hasRole("ORDER")

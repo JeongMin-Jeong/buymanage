@@ -73,7 +73,7 @@
                             <td>[[${dto.pname}]]</td>
                             <td>[[${dto.tuseprocess}]]</td>
                             <td>[[${dto.tusedate}]]</td>
-                            <td>[[${dto.tusecount}]]</td>
+                            <td th:text="${#numbers.formatInteger(dto.tusecount, 1, 'COMMA') + '개'}"></td>
                             <td>[[${dto.deliverydate}]]</td>
                         </tr>
                         </tbody>
