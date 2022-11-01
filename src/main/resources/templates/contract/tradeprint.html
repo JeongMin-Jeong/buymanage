@@ -188,7 +188,7 @@
               <td class="lb_dot" style="border-top-style:none;border-left-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['day']?></td>
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['article']?>[[${dto.pname}]]</td>
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['type']?></td>
-              <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['pcs']?>[[${param.sin}]]</td>
+              <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['pcs']?></td>
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center" th:text="${#numbers.formatInteger(dto.pprice, 1, 'COMMA') + '원'}"><?=$prtArticle[$i]['price_each']?></td>
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['pay_type']?> &nbsp; </td>
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center">[[${param.sin * dto.pprice}]]</td>
