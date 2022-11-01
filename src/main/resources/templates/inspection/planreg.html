@@ -10,9 +10,10 @@
         <div class="card shadow mb-4">
             <!-- card-body -->
             <div class="card-body">
-                <input type="hidden" name="ino" >
+
                 <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">1차 검수</h6></div>
                 <div class="form-group">
+                    <input type="hidden" name="order_ono" id="order_ono" th:value="${ono}">
                     <label>검수날짜</label><br/>
                     <input type="date" class="form-control" name="inspection_date1">
                     <label>검수담당자</label><br/>

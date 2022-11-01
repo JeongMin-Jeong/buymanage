@@ -9,7 +9,7 @@
             <!-- card-body -->
             <div class="card-body">
                 <input type="hidden" name="page" th:value="${requestDTO.page}"><!-- 페이지번호 -->
-                <input type="hidden" class="form-control" name="ono" th:value="${dto.ono}"><!-- 삭제처리에 ono넘기기위한 히든처리 -->
+                <input type="hidden" class="form-control" id="ono" name="ono" th:value="${dto.ono}"><!-- 삭제처리에 ono넘기기위한 히든처리 -->
 
                 <div class="form-group" >
                     <label>발주상태</label>
