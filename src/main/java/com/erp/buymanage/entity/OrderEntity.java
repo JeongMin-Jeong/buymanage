@@ -37,7 +37,7 @@ public class OrderEntity {
     private String ptype2;
     private String pcode;
     private String pcontent;
-
+    private String inspectionstate;
     public void changeOrderdate(String orderdate){
         this.orderdate = orderdate;
     }

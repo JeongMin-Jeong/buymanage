@@ -8,9 +8,8 @@
         <div class="card shadow mb-4">
             <!-- card-body -->
             <div class="card-body">
-                <!-- 페이지번호 -->
                 <input type="hidden" name="page" th:value="${requestDTO.page}"><!-- 페이지번호 -->
-                <input type="hidden" class="form-control" name="ono" th:value="${dto.ono}"><!-- 삭제처리에 ono넘기기위한 히든처리 -->
+                <input type="hidden" class="form-control" id="ono" name="ono" th:value="${dto.ono}"><!-- 삭제처리에 ono넘기기위한 히든처리 -->
 
                 <div class="form-group" >
                     <label>발주상태</label>
@@ -46,8 +45,8 @@
                     <input type="text" class="form-control" name="ptype2" th:value="${dto.ptype2}" readonly>
                 </div>
                 <div class="form-group"  >
-                    <label>공급단가(원)</label>
-                    <input type="text"  class="form-control"id="pprice" name="pprice" th:value="${dto.pprice}" readonly>
+                    <label>공급단가</label>
+                    <input type="text"  class="form-control"id="pprice" name="pprice" th:value="${#numbers.formatInteger(dto.pprice, 1, 'COMMA') + '원'}" readonly>
                 </div>
                 <div class="form-group"  >
                     <label>납품업체</label>
@@ -67,7 +66,7 @@
 
                 <div class="form-group">
                     <label>발주수량</label>
-                    <input type="text" class="form-control" id="oquantity" name="oquantity" th:value="${dto.oquantity}" readonly >
+                    <input type="text" class="form-control" id="oquantity" name="oquantity" th:value="${#numbers.formatInteger(dto.oquantity, 1, 'COMMA') + '개'}" readonly>
                 </div>
                 <div class="form-group">
                     <label>발주담당자</label>
