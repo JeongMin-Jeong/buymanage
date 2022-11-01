@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/popup :: setContent(~{this::content} )}">
+  <th:block th:fragment="content">
+    <!-- Begin Page Content -->
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">품목검색</h1>
+    <!-- page card -->
+    <div class="card shadow mb-4">
+
+      <!-- card-header -->
+      <div class="card-header py-3"><h8 class="m-0 font-weight-bold text-primary">검색</h8></div>
+      <!-- card-body -->
+      <div class="card-body">
+        <!-- div -->
+        <div>
+          <!-- <div class="input-group"> -->
+          <form action="/transferPlan/popup" method="get" id="searchForm">
+            <div class="input-group">
+              <input type="hidden" name="page" value="1">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width:100px;">품목분류</td>
+                  <td>
+                    <div class="input-group-prepend">
+                      <select id="category" name="ptype1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;width:500px;">
+                        <option value="" th:selected="${productPageRequestDTO.ptype1 == null}" disabled>----------------분류선택----------------</option>
+                        <option value="DESKTOP" th:selected="${productPageRequestDTO.ptype1 == 'DESKTOP'}">DESKTOP</option>
+                        <option value="NOTEBOOK" th:selected="${productPageRequestDTO.ptype1 == 'NOTEBOOK'}">NOTEBOOK</option>
+                        <option value="SERVER" th:selected="${productPageRequestDTO.ptype1 == 'SERVER'}">SERVER</option>
+                        <option value="ETC" th:selected="${productPageRequestDTO.ptype1 == 'ETC'}">ETC</option>
+                        <option value="ACCESSORY" th:selected="${productPageRequestDTO.ptype1 == 'ACCESSORY'}">ACCESSORY</option>
+                        <option value="TOOLS" th:selected="${productPageRequestDTO.ptype1 == 'TOOLS'}">TOOLS</option>
+                      </select>&nbsp;
+                      <select id="categorySelect" name="ptype2" size="1" style="height:50px;width:500px;">
+                        <option value="" disabled selected>----------------분류선택----------------</option>
+                        <option></option>
+                      </select>&nbsp;
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="width:100px;">일반검색</td>
+                  <td>
+                    <div class="input-group-prepend">
+                      <select id="genericSelect" class="form-select" name="ptype3" style="height:50px;width:500px;">
+                        <option value="" th:selected="${productPageRequestDTO.ptype3 == null}">----------------분류선택----------------</option>
+                        <option value="pc" th:selected="${productPageRequestDTO.ptype3 == 'pc'}">품목코드</option>
+                        <option value="pn" th:selected="${productPageRequestDTO.ptype3 == 'pn'}">품목이름</option>
+                      </select>&nbsp;
+                      <input id="genericKeyword" type="text" class="form-control" name="keyword" th:value="${productPageRequestDTO.keyword}" style="height:50px;width:500px;">
+                    </div>
+                  </td>
+                </tr>
+
+                <tr style="height:20px;">
+                  <td colspan="2" style="text-align: right;">
+                    <button class="btn btn-outline-secondary searchBtn" type="button">검색</button>
+                  </td>
+                </tr>
+              </table>
+            </div><!-- <div class="input-group"> -->
+          </form>
+        </div><!-- div -->
+      </div><!-- <div class="card-body"> -->
+
+      <!-- card-header -->
+      <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">목록</h6></div>
+      <!-- card-body -->
+      <div class="card-body">
+        <!-- <div class="table-responsive"> -->
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">품목코드</th>
+              <th scope="col">품목이름</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dto: ${result.dtoList}">
+              <td>[[${dto.pno}]]</td>
+              <th><a href="#" th:pcode="${dto.pcode}"
+                              th:pname="${dto.pname}"
+                              th:onclick="returnParentWindows4(this.getAttribute('pcode'),this.getAttribute('pname'));">[[${dto.pcode}]]</a>
+              </th>
+              <td>[[${dto.pname}]]</td>
+            </tr>
+            </tbody>
+          </table>
+
+          <!-- 하단 페이지 버튼 -->
+          <ul class="pagination h-100 justify-content-center align-items-center">
+            <li class="page-item " th:if="${result.prev}">
+              <a class="page-link"
+                 th:href="@{/transferPlan/popup(page= ${result.start -1})}"
+                 typetabindex="-1">
+                이전
+              </a>
+            </li>
+            <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+              <a class="page-link"
+                 th:href="@{/transferPlan/popup(page = ${page})}">
+                [[${page}]]
+              </a>
+            </li>
+            <li class="page-item" th:if="${result.next}">
+              <a class="page-link"
+                 th:href="@{/transferPlan/popup(page= ${result.end + 1})}">
+                다음
+              </a>
+            </li>
+          </ul>
+          <!-- 하단 페이지 버튼 -->
+
+          <script th:inline="javascript">
+            var searchForm = $("#searchForm");
+            $('.searchBtn').click(function (){
+              searchForm.submit();
+            });
+          </script>
+
+        </div><!-- <div class="table-responsive"> -->
+      </div><!-- card-body -->
+    </div><!-- page card -->
+    <!-- End Page Content -->
+  </th:block>
+</th:block>

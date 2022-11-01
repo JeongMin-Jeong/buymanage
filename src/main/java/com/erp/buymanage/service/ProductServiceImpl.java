@@ -60,7 +60,6 @@ public class ProductServiceImpl implements ProductService{
 //
 //        return new PageResultDTO<>(result, fn);
 //    }
-
     @Override // 목록처리 (이미지출력 안함)
     public PageResultDTO<ProductDTO, Product> getList(ProductPageRequestDTO productPageRequestDTO) {
         log.info(">>>>> ContractServiceImpl(getList)");
@@ -73,73 +72,6 @@ public class ProductServiceImpl implements ProductService{
         return new PageResultDTO<>(result, fn);
     }
 
-    @Override // 목록처리
-    public PageResultDTO<ProductDTO, Product> getList2(ProductPageRequestDTO productPageRequestDTO) {
-        log.info(">>>>> ProductServiceImpl(getList2)");
-        Pageable pageable = productPageRequestDTO.getPageable(Sort.by("pno").descending());
-        BooleanBuilder booleanBuilder = getSearch(productPageRequestDTO); // 검색조건처리
-        Page<Product> result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
-        log.info(">>>>>>>>>> entityToDto");
-        Function<Product, ProductDTO> fn = (entity -> entityToDto2(entity));
-        return new PageResultDTO<>(result, fn);
-    }
-
-
-    //    private BooleanBuilder getSearch(ProductPageRequestDTO productPageRequestDTO) {
-//        log.info(">>>>> ProductServiceImpl (getSearch)");
-//
-//        String ptype1 = productPageRequestDTO.getPtype1();
-//        String ptype2 = productPageRequestDTO.getPtype2();
-//        String ptype3 = productPageRequestDTO.getPtype3();
-//
-//        BooleanBuilder booleanBuilder = new BooleanBuilder();
-//        QProduct qProduct = QProduct.product;
-//        String keyword = productPageRequestDTO.getKeyword();
-//        BooleanExpression expression = qProduct.pno.gt(0L);   //sno > 0 조건만 생성
-//        booleanBuilder.and(expression);
-//        if(ptype1 == "" && ptype2 == "" && ptype3 == "") {
-//            return booleanBuilder;
-//        }
-//        //검색 조건 작성
-//        BooleanBuilder conditionBuilder = new BooleanBuilder();
-//
-//        if(ptype1 != null && ptype2 != null && ptype3 != null){
-//            conditionBuilder.and(qProduct.ptype1.eq(ptype1));
-//            conditionBuilder.and(qProduct.ptype2.eq(ptype2));
-//            if (ptype3.contains("a")) {
-//                conditionBuilder.or(qProduct.pcode.contains(keyword));
-//            }
-//            if (ptype3.contains("b")) {
-//                conditionBuilder.or(qProduct.pname.contains(keyword));
-//            }
-//            if (ptype3.contains("c")) {
-//                conditionBuilder.or(qProduct.pcontent.contains(keyword));
-//            }
-//        }
-//
-//        if(ptype1 != null || ptype2 != null) {
-//            conditionBuilder.and(qProduct.ptype1.eq(ptype1));
-//            conditionBuilder.and(qProduct.ptype2.eq(ptype2));
-//            //conditionBuilder.and(qProduct.ptype3.eq(ptype3));
-//        }
-//
-//        if(ptype3 != null) {
-//            if (ptype3.contains("a")) {
-//                conditionBuilder.or(qProduct.pcode.contains(keyword));
-//            }
-//            if (ptype3.contains("b")) {
-//                conditionBuilder.or(qProduct.pname.contains(keyword));
-//            }
-//            if (ptype3.contains("c")) {
-//                conditionBuilder.or(qProduct.pcontent.contains(keyword));
-//            }
-//
-//        }
-//        //모든 조건 통합
-//        booleanBuilder.and(conditionBuilder);
-//
-//        return booleanBuilder;
-//    }
     private BooleanBuilder getSearch(ProductPageRequestDTO productPageRequestDTO) {
         System.out.println(">>>>> ProductServiceImpl (getSearch)");
         String ptype1 = productPageRequestDTO.getPtype1();
@@ -156,36 +88,36 @@ public class ProductServiceImpl implements ProductService{
         booleanBuilder.and(expression);
         if(ptype1 == "" && ptype2 == "" && ptype3 == "") {
             return booleanBuilder;
+        }
+
+        //검색 조건 작성
+        BooleanBuilder conditionBuilder = new BooleanBuilder();
+
+        if(ptype2 != null && ptype3 != null) {
+            if (ptype3.contains("pc")) {
+                conditionBuilder.and(qProduct.pcode.contains(keyword));
+            }
+            if (ptype3.equals("pn")) {
+                conditionBuilder.and(qProduct.pname.contains(keyword));
+            }
+            conditionBuilder.and(qProduct.ptype2.eq(ptype2));
+        } else if (ptype2 == null && ptype3 != null) {
+            if (ptype3.contains("pc")) {
+                conditionBuilder.and(qProduct.pcode.contains(keyword));
+            }
+            if (ptype3.equals("pn")) {
+                conditionBuilder.and(qProduct.pname.contains(keyword));
+            }
+        } else if (ptype2 != null && ptype3 == null) {
+            conditionBuilder.and(qProduct.ptype2.eq(ptype2));
+        } else if (ptype2 == null && ptype3 == null){
+
+        }
+
+        //모든 조건 통합
+        booleanBuilder.and(conditionBuilder);
+        return booleanBuilder;
     }
-
-    //검색 조건 작성
-    BooleanBuilder conditionBuilder = new BooleanBuilder();
-
-    if(ptype2 != null && ptype3 != null) {
-        if (ptype3.contains("pc")) {
-            conditionBuilder.and(qProduct.pcode.contains(keyword));
-        }
-        if (ptype3.equals("pn")) {
-            conditionBuilder.and(qProduct.pname.contains(keyword));
-        }
-        conditionBuilder.and(qProduct.ptype2.eq(ptype2));
-    } else if (ptype2 == null && ptype3 != null) {
-        if (ptype3.contains("pc")) {
-            conditionBuilder.and(qProduct.pcode.contains(keyword));
-        }
-        if (ptype3.equals("pn")) {
-            conditionBuilder.and(qProduct.pname.contains(keyword));
-        }
-    } else if (ptype2 != null && ptype3 == null) {
-        conditionBuilder.and(qProduct.ptype2.eq(ptype2));
-    } else if (ptype2 == null && ptype3 == null){
-
-    }
-
-    //모든 조건 통합
-    booleanBuilder.and(conditionBuilder);
-    return booleanBuilder;
-}
 
     @Override // 조회처리
     public ProductDTO read(Long pno) {

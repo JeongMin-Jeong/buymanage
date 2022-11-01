@@ -11,7 +11,7 @@
 
         <form th:action="@{/stock/register}" th:method="post">
           <div class="form-group">
-            <label>자재분류</label><br/>
+            <label>품목분류</label><br/>
             <select id="category" name="scate1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;">
               <option value="" disabled selected>----------------분류선택----------------</option>
               <option value="DESKTOP">DESKTOP</option>
@@ -48,12 +48,12 @@
             -->
           </div>
           <div class="form-group">
-            <label>자재코드</label>
+            <label>품목코드</label>
             <!-- <input type="text" class="form-control" name="scode" placeholder="P0000"> -->
             <input type="text" class="form-control" name="scode" id="scode" placeholder="품목분류를 선택하세요!!!" readonly>
           </div>
           <div class="form-group">
-            <label>자재이름</label>
+            <label>품목이름</label>
             <input type="text" class="form-control" name="sname">
           </div>
           <div class="form-group">

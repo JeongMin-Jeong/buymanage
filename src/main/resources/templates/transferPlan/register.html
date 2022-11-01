@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
+  <th:block th:fragment="content">
+      <h1 class="h3 mb-2 text-gray-800">조달계획 등록하기</h1>
+        <form th:action="@{/transferPlan/register}" th:method="post">
+
+            <!-- page card -->
+            <div class="card shadow mb-4">
+                <!-- card-body -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>품목코드</label>
+                        <input type="text" class="form-control" name="pcode" id="pcode" placeholder="클릭하세요!!!" onclick="transferPlanRegistOpenPopup();" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>품목이름</label>
+                        <input type="text" class="form-control" name="pname" id="pname" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>소요공정</label>
+<!--                        <input type="text" class="form-control" name="tuseprocess" id="tuseprocess">-->
+                        <select id="category" name="tuseprocess" size="1" style="height:40px;">
+                            <option value="" disabled selected>----------------분류선택----------------</option>
+                            <option value="DESKTOP">DESKTOP</option>
+                            <option value="NOTEBOOK">NOTEBOOK</option>
+                            <option value="SERVER">SERVER</option>
+                            <option value="ETC">ETC</option>
+                            <option value="ACCESSORY">ACCESSORY</option>
+                            <option value="TOOLS">TOOLS</option>
+                        </select>&nbsp;
+                    </div>
+                    <div class="form-group">
+                        <label>소요일정</label>
+                        <input type="date" class="form-control" name="tusedate" id="tusedate">
+                    </div>
+                    <div class="form-group">
+                        <label>소요량</label>
+                        <input type="text" class="form-control" name="tusecount" id="tusecount">
+                    </div>
+                    <div class="form-group">
+                        <label>조달납기</label>
+                        <input type="date" class="form-control" name="deliverydate" id="deliverydate">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">등록</button>
+                    <a th:href="@{/transferPlan/list}"><button type="button" class="btn btn-info">목록</button></a>
+
+                </div>
+                <!-- card-body -->
+            </div>
+            <!-- page card -->
+
+        </form>
+  </th:block>
+</th:block>

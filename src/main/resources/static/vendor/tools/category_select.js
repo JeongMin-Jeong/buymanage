@@ -10,7 +10,7 @@
         function makeSubmenu(value) {
             if (value.length == 0) document.getElementById("categorySelect").innerHTML = "<option></option>";
             else {
-                var citiesOptions = "<option value='' disabled selected>-분류선택--------------------------------</option>";
+                var citiesOptions = "<option value='' disabled selected>----------------분류선택----------------</option>";
                 for (categoryId in subcategory[value]) {
                     citiesOptions += "<option value='" + subcategory[value][categoryId] +"'>" + subcategory[value][categoryId] + "</option>";
                 }

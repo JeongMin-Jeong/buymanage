@@ -1,12 +1,17 @@
 package com.erp.buymanage.controller;
 
 import com.erp.buymanage.dto.*;
+import com.erp.buymanage.entity.StockChart;
+import com.erp.buymanage.repository.StockChartRepository;
 import com.erp.buymanage.service.HistoryService;
 import com.erp.buymanage.service.OrderService;
+import com.erp.buymanage.service.StockChartService;
 import com.erp.buymanage.service.StockService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.weaver.ast.Or;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -25,6 +30,8 @@ public class StockController {
     private final StockService stockService;
     private final OrderService orderService;
     private final HistoryService historyService;
+
+    private final StockChartService stockChartService;
 
     @GetMapping("/")
     public String index(){
@@ -116,6 +123,12 @@ public class StockController {
         OrderDTO dto = orderService.read(ono);
 
         return dto;
+    }
+
+    @GetMapping("/chartmodal")
+    @ResponseBody
+    public ResponseEntity<List<StockChartDTO>> chartmodal(String month, String scode){
+        return new ResponseEntity<>(stockChartService.getList(month, scode), HttpStatus.OK);
     }
 
     @GetMapping("/modalread2")

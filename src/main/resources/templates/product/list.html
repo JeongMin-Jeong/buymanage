@@ -18,52 +18,52 @@
                 <div>
                     <!-- <div class="input-group"> -->
                     <form action="/product/list" method="get" id="searchForm">
-                        <div class="input-group">
-                            <input type="hidden" name="page" value="1">
-                            <table style="width: 100%;">
-                                <tr>
-                                    <td style="width:100px;">품목분류</td>
-                                    <td>
-                                        <div class="input-group-prepend">
-                                            <select id="category" name="ptype1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;">
-                                                <option value="" th:selected="${productPageRequestDTO.ptype1 == null}" disabled>----------------분류선택----------------</option>
-                                                <option value="DESKTOP" th:selected="${productPageRequestDTO.ptype1 == 'DESKTOP'}">DESKTOP</option>
-                                                <option value="NOTEBOOK" th:selected="${productPageRequestDTO.ptype1 == 'NOTEBOOK'}">NOTEBOOK</option>
-                                                <option value="SERVER" th:selected="${productPageRequestDTO.ptype1 == 'SERVER'}">SERVER</option>
-                                                <option value="ETC" th:selected="${productPageRequestDTO.ptype1 == 'ETC'}">ETC</option>
-                                                <option value="ACCESSORY" th:selected="${productPageRequestDTO.ptype1 == 'ACCESSORY'}">ACCESSORY</option>
-                                                <option value="TOOLS" th:selected="${productPageRequestDTO.ptype1 == 'TOOLS'}">TOOLS</option>
-                                            </select>&nbsp;
-                                            <select id="categorySelect" name="ptype2" size="1" style="height:50px;">
-                                                <option value="" disabled selected>----------------분류선택----------------</option>
-                                                <option></option>
-                                            </select>&nbsp;
-                                        </div>
-                                    </td>
-                                </tr>
+                    <div class="input-group">
+                        <input type="hidden" name="page" value="1">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width:100px;">품목분류</td>
+                                <td>
+                                    <div class="input-group-prepend">
+                                        <select id="category" name="ptype1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;">
+                                            <option value="" th:selected="${productPageRequestDTO.ptype1 == null}" disabled>----------------분류선택----------------</option>
+                                            <option value="DESKTOP" th:selected="${productPageRequestDTO.ptype1 == 'DESKTOP'}">DESKTOP</option>
+                                            <option value="NOTEBOOK" th:selected="${productPageRequestDTO.ptype1 == 'NOTEBOOK'}">NOTEBOOK</option>
+                                            <option value="SERVER" th:selected="${productPageRequestDTO.ptype1 == 'SERVER'}">SERVER</option>
+                                            <option value="ETC" th:selected="${productPageRequestDTO.ptype1 == 'ETC'}">ETC</option>
+                                            <option value="ACCESSORY" th:selected="${productPageRequestDTO.ptype1 == 'ACCESSORY'}">ACCESSORY</option>
+                                            <option value="TOOLS" th:selected="${productPageRequestDTO.ptype1 == 'TOOLS'}">TOOLS</option>
+                                        </select>&nbsp;
+                                        <select id="categorySelect" name="ptype2" size="1" style="height:50px;">
+                                            <option value="" disabled selected>----------------분류선택----------------</option>
+                                            <option></option>
+                                        </select>&nbsp;
+                                    </div>
+                                </td>
+                            </tr>
 
-                                <tr>
-                                    <td style="width:100px;">일반검색</td>
-                                    <td>
-                                        <div class="input-group-prepend">
-                                            <select id="genericSelect" class="form-select" name="ptype3" style="height:50px;">
-                                                <option value="" th:selected="${productPageRequestDTO.ptype3 == null}">----------------항목선택----------------</option>
-                                                <option value="pc" th:selected="${productPageRequestDTO.ptype3 == 'pc'}">품목코드</option>
-                                                <option value="pn" th:selected="${productPageRequestDTO.ptype3 == 'pn'}">품목이름</option>
-                                            </select>&nbsp;
-                                            <input id="genericKeyword" type="text" class="form-control" name="keyword" th:value="${productPageRequestDTO.keyword}" style="height:50px;">
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td style="width:100px;">일반검색</td>
+                                <td>
+                                    <div class="input-group-prepend">
+                                        <select id="genericSelect" class="form-select" name="ptype3" style="height:50px;">
+                                            <option value="" th:selected="${productPageRequestDTO.ptype3 == null}">----------------항목선택----------------</option>
+                                            <option value="pc" th:selected="${productPageRequestDTO.ptype3 == 'pc'}">품목코드</option>
+                                            <option value="pn" th:selected="${productPageRequestDTO.ptype3 == 'pn'}">품목이름</option>
+                                        </select>&nbsp;
+                                        <input id="genericKeyword" type="text" class="form-control" name="keyword" th:value="${productPageRequestDTO.keyword}" style="height:50px;">
+                                    </div>
+                                </td>
+                            </tr>
 
-                                <tr style="height:20px;">
-                                    <td colspan="2" style="text-align: right;">
-                                        <button class="btn btn-outline-secondary searchBtn" type="button">검색</button>
-                                        <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/product/list';">리셋</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div><!-- <div class="input-group"> -->
+                            <tr style="height:20px;">
+                                <td colspan="2" style="text-align: right;">
+                                    <button class="btn btn-outline-secondary searchBtn" type="button">검색</button>
+                                    <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/product/list';">리셋</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div><!-- <div class="input-group"> -->
                     </form>
                 </div><!-- div -->
             </div><!-- <div class="card-body"> -->

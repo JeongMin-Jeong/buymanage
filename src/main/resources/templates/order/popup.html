@@ -2,165 +2,166 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:replace="~{/layout/popup :: setContent(~{this::content} )}">
-    <th:block th:fragment="content">
-        <!-- Begin Page Content -->
+  <th:block th:fragment="content">
+    <!-- Begin Page Content -->
 
-        <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">&nbsp;</h1>
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">&nbsp;</h1>
 
-        <!-- page card -->
-        <div class="card shadow mb-4">
+    <!-- page card -->
+    <div class="card shadow mb-4">
 
-            <!-- card-header -->
-            <div class="card-header py-3"><h8 class="m-0 font-weight-bold text-primary">계약검색</h8></div>
-            <!-- card-body -->
-            <div class="card-body">
-                <!-- div -->
-                <div>
-                    <!--
-                    <form action="/contract/list" method="get" id="searchForm">
-                        <div class="form-group">
-                            <label>계약코드</label>
-                            <input type="text" class="form-control" name="ccode">
-                        </div><br>
-                        <div class="form-group" style="text-align: right;">
-                            <input type="button" value="검색">
-                        </div>
-                    </form>
-                    -->
+      <!-- card-header -->
+      <div class="card-header py-3"><h8 class="m-0 font-weight-bold text-primary">계약검색</h8></div>
+      <!-- card-body -->
+      <div class="card-body">
+        <!-- div -->
+        <div>
+          <!--
+          <form action="/contract/list" method="get" id="searchForm">
+              <div class="form-group">
+                  <label>계약코드</label>
+                  <input type="text" class="form-control" name="ccode">
+              </div><br>
+              <div class="form-group" style="text-align: right;">
+                  <input type="button" value="검색">
+              </div>
+          </form>
+          -->
 
-                    <!-- <div class="input-group"> -->
-                    <form action="/order/popup" method="get" id="searchForm">
-                        <div class="input-group">
-                            <input type="hidden" name="page" value="1">
-                            <table style="width: 100%;">
-                                <tr>
-                                    <td style="width:100px;">계약상태</td>
-                                    <td>
-                                        <div class="input-group-prepend">
-                                            <select class="form-select" name="ctype1" style="height:50px;">
-                                                <option value="" th:selected="${contractPageRequestDTO.ctype1 == null}">----------------분류선택----------------</option>
-                                                <option value="신규계약" th:selected="${contractPageRequestDTO.ctype1 == '신규계약'}">신규계약</option>
-                                                <option value="계약완료" th:selected="${contractPageRequestDTO.ctype1 == '계약완료'}">계약완료</option>
-                                            </select>&nbsp;
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:100px;">일반검색</td>
-                                    <td>
-                                        <div class="input-group-prepend">
-                                            <select class="form-select" name="ctype2" style="height:50px;">
-                                                <option value="" th:selected="${contractPageRequestDTO.ctype2 == null}">----------------분류선택----------------</option>
-                                                <option value="cc" th:selected="${contractPageRequestDTO.ctype2 == 'cc'}">계약코드</option>
-                                            </select>&nbsp;
-                                            <input class="form-control" name="keyword" style="height:50px;" th:value="${contractPageRequestDTO.keyword}">
-                                        </div>
-                                    </td>
-                                </tr>
+          <!-- <div class="input-group"> -->
+          <form action="/order/popup" method="get" id="searchForm">
+            <div class="input-group">
+              <input type="hidden" name="page" value="1">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width:100px;">계약상태</td>
+                  <td>
+                    <div class="input-group-prepend">
+                      <select class="form-select" name="ctype1" style="height:50px;">
+                        <option value="" th:selected="${contractPageRequestDTO.ctype1 == null}">----------------분류선택----------------</option>
+                        <option value="신규계약" th:selected="${contractPageRequestDTO.ctype1 == '신규계약'}">신규계약</option>
+                        <option value="계약완료" th:selected="${contractPageRequestDTO.ctype1 == '계약완료'}">계약완료</option>
+                      </select>&nbsp;
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:100px;">일반검색</td>
+                  <td>
+                    <div class="input-group-prepend">
+                      <select class="form-select" name="ctype2" style="height:50px;">
+                        <option value="" th:selected="${contractPageRequestDTO.ctype2 == null}">----------------분류선택----------------</option>
+                        <option value="cc" th:selected="${contractPageRequestDTO.ctype2 == 'cc'}">계약코드</option>
+                      </select>&nbsp;
+                      <input class="form-control" name="keyword" style="height:50px;" th:value="${contractPageRequestDTO.keyword}">
+                    </div>
+                  </td>
+                </tr>
 
-                                <tr style="height:20px;">
-                                    <td colspan="2" style="text-align: right;">
-                                        <button class="btn btn-outline-secondary btn-search" type="button">검색</button>
-                                        <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/order/popup';">리셋</button>
-                                        <button class="btn btn-outline-secondary closeBtn" type="button" onclick="self.opener=self; self.close();">닫기</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!-- <div class="input-group"> -->
-                    </form>
-                </div>
-                <!-- </>div> -->
+                <tr style="height:20px;">
+                  <td colspan="2" style="text-align: right;">
+                    <button class="btn btn-outline-secondary btn-search" type="button">검색</button>
+                    <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/order/popup';">리셋</button>
+                    <button class="btn btn-outline-secondary closeBtn" type="button" onclick="self.opener=self; self.close();">닫기</button>
+                  </td>
+                </tr>
+              </table>
             </div>
-            <!-- card-body -->
-
-            <!-- card-header -->
-            <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">계약목록</h6></div>
-            <!-- card-body -->
-            <div class="card-body">
-                <!-- <div class="table-responsive"> -->
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">계약코드</th>
-                            <th scope="col">품목이름</th>
-                            <th scope="col">품목분류1</th>
-                            <th scope="col">품목분류2</th>
-                            <th scope="col">품목단가</th>
-                            <th scope="col">납품업체</th>
-                            <th scope="col">계약상태</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="dto: ${result.dtoList}">
-                            <td>[[${dto.cno}]]</td>
-                            <th><a href="#" th:ccode="${dto.ccode}"
-                                   th:pname="${dto.pname}"
-                                   th:ptype1="${dto.ptype1}"
-                                   th:ptype2="${dto.ptype2}"
-                                   th:pprice="${dto.pprice}"
-                                   th:cpartnername="${dto.cpartnername}"
-                                   th:onclick="returnParentWindows2(this.getAttribute('ccode'),this.getAttribute('pname'),this.getAttribute('ptype1'),this.getAttribute('ptype2'),this.getAttribute('pprice'),this.getAttribute('cpartnername'));">[[${dto.ccode}]]</a>
-                            </th>
-
-                            <td>[[${dto.pname}]]</td>
-                            <td>[[${dto.ptype1}]]</td>
-                            <td>[[${dto.ptype2}]]</td>
-                            <td>[[${dto.pprice}]]</td>
-                            <td>[[${dto.cpartnername}]]</td>
-                            <td>[[${dto.cstatus}]]</td>
-
-                        </tr>
-                        </tbody>
-                    </table>
-
-
-                    <!-- 하단 페이지 버튼 -->
-                    <ul class="pagination h-100 justify-content-center align-items-center">
-                        <li class="page-item " th:if="${result.prev}">
-                            <a class="page-link"
-                               th:href="@{/contract/list(page= ${result.start -1})}"
-                               typetabindex="-1">
-                                Pre
-                            </a>
-                        </li>
-
-                        <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
-                            <a class="page-link"
-                               th:href="@{/contract/list(page = ${page})}">
-                                [[${page}]]
-                            </a>
-                        </li>
-
-                        <li class="page-item" th:if="${result.next}">
-                            <a class="page-link"
-                               th:href="@{/contract/list(page= ${result.end + 1})}">
-                                Next
-                            </a>
-                        </li>
-                    </ul><!-- 하단 페이지 버튼 -->
-
-                    <br/>
-
-
-                    <script th:inline="javascript">
-                        /* 검색시 이벤트 처리*/
-                        var searchForm = $("#searchForm");
-                        $('.btn-search').click(function (e) {
-                            searchForm.submit();
-                        });/* 검색시 이벤트 처리*/
-                    </script>
-
-
-                </div>
-                <!-- <div class="table-responsive"> -->
-            </div>
-            <!-- card-body -->
+            <!-- <div class="input-group"> -->
+          </form>
         </div>
-        <!-- page card -->
-        <!-- End Page Content -->
-    </th:block>
+        <!-- </>div> -->
+      </div>
+      <!-- card-body -->
+
+      <!-- card-header -->
+      <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">계약목록</h6></div>
+      <!-- card-body -->
+      <div class="card-body">
+        <!-- <div class="table-responsive"> -->
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">계약코드</th>
+              <th scope="col">품목이름</th>
+              <th scope="col">품목분류1</th>
+              <th scope="col">품목분류2</th>
+              <th scope="col">품목단가</th>
+              <th scope="col">납품업체</th>
+              <th scope="col">계약상태</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dto: ${result.dtoList}">
+              <td>[[${dto.cno}]]</td>
+              <th><a href="#" th:ccode="${dto.ccode}"
+                     th:pcode="${dto.pcode}"
+                     th:pname="${dto.pname}"
+                     th:ptype1="${dto.ptype1}"
+                     th:ptype2="${dto.ptype2}"
+                     th:pprice="${dto.pprice}"
+                     th:cpartnername="${dto.cpartnername}"
+                     th:onclick="returnParentWindows2(this.getAttribute('ccode'),this.getAttribute('pcode'),this.getAttribute('pname'),this.getAttribute('ptype1'),this.getAttribute('ptype2'),this.getAttribute('pprice'),this.getAttribute('cpartnername'));">[[${dto.ccode}]]</a>
+              </th>
+
+              <td>[[${dto.pname}]]</td>
+              <td>[[${dto.ptype1}]]</td>
+              <td>[[${dto.ptype2}]]</td>
+              <td>[[${dto.pprice}]]</td>
+              <td>[[${dto.cpartnername}]]</td>
+              <td>[[${dto.cstatus}]]</td>
+
+            </tr>
+            </tbody>
+          </table>
+
+
+          <!-- 하단 페이지 버튼 -->
+          <ul class="pagination h-100 justify-content-center align-items-center">
+            <li class="page-item " th:if="${result.prev}">
+              <a class="page-link"
+                 th:href="@{/contract/list(page= ${result.start -1})}"
+                 typetabindex="-1">
+                Pre
+              </a>
+            </li>
+
+            <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+              <a class="page-link"
+                 th:href="@{/contract/list(page = ${page})}">
+                [[${page}]]
+              </a>
+            </li>
+
+            <li class="page-item" th:if="${result.next}">
+              <a class="page-link"
+                 th:href="@{/contract/list(page= ${result.end + 1})}">
+                Next
+              </a>
+            </li>
+          </ul><!-- 하단 페이지 버튼 -->
+
+          <br/>
+
+
+          <script th:inline="javascript">
+            /* 검색시 이벤트 처리*/
+            var searchForm = $("#searchForm");
+            $('.btn-search').click(function (e) {
+              searchForm.submit();
+            });/* 검색시 이벤트 처리*/
+          </script>
+
+
+        </div>
+        <!-- <div class="table-responsive"> -->
+      </div>
+      <!-- card-body -->
+    </div>
+    <!-- page card -->
+    <!-- End Page Content -->
+  </th:block>
 </th:block>
