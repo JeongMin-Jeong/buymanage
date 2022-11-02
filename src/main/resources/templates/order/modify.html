@@ -48,16 +48,17 @@
                 <input type="text" class="form-control" name="pname" th:value="${dto.pname}" readonly>
             </div>
             <div class="form-group" >
-                <label>대분류</label>
+                <label>품목분류1</label>
                 <input type="text" class="form-control"  name="ptype1" th:value="${dto.ptype1}" readonly>
             </div>
             <div class="form-group" >
-                <label>중분류</label>
+                <label>품목분류2</label>
                 <input type="text" class="form-control"  name="ptype2" th:value="${dto.ptype2}" readonly>
             </div>
             <div class="form-group">
-                <label>공급단가(원)</label>
-                <input type="text" class="form-control" id="pprice" name="pprice" th:value="${dto.pprice}" readonly>
+                <label>공급단가</label>
+                <input type="hidden" class="form-control" id="pprice" name="pprice" th:value="${dto.pprice}" readonly>
+                <input type="text" class="form-control" id="pprice_view" name="pprice_view" th:value="${#numbers.formatInteger(dto.pprice, 1, 'COMMA') + '원'}" readonly>
             </div>
             <div class="form-group">
                 <label>납품업체</label>
@@ -76,7 +77,8 @@
 
             <div class="form-group">
                 <label>발주수량</label>
-                <input type="text" class="form-control" id="oquantity" name="oquantity" th:value="${dto.oquantity}" readonly>
+                <input type="hidden" class="form-control" id="oquantity" name="oquantity" th:value="${dto.oquantity}" readonly>
+                <input type="text" class="form-control" id="oquantity_view" name="oquantity_view" th:value="${#numbers.formatInteger(dto.oquantity, 1, 'COMMA') + '개'}" readonly>
             </div>
             <div class="form-group">
                 <label>발주담당자</label>

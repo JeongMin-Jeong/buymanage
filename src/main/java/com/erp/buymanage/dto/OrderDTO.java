@@ -40,6 +40,7 @@ public class OrderDTO
     private String pcontent;
     private Long cno;
 
+    private String inspectionstate;
 
 //    @QueryProjection
 //    public OrderDTO(int ono, String orderdate, String deliverydate, String opname, int oquantity, int oprice, String ocompany, String omanager,
