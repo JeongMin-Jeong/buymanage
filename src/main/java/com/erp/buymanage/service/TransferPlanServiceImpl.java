@@ -1,6 +1,7 @@
 package com.erp.buymanage.service;
 
 import com.erp.buymanage.dto.*;
+import com.erp.buymanage.entity.QOrderEntity;
 import com.erp.buymanage.entity.QTransferPlan;
 import com.erp.buymanage.entity.TransferPlan;
 import com.erp.buymanage.repository.TransferPlanRepository;
@@ -40,8 +41,10 @@ public class TransferPlanServiceImpl implements TransferPlanService{
     public PageResultDTO<TransferPlanDTO, TransferPlan> getList(TransferPlanPageRequestDTO transferPlanPageRequestDTO) {
         log.info(">>>>> TransferPlanServiceImpl(getList)");
 
+        QTransferPlan qTransferPlan = QTransferPlan.transferPlan;
         Pageable pageable = transferPlanPageRequestDTO.getPageable(Sort.by("tno").descending());
         BooleanBuilder booleanBuilder = getSearch(transferPlanPageRequestDTO); // 검색조건처리
+        booleanBuilder.and(qTransferPlan.tstate.eq("신규"));
         Page<TransferPlan> result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
         Function<TransferPlan, TransferPlanDTO> fn = (entity -> entityToDto(entity));
         return new PageResultDTO<>(result, fn);
