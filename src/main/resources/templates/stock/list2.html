@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
   <th:block th:fragment="content">
@@ -29,7 +30,7 @@
               </thead>
               <tbody>
               <tr th:each="dto : ${result.dtoList}">
-                <td><input type="radio" name="radio" th:value="${dto.ono}"></td>
+                <td><input type="radio" name="radio1" th:value="${dto.ono}"></td>
                 <td>[[${dto.pcode}]]</td>
                 <td>[[${dto.pname}]]</td>
                 <td>[[${dto.ptype1}]]</td>
@@ -68,7 +69,68 @@
         </ul>
 
       </div>  <!-- 68line end -->
+
+      <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">거래명세서</h6></div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable2">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>품목코드</th>
+              <th>품목이름</th>
+              <th>품목분류1</th>
+              <th>품목분류2</th>
+              <th>입고수량</th>
+              <th>공급단가</th>
+              <th>발주일자</th>
+              <th>발주상태</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dto : ${result2.dtoList}">
+              <td><input type="radio" name="radio2" th:value="${dto.cno}"></td>
+              <td>[[${dto.pcode}]]</td>
+              <td>[[${dto.pname}]]</td>
+              <td>[[${dto.ptype1}]]</td>
+              <td>[[${dto.ptype2}]]</td>
+              <td>[[${dto.oquantity}]]</td>
+              <td th:text="${#numbers.formatInteger(dto.pprice, 1, 'COMMA') + '원'}"></td>
+              <td>[[${dto.orderdate}]]</td>
+              <td>[[${dto.ostate}]]</td>
+            </tr>
+            </tbody>
+          </table>
+
+          <div style="float: right">
+            <button class="btn btn-outline-secondary tradeBtn" type="button" th:onclick="tradePrintOpenPopup()">거래명세서</button>
+            <!-- <button class="btn btn-outline-secondary stockRegistBtn" type="button" onclick="location.href='/order/register';">자재등록</button> -->
+          </div>
+
+
+        </div>  <!-- 69 line end -->
+
+        <ul class="pagination h-100 justify-content-center align-items-center">
+
+          <li class="page-item " th:if="${result.prev}">
+            <a class="page-link" th:href="@{/stock/list2(page= ${result.start -1})}" tabindex="-1">Previous</a>
+          </li>
+
+          <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+            <a class="page-link" th:href="@{/stock/list2(page = ${page})}">
+              [[${page}]]
+            </a>
+          </li>
+
+          <li class="page-item" th:if="${result.next}">
+            <a class="page-link" th:href="@{/stock/list2(page= ${result.end + 1})}">Next</a>
+          </li>
+        </ul>
+
+      </div>  <!-- 68line end -->
+
     </div>  <!-- 12line end -->
+
 
     <!-- 모달창 처리-->
     <div class="modal" tabindex="-1" role="dialog" id="cmodal">
@@ -154,7 +216,7 @@
 
     <script th:inline="javascript">
 
-      $(document).on("click","input[name=radio]",function () {
+      $(document).on("click","input[name=radio1]",function () {
 
         var ono = $(this).val();
 
@@ -172,6 +234,7 @@
             $("#sin").val(data.oquantity);
             $("#snote").val(data.ono);
             $("#requester").val(data.omanager);
+            $("#sin2").val(data.oquantity);
           },
           error:function (){
             alert("실패");

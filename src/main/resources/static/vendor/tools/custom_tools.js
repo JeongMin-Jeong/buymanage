@@ -142,11 +142,13 @@
     }
 
     //거래명세서 클릭시 프린트화면 팝업
-    function tradePrintOpenPopup(cno) {
-        var width = 1200;
-        var height = 600;
+    function tradePrintOpenPopup() {
+        var width = 1400;
+        var height = 700;
         var left = (window.screen.width / 2) - (width/2);
         var top = (window.screen.height / 4);
+        var cno = document.querySelector('input[name="radio2"]:checked').value;
+
         var url = "/contract/tradeprint?cno=" + cno;
         var name = "거래명세서 출력"; // 팝업의 이름을 입력해줍니다.
         //윈도우 속성 지정
@@ -165,8 +167,9 @@
     }
 
     //계약등록시 품목코드를 팝업창에서 선택하면 부모창에 폼목코드,이름 자동입력 및 계약코드 랜덤 자동생성 입력??
-    function returnParentWindows2(ccode,pcode,pname,ptype1,ptype2,pprice,cpartnername){
+    function returnParentWindows2(ccode,cno,pcode,pname,ptype1,ptype2,pprice,cpartnername){
         opener.document.getElementById('ccode').value = ccode;
+        opener.document.getElementById('cno').value = cno;
         opener.document.getElementById('pcode').value = pcode;
         opener.document.getElementById('pname').value = pname;
         opener.document.getElementById('ptype1').value = ptype1;

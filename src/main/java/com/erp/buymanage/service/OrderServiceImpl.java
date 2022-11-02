@@ -55,7 +55,17 @@ public class OrderServiceImpl implements OrderService {
         QOrderEntity qOrderEntity = QOrderEntity.orderEntity;
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(qOrderEntity.ostate.eq("검수완료"));
-        booleanBuilder.or(qOrderEntity.ostate.eq("마감완료"));
+        Page<OrderEntity> result = repository.findAll(booleanBuilder, pageable);
+        Function<OrderEntity,OrderDTO> fn = (entity -> entityToDto(entity));
+        return new PageResultDTO<>(result,fn);
+    }
+
+    @Override
+    public PageResultDTO<OrderDTO, OrderEntity> getList3(OrderPageRequestDTO requestDTO) {
+        Pageable pageable = requestDTO.getPageable(Sort.by("ono").descending());
+        QOrderEntity qOrderEntity = QOrderEntity.orderEntity;
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        booleanBuilder.and(qOrderEntity.ostate.eq("마감완료"));
         Page<OrderEntity> result = repository.findAll(booleanBuilder, pageable);
         Function<OrderEntity,OrderDTO> fn = (entity -> entityToDto(entity));
         return new PageResultDTO<>(result,fn);
@@ -120,6 +130,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDTO read(Long ono) {
         Optional<OrderEntity> result = repository.findById(ono);
+        return result.isPresent()? entityToDto(result.get()): null;
+    }
+
+    @Override
+    public OrderDTO read2(Long cno) {
+        Optional<OrderEntity> result = repository.findByCno(cno);
         return result.isPresent()? entityToDto(result.get()): null;
     }
 

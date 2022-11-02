@@ -152,7 +152,6 @@
                                     <h5 class="modal-title">자재 리포트</h5>
                                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-
                                 <div class="modal-body">
                                     <input type="hidden" name="chartScode" id="chartScode">
                                     <select name="selectMonth" id="selectMonth">
@@ -170,15 +169,14 @@
                                         <option value="12">DEC</option>
                                     </select>
                                     <button type="button" id="btn">확인</button>
-                                    <div id="graph" style="width: 80%; margin: 30px;">
+                                    <!--<div id="graph" style="width: 80%; margin: 30px;">-->
                                         <div>
                                             <canvas id="canvas" height="350" width="600"></canvas>
                                         </div>
-                                    </div>
+                                    <!--</div>-->
                                 </div>
-
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                                    <button type="button" class="btn btn-secondary chartClosebtn" data-dismiss="modal">닫기</button>
                                 </div>
                             </div>
                         </div>
@@ -289,6 +287,14 @@
                    chartModal.modal('show');
                 });
 
+
+                $("#chartModal").on('hidden.bs.modal', function () {
+                    document.getElementById("canvas").getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+                    /*$("#selectMonth option:eq(0)").prop("selected", true);*/
+                    /*$("canvas").getContext("2d").clearRect(0, 0, this.width, this.height);*/
+                    document.getElementById("selectMonth").value="";
+                });
+
                 var modalForm = $("#modalForm");
                 $(".outputSave").click(function () {
                     if ($("#stock").val() >= $("#sout").val()) {
@@ -317,11 +323,15 @@
                 var chartData = [];
                 var month="";
                 var scode="";
-                var scode2="";
 
                 function createChart() {
-                    var ctx = document.getElementById("canvas").getContext("2d");
-                    LineChartDemo = Chart.Line(ctx, {
+
+                    if(window.stockChart != undefined){
+                        window.stockChart.destroy();
+                    }
+
+                    window.stockChart =  new Chart(document.getElementById("canvas"), {
+                        type : "line",
                         data : lineChartData,
                         options : {
                             scales : {
@@ -340,8 +350,6 @@
                     var changescode = $("#chartScode").val();
                     month = changeMonth;
                     scode = changescode;
-                    console.log('month:'+month);
-                    console.log('scode:'+scode);
                 });
 
                 //버튼을 클릭하면 차트가 그려짐
@@ -359,13 +367,12 @@
 
                             chartLabels.push(value.date);
                             chartData.push(value.amount);
-                            scode2 = value.scode;
                         });
 
                         lineChartData = {
                             labels : chartLabels,
                             datasets : [ {
-                                label : scode2 + " 재고금액",
+                                label : scode + " 재고금액",
                                 backgroundColor:"#bfdaf9",
                                 borderColor: "#80b6f4",
                                 pointBorderColor: "#80b6f4",
