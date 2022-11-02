@@ -23,5 +23,5 @@ public class Inspection {
     private String inspection_prime2;
     private String inspection_etc2;
     //@ManyToOne
-    private Long order_ono;
+    private Long ono;
 }

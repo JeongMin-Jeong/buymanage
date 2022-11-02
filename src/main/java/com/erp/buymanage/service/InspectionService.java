@@ -12,7 +12,7 @@ public interface InspectionService {
 
     // 조회처리
     //ContractDTO read(Long pno); //2022-10-24 JJH pno->cno
-    InspectionDTO read(Long ono);
+    InspectionDTO read(Long order_ono);
 
     // 삭제처리
     void remove(Long ino);
@@ -32,7 +32,7 @@ public interface InspectionService {
                 .inspection_prime2(dto.getInspection_prime2())
                 .inspection_etc1(dto.getInspection_etc1())
                 .inspection_etc2(dto.getInspection_etc2())
-                .order_ono(dto.getOrder_ono())
+                .ono(dto.getOno())
                 .build();
         return entity;
     }
@@ -49,7 +49,7 @@ public interface InspectionService {
                 .inspection_prime2(entity.getInspection_prime2())
                 .inspection_etc1(entity.getInspection_etc1())
                 .inspection_etc2(entity.getInspection_etc2())
-                .order_ono(entity.getOrder_ono())
+                .ono(entity.getOno())
                 .build();
         return dto;
     }

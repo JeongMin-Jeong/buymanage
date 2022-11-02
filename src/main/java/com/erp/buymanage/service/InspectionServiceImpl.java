@@ -35,14 +35,14 @@ public class InspectionServiceImpl implements InspectionService{
     @Override // 조회처리
     public InspectionDTO read(Long ono) {
         log.info(">>>>> InspectionServiceImpl(read)");
-        Optional<Inspection> result = repository.findById(ono);
+        Optional<Inspection> result = Optional.ofNullable(repository.findByOno(ono));
         return result.isPresent() ? entityToDto(result.get()) : null;
     }
 
     @Override // 삭제처리
-    public void remove(Long cno) {
+    public void remove(Long ino) {
         log.info(">>>>> InspectionServiceImpl(remove)");
-        repository.deleteById(cno);
+        repository.deleteById(ino);
     }
 
     @Override // 수정처리

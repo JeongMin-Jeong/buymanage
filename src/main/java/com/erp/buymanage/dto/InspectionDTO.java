@@ -20,5 +20,5 @@ public class InspectionDTO {
     private int inspection_degree2;
     private String inspection_prime2;
     private String inspection_etc2;
-    private Long order_ono;
+    private Long ono;
 }

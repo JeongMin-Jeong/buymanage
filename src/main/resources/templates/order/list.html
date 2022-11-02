@@ -28,8 +28,9 @@
                                             <select class="form-select" name="otype1" style="height:50px;">
                                                 <option value="" th:selected="${orderPageRequestDTO.otype1 == null}">----------------발주상태----------------</option>
                                                 <option value="구매발주" th:selected="${orderPageRequestDTO.otype1 == '구매발주'}">구매발주</option>
-                                                <option value="반품완료" th:selected="${orderPageRequestDTO.otype1 == '반품완료'}">반품완료</option>
+                                                <option value="검수진행" th:selected="${orderPageRequestDTO.otype1 == '검수진행'}">검수진행</option>
                                                 <option value="검수완료" th:selected="${orderPageRequestDTO.otype1 == '검수완료'}">검수완료</option>
+                                                <option value="반품완료" th:selected="${orderPageRequestDTO.otype1 == '반품완료'}">반품완료</option>
                                                 <option value="입고처리" th:selected="${orderPageRequestDTO.otype1 == '입고처리'}">입고처리</option>
                                                 <option value="마감완료" th:selected="${orderPageRequestDTO.otype1 == '마감완료'}">마감완료</option>
                                             </select>

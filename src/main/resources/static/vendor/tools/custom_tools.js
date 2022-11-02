@@ -60,8 +60,9 @@
     //계약랜덤코드생성
     function displayRandomCNum(pcode) {
         //var rnum = Math.random();
-        var rnum = randomString2();
         //var cdate = getYmd10();
+        var rnum = randomString2();
+
         var ccode = pcode.replace('P','C') + rnum;
         //document.getElementById("ccode").value = ccode;
         opener.document.getElementById('ccode').value = ccode;
@@ -167,6 +168,7 @@
         window.open(url, name, option); // 새로운 창이 뜨면서 팝업이 생성됩니다.
     }
 
+    //계약코드 생성
     function returnParentWindows(pcode,pname,ptype1,ptype2){
         //alert("pcode : " + pcode + " / pname : " + pname);
         opener.document.getElementById('pcode').value = pcode;
@@ -211,13 +213,14 @@
         document.getElementById("ostate").value = selectvalue;
     }
 
-    function inspectionRegistOpenPopup(){
+    function inspectionRegistOpenPopup(mode){
         var width = 1200;
         var height = 600;
         var left = (window.screen.width / 2) - (width/2);
         var top = (window.screen.height / 4);
         var ono = document.getElementById('ono').value;
-        var url = "/inspection/planreg?ono="+ono;
+        var mode = mode;
+        var url = "/inspection/"+mode+"?ono="+ono;
         var name = "검수정보 등록"; // 팝업의 이름을 입력해줍니다.
         //윈도우 속성 지정
         var option = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=no, location=no, titlebar=yes';
