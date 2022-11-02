@@ -60,20 +60,23 @@ public class ProductController {
     public String modify(ProductDTO dto, @ModelAttribute("requestDTO") ProductPageRequestDTO productPageRequestDTO, RedirectAttributes redirectAttributes){
         log.info(">>>>> ProductController (modify PostMapping)");
 
-        Long pno = dto.getPno();
+        ProductDTO newDto = service.read(dto.getPno());
+        newDto.setPno(dto.getPno()+1);
+        newDto.setPname(dto.getPname());
+        newDto.setPtype1(dto.getPtype1());
+        newDto.setPtype2(dto.getPtype2());
+        newDto.setPcontent(dto.getPcontent());
+        newDto.setPetc(dto.getPetc());
+        if(dto.getImageDTOList().size() != 0){
+            newDto.setImageDTOList(dto.getImageDTOList());
+        }
 
-        Long newPno = pno + 1;
-        dto.setPno(newPno);
-
-        String pcode = dto.getPcode();
-        dto.setPcode(pcode);
-
-        service.remove(pno);
-        service.register(dto);
+        service.remove(dto.getPno());
+        service.register(newDto);
 
         redirectAttributes.addAttribute("page", productPageRequestDTO.getPage());
-        redirectAttributes.addAttribute("pno", pno);
-        return "redirect:/product/list";
+        redirectAttributes.addAttribute("pno", newDto.getPno());
+        return "redirect:/product/read";
     }
 
     @PostMapping("/remove")
