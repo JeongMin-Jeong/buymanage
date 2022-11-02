@@ -24,4 +24,11 @@ public class StockChartServiceImpl implements StockChartService {
 
         return result.stream().map(stockChart -> entityToDTO(stockChart)).collect(Collectors.toList());
     }
+
+    @Override
+    public List<StockChartDTO> getList2(String ym, String scode) {
+        List<StockChart> result = stockChartRepository.findAllByDateStartsWithAndScodeOrderByDateAsc(ym, scode);
+
+        return result.stream().map(stockChart -> entityToDTO(stockChart)).collect(Collectors.toList());
+    }
 }

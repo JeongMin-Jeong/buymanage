@@ -40,8 +40,10 @@ public class TransferPlanServiceImpl implements TransferPlanService{
     public PageResultDTO<TransferPlanDTO, TransferPlan> getList(TransferPlanPageRequestDTO transferPlanPageRequestDTO) {
         log.info(">>>>> TransferPlanServiceImpl(getList)");
 
+        QTransferPlan qTransferPlan = QTransferPlan.transferPlan;
         Pageable pageable = transferPlanPageRequestDTO.getPageable(Sort.by("tno").descending());
         BooleanBuilder booleanBuilder = getSearch(transferPlanPageRequestDTO); // 검색조건처리
+        booleanBuilder.and(qTransferPlan.tstate.eq("신규"));
         Page<TransferPlan> result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
         Function<TransferPlan, TransferPlanDTO> fn = (entity -> entityToDto(entity));
         return new PageResultDTO<>(result, fn);
@@ -112,6 +114,16 @@ public class TransferPlanServiceImpl implements TransferPlanService{
             entity.changeTusecount(dto.getTusecount());
             entity.changeDeliverydate(dto.getDeliverydate());
 
+            repository.save(entity);
+        }
+    }
+
+    @Override
+    public void completeModify(TransferPlanDTO dto) {
+        Optional<TransferPlan> result = repository.findById(dto.getTno());
+        if(result.isPresent()) {
+            TransferPlan entity = result.get();
+            entity.changeTstate(dto.getTstate());
             repository.save(entity);
         }
     }

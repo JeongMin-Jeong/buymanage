@@ -30,7 +30,6 @@ public class StockController {
     private final StockService stockService;
     private final OrderService orderService;
     private final HistoryService historyService;
-
     private final StockChartService stockChartService;
 
     @GetMapping("/")
@@ -128,8 +127,9 @@ public class StockController {
 
     @GetMapping("/chartmodal")
     @ResponseBody
-    public ResponseEntity<List<StockChartDTO>> chartmodal(String month, String scode){
-        return new ResponseEntity<>(stockChartService.getList(month, scode), HttpStatus.OK);
+    public ResponseEntity<List<StockChartDTO>> chartmodal(String year, String month, String scode){
+        String ym = year + "-" + month;
+        return new ResponseEntity<>(stockChartService.getList2(ym, scode), HttpStatus.OK);
     }
 
     @GetMapping("/modalread2")

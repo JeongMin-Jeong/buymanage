@@ -19,6 +19,8 @@ public interface TransferPlanService {
     // 수정처리
     void modify(TransferPlanDTO dto);
 
+    void completeModify(TransferPlanDTO dto);
+
     // dto -> 엔티티
     default TransferPlan dtoToEntity(TransferPlanDTO dto){
         TransferPlan entity = TransferPlan.builder()
@@ -29,6 +31,7 @@ public interface TransferPlanService {
                 .tusedate(dto.getTusedate())
                 .tusecount(dto.getTusecount())
                 .deliverydate(dto.getDeliverydate())
+                .tstate(dto.getTstate())
                 .build();
         return entity;
     }
@@ -43,6 +46,7 @@ public interface TransferPlanService {
                 .tusedate(entity.getTusedate())
                 .tusecount(entity.getTusecount())
                 .deliverydate(entity.getDeliverydate())
+                .tstate(entity.getTstate())
                 .build();
         return dto;
     }
