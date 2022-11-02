@@ -22,7 +22,7 @@
                         <input type="hidden" name="page" value="1">
                         <table style="width: 100%;">
                             <tr>
-                                <td style="width:100px;">일반검색</td>
+                                <td style="width:100px;" value="pc" th:selected="${transferPlanPageRequestDTO.type == 'pc'}">품목코드</td>
                                 <td>
                                     <div class="input-group-prepend">
                                         <select class="form-select" name="type" style="height:50px;">
@@ -34,8 +34,6 @@
                                         <input class="form-control" name="keyword" style="height:50px;" th:value="${transferPlanPageRequestDTO.keyword}">
                                     </div>
                                 </td>
-                            </tr>
-
                             <tr style="height:20px;">
                                 <td colspan="2" style="text-align: right;">
                                     <button class="btn btn-outline-secondary searchBtn" type="button">검색</button>
@@ -68,7 +66,8 @@
                         </thead>
                         <tbody>
                         <tr th:each="dto: ${result.dtoList}">
-                            <td>[[${dto.tno}]]</td>
+<!--                            <td>[[${dto.tno}]]</td>-->
+                            <td><input type="radio" name="radio" th:value="${dto.tno}"></td>
                             <th><a th:href="@{/transferPlan/read(tno=${dto.tno}, page=${result.page})}">[[${dto.pcode}]]</a></th>
                             <td>[[${dto.pname}]]</td>
                             <td>[[${dto.tuseprocess}]]</td>
@@ -80,8 +79,9 @@
                     </table>
 
                     <div style="float: right">
+                        <button class="btn btn-outline-secondary completBtn" type="button">조달완료처리</button>
                         <a th:href="@{/transferPlan/register}">
-                            <button class="btn btn-outline-secondary registBtn" type="button">등록</button>
+                            <button class="btn btn-outline-secondary registBtn" type="button">조달계획등록</button>
                         </a>
                     </div><br/>
 
@@ -109,7 +109,7 @@
                     </ul>
                     <!-- 하단 페이지 버튼 -->
 
-                    <!-- 모달창 처리-->
+                    <!-- 모달창 처리 -->
                     <div class="modal" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -127,7 +127,53 @@
                                 </div>
                             </div>
                         </div>
-                    </div><!-- 신규등록완료시 뜨는 모달창 처리-->
+                    </div><!-- 모달창 처리 -->
+
+                    <!-- 조달완료처리 모달창 처리 -->
+                    <div class="modal" tabindex="-1" role="dialog" id="imodal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">자재입고</h5>
+
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <form action="/stock/register" method="post" id="modalForm">
+                                        <input type="hidden" name="snote" id="snote">
+                                        <div class="form-group">
+                                            <label >품목코드</label>
+                                            <input type="text" class="form-control" name="pcode" id="pcode" readonly>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label >품목이름</label>
+<!--                                            <input type="text" class="form-control" name="pname" id="pname" readonly>-->
+                                            <textarea class="form-control" name="pname" id="pname" readonly></textarea>
+                                        </div>
+
+                                        <div>
+                                            <label>소요공정</label>
+                                            <input type="text" class="form-control" name="tuseprocess" id="tuseprocess" readonly>
+                                        </div>
+
+                                        <div>
+                                            <label>소요량</label>
+                                            <input type="text" class="form-control" name="tusecount" id="tusecount" readonly>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary completSave">완료</button>
+                                    <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">닫기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- 조달완료처리 모달창 처리 -->
 
                     <script th:inline="javascript">
                         /* 신규등록완료시 뜨는 모달창 처리 */
@@ -142,6 +188,42 @@
                         $('.searchBtn').click(function (e) {
                             searchForm.submit();
                         });/* 검색시 이벤트 처리*/
+
+                        /* 라디오버튼 이벤트 처리*/
+                        $(document).on("click","input[name=radio]",function () {
+                            var tno = $(this).val();
+                            $.ajax({
+                                url:"/transferPlan/modalread",
+                                type:'get',
+                                data: {"tno":tno},
+                                contentType:"application/json",
+
+                                success:function (dto){
+                                    $("#pcode").val(dto.pcode);
+                                    $("#pname").val(dto.pname);
+                                    $("#tuseprocess").val(dto.tuseprocess);
+                                    $("#tusecount").val(dto.tusecount);
+                                },
+                                error:function (){
+                                    alert("실패");
+                                }
+                            }); //ajax end
+                        }); //radio end
+
+                        var imodal = $("#imodal");
+                        $(".completBtn").click(function (){
+                            imodal.modal('show');
+                        }); //stockInputBtn end
+
+                        var modalForm = $("#modalForm");
+                        $(".completSave").click(function () {
+                            modalForm
+                                .attr("action", "/transferPlan/completSave")
+                                .attr("method", "post");
+                            modalForm.submit();
+                            imodal.modal.hide();
+                        });/* 라디오버튼 이벤트 처리*/
+
                     </script>
 
                 </div><!-- table-responsive -->
