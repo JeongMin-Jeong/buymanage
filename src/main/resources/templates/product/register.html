@@ -9,10 +9,11 @@
         <div class="card shadow mb-4">
             <!-- card-body -->
             <div class="card-body">
+                <h6>필수입력항목<strong style="color: red"> (*)</strong></h6><br/>
 
-                <form id="registForm" th:action="@{/product/register}" th:method="post">
+                <form onsubmit="return Checkform()" name="registForm" id="registForm" th:action="@{/product/register}" th:method="post">
                     <div class="form-group">
-                        <label>품목분류</label><br/>
+                        <label>품목분류</label><strong style="color: red"> *</strong><br/>
                         <select id="category" name="ptype1" size="1" onchange="makeSubmenu(this.value)" style="height:40px;">
                             <option value="" disabled selected>----------------분류선택----------------</option>
                             <option value="DESKTOP">DESKTOP</option>
@@ -28,15 +29,15 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>품목코드</label>
+                        <label>품목코드</label><strong style="color: red"> *</strong><br/>
                         <input type="text" class="form-control" name="pcode" id="pcode" placeholder="카테고리를 선택하세요!!!" readonly>
                     </div>
                     <div class="form-group">
-                        <label>품목이름</label>
-                        <input type="text" class="form-control" name="pname">
+                        <label>품목이름</label><strong style="color: red"> *</strong><br/>
+                        <input type="text" class="form-control" name="pname" id="pname">
                     </div>
                     <div class="form-group">
-                        <label>품목설명</label>
+                        <label>품목설명</label><strong style="color: red"> *</strong><br/>
                         <textarea class="form-control" rows="5" name="pcontent"></textarea>
                     </div>
                     <div class="form-group">
@@ -44,7 +45,7 @@
                         <textarea class="form-control" rows="2" name="petc"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>첨부파일</label>
+                        <label>첨부파일</label><strong style="color: red"> *</strong><br/>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input files" id="fileInput" multiple>
                             <label class="custom-file-label" data-browse="찾기.."></label>
@@ -212,6 +213,25 @@
 
                 });
             });<!-- 섬네일처리 -->
+
+            function Checkform() {
+                if( registForm.pname.value == "" ) {
+                    registForm.pname.focus();
+                    alert("필수입력값을 입력해 주십시오.");
+                    return false;
+                }
+                if( registForm.pcontent.value == "" ) {
+                    registForm.pcontent.focus();
+                    alert("필수입력값을 입력해 주십시오.");
+                    return false;
+                }
+                if( registForm.fileInput.value == "" ) {
+                    registForm.fileInput.focus();
+                    alert("필수입력값을 입력해 주십시오.");
+                    return false;
+                }
+            }
+
         </script>
 
     </th:block>

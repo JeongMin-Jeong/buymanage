@@ -35,11 +35,18 @@ public class TransferPlan extends BaseEntity{
     @Column(nullable = false)
     private String deliverydate; // 조달납기
 
+    @Column(nullable = false)
+    private String tstate; // 조달계획 상태
+
     public void changeTuseprocess(String tuseprocess){
         this.tuseprocess = tuseprocess;
     }
     public void changeTusedate(String tusedate){ this.tusedate = tusedate; }
     public void changeTusecount(int tusecount){ this.tusecount = tusecount; }
     public void changeDeliverydate(String deliverydate){ this.deliverydate = deliverydate; }
+
+    public void changeTstate(String tstate){
+        this.tstate = tstate;
+    }
 
 }

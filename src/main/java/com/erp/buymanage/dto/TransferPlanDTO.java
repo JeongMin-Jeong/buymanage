@@ -19,5 +19,6 @@ public class TransferPlanDTO {
     private String tusedate; // 자재소요일정
     private int tusecount; // 자재소요량
     private String deliverydate; // 조달납기
+    private String tstate; // 조달계획 상태
     private LocalDateTime regdate, moddate; // 등록일, 수정일
 }
