@@ -94,7 +94,6 @@
                     <input type="text" class="form-control" name="cpartnerfax" th:value="${dto.cpartnerfax}" readonly>
                 </div>
 
-                <button type="button" class="btn btn-warning" th:value="${dto.cno}" th:onclick="tradePrintOpenPopup(this.value);">거래명세서</button>
                 <a th:href="@{/contract/modify(cno=${dto.cno}, page=${requestDTO.page})}">
                     <button type="button" class="btn btn-primary">수정</button>
                 </a>
