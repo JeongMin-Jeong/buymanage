@@ -18,14 +18,6 @@ public class StockChartServiceImpl implements StockChartService {
     private final StockChartRepository stockChartRepository;
 
     @Override
-    public List<StockChartDTO> getList(String month, String scode) {
-
-        List<StockChart> result = stockChartRepository.findAllByDateContainsAndScode(month, scode);
-
-        return result.stream().map(stockChart -> entityToDTO(stockChart)).collect(Collectors.toList());
-    }
-
-    @Override
     public List<StockChartDTO> getList2(String ym, String scode) {
         List<StockChart> result = stockChartRepository.findAllByDateStartsWithAndScodeOrderByDateAsc(ym, scode);
 
