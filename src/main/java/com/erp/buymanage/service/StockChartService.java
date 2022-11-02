@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface StockChartService {
 
-    List<StockChartDTO> getList(String month, String scode);
-
     List<StockChartDTO> getList2(String ym, String scode);
 
     default StockChart dtoToEntity(StockChartDTO dto) {

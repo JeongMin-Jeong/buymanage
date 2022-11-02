@@ -10,5 +10,5 @@ import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository <OrderEntity, Long>, QuerydslPredicateExecutor<OrderEntity> {
 
-    Optional<OrderEntity> findByCno(Long cno);
+    Optional<OrderEntity> findByCnoAndOcode(Long cno, String ocode);
 }

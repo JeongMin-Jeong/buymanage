@@ -134,8 +134,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDTO read2(Long cno) {
-        Optional<OrderEntity> result = repository.findByCno(cno);
+    public OrderDTO read2(Long cno, String ocode) {
+        Optional<OrderEntity> result = repository.findByCnoAndOcode(cno, ocode);
         return result.isPresent()? entityToDto(result.get()): null;
     }
 

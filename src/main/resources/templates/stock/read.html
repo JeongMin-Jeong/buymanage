@@ -33,15 +33,15 @@
     <div class="form-gr" style="display: flex; justify-content: space-between;">
       <div>
         <label>입고수량</label>
-        <input type="text" class="form-control" name="sin" th:value="${dto.sin}" readonly>
+        <input type="text" class="form-control" name="sin" th:value="${#numbers.formatInteger(dto.sin, 1, 'COMMA') + '개'}" readonly>
       </div>
       <div>
         <label>출고수량</label>
-        <input type="text" class="form-control" name="sout" th:value="${dto.sout}" readonly>
+        <input type="text" class="form-control" name="sout" th:value="${#numbers.formatInteger(dto.sout, 1, 'COMMA') + '개'}" readonly>
       </div>
       <div>
         <label>재고수량</label>
-        <input type="text" class="form-control" name="stock" th:value="${dto.stock}" readonly>
+        <input type="text" class="form-control" name="stock" th:value="${#numbers.formatInteger(dto.stock, 1, 'COMMA') + '개'}" readonly>
       </div>
       <div>
         <label>공급단가</label>
