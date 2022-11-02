@@ -12,7 +12,9 @@ public interface OrderService {
     long register(OrderDTO dto);
     PageResultDTO<OrderDTO, OrderEntity> getList(OrderPageRequestDTO requestDTO);
     PageResultDTO<OrderDTO, OrderEntity> getList2(OrderPageRequestDTO requestDTO);
+    PageResultDTO<OrderDTO, OrderEntity> getList3(OrderPageRequestDTO requestDTO);
     OrderDTO read(Long ono);
+    OrderDTO read2(Long cno);
 
     default OrderEntity dtoToEntity(OrderDTO dto) {
         OrderEntity entity = OrderEntity.builder()
@@ -32,6 +34,7 @@ public interface OrderService {
                 .pcode(dto.getPcode())
                 .pcontent(dto.getPcontent())
                 .ocode(dto.getOcode())
+                .cno(dto.getCno())
                 .build();
             return entity;
     }
@@ -53,6 +56,7 @@ public interface OrderService {
                 .pcode(entity.getPcode())
                 .pcontent(entity.getPcontent())
                 .ocode(entity.getOcode())
+                .cno(entity.getCno())
                 .build();
         return dto;
 

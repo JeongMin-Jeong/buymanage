@@ -1,11 +1,9 @@
 package com.erp.buymanage.controller;
 
-import com.erp.buymanage.dto.ContractDTO;
-import com.erp.buymanage.dto.ContractPageRequestDTO;
-import com.erp.buymanage.dto.PartnerPageRequestDTO;
-import com.erp.buymanage.dto.ProductPageRequestDTO;
+import com.erp.buymanage.dto.*;
 import com.erp.buymanage.security.dto.AuthMemberDTO;
 import com.erp.buymanage.service.ContractService;
+import com.erp.buymanage.service.OrderService;
 import com.erp.buymanage.service.PartnerService;
 import com.erp.buymanage.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +26,8 @@ public class ContractController {
     private final ContractService service;
     private final ProductService productService;
     private final PartnerService partnerService;
+
+    private final OrderService orderService;
 
     @GetMapping("/")
     public String index(){
@@ -100,8 +100,11 @@ public class ContractController {
     @GetMapping("/tradeprint")
     public void tradeprint(long cno, @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, Model model){
         log.info(">>>>> ContractController(tradeprint GetMapping)");
+
         ContractDTO dto = service.read(cno);
+        OrderDTO dto2 = orderService.read2(cno);
         model.addAttribute("dto", dto);
+        model.addAttribute("dto2", dto2);
     }
 }
 

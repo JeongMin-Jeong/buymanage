@@ -38,6 +38,7 @@ public class OrderDTO
     private String ptype2;
     private String pcode;
     private String pcontent;
+    private Long cno;
 
 
 //    @QueryProjection
