@@ -66,6 +66,22 @@ public class InspectionController {
         model.addAttribute("dto", dto);
     }
 
+    @PostMapping("/modify")
+    public String modify(InspectionDTO dto, RedirectAttributes redirectAttributes){
+        log.info(">>>>> InspectionController(plan modify PostMapping)");
+        service.modify(dto);
+        //redirectAttributes.addFlashAttribute("dto", dto);
+
+        OrderDTO orderDTO = new OrderDTO();
+        long ono = dto.getOno();
+        orderDTO.setOno(ono);
+        orderDTO.setOstate("검수완료");
+        orderService.inputModify(orderDTO);
+
+        return "redirect:/inspection/read?ono="+ono;
+    }
+
+
 }
 
 

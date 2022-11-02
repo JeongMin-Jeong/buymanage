@@ -3,8 +3,8 @@
 
 <th:block th:replace="~{/layout/popup :: setContent(~{this :: content})}">
     <th:block th:fragment="content">
-        <form id="registForm" th:action="@{/inspection/planreg}" th:method="post">
-        <h1 class="h3 mb-2 text-gray-800">검수계획 보기</h1>
+        <form id="registForm" th:action="@{/inspection/modify}" th:method="post">
+        <h1 class="h3 mb-2 text-gray-800">검수진행</h1>
 
         <!-- page card -->
         <div class="card shadow mb-4">
@@ -17,10 +17,18 @@
                     <input type="date" class="form-control" name="inspection_date1" th:value="${dto.inspection_date1}" readonly>
                     <label>검수담당자</label><br/>
                     <input type="text" class="form-control" name="inspection_prime1" th:value="${dto.inspection_prime1}" readonly>
-                    <label>검수진척도</label>
-                    <input type="text" class="form-control" name="inspection_degree1" th:value="${dto.inspection_degree1}">
-                    <label>검수내용</label>
-                    <textarea class="form-control" rows="2" name="inspection_etc1">[[${dto.inspection_etc1}]]</textarea>
+                    <label>검수진척도</label><br/>
+                    <input type="hidden" class="form-control" name="inspection_degree1" id="inspection_degree1"  th:value="${dto.inspection_degree1}" readonly>
+                    <select name="inspection_degree1_view" onchange="changeselect1(this.value);" style="height:50px; width:100%;">
+                        <option value="" selected disabled>---------------------------</option>
+                        <option value="50">50%</option>
+                        <option value="40">40%</option>
+                        <option value="30">30%</option>
+                        <option value="20">20%</option>
+                        <option value="10">10%</option>
+                    </select><br>
+                    <label>검수내용</label><br/>
+                    <input type="text" class="form-control" name="inspection_etc1" id="inspection_etc1" th:value="${dto.inspection_etc1}" readonly>
                 </div>
             </div>
             <!-- card-body -->
@@ -38,9 +46,17 @@
                     <label>검수담당자</label><br/>
                     <input type="text" class="form-control" name="inspection_prime2" th:value="${dto.inspection_prime2}" readonly>
                     <label>검수진척도</label>
-                    <input type="text" class="form-control" name="inspection_degree2" th:value="${dto.inspection_degree2}">
+                    <input type="hidden" class="form-control" name="inspection_degree2" id="inspection_degree2"  th:value="${dto.inspection_degree2}" readonly>
+                    <select name="inspection_degree2_view" onchange="changeselect2(this.value);" style="height:50px; width:100%;">
+                        <option value="" selected disabled>---------------------------</option>
+                        <option value="50">50%</option>
+                        <option value="40">40%</option>
+                        <option value="30">30%</option>
+                        <option value="20">20%</option>
+                        <option value="10">10%</option>
+                    </select><br>
                     <label>검수내용</label>
-                    <textarea class="form-control" rows="2" name="inspection_etc2">[[${dto.inspection_etc2}]]</textarea>
+                    <input type="text" class="form-control" name="inspection_etc2" id="inspection_etc2" th:value="${dto.inspection_etc2}" readonly>
                 </div>
             </div>
             <!-- card-body -->
@@ -52,7 +68,7 @@
             <!-- card-body -->
             <div class="card-body">
                 <div class="form-group">
-                    <a th:href="@{/inspection/modify(ono=${dto.ono})}"><button type="button" class="btn btn-primary">검수완료</button></a>
+                    <button type="submit" class="btn btn-primary">검수완료</button>
                     <a th:href="@{/inspection/return(ono=${dto.ono})}"><button type="button" class="btn btn-primary">반품완료</button></a>
                     <a th:href="@{/inspection/read(ono=${dto.ono})}"><button type="button" class="btn btn-info">검수계획</button></a>
                     <button type="button" class="btn btn-info" onclick="self.close();">닫기</button>
@@ -61,6 +77,20 @@
             <!-- card-body -->
         </div>
         <!-- page card -->
+
+            <script th:inline="javascript">
+            function changeselect1(value){
+                document.getElementById('inspection_degree1').value = value;
+                document.getElementById('inspection_etc1').value = value + "% 검수완료";
+            }
+            function changeselect2(value){
+                document.getElementById('inspection_degree2').value = value;
+                var x = Number(document.getElementById('inspection_degree1').value);
+                var y = Number(document.getElementById('inspection_degree2').value);
+                var result =  x + y;
+                document.getElementById('inspection_etc2').value = result + "% 검수완료";
+            }
+            </script>
 
         </form>
     </th:block>

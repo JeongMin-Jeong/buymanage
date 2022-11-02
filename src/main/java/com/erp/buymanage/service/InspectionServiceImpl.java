@@ -4,6 +4,7 @@ import com.erp.buymanage.dto.InspectionDTO;
 import com.erp.buymanage.dto.InspectionPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.entity.Inspection;
+import com.erp.buymanage.entity.Stock;
 import com.erp.buymanage.repository.InspectionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -47,13 +48,16 @@ public class InspectionServiceImpl implements InspectionService{
 
     @Override // 수정처리
     public void modify(InspectionDTO dto) {
-        log.info(">>>>> InspectionServiceImpl(modify)");
-        Optional<Inspection> result = repository.findById(dto.getIno());
+        Optional<Inspection> result = Optional.ofNullable(repository.findByOno(dto.getOno()));
         if(result.isPresent()){
             Inspection entity = result.get();
-            //entity.changeCstatus(dto.getCstatus());
+            entity.changeDegree1(dto.getInspection_degree1());
+            entity.changeDegree2(dto.getInspection_degree2());
+            entity.changeEtc1(dto.getInspection_etc1());
+            entity.changeEtc2(dto.getInspection_etc2());
             repository.save(entity);
         }
     }
+
 
 }
