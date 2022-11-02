@@ -8,9 +8,8 @@
         <div class="card shadow mb-4">
             <!-- card-body -->
             <div class="card-body">
-                <!-- 페이지번호 -->
                 <input type="hidden" name="page" th:value="${requestDTO.page}"><!-- 페이지번호 -->
-                <input type="hidden" class="form-control" name="ono" th:value="${dto.ono}"><!-- 삭제처리에 ono넘기기위한 히든처리 -->
+                <input type="hidden" class="form-control" id="ono" name="ono" th:value="${dto.ono}"><!-- 삭제처리에 ono넘기기위한 히든처리 -->
 
                 <div class="form-group" >
                     <label>발주상태</label>
@@ -46,8 +45,8 @@
                     <input type="text" class="form-control" name="ptype2" th:value="${dto.ptype2}" readonly>
                 </div>
                 <div class="form-group"  >
-                    <label>공급단가(원)</label>
-                    <input type="text"  class="form-control"id="pprice" name="pprice" th:value="${dto.pprice}" readonly>
+                    <label>공급단가</label>
+                    <input type="text"  class="form-control"id="pprice" name="pprice" th:value="${#numbers.formatInteger(dto.pprice, 1, 'COMMA') + '원'}" readonly>
                 </div>
                 <div class="form-group"  >
                     <label>납품업체</label>
@@ -67,7 +66,7 @@
 
                 <div class="form-group">
                     <label>발주수량</label>
-                    <input type="text" class="form-control" id="oquantity" name="oquantity" th:value="${dto.oquantity}" readonly >
+                    <input type="text" class="form-control" id="oquantity" name="oquantity" th:value="${#numbers.formatInteger(dto.oquantity, 1, 'COMMA') + '개'}" readonly>
                 </div>
                 <div class="form-group">
                     <label>발주담당자</label>
@@ -101,13 +100,12 @@
                     <label>비고</label>
                     <textarea class="form-control" rows="2" name="oetc"   th:value="${dto.oetc}" th:text="${dto.oetc}"readonly></textarea>
                 </div>
-
-                <a th:href="@{/order/modify(ono=${dto.ono}, page=${requestDTO.page})}"><button type="button" class="btn btn-primary">수정</button></a>
-                <a th:href="@{/order/list(page=${requestDTO.page})}"><button type="button" class="btn btn-info">목록</button></a>
-
-                <button type="button" class="btn btn-warning" onclick="inspectionRegistOpenPopup();">검수</button>
-
-
+                
+                <a th:href="@{/order/modify(ono=${dto.ono}, page=${requestDTO.page})}"><button type="button" class="btn btn-primary">발주수정</button></a>
+                <a th:href="@{/order/list(page=${requestDTO.page})}"><button type="button" class="btn btn-info">발주목록</button></a>
+                <button th:if="${dto.ostate.toString().equals('구매발주')}" type="button" class="btn btn-warning" onclick="inspectionRegistOpenPopup('register');">검수등록</button>
+                <button th:if="${dto.ostate.toString().equals('검수진행')}" type="button" class="btn btn-warning" onclick="inspectionRegistOpenPopup('read');">검수보기</button>
+                
             </div><!-- card-body -->
         </div><!-- page card -->
     </th:block>

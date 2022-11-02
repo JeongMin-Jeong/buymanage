@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/popup :: setContent(~{this :: content})}">
+    <th:block th:fragment="content">
+        <form name="registForm" id="registForm" th:action="@{/inspection/register}" th:method="post">
+        <h1 class="h3 mb-2 text-gray-800">검수계획 등록</h1>
+
+        <!-- page card -->
+        <div class="card shadow mb-4">
+            <!-- card-body -->
+            <div class="card-body">
+
+                <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">1차 검수</h6></div>
+                <div class="form-group">
+                    <input type="hidden" name="ono" id="ono" th:value="${ono}">
+                    <label>검수날짜</label><br/>
+                    <input type="date" class="form-control" name="inspection_date1">
+                    <label>검수담당자</label><br/>
+                    <input type="text" class="form-control" name="inspection_prime1">
+                    <label>검수진척도(10~50%)</label>
+                    <input type="text" class="form-control" name="inspection_degree1" value="0" readonly>
+                    <label>검수내용</label>
+                    <textarea class="form-control" rows="2" name="inspection_etc1" readonly></textarea>
+                </div>
+            </div>
+            <!-- card-body -->
+        </div>
+        <!-- page card -->
+
+        <!-- page card -->
+        <div class="card shadow mb-4">
+            <!-- card-body -->
+            <div class="card-body">
+                <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">2차 검수</h6></div>
+                <div class="form-group">
+                    <label>검수날짜</label><br/>
+                    <input type="date" class="form-control" name="inspection_date2">
+                    <label>검수담당자</label><br/>
+                    <input type="text" class="form-control" name="inspection_prime2">
+                    <label>검수진척도(10~50%)</label>
+                    <input type="text" class="form-control" name="inspection_degree2" value="0" readonly>
+                    <label>검수내용</label>
+                    <textarea class="form-control" rows="2" name="inspection_etc2" readonly></textarea>
+                </div>
+            </div>
+            <!-- card-body -->
+        </div>
+        <!-- page card -->
+
+        <!-- page card -->
+        <div class="card shadow mb-4">
+            <!-- card-body -->
+            <div class="card-body">
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" onclick="submitclose();">계획등록</button>
+                    <button type="button" class="btn btn-info" onclick="self.close();">닫기</button>
+                </div>
+            </div>
+            <!-- card-body -->
+        </div>
+        <!-- page card -->
+        </form>
+        <script th:inline="javascript">
+        function submitclose() {
+            $('#registForm').submit();
+            alert("검수계획 등록 되었습니다.");
+        }
+        </script>
+
+    </th:block>
+</th:block>
