@@ -1,17 +1,21 @@
 package com.erp.buymanage.controller;
 
-import com.erp.buymanage.dto.ContractPageRequestDTO;
-import com.erp.buymanage.dto.OrderDTO;
-import com.erp.buymanage.dto.OrderPageRequestDTO;
+import com.erp.buymanage.dto.*;
+import com.erp.buymanage.entity.OrderChart;
 import com.erp.buymanage.service.ContractService;
+import com.erp.buymanage.service.OrderChartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.erp.buymanage.service.OrderService;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -22,6 +26,8 @@ public class OrderController {
 
     private final OrderService orderService;
     private final ContractService contractService;
+
+    private final OrderChartService orderChartService;
 
     @GetMapping("/")
     public String index() {
@@ -89,6 +95,11 @@ public class OrderController {
         model.addAttribute("result", contractService.getList2(contractPageRequestDTO));
     }
 
+    @GetMapping("/chartmodal")
+    @ResponseBody
+    public ResponseEntity<List<OrderChartDTO>> chartmodal(String month, String orderstate){
+        return new ResponseEntity<>(orderChartService.getList(month, orderstate), HttpStatus.OK);
+    }
 
 }
 

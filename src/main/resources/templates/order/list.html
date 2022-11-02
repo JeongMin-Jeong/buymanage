@@ -117,7 +117,7 @@
                         </ul>
 
                         <div style="float: right">
-                            <button class="btn btn-outline-secondary deleteBtn" type="button">리포트</button>&nbsp;
+                            <button class="btn btn-outline-secondary stockchartBtn" type="button" onclick="drawChart()">리포트</button>
                             <a href="/order/register" class="btn btn-outline-secondary registBtn" type="button">발주등록</a>
                         </div>
 
@@ -142,7 +142,8 @@
                         </div><!-- 신규등록완료시 뜨는 모달창 처리-->
 
 
-                        <script th:inline="javascript">
+                        <script th:inline="javascript" >
+
                             /* 신규등록완료시 뜨는 모달창 처리 */
                             var msg = [[${msg}]];
                             console.log(msg);
@@ -155,6 +156,79 @@
                             $('.searchBtn').click(function (e) {
                                 searchForm.submit();
                             });/* 검색시 이벤트 처리*/
+
+
+
+                            var chartLabels = []; // 받아올 데이터를 저장할 배열 선언
+                            var chartData = [];
+                            var month="";
+                            var scode="";
+                            var orderstate= "";
+                            var complete="";
+
+                            function createChart() {
+                                var ctx = document.getElementById("canvas").getContext("2d");
+                                LineChartDemo = Chart.Line(ctx, {
+                                    data : lineChartData,
+                                    options : {
+                                        scales : {
+                                            yAxes : [ {
+                                                ticks : {
+                                                    beginAtZero : true
+                                                }
+                                            } ]
+                                        }
+                                    }
+                                });
+                            }
+
+                            $('#selectMonth').change(function() {
+                                var changeMonth = $('#selectMonth option:selected').val();
+                                var changescode = $("#chartScode").val();
+                                month = changeMonth;
+                                scode = changescode;
+                                console.log('month:'+month);
+                                console.log('scode:'+scode);
+                            });
+
+                            //버튼을 클릭하면 차트가 그려짐
+                            $('#btn').click(function(){
+                                chartLabels = [];
+                                chartData=[];
+
+                                //getJson으로 데이터
+                                $.getJSON("/order/chartmodal", {
+                                    month : month,
+                                    scode : scode
+                                }, function(data) {
+                                    $.each(data, function(key, value) {
+                                        console.log(value)
+
+                                        chartLabels.push(value.date);
+                                        chartData.push(value.amount);
+                                        complete= value.orderstate;
+                                    });
+
+                                    lineChartData = {
+                                        labels : chartLabels,
+                                        datasets : [ {
+                                            label : complete ,
+                                            backgroundColor:"#bfdaf9",
+                                            borderColor: "#80b6f4",
+                                            pointBorderColor: "#80b6f4",
+                                            pointBackgroundColor: "#80b6f4",
+                                            pointHoverBackgroundColor: "#80b6f4",
+                                            pointHoverBorderColor: "#80b6f4",
+                                            fill: false,
+                                            borderWidth: 4,
+                                            data : chartData
+                                        } ]
+                                    }
+                                    createChart();
+
+                                });
+                            })
+
                         </script>
 
 

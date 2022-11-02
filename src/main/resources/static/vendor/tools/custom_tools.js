@@ -222,3 +222,7 @@
         var option = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=no, location=no, titlebar=yes';
         window.open(url, name, option); // 새로운 창이 뜨면서 팝업이 생성됩니다.
     }
+
+
+
+
