@@ -19,7 +19,7 @@ public interface TransferPlanService {
     // 수정처리
     void modify(TransferPlanDTO dto);
 
-    void completeModify(OrderDTO dto);
+    void completeModify(TransferPlanDTO dto);
 
     // dto -> 엔티티
     default TransferPlan dtoToEntity(TransferPlanDTO dto){

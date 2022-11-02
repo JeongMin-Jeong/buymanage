@@ -26,7 +26,6 @@ public class ContractController {
     private final ContractService service;
     private final ProductService productService;
     private final PartnerService partnerService;
-
     private final OrderService orderService;
 
     @GetMapping("/")

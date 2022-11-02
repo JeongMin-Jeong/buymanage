@@ -1,7 +1,6 @@
 package com.erp.buymanage.service;
 
 import com.erp.buymanage.dto.*;
-import com.erp.buymanage.entity.QOrderEntity;
 import com.erp.buymanage.entity.QTransferPlan;
 import com.erp.buymanage.entity.TransferPlan;
 import com.erp.buymanage.repository.TransferPlanRepository;
@@ -115,6 +114,16 @@ public class TransferPlanServiceImpl implements TransferPlanService{
             entity.changeTusecount(dto.getTusecount());
             entity.changeDeliverydate(dto.getDeliverydate());
 
+            repository.save(entity);
+        }
+    }
+
+    @Override
+    public void completeModify(TransferPlanDTO dto) {
+        Optional<TransferPlan> result = repository.findById(dto.getTno());
+        if(result.isPresent()) {
+            TransferPlan entity = result.get();
+            entity.changeTstate(dto.getTstate());
             repository.save(entity);
         }
     }

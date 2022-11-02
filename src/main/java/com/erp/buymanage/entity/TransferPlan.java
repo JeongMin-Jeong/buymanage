@@ -45,4 +45,8 @@ public class TransferPlan extends BaseEntity{
     public void changeTusecount(int tusecount){ this.tusecount = tusecount; }
     public void changeDeliverydate(String deliverydate){ this.deliverydate = deliverydate; }
 
+    public void changeTstate(String tstate){
+        this.tstate = tstate;
+    }
+
 }

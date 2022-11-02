@@ -79,7 +79,7 @@
                     </table>
 
                     <div style="float: right">
-                        <button class="btn btn-outline-secondary completBtn" type="button">조달완료처리</button>
+                        <button class="btn btn-outline-secondary completeBtn" type="button">조달완료처리</button>
                         <a th:href="@{/transferPlan/register}">
                             <button class="btn btn-outline-secondary registBtn" type="button">조달계획등록</button>
                         </a>
@@ -134,7 +134,7 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">자재입고</h5>
+                                    <h5 class="modal-title">조달완료</h5>
 
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -142,8 +142,8 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <form action="/stock/register" method="post" id="modalForm">
-                                        <input type="hidden" name="snote" id="snote">
+                                    <form id="modalForm">
+                                        <input type="hidden" name="tno" id="tno">
                                         <div class="form-group">
                                             <label >품목코드</label>
                                             <input type="text" class="form-control" name="pcode" id="pcode" readonly>
@@ -151,7 +151,6 @@
 
                                         <div class="form-group">
                                             <label >품목이름</label>
-<!--                                            <input type="text" class="form-control" name="pname" id="pname" readonly>-->
                                             <textarea class="form-control" name="pname" id="pname" readonly></textarea>
                                         </div>
 
@@ -168,7 +167,7 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-secondary completSave">완료</button>
+                                    <button type="button" class="btn btn-outline-secondary completeSave">완료</button>
                                     <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">닫기</button>
                                 </div>
                             </div>
@@ -199,6 +198,7 @@
                                 contentType:"application/json",
 
                                 success:function (dto){
+                                    $("#tno").val(dto.tno);
                                     $("#pcode").val(dto.pcode);
                                     $("#pname").val(dto.pname);
                                     $("#tuseprocess").val(dto.tuseprocess);
@@ -211,14 +211,14 @@
                         }); //radio end
 
                         var imodal = $("#imodal");
-                        $(".completBtn").click(function (){
+                        $(".completeBtn").click(function (){
                             imodal.modal('show');
                         }); //stockInputBtn end
 
                         var modalForm = $("#modalForm");
-                        $(".completSave").click(function () {
+                        $(".completeSave").click(function () {
                             modalForm
-                                .attr("action", "/transferPlan/completSave")
+                                .attr("action", "/transferPlan/completeSave")
                                 .attr("method", "post");
                             modalForm.submit();
                             imodal.modal.hide();

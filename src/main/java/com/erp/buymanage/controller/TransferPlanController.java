@@ -92,8 +92,9 @@ public class TransferPlanController {
     @PostMapping("/completeSave")
     public String completeSave(TransferPlanDTO dto) {
         log.info(">>>>> TransferPlanController(completeSave PostMapping)");
+
         dto.setTstate("완료");
-        service.modify(dto);
+        service.completeModify(dto);
         return "redirect:/transferPlan/list";
     }
 }
