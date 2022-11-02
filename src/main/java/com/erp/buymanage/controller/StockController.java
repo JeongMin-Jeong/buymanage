@@ -53,6 +53,7 @@ public class StockController {
         log.info("(list2)orderPageRequestDTO : " + orderPageRequestDTO);
 
         model.addAttribute("result", orderService.getList2(orderPageRequestDTO));
+        model.addAttribute("result2", orderService.getList3(orderPageRequestDTO));
     }
 
     @GetMapping("/register")

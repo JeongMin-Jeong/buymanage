@@ -12,5 +12,4 @@ public interface StockChartRepository extends JpaRepository<StockChart, Long>, Q
 
     List<StockChart> findAllByDateContainsAndScode(String month, String scode);
 
-
 }

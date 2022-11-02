@@ -61,7 +61,7 @@ public class TransferPlanController {
         log.info(">>>>> TransferPlanController(modify PostMapping)");
         service.modify(dto);
         redirectAttributes.addAttribute("page", transferPlanPageRequestDTO.getPage());
-        redirectAttributes.addAttribute("cno", dto.getTno());
+        redirectAttributes.addAttribute("tno", dto.getTno());
         return "redirect:/transferPlan/read";
     }
 

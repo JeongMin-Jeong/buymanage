@@ -30,7 +30,7 @@ public class TransferPlan extends BaseEntity{
     private String tusedate; // 자재소요일정
 
     @Column(nullable = false)
-    private String tusecount; // 자재소요량
+    private int tusecount; // 자재소요량
 
     @Column(nullable = false)
     private String deliverydate; // 조달납기
@@ -39,7 +39,7 @@ public class TransferPlan extends BaseEntity{
         this.tuseprocess = tuseprocess;
     }
     public void changeTusedate(String tusedate){ this.tusedate = tusedate; }
-    public void changeTusecount(String tusecount){ this.tusecount = tusecount; }
+    public void changeTusecount(int tusecount){ this.tusecount = tusecount; }
     public void changeDeliverydate(String deliverydate){ this.deliverydate = deliverydate; }
 
 }

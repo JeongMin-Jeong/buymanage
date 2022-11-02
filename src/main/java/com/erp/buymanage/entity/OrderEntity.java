@@ -38,6 +38,8 @@ public class OrderEntity {
     private String pcode;
     private String pcontent;
 
+    private Long cno;
+
     public void changeOrderdate(String orderdate){
         this.orderdate = orderdate;
     }
