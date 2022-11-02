@@ -40,7 +40,9 @@
 
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <div id="command_bar">
+
   <!--  자재입고 후 출력가능합니다.-->
+
   A4용지를 준비하고 인쇄방향을 가로로 설정하세요. &nbsp;
   <input type="button" value="인쇄하기" onclick="printNow()" /> <input type="button" value="뒤로" onclick="window.history.go(-1)" />
 </div>
@@ -185,6 +187,7 @@
             </tr>
             <?php for ($i=0, $maxi=count($prtArticle); $i<$maxi; $i++) { ?>
             <tr height="30">
+
               <td class="lb_dot" style="border-top-style:none;border-left-style:none;border-bottom-style:none" align="center" th:text="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"><?=$prtArticle[$i]['day']?></td>
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['article']?>[[${dto.pname}]]</td>
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['type']?></td>
@@ -192,6 +195,7 @@
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center" th:text="${#numbers.formatInteger(dto.pprice, 1, 'COMMA') + '원'}"><?=$prtArticle[$i]['price_each']?></td>
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['pay_type']?> &nbsp; </td>
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center" th:text="${#numbers.formatInteger(dto2.oquantity*dto.pprice, 1, 'COMMA') + '원'}"><?=$prtArticle[$i]['amount']?></td>
+
               <td class="lb_dot" style="border-top-style:none;border-bottom-style:none" align="center"><?=$prtArticle[$i]['note']?></td>
             </tr>
             <?php } ?>

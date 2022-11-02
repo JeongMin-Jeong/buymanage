@@ -2,77 +2,73 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:replace="~{/layout/popup :: setContent(~{this::content} )}">
-    <th:block th:fragment="content">
-        <!-- Begin Page Content -->
+  <th:block th:fragment="content">
+    <!-- Begin Page Content -->
 
-        <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">&nbsp;</h1>
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">&nbsp;</h1>
 
-        <!-- page card -->
-        <div class="card shadow mb-4">
+    <!-- page card -->
+    <div class="card shadow mb-4">
 
-            <!-- card-header -->
-            <div class="card-header py-3"><h8 class="m-0 font-weight-bold text-primary">계약검색</h8></div>
-            <!-- card-body -->
-            <div class="card-body">
-                <!-- div -->
-                <div>
-                    <!--
-                    <form action="/contract/list" method="get" id="searchForm">
-                        <div class="form-group">
-                            <label>계약코드</label>
-                            <input type="text" class="form-control" name="ccode">
-                        </div><br>
-                        <div class="form-group" style="text-align: right;">
-                            <input type="button" value="검색">
-                        </div>
-                    </form>
-                    -->
+      <!-- card-header -->
+      <div class="card-header py-3"><h8 class="m-0 font-weight-bold text-primary">계약검색</h8></div>
+      <!-- card-body -->
+      <div class="card-body">
+        <!-- div -->
+        <div>
+          <!--
+          <form action="/contract/list" method="get" id="searchForm">
+              <div class="form-group">
+                  <label>계약코드</label>
+                  <input type="text" class="form-control" name="ccode">
+              </div><br>
+              <div class="form-group" style="text-align: right;">
+                  <input type="button" value="검색">
+              </div>
+          </form>
+          -->
 
-                    <!-- <div class="input-group"> -->
-                    <form action="/order/popup" method="get" id="searchForm">
-                        <div class="input-group">
-                            <input type="hidden" name="page" value="1">
-                            <table style="width: 100%;">
-                                <tr>
-                                    <td style="width:100px;">계약상태</td>
-                                    <td>
-                                        <div class="input-group-prepend">
-                                            <select class="form-select" name="ctype1" style="height:50px;">
-                                                <option value="" th:selected="${contractPageRequestDTO.ctype1 == null}">----------------분류선택----------------</option>
-                                                <option value="신규계약" th:selected="${contractPageRequestDTO.ctype1 == '신규계약'}">신규계약</option>
-                                                <option value="계약완료" th:selected="${contractPageRequestDTO.ctype1 == '계약완료'}">계약완료</option>
-                                            </select>&nbsp;
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="width:100px;">일반검색</td>
-                                    <td>
-                                        <div class="input-group-prepend">
-                                            <select class="form-select" name="ctype2" style="height:50px;">
-                                                <option value="" th:selected="${contractPageRequestDTO.ctype2 == null}">----------------분류선택----------------</option>
-                                                <option value="cc" th:selected="${contractPageRequestDTO.ctype2 == 'cc'}">계약코드</option>
-                                            </select>&nbsp;
-                                            <input class="form-control" name="keyword" style="height:50px;" th:value="${contractPageRequestDTO.keyword}">
-                                        </div>
-                                    </td>
-                                </tr>
+          <!-- <div class="input-group"> -->
+          <form action="/order/popup" method="get" id="searchForm">
+            <div class="input-group">
+              <input type="hidden" name="page" value="1">
+              <table style="width: 100%;">
+                <tr>
+                  <td style="width:100px;">계약상태</td>
+                  <td>
+                    <div class="input-group-prepend">
+                      <select class="form-select" name="ctype1" style="height:50px;">
+                        <option value="" th:selected="${contractPageRequestDTO.ctype1 == null}">----------------분류선택----------------</option>
+                        <option value="신규계약" th:selected="${contractPageRequestDTO.ctype1 == '신규계약'}">신규계약</option>
+                        <option value="계약완료" th:selected="${contractPageRequestDTO.ctype1 == '계약완료'}">계약완료</option>
+                      </select>&nbsp;
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:100px;">일반검색</td>
+                  <td>
+                    <div class="input-group-prepend">
+                      <select class="form-select" name="ctype2" style="height:50px;">
+                        <option value="" th:selected="${contractPageRequestDTO.ctype2 == null}">----------------분류선택----------------</option>
+                        <option value="cc" th:selected="${contractPageRequestDTO.ctype2 == 'cc'}">계약코드</option>
+                      </select>&nbsp;
+                      <input class="form-control" name="keyword" style="height:50px;" th:value="${contractPageRequestDTO.keyword}">
+                    </div>
+                  </td>
+                </tr>
 
-                                <tr style="height:20px;">
-                                    <td colspan="2" style="text-align: right;">
-                                        <button class="btn btn-outline-secondary btn-search" type="button">검색</button>
-                                        <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/order/popup';">리셋</button>
-                                        <button class="btn btn-outline-secondary closeBtn" type="button" onclick="self.opener=self; self.close();">닫기</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!-- <div class="input-group"> -->
-                    </form>
-                </div>
-                <!-- </>div> -->
+                <tr style="height:20px;">
+                  <td colspan="2" style="text-align: right;">
+                    <button class="btn btn-outline-secondary btn-search" type="button">검색</button>
+                    <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/order/popup';">리셋</button>
+                    <button class="btn btn-outline-secondary closeBtn" type="button" onclick="self.opener=self; self.close();">닫기</button>
+                  </td>
+                </tr>
+              </table>
             </div>
+            
             <!-- card-body -->
 
             <!-- card-header -->
@@ -161,8 +157,13 @@
                 <!-- <div class="table-responsive"> -->
             </div>
             <!-- card-body -->
+
         </div>
-        <!-- page card -->
-        <!-- End Page Content -->
-    </th:block>
+        <!-- <div class="table-responsive"> -->
+      </div>
+      <!-- card-body -->
+    </div>
+    <!-- page card -->
+    <!-- End Page Content -->
+  </th:block>
 </th:block>

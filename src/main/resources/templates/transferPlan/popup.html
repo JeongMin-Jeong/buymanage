@@ -16,7 +16,7 @@
         <!-- div -->
         <div>
           <!-- <div class="input-group"> -->
-          <form action="/contract/popup" method="get" id="searchForm">
+          <form action="/transferPlan/popup" method="get" id="searchForm">
             <div class="input-group">
               <input type="hidden" name="page" value="1">
               <table style="width: 100%;">
@@ -25,7 +25,7 @@
                   <td>
                     <div class="input-group-prepend">
                       <select id="category" name="ptype1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;width:500px;">
-                        <option value="" th:selected="${productPageRequestDTO.ptype1 == null}" disabled>-분류선택--------------------------------</option>
+                        <option value="" th:selected="${productPageRequestDTO.ptype1 == null}" disabled>----------------분류선택----------------</option>
                         <option value="DESKTOP" th:selected="${productPageRequestDTO.ptype1 == 'DESKTOP'}">DESKTOP</option>
                         <option value="NOTEBOOK" th:selected="${productPageRequestDTO.ptype1 == 'NOTEBOOK'}">NOTEBOOK</option>
                         <option value="SERVER" th:selected="${productPageRequestDTO.ptype1 == 'SERVER'}">SERVER</option>
@@ -34,7 +34,7 @@
                         <option value="TOOLS" th:selected="${productPageRequestDTO.ptype1 == 'TOOLS'}">TOOLS</option>
                       </select>&nbsp;
                       <select id="categorySelect" name="ptype2" size="1" style="height:50px;width:500px;">
-                        <option value="" disabled selected>-분류선택--------------------------------</option>
+                        <option value="" disabled selected>----------------분류선택----------------</option>
                         <option></option>
                       </select>&nbsp;
                     </div>
@@ -46,7 +46,7 @@
                   <td>
                     <div class="input-group-prepend">
                       <select id="genericSelect" class="form-select" name="ptype3" style="height:50px;width:500px;">
-                        <option value="" th:selected="${productPageRequestDTO.ptype3 == null}">-항목선택--------------------------------</option>
+                        <option value="" th:selected="${productPageRequestDTO.ptype3 == null}">----------------분류선택----------------</option>
                         <option value="pc" th:selected="${productPageRequestDTO.ptype3 == 'pc'}">품목코드</option>
                         <option value="pn" th:selected="${productPageRequestDTO.ptype3 == 'pn'}">품목이름</option>
                       </select>&nbsp;
@@ -58,7 +58,6 @@
                 <tr style="height:20px;">
                   <td colspan="2" style="text-align: right;">
                     <button class="btn btn-outline-secondary searchBtn" type="button">검색</button>
-                    <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/product/list';">리셋</button>
                   </td>
                 </tr>
               </table>
@@ -79,9 +78,6 @@
               <th scope="col">#</th>
               <th scope="col">품목코드</th>
               <th scope="col">품목이름</th>
-              <th scope="col">품목분류1</th>
-              <th scope="col">품목분류2</th>
-              <th scope="col">비고</th>
             </tr>
             </thead>
             <tbody>
@@ -89,14 +85,9 @@
               <td>[[${dto.pno}]]</td>
               <th><a href="#" th:pcode="${dto.pcode}"
                               th:pname="${dto.pname}"
-                              th:ptype1="${dto.ptype1}"
-                              th:ptype2="${dto.ptype2}"
-                              th:onclick="returnParentWindows(this.getAttribute('pcode'),this.getAttribute('pname'),this.getAttribute('ptype1'),this.getAttribute('ptype2'));">[[${dto.pcode}]]</a>
+                              th:onclick="returnParentWindows4(this.getAttribute('pcode'),this.getAttribute('pname'));">[[${dto.pcode}]]</a>
               </th>
               <td>[[${dto.pname}]]</td>
-              <td>[[${dto.ptype1}]]</td>
-              <td>[[${dto.ptype2}]]</td>
-              <td>[[${dto.petc}]]</td>
             </tr>
             </tbody>
           </table>
@@ -105,20 +96,20 @@
           <ul class="pagination h-100 justify-content-center align-items-center">
             <li class="page-item " th:if="${result.prev}">
               <a class="page-link"
-                 th:href="@{/contract/popup(page= ${result.start -1})}"
+                 th:href="@{/transferPlan/popup(page= ${result.start -1})}"
                  typetabindex="-1">
                 이전
               </a>
             </li>
             <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
               <a class="page-link"
-                 th:href="@{/contract/popup(page = ${page})}">
+                 th:href="@{/transferPlan/popup(page = ${page})}">
                 [[${page}]]
               </a>
             </li>
             <li class="page-item" th:if="${result.next}">
               <a class="page-link"
-                 th:href="@{/contract/popup(page= ${result.end + 1})}">
+                 th:href="@{/transferPlan/popup(page= ${result.end + 1})}">
                 다음
               </a>
             </li>
