@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+  <th:block th:fragment="content">
+
+    <!-- Begin Page Content -->
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">자재입고</h1>
+    <!-- page card -->
+    <div class="card shadow mb-4">
+
+      <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">발주목록</h6></div>
+      <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>품목코드</th>
+                <th>품목이름</th>
+                <th>품목분류1</th>
+                <th>품목분류2</th>
+                <th>입고수량</th>
+                <th>공급단가</th>
+                <th>발주일자</th>
+                <th>발주상태</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="dto : ${result.dtoList}">
+                <td><input type="radio" name="radio1" th:value="${dto.ono}"></td>
+                <td>[[${dto.pcode}]]</td>
+                <td>[[${dto.pname}]]</td>
+                <td>[[${dto.ptype1}]]</td>
+                <td>[[${dto.ptype2}]]</td>
+                <td>[[${dto.oquantity}]]</td>
+                <td th:text="${#numbers.formatInteger(dto.pprice, 1, 'COMMA') + '원'}"></td>
+                <td>[[${dto.orderdate}]]</td>
+                <td>[[${dto.ostate}]]</td>
+              </tr>
+              </tbody>
+            </table>
+
+          <div style="float: right">
+            <button class="btn btn-outline-secondary stockInputBtn" type="button">자재입고</button>
+            <!-- <button class="btn btn-outline-secondary stockRegistBtn" type="button" onclick="location.href='/order/register';">자재등록</button> -->
+          </div>
+
+
+        </div>  <!-- 69 line end -->
+
+        <ul class="pagination h-100 justify-content-center align-items-center">
+
+          <li class="page-item " th:if="${result.prev}">
+            <a class="page-link" th:href="@{/stock/list2(page= ${result.start -1})}" tabindex="-1">Previous</a>
+          </li>
+
+          <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+            <a class="page-link" th:href="@{/stock/list2(page = ${page})}">
+              [[${page}]]
+            </a>
+          </li>
+
+          <li class="page-item" th:if="${result.next}">
+            <a class="page-link" th:href="@{/stock/list2(page= ${result.end + 1})}">Next</a>
+          </li>
+        </ul>
+
+      </div>  <!-- 68line end -->
+
+      <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">거래명세서</h6></div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable2">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>품목코드</th>
+              <th>품목이름</th>
+              <th>품목분류1</th>
+              <th>품목분류2</th>
+              <th>입고수량</th>
+              <th>공급단가</th>
+              <th>발주일자</th>
+              <th>발주상태</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dto : ${result2.dtoList}">
+              <td><input type="radio" name="radio2" th:value="${dto.cno}"></td>
+              <td>[[${dto.pcode}]]</td>
+              <td>[[${dto.pname}]]</td>
+              <td>[[${dto.ptype1}]]</td>
+              <td>[[${dto.ptype2}]]</td>
+              <td>[[${dto.oquantity}]]</td>
+              <td th:text="${#numbers.formatInteger(dto.pprice, 1, 'COMMA') + '원'}"></td>
+              <td>[[${dto.orderdate}]]</td>
+              <td>[[${dto.ostate}]]</td>
+            </tr>
+            </tbody>
+          </table>
+
+          <div style="float: right">
+            <button class="btn btn-outline-secondary tradeBtn" type="button" th:onclick="tradePrintOpenPopup()">거래명세서</button>
+            <!-- <button class="btn btn-outline-secondary stockRegistBtn" type="button" onclick="location.href='/order/register';">자재등록</button> -->
+          </div>
+
+
+        </div>  <!-- 69 line end -->
+
+        <ul class="pagination h-100 justify-content-center align-items-center">
+
+          <li class="page-item " th:if="${result.prev}">
+            <a class="page-link" th:href="@{/stock/list2(page= ${result.start -1})}" tabindex="-1">Previous</a>
+          </li>
+
+          <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+            <a class="page-link" th:href="@{/stock/list2(page = ${page})}">
+              [[${page}]]
+            </a>
+          </li>
+
+          <li class="page-item" th:if="${result.next}">
+            <a class="page-link" th:href="@{/stock/list2(page= ${result.end + 1})}">Next</a>
+          </li>
+        </ul>
+
+      </div>  <!-- 68line end -->
+
+    </div>  <!-- 12line end -->
+
+
+    <!-- 모달창 처리-->
+    <div class="modal" tabindex="-1" role="dialog" id="cmodal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">변경사항</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>정상적으로 처리되었습니다.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- 신규등록완료시 뜨는 모달창 처리-->
+
+    <!-- 모달 시작 -->
+    <div class="modal" tabindex="-1" role="dialog" id="imodal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">자재입고</h5>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <form action="/stock/register" method="post" id="modalForm">
+              <input type="hidden" name="snote" id="snote">
+              <div class="form-group">
+                <label >품목코드</label>
+                <input type="text" class="form-control" name="scode" id="scode" readonly>
+              </div>
+
+              <div class="form-group">
+                <label >품목이름</label>
+                <input type="text" class="form-control" name="sname" id="sname" readonly>
+              </div>
+
+              <div class="form-group">
+                <label >품목분류1</label>
+                <input type="text" class="form-control" name="scate1" id="scate1" readonly>
+              </div>
+
+              <div class="form-group">
+                <label >품목분류2</label>
+                <input type="text" class="form-control" name="scate2" id="scate2" readonly>
+              </div>
+
+              <div class="form-group">
+                <label >공급단가</label>
+                <input type="text" class="form-control" name="sreturn" id="sreturn" readonly>
+              </div>
+
+              <div class="form-gr" style="display: flex; justify-content: space-between;">
+                <div>
+                  <label>입고수량</label>
+                  <input type="text" class="form-control" name="sin" id="sin" readonly>
+                </div>
+                <div>
+                  <label>신청자</label>
+                  <input type="text" class="form-control" name="requester" id="requester" readonly>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary inputSave">완료</button>
+            <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">닫기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 모달 끝-->
+
+    <script th:inline="javascript">
+
+      $(document).on("click","input[name=radio1]",function () {
+
+        var ono = $(this).val();
+
+        $.ajax({
+          url:"/stock/modalread",
+          type:'get',
+          data: {"ono":ono},
+          contentType:"application/json",
+          success:function (data){
+            $("#scode").val(data.pcode);
+            $("#sname").val(data.pname);
+            $("#scate1").val(data.ptype1);
+            $("#scate2").val(data.ptype2);
+            $("#sreturn").val(data.pprice);
+            $("#sin").val(data.oquantity);
+            $("#snote").val(data.ono);
+            $("#requester").val(data.omanager);
+            $("#sin2").val(data.oquantity);
+          },
+          error:function (){
+            alert("실패");
+          }
+        }); //ajax end
+
+      }); //radio end
+
+      var imodal = $("#imodal");
+
+      $(".stockInputBtn").click(function (){
+
+        imodal.modal('show');
+
+      }); //stockInputBtn end
+
+      var modalForm = $("#modalForm");
+
+      $(".inputSave").click(function () {
+        modalForm
+                .attr("action", "/stock/inputregister")
+                .attr("method", "post");
+
+        modalForm.submit();
+        imodal.modal.hide();
+      });
+
+    </script>
+
+  </th:block>
+</th:block>

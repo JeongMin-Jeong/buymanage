@@ -23,5 +23,6 @@ public class StockDTO {
     private int sreturn;
     private int stock;
     private String snote;
+    private String requester;
     private LocalDateTime regDate, modDate;
 }

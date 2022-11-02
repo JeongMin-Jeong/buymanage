@@ -1,6 +1,6 @@
 package com.erp.buymanage.service;
 
-import com.erp.buymanage.dto.PageRequestDTO;
+import com.erp.buymanage.dto.StockPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.StockDTO;
 import com.erp.buymanage.entity.QStock;
@@ -15,6 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -26,22 +29,44 @@ public class StockServiceImpl implements StockService {
     private final StockRepository stockRepository;
 
     @Override
-    public Long register(StockDTO dto) {
+    public Long register(StockDTO dto){
+
+        int sin = dto.getSin();
+        String scode = dto.getScode();
+        long sno = 0L;
 
         log.info("DTO---------------------");
         log.info(dto);
-
+        dto.setStock(dto.getSin());
         Stock entity = dtoToEntity(dto);
+        Stock history = stockRepository.findByScode(scode);
+        List<Stock> stockList = stockRepository.findAll();
+        List<String> list = new ArrayList();
+
+        for (Stock stockEntity : stockList ) {
+            if(!stockEntity.getScode().equals(scode)) {
+                list.add(stockEntity.getScode());
+            } else if (stockEntity.getScode().equals(dto.getScode())){
+                list.add(dto.getScode());
+                stockRepository.updateSin(sin,scode);
+                sno = history.getSno();
+                System.out.println("확인 필요한 코드 Update==========================" + sno);
+                break;
+            }
+        }
+        if (!list.contains(scode)){
+            stockRepository.save(entity);
+            sno = entity.getSno();
+            System.out.println("확인 필요한 코드 Insert==========================" + sno);
+        }
 
         log.info(entity);
 
-        stockRepository.save(entity);
-
-        return entity.getSno();
+        return sno;
     }
 
     @Override
-    public PageResultDTO<StockDTO, Stock> getList(PageRequestDTO requestDTO) {
+    public PageResultDTO<StockDTO, Stock> getList(StockPageRequestDTO requestDTO) {
 
         Pageable pageable = requestDTO.getPageable(Sort.by("sno").descending());
 
@@ -88,11 +113,14 @@ public class StockServiceImpl implements StockService {
 
     }
 
-    private BooleanBuilder getSearch(PageRequestDTO requestDTO) {   //Querydsl  처리
+    private BooleanBuilder getSearch(StockPageRequestDTO requestDTO) {   //Querydsl  처리
 
         String type1 = requestDTO.getType1();
         String type2 = requestDTO.getType2();
         String type3 = requestDTO.getType3();
+        if(type1 == ""){type1 = null;}
+        if(type2 == ""){type2 = null;}
+        if(type3 == ""){type3 = null;}
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
@@ -104,38 +132,52 @@ public class StockServiceImpl implements StockService {
 
         booleanBuilder.and(expression);
 
-        if(type1 == null || type1.trim().length() == 0) { //검색 조건이 없는 경우
-            return booleanBuilder;
-        }
+        if(type1 == "" && type2 == "" && type3 == "") {
 
-        if(type2 == null || type2.trim().length() == 0) { //검색 조건이 없는 경우
             return booleanBuilder;
-        }
 
-        if(type3 == null || type3.trim().length() == 0) { //검색 조건이 없는 경우
-            return booleanBuilder;
         }
-
 
         //검색 조건 작성
         BooleanBuilder conditionBuilder = new BooleanBuilder();
 
-
-            conditionBuilder.and(qStock.scate1.eq(type1));
+        if(type2 != null && type3 != null) {
+            if (type3.contains("k")) {
+                conditionBuilder.and(qStock.scode.contains(keyword));
+            }
+            if (type3.equals("l")) {
+                conditionBuilder.and(qStock.sname.contains(keyword));
+            }
             conditionBuilder.and(qStock.scate2.eq(type2));
+        } else if (type2 == null && type3 != null) {
+            if (type3.contains("k")) {
+                conditionBuilder.and(qStock.scode.contains(keyword));
+            }
+            if (type3.equals("l")) {
+                conditionBuilder.and(qStock.sname.contains(keyword));
+            }
+        } else if (type2 != null && type3 == null) {
+            conditionBuilder.and(qStock.scate2.eq(type2));
+        } else if (type2 == null && type3 == null){
 
-
-
-        if(type3.contains("k")){
-            conditionBuilder.or(qStock.scode.contains(keyword));
         }
-        if(type3.contains("l")){
-            conditionBuilder.or(qStock.sname.contains(keyword));
-        }
+
 
         //모든 조건 통합
         booleanBuilder.and(conditionBuilder);
 
         return booleanBuilder;
+    }
+
+    @Override
+    public void outModify(StockDTO dto) {
+        Optional<Stock> result = stockRepository.findById(dto.getSno());
+
+        if (result.isPresent()) {
+            Stock entity = result.get();
+            entity.changeOut(dto.getSout());
+            entity.changeStock2(dto.getSout());
+            stockRepository.save(entity);
+        }
     }
 }

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
   <th:block th:fragment="content">
 
-    <h1 class="mt-4">계약정보 등록 페이지</h1>
+      <h1 class="h3 mb-2 text-gray-800">계약정보 등록하기</h1>
 
         <form th:action="@{/contract/register}" th:method="post">
 
@@ -12,105 +13,91 @@
             <div class="card shadow mb-4">
                 <!-- card-body -->
                 <div class="card-body">
+                <h3>계약 정보</h3><br/>
 
+                    <input type="hidden" class="form-control" name="cstatus" value="신규계약">
                     <div class="form-group">
-                      <label>계약번호</label>
-                      <input type="text" class="form-control" name="ccode">
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- page card -->
-            <div class="card shadow mb-4">
-                <!-- card-body -->
-                <div class="card-body">
-
-                    <div class="form-group">
-                        <label>거래처명</label>
-                        <input type="text" class="form-control" name="cpartnername">
-                    </div>
-                    <div class="form-group">
-                        <label>거래처 대표자</label>
-                        <input type="text" class="form-control" name="cpartnerceo">
-                    </div>
-                    <div class="form-group">
-                        <label>거래처 주소</label>
-                        <input type="text" class="form-control" name="cpartneraddr">
-                    </div>
-                    <div class="form-group">
-                        <label>거래처 연락처</label>
-                        <input type="text" class="form-control" name="cpartnerphone">
-                    </div>
-                    <div class="form-group">
-                        <label>거래처 팩스</label>
-                        <input type="text" class="form-control" name="cpartnerfax">
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- page card -->
-            <div class="card shadow mb-4">
-                <!-- card-body -->
-                <div class="card-body">
-
-                    <div class="form-group">
-                        <label>품목코드</label>
-                        <input type="text" class="form-control" name="pcode">
-                    </div>
-                    <div class="form-group">
-                        <label>품목이름</label>
-                        <input type="text" class="form-control" name="pname">
-                    </div>
-                    <div class="form-group">
-                        <label>품목수량</label>
-                        <input type="text" class="form-control" name="pcount">
-                    </div>
-                    <div class="form-group">
-                        <label>품목단가</label>
-                        <input type="text" class="form-control" name="pprice">
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- page card -->
-            <div class="card shadow mb-4">
-                <!-- card-body -->
-                <div class="card-body">
-
-                    <div class="form-group">
-                        <label>인수자</label>
-                        <input type="text" class="form-control" name="cmanager">
-                    </div>
-                    <div class="form-group">
-                        <label>납품자</label>
-                        <input type="text" class="form-control" name="cpartnermanager">
+                        <label>계약코드</label>
+                        <input type="text" class="form-control" name="ccode" id="ccode" readonly>
                     </div>
                     <div class="form-group">
                         <label>계약일자</label>
                         <input type="date" class="form-control" name="cdate">
                     </div>
                     <div class="form-group">
-                        <label>계약상태</label>
-                        <select class="form-select" name="cstatus" style="height:40px;">
-                            <option value="미분류">-분류선택--------------------------------</option>
-                            <option value="신규">신규</option>
-                            <option value="완료">완료</option>
-                            <option value="종료">종료</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label>양도,양수조건</label>
-                        <textarea class="form-control" rows="2" name="cetc"></textarea>
+                        <textarea class="form-control" rows="3" name="cetc"></textarea>
+                    </div>
+
+                </div><!-- card-body -->
+            </div><!-- page card -->
+
+
+            <!-- page card -->
+            <div class="card shadow mb-4">
+                <!-- card-body -->
+                <div class="card-body">
+                    <h3>품목 정보</h3><br/>
+
+                    <div class="form-group">
+                        <label>품목코드</label>
+                        <input type="text" class="form-control" name="pcode" id="pcode" placeholder="클릭하세요!!!" onclick="contractRegistOpenPopup();" readonly>
                     </div>
                     <div class="form-group">
-                        <label>리드타임</label>
-                        <input type="text" class="form-control" name="cleadtime">
+                        <label>품목이름</label>
+                        <input type="text" class="form-control" name="pname" id="pname" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>품목분류1</label>
+                        <input type="text" class="form-control" name="ptype1" id="ptype1" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>품목분류2</label>
+                        <input type="text" class="form-control" name="ptype2" id="ptype2" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>공급단가</label>
+                        <input type="text" class="form-control" name="pprice" id="pprice">
+                    </div>
+                </div>
+                <!-- card-body -->
+            </div>
+            <!-- page card -->
+
+
+            <!-- page card -->
+            <div class="card shadow mb-4">
+                <!-- card-body -->
+                <div class="card-body">
+                <h3>납품업체 정보</h3><br/>
+
+                    <div class="form-group">
+                        <label>사업자 등록번호</label>
+                        <input type="text" class="form-control" name="cpartnerno" id="cpartnerno" placeholder="클릭하세요!!!" onclick="partnerRegistOpenPopup();" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>상호</label>
+                        <input type="text" class="form-control" name="cpartnername" id="cpartnername" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>대표자</label>
+                        <input type="text" class="form-control" name="cpartnerceo" id="cpartnerceo" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>주소</label>
+                        <input type="text" class="form-control" name="cpartneraddr" id="cpartneraddr" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>전화번호</label>
+                        <input type="text" class="form-control" name="cpartnerphone" id="cpartnerphone" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>팩스</label>
+                        <input type="text" class="form-control" name="cpartnerfax" id="cpartnerfax" readonly>
                     </div>
 
                     <button type="submit" class="btn btn-primary">등록</button>
+                    <a th:href="@{/contract/list}"><button type="button" class="btn btn-info">목록</button></a>
 
                 </div><!-- card-body -->
             </div><!-- page card -->

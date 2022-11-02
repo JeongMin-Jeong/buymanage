@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
   <th:block th:fragment="content">
-    <h1 class="mt-4">품목정보 등록 페이지</h1>
+
+    <h1 class="h3 mb-2 text-gray-800">자재정보 등록하기</h1>
     <!-- page card -->
     <div class="card shadow mb-4">
       <!-- card-body -->
@@ -10,15 +11,17 @@
 
         <form th:action="@{/stock/register}" th:method="post">
           <div class="form-group">
-            <label>품목코드</label>
-            <input type="text" class="form-control" name="scode" placeholder="P0000">
-          </div>
-          <div class="form-group">
-            <label>품목이름</label>
-            <input type="text" class="form-control" name="sname">
-          </div>
-          <div class="form-group">
-            <label>대분류</label>
+            <label>품목분류</label><br/>
+            <select id="category" name="scate1" size="1" onchange="makeSubmenu(this.value)" style="height:50px;">
+              <option value="" disabled selected>----------------분류선택----------------</option>
+              <option value="DESKTOP">DESKTOP</option>
+              <option value="NOTEBOOK">NOTEBOOK</option>
+              <option value="SERVER">SERVER</option>
+              <option value="ETC">ETC</option>
+              <option value="ACCESSORY">ACCESSORY</option>
+              <option value="TOOLS">TOOLS</option>
+            </select>&nbsp;
+            <!--
             <select class="form-select" name="scate1" style="height:40px;">
               <option value="미분류">-분류선택--------------------------------</option>
               <option value="데스크톱">데스크톱</option>
@@ -26,10 +29,13 @@
               <option value="서버">서버</option>
               <option value="기타">기타</option>
             </select>
-            &nbsp;&nbsp;
-            <!--            </div>-->
-            <!--            <div class="form-group">-->
-            <label>중분류</label>
+            -->
+            <select id="categorySelect" name="scate2" size="1" style="height:50px;" onchange="displayRandomSNum();">
+              <option value="" disabled selected>----------------분류선택----------------</option>
+              <option></option>
+            </select>
+
+            <!--
             <select class="form-select" name="scate2" style="height:40px;">
               <option value="미분류">-분류선택--------------------------------</option>
               <option value="CPU">CPU</option>
@@ -39,6 +45,16 @@
               <option value="케이스">케이스</option>
               <option value="파워">파워</option>
             </select>
+            -->
+          </div>
+          <div class="form-group">
+            <label>품목코드</label>
+            <!-- <input type="text" class="form-control" name="scode" placeholder="P0000"> -->
+            <input type="text" class="form-control" name="scode" id="scode" placeholder="품목분류를 선택하세요!!!" readonly>
+          </div>
+          <div class="form-group">
+            <label>품목이름</label>
+            <input type="text" class="form-control" name="sname">
           </div>
           <div class="form-group">
             <label>비고</label>
@@ -48,7 +64,7 @@
           <button type="submit" class="btn btn-primary">등록</button>
         </form>
 
-      </div><!-- card-body -->
+      </div> <!-- card-body -->
     </div><!-- page card -->
   </th:block>
 </th:block>

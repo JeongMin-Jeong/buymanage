@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
+  <th:block th:fragment="content">
+
+    <h1 class="h3 mb-2 text-gray-800">계약정보 수정하기</h1>
+      <!-- page card -->
+      <div class="card shadow mb-4">
+          <!-- card-body -->
+          <div class="card-body">
+              <form th:action="@{/contract/modify}" th:method="post">
+                <input type="hidden" class="form-control" name="page" th:value="${requestDTO.page}">
+                <input type="hidden" class="form-control" name="cno" th:value="${dto.cno}">
+
+                <div class="form-group">
+                    <label>계약상태</label>
+                    <input type="text" class="form-control" name="cstatus" th:value="${dto.cstatus}" readonly>
+                    <select class="form-select" style="height:50px;width:100%;" onchange="selectcstatus(this.value);">
+                        <option value="미분류">----------------분류선택----------------</option>
+                        <option value="신규계약">신규계약</option>
+                        <option value="계약완료">계약완료</option>
+                        <option value="계약종료">계약종료</option>
+                    </select>
+                </div>
+                <span style=display:none>
+                    <textarea class="form-control" rows="3" name="cetc" th:value="${dto.cetc}" readonly></textarea>
+                </span>
+              </form>
+
+                  <button type="button" class="btn btn-primary modifyBtn">수정</button>
+                  <button type="button" class="btn btn-info listBtn">목록</button>
+                  <button type="button" class="btn btn-danger removeBtn">삭제</button>
+
+          </div><!-- card-body -->
+      </div><!-- page card -->
+
+
+      <!-- page card -->
+      <div class="card shadow mb-4">
+          <!-- card-body -->
+          <div class="card-body">
+
+              <div class="form-group">
+                  <label>계약코드</label>
+                  <input type="text" class="form-control" name="ccode" th:value="${dto.ccode}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>계약일자</label>
+                  <input type="date" class="form-control" name="cdate" th:value="${dto.cdate}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>양도,양수조건</label>
+                  <textarea class="form-control" rows="3" name="cetc" readonly>[[${dto.cetc}]]</textarea>
+              </div>
+
+          </div><!-- card-body -->
+      </div><!-- page card -->
+
+
+      <!-- page card -->
+      <div class="card shadow mb-4">
+          <!-- card-body -->
+          <div class="card-body">
+          <h3>품목 정보</h3><br/>
+
+              <div class="form-group">
+                  <label>품목코드</label>
+                  <input type="text" class="form-control" name="pcode" th:value="${dto.pcode}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>품목이름</label>
+                  <input type="text" class="form-control" name="pname" th:value="${dto.pname}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>품목분류1</label>
+                  <input type="text" class="form-control" name="ptype1" th:value="${dto.ptype1}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>품목분류2</label>
+                  <input type="text" class="form-control" name="ptype2" th:value="${dto.ptype2}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>공급단가</label>
+                  <input type="text" class="form-control" name="pprice" th:value="${#numbers.formatInteger(dto.pprice, 1, 'COMMA') + '원'}" readonly>
+              </div>
+
+          </div><!-- card-body -->
+      </div><!-- page card -->
+
+
+      <!-- page card -->
+      <div class="card shadow mb-4">
+          <!-- card-body -->
+          <div class="card-body">
+          <h3>납품업체 정보</h3><br/>
+
+              <div class="form-group">
+                  <label>사업자 등록번호</label>
+                  <input type="text" class="form-control" name="cpartnerno" th:value="${dto.cpartnerno}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>상호</label>
+                  <input type="text" class="form-control" name="cpartnername" th:value="${dto.cpartnername}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>대표자</label>
+                  <input type="text" class="form-control" name="cpartnerceo" th:value="${dto.cpartnerceo}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>주소</label>
+                  <input type="text" class="form-control" name="cpartneraddr" th:value="${dto.cpartneraddr}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>전화번호</label>
+                  <input type="text" class="form-control" name="cpartnerphone" th:value="${dto.cpartnerphone}" readonly>
+              </div>
+              <div class="form-group">
+                  <label>팩스</label>
+                  <input type="text" class="form-control" name="cpartnerfax" th:value="${dto.cpartnerfax}" readonly>
+              </div>
+
+          </div><!-- card-body -->
+      </div><!-- page card -->
+
+
+      <script th:inline="javascript">
+          /* select박스 선택값에 따라 input값 변경처리*/
+          var selectcstatus = function(value){
+              $("[name=cstatus]").val(value);
+          }/* select박스 선택값에 따라 input값 변경처리*/
+
+          /* 수정처리시 이벤트처리 */
+          $(".modifyBtn").click(function () {
+              if (!confirm("수정하시겠습니까?")){
+                  return;
+              }
+              actionForm
+                  .attr("action", "/contract/modify")
+                  .attr("method", "post")
+              actionForm.submit();
+          });/* 수정처리시 이벤트처리 */
+
+          /* 삭제처리시 이벤트처리 */
+          var actionForm = $("form"); // form 태그 객체
+
+          $(".removeBtn").click(function () {
+              if (!confirm("삭제하시겠습니까?")){
+                  return;
+              }
+              actionForm
+                  .attr("action", "/contract/remove")
+                  .attr("method", "post");
+              actionForm.submit();
+          });/* 삭제처리시 이벤트처리 */
+
+          /* 목록처리시 이벤트처리 */
+          $(".listBtn").click(function () {
+              var pageInfo = $("input[name = 'page']");
+              actionForm.empty(); // form 태그의 모든 내용을 지우고
+              actionForm.append(pageInfo); // 목록페이지 이동에 필요한 내용을 다시 추가
+              actionForm
+                  .attr("action", "/contract/list")
+                  .attr("method", "get");
+              actionForm.submit();
+          });/* 목록처리시 이벤트처리 */
+
+      </script>
+
+  </th:block>
+</th:block>

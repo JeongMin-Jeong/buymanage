@@ -1,6 +1,6 @@
 package com.erp.buymanage.service;
 
-import com.erp.buymanage.dto.PageRequestDTO;
+import com.erp.buymanage.dto.StockPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.StockDTO;
 import com.erp.buymanage.entity.Stock;
@@ -8,13 +8,15 @@ import com.erp.buymanage.entity.Stock;
 public interface StockService {
     Long register(StockDTO dto);
 
-    PageResultDTO<StockDTO, Stock> getList(PageRequestDTO requestDTO);
+    PageResultDTO<StockDTO, Stock> getList(StockPageRequestDTO requestDTO);
 
     StockDTO read(Long sno);
 
     void remove(Long sno);
 
     void modify(StockDTO dto);
+
+    void outModify(StockDTO dto);
 
     default Stock dtoToEntity(StockDTO dto) {
         Stock entity = Stock.builder()
@@ -28,6 +30,7 @@ public interface StockService {
                 .sreturn(dto.getSreturn())
                 .stock(dto.getStock())
                 .snote(dto.getSnote())
+                .requester(dto.getRequester())
                 .build();
         return entity;
     }
@@ -45,6 +48,7 @@ public interface StockService {
                 .sreturn(entity.getSreturn())
                 .stock(entity.getStock())
                 .snote(entity.getSnote())
+                .requester(entity.getRequester())
                 .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
                 .build();

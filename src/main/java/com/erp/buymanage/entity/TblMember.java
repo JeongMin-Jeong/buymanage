@@ -1,11 +1,7 @@
 package com.erp.buymanage.entity;
 
 import lombok.*;
-
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +18,9 @@ public class TblMember extends BaseEntity {
     private String password;
     private String name;
     private boolean fromSocial; //소셜 로그인 가능여부
+
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long mno;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default

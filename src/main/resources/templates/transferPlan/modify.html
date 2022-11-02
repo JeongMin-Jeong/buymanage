@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
+    <th:block th:fragment="content">
+
+    <h1 class="h3 mb-2 text-gray-800">조달계획 수정하기</h1>
+        <!-- page card -->
+        <div class="card shadow mb-4">
+            <!-- card-body -->
+            <div class="card-body">
+                <form th:action="@{/transferPlan/modify}" th:method="post">
+                    <input type="hidden" class="form-control" name="page" th:value="${requestDTO.page}">
+                    <input type="hidden" class="form-control" name="tno" th:value="${dto.tno}">
+
+                    <div class="form-group">
+                      <label>품목코드</label>
+                      <input type="text" class="form-control" name="pcode" th:value="${dto.pcode}" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label>품목이름</label>
+                      <input type="text" class="form-control" name="pname" th:value="${dto.pname}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>소요공정</label>
+                        <input type="text" class="form-control" name="tuseprocess" th:value="${dto.tuseprocess}" readonly>
+                        <select class="form-select" style="height:50px;width:100%;" onchange="selecttuseprocess(this.value);">
+                            <option value="미분류">----------------분류선택----------------</option>
+                            <option value="DESKTOP">DESKTOP</option>
+                            <option value="NOTEBOOK">NOTEBOOK</option>
+                            <option value="SERVER">SERVER</option>
+                            <option value="ETC">ETC</option>
+                            <option value="ACCESSORY">ACCESSORY</option>
+                            <option value="TOOLS">TOOLS</option>
+                        </select>&nbsp;
+                    </div>
+                    <div class="form-group">
+                        <label>소요일정</label>
+                        <input type="date" class="form-control" name="tusedate" th:value="${dto.tusedate}">
+                    </div>
+                    <div class="form-group">
+                        <label>소요량</label>
+                        <input type="text" class="form-control" name="tusecount" th:value="${dto.tusecount}">
+                    </div>
+                    <div class="form-group">
+                        <label>조달납기</label>
+                        <input type="date" class="form-control" name="deliverydate" th:value="${dto.deliverydate}">
+                    </div>
+                </form>
+
+                <button type="button" class="btn btn-primary modifyBtn">수정</button>
+                <button type="button" class="btn btn-info listBtn">목록</button>
+                <button type="button" class="btn btn-danger removeBtn">삭제</button>
+
+            </div><!-- card-body -->
+        </div><!-- page card -->
+
+
+        <script th:inline="javascript">
+          /* select박스 선택값에 따라 input값 변경처리*/
+          var selecttuseprocess = function(value){
+              $("[name=tuseprocess]").val(value);
+          }/* select박스 선택값에 따라 input값 변경처리*/
+
+          /* 수정처리시 이벤트처리 */
+          $(".modifyBtn").click(function () {
+              if (!confirm("수정하시겠습니까?")){
+                  return;
+              }
+              actionForm
+                  .attr("action", "/transferPlan/modify")
+                  .attr("method", "post")
+              actionForm.submit();
+          });/* 수정처리시 이벤트처리 */
+
+          /* 삭제처리시 이벤트처리 */
+          var actionForm = $("form"); // form 태그 객체
+
+          $(".removeBtn").click(function () {
+              if (!confirm("삭제하시겠습니까?")){
+                  return;
+              }
+              actionForm
+                  .attr("action", "/transferPlan/remove")
+                  .attr("method", "post");
+              actionForm.submit();
+          });/* 삭제처리시 이벤트처리 */
+
+          /* 목록처리시 이벤트처리 */
+          $(".listBtn").click(function () {
+              var pageInfo = $("input[name = 'page']");
+              actionForm.empty(); // form 태그의 모든 내용을 지우고
+              actionForm.append(pageInfo); // 목록페이지 이동에 필요한 내용을 다시 추가
+              actionForm
+                  .attr("action", "/transferPlan/list")
+                  .attr("method", "get");
+              actionForm.submit();
+          });/* 목록처리시 이벤트처리 */
+        </script>
+
+    </th:block>
+</th:block>

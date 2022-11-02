@@ -6,7 +6,7 @@
 
         <!-- Begin Page Content -->
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">계약관리</h1>
+        <h1 class="h3 mb-2 text-gray-800">계약정보 목록보기</h1>
         <!-- page card -->
         <div class="card shadow mb-4">
 
@@ -18,46 +18,50 @@
                 <div>
                     <!-- <div class="input-group"> -->
                     <form action="/contract/list" method="get" id="searchForm">
-                        <div class="input-group">
-                            <input type="hidden" name="page" value="1">
-                            <table style="width: 100%;">
-                                <tr>
-                                    <td style="width:100px;">계약상태</td>
-                                    <td>
-                                        <div class="input-group-prepend">
-                                            <select class="form-select" name="cstatus" style="height:50px;">
-                                                <option value="미분류">-분류선택--------------------------------</option>
-                                                <option value="신규">신규</option>
-                                                <option value="완료">완료</option>
-                                                <option value="종료">종료</option>
-                                            </select>&nbsp;
-                                        </div>
-                                    </td>
-                                </tr>
+                    <div class="input-group">
+                        <input type="hidden" name="page" value="1">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width:100px;">계약상태</td>
+                                <td>
+                                    <div class="input-group-prepend">
+                                        <select class="form-select" name="ctype1" style="height:50px;">
+                                            <option value="" th:selected="${contractPageRequestDTO.ctype1 == null}">----------------분류선택----------------</option>
+                                            <option value="신규계약" th:selected="${contractPageRequestDTO.ctype1 == '신규계약'}">신규계약</option>
+                                            <option value="계약완료" th:selected="${contractPageRequestDTO.ctype1 == '계약완료'}">계약완료</option>
+                                            <option value="계약종료" th:selected="${contractPageRequestDTO.ctype1 == '계약종료'}">계약종료</option>
+                                        </select>&nbsp;
+                                    </div>
+                                </td>
+                            </tr>
 
-                                <tr>
-                                    <td style="width:100px;">일반검색</td>
-                                    <td>
-                                        <div class="input-group-prepend">
-                                            <select class="form-select" name="ptype3" style="height:50px;">
-                                                <option th:selected="${pageRequestDTO2.ptype3 == null}">-항목선택--------------------------------</option>
-                                                <option value="code" th:selected="${pageRequestDTO2.ptype3 == 'ccode'}">등록번호</option>
-                                                <option value="name" th:selected="${pageRequestDTO2.ptype3 == 'cpartnername'}">납품업체 상호</option>
-                                                <option value="content" th:selected="${pageRequestDTO2.ptype3 == 'pcode'}">품목코드</option>
-                                                <option value="content" th:selected="${pageRequestDTO2.ptype3 == 'cmanager'}">인수자</option>
-                                                <option value="content" th:selected="${pageRequestDTO2.ptype3 == 'pcode'}">납품자</option>
-                                            </select>&nbsp;
-                                            <input class="form-control" name="keyword" style="height:50px;" th:value="${pageRequestDTO2.keyword}">
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td style="width:100px;">일반검색</td>
+                                <td>
+                                    <div class="input-group-prepend">
+                                        <select class="form-select" name="ctype2" style="height:50px;">
+                                            <option value="" th:selected="${contractPageRequestDTO.ctype2 == null}">----------------분류선택----------------</option>
+                                            <option value="cc" th:selected="${contractPageRequestDTO.ctype2 == 'cc'}">계약코드</option>
+                                            <option value="pc" th:selected="${contractPageRequestDTO.ctype2 == 'pc'}">품목코드</option>
+                                            <option value="pn" th:selected="${contractPageRequestDTO.ctype2 == 'pn'}">품목이름</option>
+                                            <option value="cp" th:selected="${contractPageRequestDTO.ctype2 == 'cp'}">납품업체</option>
+                                        </select>&nbsp;
+                                        <input class="form-control" name="keyword" style="height:50px;" th:value="${contractPageRequestDTO.keyword}">
+                                    </div>
+                                </td>
+                            </tr>
 
-                                <tr style="height:20px;">
-                                    <td colspan="2" style="text-align: right;"><button class="btn btn-outline-secondary btn-search" type="button">검색</button></td>
-                                </tr>
-                            </table>
-                        </div><!-- <div class="input-group"> -->
+                            <tr style="height:20px;">
+                                <td colspan="2" style="text-align: right;">
+                                    <button class="btn btn-outline-secondary searchBtn" type="button">검색</button>
+                                    <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/contract/list';">리셋</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- <div class="input-group"> -->
                     </form>
+
                 </div><!-- div -->
             </div><!-- <div class="card-body"> -->
 
@@ -71,56 +75,55 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">계약번호</th>
+                            <th scope="col">계약코드</th>
+                            <th scope="col">품목코드</th>
                             <th scope="col">품목이름</th>
-                            <th scope="col">거래처명</th>
-                            <th scope="col">담당자</th>
+                            <th scope="col">납품업체</th>
                             <th scope="col">계약상태</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="dto: ${result.dtoList}">
-                            <td><input type="checkbox" name="contract" value="${dto.cno}"></td>
+                            <td>[[${dto.cno}]]</td>
                             <th><a th:href="@{/contract/read(cno=${dto.cno}, page=${result.page})}">[[${dto.ccode}]]</a></th>
+                            <td>[[${dto.pcode}]]</td>
                             <td>[[${dto.pname}]]</td>
                             <td>[[${dto.cpartnername}]]</td>
-                            <td>[[${dto.cmanager}]]</td>
                             <td>[[${dto.cstatus}]]</td>
                         </tr>
                         </tbody>
                     </table>
 
+                    <div style="float: right">
+                        <!-- <button class="btn btn-outline-secondary deleteBtn" type="button">계약삭제</button> -->
+                        <a th:href="@{/contract/register}">
+                            <button class="btn btn-outline-secondary registBtn" type="button">계약등록</button>
+                        </a>
+                    </div><br/>
+
                     <!-- 하단 페이지 버튼 -->
                     <ul class="pagination h-100 justify-content-center align-items-center">
                         <li class="page-item " th:if="${result.prev}">
                             <a class="page-link"
-                               th:href="@{/product/list(page= ${result.start -1})}"
+                               th:href="@{/contract/list(page= ${result.start -1})}"
                                typetabindex="-1">
-                                Pre
+                                이전
                             </a>
                         </li>
-
                         <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
                             <a class="page-link"
-                               th:href="@{/product/list(page = ${page})}">
+                               th:href="@{/contract/list(page = ${page})}">
                                 [[${page}]]
                             </a>
                         </li>
-
                         <li class="page-item" th:if="${result.next}">
                             <a class="page-link"
-                               th:href="@{/product/list(page= ${result.end + 1})}">
-                                Next
+                               th:href="@{/contract/list(page= ${result.end + 1})}">
+                                다음
                             </a>
                         </li>
-                    </ul><!-- 하단 페이지 버튼 -->
-
-                    <div style="float: right">
-                        <button class="btn btn-outline-secondary deleteBtn" type="button">계약삭제</button>
-                        <a th:href="@{/contract/register}">
-                            <button class="btn btn-outline-secondary registBtn" type="button">계약등록</button>
-                        </a>
-                    </div>
+                    </ul>
+                    <!-- 하단 페이지 버튼 -->
 
                     <!-- 모달창 처리-->
                     <div class="modal" tabindex="-1" role="dialog">
@@ -137,7 +140,6 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                                    <!--                                    <button type="button" class="btn btn-primary">확인</button>-->
                                 </div>
                             </div>
                         </div>
@@ -153,7 +155,7 @@
 
                         /* 검색시 이벤트 처리*/
                         var searchForm = $("#searchForm");
-                        $('.btn-search').click(function (e) {
+                        $('.searchBtn').click(function (e) {
                             searchForm.submit();
                         });/* 검색시 이벤트 처리*/
                     </script>

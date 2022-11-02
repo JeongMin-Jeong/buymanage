@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+
+        <!-- Begin Page Content -->
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">납품업체 목록보기</h1>
+        <!-- page card -->
+        <div class="card shadow mb-4">
+            <!-- card-header -->
+            <div class="card-header py-3"><h8 class="m-0 font-weight-bold text-primary">검색</h8></div>
+                <!-- card-body -->
+                <div class="card-body">
+                    <!-- div -->
+                    <div>
+                        <form action="/contract/partnerList" method="get" id="searchForm">
+                            <!-- input-group -->
+                            <div class="input-group">
+                                <input type="hidden" name="page" value="1">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td>
+                                            <div class="input-group-prepend">
+                                                <select id="genericSelect" class="form-select" name="type" style="height:50px;width:500px;">
+                                                    <option value="" th:selected="${partnerPageRequestDTO.type == null}">-항목선택--------------------------------</option>
+                                                    <option value="no" th:selected="${partnerPageRequestDTO.type == 'no'}">사업자 등록번호</option>
+                                                    <option value="name" th:selected="${partnerPageRequestDTO.type == 'name'}">상호</option>
+                                                </select>&nbsp;
+                                                <input id="genericKeyword" type="text" class="form-control" name="keyword" th:value="${partnerPageRequestDTO.keyword}" style="height:50px;width:500px;">
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr style="height:20px;">
+                                        <td colspan="2" style="text-align: right;">
+                                            <button class="btn btn-outline-secondary searchBtn" type="button">검색</button>
+                                            <button class="btn btn-outline-secondary resetBtn" type="button" onclick="location.href='/contract/partnerList';">리셋</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div><!-- input-group -->
+                        </form>
+                    </div><!-- div -->
+                </div><!-- <div class="card-body"> -->
+            </div><!-- card-header -->
+
+
+            <!-- card-header -->
+            <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">목록</h6></div>
+                <!-- card-body -->
+                <div class="card-body">
+                    <!-- <div class="table-responsive"> -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">사업자 등록번호</th>
+                                    <th scope="col">상호</th>
+                                    <th scope="col">대표자</th>
+                                    <th scope="col">주소</th>
+                                    <th scope="col">전화번호</th>
+                                    <th scope="col">팩스</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="dto: ${result.dtoList}">
+                                    <td>[[${dto.cpartnerno}]]</td>
+                                    <td>[[${dto.cpartnername}]]</td>
+                                    <td>[[${dto.cpartnerceo}]]</td>
+                                    <td>[[${dto.cpartneraddr}]]</td>
+                                    <td>[[${dto.cpartnerphone}]]</td>
+                                    <td>[[${dto.cpartnerfax}]]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- 하단 페이지 버튼 -->
+                        <ul class="pagination h-100 justify-content-center align-items-center">
+                            <li class="page-item " th:if="${result.prev}">
+                                <a class="page-link"
+                                   th:href="@{/contract/list(page= ${result.start -1})}"
+                                   typetabindex="-1">
+                                    이전
+                                </a>
+                            </li>
+                            <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+                                <a class="page-link"
+                                   th:href="@{/contract/list(page = ${page})}">
+                                    [[${page}]]
+                                </a>
+                            </li>
+                            <li class="page-item" th:if="${result.next}">
+                                <a class="page-link"
+                                   th:href="@{/contract/list(page= ${result.end + 1})}">
+                                    다음
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- 하단 페이지 버튼 -->
+
+                        <script th:inline="javascript">
+                            /* 검색시 이벤트 처리*/
+                            var searchForm = $("#searchForm");
+                            $('.searchBtn').click(function (e) {
+                                searchForm.submit();
+                            });/* 검색시 이벤트 처리*/
+                        </script>
+
+                    </div><!-- <div class="table-responsive"> -->
+                </div><!-- card-body -->
+            </div><!-- card-header -->
+        </div><!-- page card -->
+        <!-- End Page Content -->
+    </th:block>
+</th:block>

@@ -1,86 +1,116 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
-  <th:block th:fragment="content">
-    <h1 class="mt-4">품목정보 등록 페이지</h1>
-    <!-- page card -->
-    <div class="card shadow mb-4">
-      <!-- card-body -->
-      <div class="card-body">
+    <th:block th:fragment="content">
 
-        <form th:action="@{/order/register}" th:method="post">
-          <div class="form-group" >
-            <label>품목코드</label>
-            <input type="text" class="form-control" name="pcode" placeholder="P0000" >
-          </div>
+        <h1 class="h3 mb-2 text-gray-800">발주정보 등록</h1>
+        <!-- page card -->
+        <div class="card shadow mb-4">
+            <!-- card-body -->
+            <div class="card-body">
+                <form th:action="@{/order/register}" th:method="post">
+                <div class="form-group" >
+                    <label>계약선택</label>
+                    <input type="text" class="form-control" name="ccode" id="ccode" placeholder="클릭하세요!!!" onclick="orderRegistOpenPopup()" readonly>
+                </div>
+            </div>
+            <!-- card-body -->
+        </div>
+        <!-- page card -->
 
-          <div class="form-group" >
-            <label>대분류</label>
-            <select class="form-select" name="ptype1" style="height:40px;">
-              <option value="미분류">-분류선택--------------------------------</option>
-              <option value="데스크톱">데스크톱</option>
-              <option value="노트북">노트북</option>
-              <option value="서버">서버</option>
-              <option value="기타">기타</option>
-            </select>
-            &nbsp;&nbsp;
-            <!--            </div>-->
-            <!--            <div class="form-group">-->
-            <label>중분류</label>
-            <select class="form-select" name="ptype2" style="height:40px;">
-              <option value="미분류">-분류선택--------------------------------</option>
-              <option value="CPU">CPU</option>
-              <option value="메인보드">메인보드</option>
-              <option value="메모리">메모리</option>
-              <option value="하드디스크">하드디스크/SDD</option>
-              <option value="케이스">케이스</option>
-              <option value="파워">파워</option>
-            </select>
-          </div>
-          <div class="form-group" >
-            <label>품목이름</label>
-            <input type="text" class="form-control" name="opname">
-          </div>
-          <div class="form-group"  >
-            <label>수량</label> <input type="text" class="form-control" id="oquantity" name="oquantity" >
-            <label>공급단가(원)</label> <input type="text"  class="form-control"id="oprice" name="oprice" >
-          </div>
-          <div >
-          <div class="form-group"  >
-            <label>납품업체</label> <input type="text" class="form-control" id="ocompany" name="ocompany" >
-            <label>담당자</label> <input type="text" class="form-control" id="omanager" name="omanager" >
-          </div>
-          </div>
-          <div >
-          <div class="form-group" >
-            <label>발주일자</label><input type="date" class="form-control" name="orderdate">
-            <label>납기일자</label><input type="date" class="form-control" name="deliverydate">
-            <label>마감일자</label><input type="date" class="form-control" name="duedate">
-          </div>
-          </div>
-          <div class="form-group" >
-            <label>발주상태</label>
-            <select class="form-select" name="ostate" style="height:40px;">
-              <option value="발주상태">---------------------------------</option>
-              <option value="구매발주">구매발주</option>
-              <option value="입고처리">입고처리</option>
-              <option value="발품처리">발품처리</option>
-              <option value="마감완료">마감완료</option>
-            </select>
-          </div>
-            <div class="form-group">
-            <label>설명</label>
-            <textarea class="form-control" rows="5" name="pcontent"></textarea>
-          </div>
-          <div class="form-group">
-            <label>비고</label>
-            <textarea class="form-control" rows="2" name="oetc"></textarea>
-          </div>
 
-          <button type="submit" class="btn btn-primary">등록</button>
-        </form>
+        <!-- page card -->
+        <div class="card shadow mb-4">
+            <!-- card-body -->
+            <div class="card-body">
+                <input type="hidden" name="cno" id="cno">
+                <div class="form-group" >
+                    <label>발주코드</label>
+                    <input type="text" class="form-control" name="ocode" id="ocode" readonly>
+                </div>
+                <div class="form-group">
+                    <label>품목코드</label>
+                    <input type="text" class="form-control" name="pcode" id="pcode" readonly>
+                </div>
+                <div class="form-group">
+                    <label>품목이름</label>
+                    <input type="text" class="form-control" name="pname" id="pname" readonly>
+                </div>
+                <div class="form-group">
+                    <label>품목분류1</label>
+                    <input type="text" class="form-control" name="ptype1" id="ptype1" readonly>
+                </div>
+                <div class="form-group">
+                    <label>품목분류2</label>
+                    <input type="text" class="form-control" name="ptype2" id="ptype2" readonly>
+                </div>
+                <div class="form-group">
+                    <label>납품업체</label>
+                    <input type="text" class="form-control" id="cpartnername" name="cpartnername" readonly>
+                </div>
+                <div class="form-group">
+                    <label>품목단가</label>
+                    <input type="text"  class="form-control" id="pprice" name="pprice" readonly>
+                </div>
 
-      </div><!-- card-body -->
-    </div><!-- page card -->
-  </th:block>
+            </div>
+            <!-- card-body -->
+        </div>
+        <!-- page card -->
+
+        <!-- page card -->
+        <div class="card shadow mb-4">
+            <!-- card-body -->
+            <div class="card-body">
+                <div class="form-group">
+                    <label>발주수량</label>
+                    <input type="text" class="form-control" id="oquantity" name="oquantity">
+                </div>
+                <div class="form-group"  >
+                    <label>발주담당자</label>
+                    <input type="text" class="form-control" id="omanager" name="omanager">
+                </div>
+                <div class="form-group" >
+                    <label>발주일자</label>
+                    <input type="date" class="form-control" name="orderdate">
+                </div>
+                <div class="form-group" >
+                    <label>납기일자</label>
+                    <input type="date" class="form-control" name="deliverydate">
+                </div>
+                <div class="form-group" >
+                    <label>발주상태</label>
+                    <input type="text" class="form-control" id="ostate" name="ostate" value="구매발주" readonly>
+                </div>
+
+            </div>
+            <!-- card-body -->
+        </div>
+        <!-- page card -->
+
+
+        <!-- page card -->
+        <div class="card shadow mb-4">
+            <!-- card-body -->
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label>상세내용</label>
+                    <textarea class="form-control" rows="5" name="pcontent"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>비고</label>
+                    <textarea class="form-control" rows="2" name="oetc"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">등록</button>
+                <a th:href="@{/order/list}"><button type="button" class="btn btn-info">목록</button></a>
+                </form>
+
+            </div><!-- card-body -->
+        </div><!-- page card -->
+
+    </th:block>
 </th:block>

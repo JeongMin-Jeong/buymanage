@@ -4,7 +4,7 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content})}">
     <th:block th:fragment="content">
 
-        <h1 class="mt-4">품목정보 수정 페이지</h1>
+        <h1 class="h3 mb-2 text-gray-800">품목정보 수정하기</h1>
         <!-- page card -->
         <div class="card shadow mb-4">
             <!-- card-body -->
@@ -25,40 +25,74 @@
                         <input type="text" class="form-control" name="pname" th:value="${dto.pname}">
                     </div>
                     <div class="form-group">
-                        <label>대분류</label>
+                        <label>품목분류</label>
                         <input type="text" class="form-control" name="ptype1" th:value="${dto.ptype1}" readonly>
-                        <select class="form-select" style="height:50px;" onchange="selectptype1(this.value);">
-                            <option value="미분류">-분류선택--------------------------------</option>
-                            <option value="데스크톱">데스크톱</option>
-                            <option value="노트북">노트북</option>
-                            <option value="서버">서버</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>중분류</label>
+                        <select id="category" name="type1" size="1" onchange="makeSubmenu(this.value);selectptype1(this.value);" style="width:100%;height:40px;">
+                            <option value="" disabled selected>----------------분류선택----------------</option>
+                            <option value="DESKTOP">DESKTOP</option>
+                            <option value="NOTEBOOK">NOTEBOOK</option>
+                            <option value="SERVER">SERVER</option>
+                            <option value="ETC">ETC</option>
+                            <option value="ACCESSORY">ACCESSORY</option>
+                            <option value="TOOLS">TOOLS</option>
+                        </select>&nbsp;
                         <input type="text" class="form-control" name="ptype2" th:value="${dto.ptype2}" readonly>
-                        <select class="form-select" style="height:50px;" onchange="selectptype2(this.value);">
-                            <option value="미분류">-분류선택--------------------------------</option>
-                            <option value="CPU">CPU</option>
-                            <option value="메인보드">메인보드</option>
-                            <option value="메모리">메모리</option>
-                            <option value="하드디스크">하드디스크/SDD</option>
-                            <option value="케이스">케이스</option>
-                            <option value="파워">파워</option>
-                        </select>
+                        <select id="categorySelect" name="type2" size="1" style="width:100%;height:40px;" onchange="selectptype2(this.value);">
+                            <option value="" disabled selected>----------------분류선택----------------</option>
+                            <option></option>
+                        </select>&nbsp;
                     </div>
                     <div class="form-group">
-                        <label>설명</label>
-                        <textarea class="form-control" rows="5" name="pcontent" th:value="${dto.pcontent}"></textarea>
+                        <label>품목설명</label>
+                        <textarea class="form-control" rows="5" name="pcontent">[[${dto.pcontent}]]</textarea>
                     </div>
                     <div class="form-group">
-                        <label>비고</label>
-                        <textarea class="form-control" rows="2" name="petc" th:value="${dto.petc}"></textarea>
+                        <label>기타참고</label>
+                        <textarea class="form-control" rows="2" name="petc">[[${dto.petc}]]</textarea>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" th:each="imageDTO, status: ${dto.imageDTOList}">
                         <label>첨부파일</label>
-                        <!-- 섬네일 처리 또는 파일명만 뜨게 처리-->
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input files" id="fileInput" multiple>
+                            <label class="custom-file-label" th:text="${not #strings.isEmpty(imageDTO.imgName)} ? ${imageDTO.imgName} : '상품이미지 없음'" data-browse="찾기.."></label>
+                        </div>
                     </div>
+                    <!-- 섬네일처리 -->
+                    <div class="box">
+                    </div>
+
+                    <style>
+                        .uploadResult {
+                            width: 100%;
+                            background-color: #eaecf4;
+                            margin-top: 10px;
+                        }
+
+                        .uploadResult ul {
+                            display: flex;
+                            flex-flow: row;
+                            justify-content: center;
+                            align-items: center;
+                            vertical-align: top;
+                            overflow: auto;
+                        }
+
+                        .uploadResult ul li {
+                            list-style: none;
+                            padding: 10px;
+                            margin-left: 2em;
+                        }
+
+                        .uploadResult ul li img {
+                            width: 100px;
+                        }
+                    </style>
+
+                    <div class="uploadResult">
+                        <ul>
+                        </ul>
+                    </div><!-- 섬네일처리 -->
+
                     <div class="form-group">
                         <label>품목정보 등록일</label>
                         <input type="text" class="form-control" th:value="${#temporals.format(dto.regdate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
@@ -121,6 +155,127 @@
                 actionForm.submit();
             });/* 목록처리시 이벤트처리 */
 
+        </script>
+
+        <script>
+            <!-- 섬네일처리 -->
+            $(document).ready(function(e) {
+                var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
+                var maxSize = 10485760; //10MB
+
+                function checkExtension(fileName, fileSize){
+                    if(fileSize >= maxSize){
+                        alert("파일 사이즈 초과");
+                        return false;
+                    }
+
+                    if(regex.test(fileName)){
+                        alert("해당 종류의 파일은 업로드할 수 없습니다.");
+                        return false;
+                    }
+                    return true;
+                }
+
+                $(".custom-file-input").on("change", function() {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+
+                    var formData = new FormData();
+                    var inputFile = $(this);
+                    var files = inputFile[0].files;
+                    var appended = false;
+
+                    for (var i = 0; i < files.length; i++) {
+                        if(!checkExtension(files[i].name, files[i].size) ){
+                            return false;
+                        }
+
+                        console.log(files[i]);
+                        formData.append("uploadFiles", files[i]);
+                        appended = true;
+                    }
+
+                    //upload를 하지 않는다.
+                    if (!appended) {return;}
+
+                    for (var value of formData.values()) {
+                        console.log(value);
+                    }
+
+                    //실제 업로드 부분
+                    //upload ajax
+                    $.ajax({
+                        url: '/uploadAjax',
+                        processData: false,
+                        contentType: false,
+                        data: formData,
+                        type: 'POST',
+                        dataType:'json',
+                        success: function(result){
+                            console.log(result);
+                            showResult(result);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                            console.log(textStatus);
+                        }
+                    }); //$.ajax
+                }); //end change event
+
+                function showResult(uploadResultArr){
+                    var uploadUL = $(".uploadResult ul");
+                    var str ="";
+
+                    $(uploadResultArr).each(function(i, obj) {
+                        str += "<li data-name='" + obj.fileName + "' data-path='" + obj.folderPath + "' data-uuid='" + obj.uuid + "'>";
+                        str + " <div>";
+                        str += "<button type='button' data-file=\'" + obj.imageURL + "\' "
+                        str += "class='btn-warning btn-sm'>X</button><br>";
+                        str += "<img src='/display?fileName=" + obj.thumbnailURL + "'>";
+                        str += "</div>";
+                        str + "</li>";
+                    });
+
+                    uploadUL.append(str);
+                }
+
+                $(".uploadResult ").on("click", "li button", function(e){
+                    console.log("delete file");
+
+                    var targetFile = $(this).data("file");
+                    var targetLi = $(this).closest("li");
+
+                    $.ajax({
+                        url: '/removeFile',
+                        data: {fileName: targetFile},
+                        dataType:'text',
+                        type: 'POST',
+                        success: function(result){
+                            targetLi.remove();
+                        }
+                    }); //$.ajax
+                });
+
+                //prevent submit
+                $(".btn-primary").on("click", function(e) {
+                    e.preventDefault();
+
+                    var str = "";
+
+                    $(".uploadResult li").each(function(i,obj){
+                        var target = $(obj);
+
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].imgName' value='" + target.data('name') + "'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].path' value='" + target.data('path') + "'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i + "].uuid' value='" + target.data('uuid') + "'>";
+                    });
+
+                    //태그들이 추가된 것을 확인한 후에 comment를 제거
+                    $(".box").html(str);
+
+                    $("form").submit();
+
+                });
+            });<!-- 섬네일처리 -->
         </script>
 
     </th:block>

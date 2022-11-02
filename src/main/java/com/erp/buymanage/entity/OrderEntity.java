@@ -20,13 +20,15 @@ public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ono;
+
+    private String ocode;
     private String orderdate;
     private String deliverydate;
-    private String duedate;
-    private String opname;
+
+    private String pname;
     private int oquantity;
-    private int oprice;
-    private String ocompany;
+    private int pprice;
+    private String cpartnername;
     private String omanager;
     private String ostate;
     private String oetc;
@@ -36,6 +38,8 @@ public class OrderEntity {
     private String pcode;
     private String pcontent;
 
+    private Long cno;
+
     public void changeOrderdate(String orderdate){
         this.orderdate = orderdate;
     }
@@ -44,15 +48,12 @@ public class OrderEntity {
         this.deliverydate = deliverydate;
     }
     public void changeOquantity(int oquantity){
-        this.oquantity = oquantity;
-    } public void changeduedate(String duedate){
-        this.duedate = duedate;
-    } public void changeOpname(String opname){
-        this.opname = opname;
-    } public void changeOprice(int oprice){
-        this.oprice = oprice;
-    } public void changeOcompany(String ocompany){
-        this.ocompany = ocompany;
+        this.oquantity = oquantity;}  public void changePname(String pname){
+        this.pname = pname;
+    } public void changePprice(int pprice){
+        this.pprice = pprice;
+    } public void changeCpartnername(String cpartnername){
+        this.cpartnername = cpartnername;
     } public void changeOstate(String ostate){
         this.ostate = ostate;
     }
@@ -73,6 +74,6 @@ public class OrderEntity {
     public void changePcontent(String pcontent){
         this.pcontent = pcontent;
     }
-
+    public  void changeOcode(String ocode) {this.ocode=ocode;}
 
 }

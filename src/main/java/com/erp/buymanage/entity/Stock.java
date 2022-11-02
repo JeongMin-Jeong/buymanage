@@ -17,6 +17,7 @@ public class Stock extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sno;
 
+
     @Column(nullable = false)
     private String scode;
 
@@ -37,7 +38,9 @@ public class Stock extends BaseEntity{
 
     private int stock;
 
-    @Column(nullable = false)
+    private String requester;
+
+
     private String snote;
 
     public void changeCode(String scode) {
@@ -46,10 +49,11 @@ public class Stock extends BaseEntity{
     public void changeName(String sname) { this.sname = sname; }
     public void changeCate1(String scate1) { this.scate1 = scate1; }
     public void changeCate2(String scate2) { this.scate2 = scate2; }
-    public void changeIn(int sin) { this.sin = sin; }
-    public void changeOut(int sout) { this.sout = sout; }
+    public void changeIn(int sin) { this.sin += sin; }
+    public void changeOut(int sout) { this.sout += sout; }
     public void changeReturn(int sreturn) { this.sreturn = sreturn; }
-    public void changeStock(int Stock) { this.stock = stock; }
+    public void changeStock1(int sin) { this.stock = +sin; }
+    public void changeStock2(int sout) { this.stock -= sout; }
     public void changeNote(String snote) { this.snote = snote; }
 
 }
