@@ -106,7 +106,9 @@
                 <button th:if="${dto.ostate.toString().equals('구매발주')}" type="button" class="btn btn-warning" onclick="inspectionRegistOpenPopup('register');">검수등록</button>
                 <button th:if="${dto.ostate.toString().equals('검수진행')}" type="button" class="btn btn-warning" onclick="inspectionRegistOpenPopup('read');">검수보기</button>
                 <button th:if="${dto.ostate.toString().equals('입고처리')}" type="button" class="btn btn-warning" onclick="orderComplete('complete');">마감완료</button>
+
             </div><!-- card-body -->
         </div><!-- page card -->
+
     </th:block>
 </th:block>

@@ -9,7 +9,6 @@ import com.erp.buymanage.service.StockChartService;
 import com.erp.buymanage.service.StockService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,11 @@ public class StockController {
 
         log.info("(list)stockPageRequestDTO : " + stockPageRequestDTO);
 
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String sdate = formatter.format(now);
+
+        model.addAttribute("chart", stockChartService.chart(sdate));
         model.addAttribute("result", stockService.getList(stockPageRequestDTO));
     }
 
@@ -191,4 +197,15 @@ public class StockController {
 
         return "redirect:/stock/list";
     }
+
+    @GetMapping("/chartRegister")
+    public String chartRegister(RedirectAttributes redirectAttributes) {
+
+        stockChartService.chartRegister();
+
+        redirectAttributes.addFlashAttribute("msg", 1);
+
+        return "redirect:/stock/list";
+    }
+
 }
