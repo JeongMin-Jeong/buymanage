@@ -109,7 +109,7 @@
        	var height = 600;
        	var left = (window.screen.width / 2) - (width/2);
        	var top = (window.screen.height / 4);
-        var url = "/order/popup";
+        var url = "/order/popup?page=1&ctype1=%EA%B3%84%EC%95%BD%EC%99%84%EB%A3%8C&ctype2=&keyword=";
         var name = "계약선택 팝업"; // 팝업의 이름을 입력해줍니다.
        	//윈도우 속성 지정
        	var option = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=no, location=no, titlebar=yes';

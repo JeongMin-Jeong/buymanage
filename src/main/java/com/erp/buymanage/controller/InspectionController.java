@@ -63,10 +63,9 @@ public class InspectionController {
     public void read(long ono, @ModelAttribute("requestDTO") InspectionPageRequestDTO inspectionPageRequestDTO, Model model, RedirectAttributes redirectAttributes){
         log.info(">>>>> InspectionController (read,modify GetMapping)");
         InspectionDTO dto = service.read(ono);
+        OrderDTO orderDTO = orderService.read(ono);
         model.addAttribute("dto", dto);
-
-        OrderDTO orderDTO = new OrderDTO();
-        redirectAttributes.addFlashAttribute("orderDTO", orderDTO);
+        model.addAttribute("orderDTO", orderDTO);
     }
 
     @PostMapping("/modify")
