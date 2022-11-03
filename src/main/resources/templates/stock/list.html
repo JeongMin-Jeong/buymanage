@@ -105,6 +105,7 @@
                     <div style="float: right">
                         <button class="btn btn-outline-secondary stockchartBtn" type="button">리포트</button>
                         <button class="btn btn-outline-secondary stockOutputBtn" type="button">자재출고</button>
+                        <button th:if="${chart.isEmpty()}" class="btn btn-outline-secondary deadlineBtn" type="button">재고마감</button>
                         <!-- <button class="btn btn-outline-secondary stockRegistBtn" type="button" onclick="location.href='/stock/register';">자재등록</button> -->
                     </div>
 
@@ -141,7 +142,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div><!-- 신규등록완료시 뜨는 모달창 처리-->
+                    </div><!-- 등록, 삭제 시 뜨는 모달창 처리-->
 
                     <!-- 차트 모달-->
                     <div class="modal" tabindex="-1" role="dialog" id="chartModal">
@@ -187,7 +188,7 @@
                     </div>
                 </div><!-- 차트 모달 END -->
 
-                <!-- 모달 시작 -->
+                <!-- 자재출고 모달창 시작 -->
                 <div class="modal" tabindex="-1" role="dialog" id="omodal">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -429,6 +430,14 @@
 
                     });
                 })
+
+                    $(".deadlineBtn").click(function (){
+                        if(!confirm("재고마감을 진행하시겠습니까?")) {
+                            return;
+                        }
+                        location.href = '/stock/chartRegister';
+                    });
+
                 </script>
             </div>  <!-- 68line end -->
         </div>  <!-- 12line end -->

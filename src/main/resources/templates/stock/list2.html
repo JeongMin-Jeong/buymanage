@@ -51,6 +51,7 @@
 
         </div>  <!-- 69 line end -->
 
+        <!-- 하단 페이지 버튼 -->
         <ul class="pagination h-100 justify-content-center align-items-center">
 
           <li class="page-item " th:if="${result.prev}">
@@ -66,7 +67,7 @@
           <li class="page-item" th:if="${result.next}">
             <a class="page-link" th:href="@{/stock/list2(page= ${result.end + 1})}">Next</a>
           </li>
-        </ul>
+        </ul><!-- 하단 페이지 버튼 -->
 
       </div>  <!-- 68line end -->
 
@@ -110,22 +111,23 @@
 
         </div>  <!-- 69 line end -->
 
+        <!-- 하단 페이지 버튼 -->
         <ul class="pagination h-100 justify-content-center align-items-center">
 
-          <li class="page-item " th:if="${result.prev}">
-            <a class="page-link" th:href="@{/stock/list2(page= ${result.start -1})}" tabindex="-1">Previous</a>
+          <li class="page-item " th:if="${result2.prev}">
+            <a class="page-link" th:href="@{/stock/list2(page= ${result2.start -1})}" tabindex="-1">Previous</a>
           </li>
 
-          <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+          <li th:class=" 'page-item ' + ${result2.page == page?'active':''} " th:each="page: ${result2.pageList}">
             <a class="page-link" th:href="@{/stock/list2(page = ${page})}">
               [[${page}]]
             </a>
           </li>
 
-          <li class="page-item" th:if="${result.next}">
-            <a class="page-link" th:href="@{/stock/list2(page= ${result.end + 1})}">Next</a>
+          <li class="page-item" th:if="${result2.next}">
+            <a class="page-link" th:href="@{/stock/list2(page= ${result2.end + 1})}">Next</a>
           </li>
-        </ul>
+        </ul><!-- 하단 페이지 버튼 -->
 
       </div>  <!-- 68line end -->
 
@@ -150,9 +152,9 @@
           </div>
         </div>
       </div>
-    </div><!-- 신규등록완료시 뜨는 모달창 처리-->
+    </div><!-- 등록, 삭제 시 뜨는 모달창 처리-->
 
-    <!-- 모달 시작 -->
+    <!-- 자재입고 모달 시작 -->
     <div class="modal" tabindex="-1" role="dialog" id="imodal">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
