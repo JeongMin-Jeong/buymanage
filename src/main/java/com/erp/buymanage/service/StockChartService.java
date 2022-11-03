@@ -10,6 +10,10 @@ public interface StockChartService {
 
     List<StockChartDTO> getList2(String ym, String scode);
 
+    List<StockChartDTO> chart(String sdate);
+
+    void chartRegister();
+
     default StockChart dtoToEntity(StockChartDTO dto) {
         StockChart entity = StockChart.builder()
                 .cno(dto.getCno())

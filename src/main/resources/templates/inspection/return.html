@@ -3,8 +3,8 @@
 
 <th:block th:replace="~{/layout/popup :: setContent(~{this :: content})}">
     <th:block th:fragment="content">
-        <form id="registForm" th:action="@{/inspection/complete}" th:method="post">
-        <h1 class="h3 mb-2 text-gray-800">마감완료</h1>
+        <form id="registForm" th:action="@{/inspection/return}" th:method="post">
+        <h1 class="h3 mb-2 text-gray-800">반품완료</h1>
 
         <!-- page card -->
         <div class="card shadow mb-4">
@@ -53,7 +53,7 @@
             <!-- card-body -->
             <div class="card-body">
                 <div class="form-group">
-                    <button th:if="${orderDTO.ostate.toString().equals('입고처리')}" type="submit" class="btn btn-primary">마감완료</button>
+                    <button th:if="${orderDTO.ostate.toString().equals('검수진행')}" type="submit" class="btn btn-primary">반품완료</button>
                     <button type="button" class="btn btn-info" onclick="reloadclose();">닫기</button>
                 </div>
             </div>

@@ -4,7 +4,6 @@ import com.erp.buymanage.dto.InspectionDTO;
 import com.erp.buymanage.dto.InspectionPageRequestDTO;
 import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.entity.Inspection;
-import com.erp.buymanage.entity.Stock;
 import com.erp.buymanage.repository.InspectionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

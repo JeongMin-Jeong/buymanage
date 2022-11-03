@@ -89,11 +89,11 @@ public class OrderController {
         model.addAttribute("result", contractService.getList2(contractPageRequestDTO));
     }
 
-    @GetMapping("/list2")
-    public void list2(ContractPageRequestDTO contractPageRequestDTO, Model model){
-        log.info("(list2)contractPageRequestDTO : \" + contractPageRequestDTO");
-        model.addAttribute("result", contractService.getList2(contractPageRequestDTO));
-    }
+//    @GetMapping("/list2")
+//    public void list2(ContractPageRequestDTO contractPageRequestDTO, Model model){
+//        log.info("(list2)contractPageRequestDTO : \" + contractPageRequestDTO");
+//        model.addAttribute("result", contractService.getList2(contractPageRequestDTO));
+//    }
 
     @GetMapping("/chartmodal")
     @ResponseBody
