@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -175,6 +176,13 @@ public class OrderServiceImpl implements OrderService {
             entity.changeOstate(dto.getOstate());
             repository.save(entity);
         }
+    }
+
+    public void ostateCount1(OrderDTO dto) {
+        List<OrderEntity> results = repository.findByOstateContains("구매발주");
+
+
+
     }
 
 }
