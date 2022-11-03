@@ -1,5 +1,6 @@
 package com.erp.buymanage.controller;
 
+import com.erp.buymanage.dto.ProductImageDTO;
 import com.erp.buymanage.dto.ProductPageRequestDTO;
 import com.erp.buymanage.dto.ProductDTO;
 import com.erp.buymanage.security.dto.AuthMemberDTO;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/product")
@@ -44,6 +47,7 @@ public class ProductController {
         log.info(">>>>> ProductController (register PostMapping)");
 
         service.register(dto);
+        log.info(">>>>>>>>>> dto : " + dto);
         redirectAttributes.addFlashAttribute("pno", dto.getPno());
         return "redirect:/product/list";
     }
@@ -60,13 +64,16 @@ public class ProductController {
     public String modify(ProductDTO dto, @ModelAttribute("requestDTO") ProductPageRequestDTO productPageRequestDTO, RedirectAttributes redirectAttributes){
         log.info(">>>>> ProductController (modify PostMapping)");
 
-        ProductDTO newDto = service.read(dto.getPno());
-        newDto.setPno(dto.getPno()+1);
+        List<ProductImageDTO> imageDTOList = service.read(dto.getPno()).getImageDTOList();
+
+        ProductDTO newDto = new ProductDTO();
+        newDto.setPcode(dto.getPcode());
         newDto.setPname(dto.getPname());
         newDto.setPtype1(dto.getPtype1());
         newDto.setPtype2(dto.getPtype2());
         newDto.setPcontent(dto.getPcontent());
         newDto.setPetc(dto.getPetc());
+        newDto.setImageDTOList(imageDTOList);
         if(dto.getImageDTOList().size() != 0){
             newDto.setImageDTOList(dto.getImageDTOList());
         }
@@ -74,9 +81,9 @@ public class ProductController {
         service.remove(dto.getPno());
         service.register(newDto);
 
-        redirectAttributes.addAttribute("page", productPageRequestDTO.getPage());
-        redirectAttributes.addAttribute("pno", newDto.getPno());
-        return "redirect:/product/read";
+//        redirectAttributes.addAttribute("page", productPageRequestDTO.getPage());
+//        redirectAttributes.addAttribute("pno", newDtoPno);
+        return "redirect:/product/list";
     }
 
     @PostMapping("/remove")
