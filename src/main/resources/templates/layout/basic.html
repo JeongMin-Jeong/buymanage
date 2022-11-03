@@ -42,7 +42,7 @@
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
             <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
-            <div class="sidebar-brand-text mx-3">MIT-3 JJUL</div>
+            <div class="sidebar-brand-text mx-3">컴스클럽</div>
         </a>
 
         <!-- Heading -->
@@ -82,8 +82,8 @@
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <div sec:authorize="hasRole('STOCK')"><a class="collapse-item" href="/stock/list">자재출고</a></div>
                     <div sec:authorize="hasRole('STOCK')"><a class="collapse-item" href="/stock/list2">자재입고</a></div>
+                    <div sec:authorize="hasRole('STOCK')"><a class="collapse-item" href="/stock/list">자재출고</a></div>
                 </div>
             </div>
         </li>
