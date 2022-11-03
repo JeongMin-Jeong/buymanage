@@ -59,18 +59,21 @@ public class InspectionController {
         return "redirect:/inspection/read?ono="+ono;
     }
 
-    @GetMapping({"/read", "/modify"})
-    public void read(long ono, @ModelAttribute("requestDTO") InspectionPageRequestDTO inspectionPageRequestDTO, Model model){
+    @GetMapping({"/read", "/modify", "/complete"})
+    public void read(long ono, @ModelAttribute("requestDTO") InspectionPageRequestDTO inspectionPageRequestDTO, Model model, RedirectAttributes redirectAttributes){
         log.info(">>>>> InspectionController (read,modify GetMapping)");
         InspectionDTO dto = service.read(ono);
         model.addAttribute("dto", dto);
+
+        OrderDTO orderDTO = new OrderDTO();
+        redirectAttributes.addFlashAttribute("orderDTO", orderDTO);
     }
 
     @PostMapping("/modify")
     public String modify(InspectionDTO dto, RedirectAttributes redirectAttributes){
         log.info(">>>>> InspectionController(plan modify PostMapping)");
         service.modify(dto);
-        //redirectAttributes.addFlashAttribute("dto", dto);
+        redirectAttributes.addFlashAttribute("dto", dto);
 
         OrderDTO orderDTO = new OrderDTO();
         long ono = dto.getOno();
@@ -79,6 +82,21 @@ public class InspectionController {
         orderService.inputModify(orderDTO);
 
         return "redirect:/inspection/read?ono="+ono;
+    }
+
+    @PostMapping("/complete")
+    public String complete(InspectionDTO dto, RedirectAttributes redirectAttributes){
+        log.info(">>>>> InspectionController(order complete PostMapping)");
+        //service.modify(dto);
+
+        OrderDTO orderDTO = new OrderDTO();
+        long ono = dto.getOno();
+        orderDTO.setOno(ono);
+        orderDTO.setOstate("마감완료");
+        orderService.inputModify(orderDTO);
+        redirectAttributes.addFlashAttribute("orderDTO", orderDTO);
+
+        return "redirect:/inspection/complete?ono="+ono;
     }
 
 
