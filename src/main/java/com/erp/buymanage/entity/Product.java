@@ -36,7 +36,7 @@ public class Product extends BaseEntity{
     @Column(length = 255, nullable = false)
     private String petc; // 비고
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ProductImage> productImages = new HashSet<>();
 
     public void changePname(String pname){

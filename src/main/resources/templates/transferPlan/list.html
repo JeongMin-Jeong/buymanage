@@ -66,7 +66,6 @@
                         </thead>
                         <tbody>
                         <tr th:each="dto: ${result.dtoList}">
-<!--                            <td>[[${dto.tno}]]</td>-->
                             <td><input type="radio" name="radio" th:value="${dto.tno}"></td>
                             <th><a th:href="@{/transferPlan/read(tno=${dto.tno}, page=${result.page})}">[[${dto.pcode}]]</a></th>
                             <td>[[${dto.pname}]]</td>
