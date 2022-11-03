@@ -10,8 +10,8 @@
         <div class="card shadow mb-4">
             <!-- card-body -->
             <div class="card-body">
-                <input type="text" name="ono" th:value="${dto.ono}">
-                <input type="text" name="ono" th:value="${orderDTO.ostate}">
+                <input type="hidden" name="ono" th:value="${dto.ono}">
+                <input type="hidden" name="ostate" th:value="${orderDTO.ostate}">
                 <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">1차 검수</h6></div>
                 <div class="form-group">
                     <label>검수날짜</label><br/>
@@ -53,7 +53,7 @@
             <!-- card-body -->
             <div class="card-body">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">마감완료</button>
+                    <button th:if="${orderDTO.ostate.toString().equals('입고처리')}" type="submit" class="btn btn-primary">마감완료</button>
                     <button type="button" class="btn btn-info" onclick="reloadclose();">닫기</button>
                 </div>
             </div>

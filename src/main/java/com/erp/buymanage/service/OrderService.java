@@ -67,6 +67,4 @@ public interface OrderService {
     void modify(OrderDTO dto);
 
     void inputModify(OrderDTO dto);
-
-
 }
