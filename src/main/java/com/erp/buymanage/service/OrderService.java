@@ -14,7 +14,7 @@ public interface OrderService {
     PageResultDTO<OrderDTO, OrderEntity> getList2(OrderPageRequestDTO requestDTO);
     PageResultDTO<OrderDTO, OrderEntity> getList3(OrderPageRequestDTO requestDTO);
     OrderDTO read(Long ono);
-    OrderDTO read2(Long cno);
+    OrderDTO read2(Long cno, String ocode);
 
     default OrderEntity dtoToEntity(OrderDTO dto) {
         OrderEntity entity = OrderEntity.builder()

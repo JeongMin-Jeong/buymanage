@@ -12,6 +12,7 @@ import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository <OrderEntity, Long>, QuerydslPredicateExecutor<OrderEntity> {
 
+
     Optional<OrderEntity> findByCno(Long cno);
 
     Optional<OrderEntity> findByOstateAndOrderdate(String ostate, String orderdate);
@@ -20,5 +21,8 @@ public interface OrderRepository extends JpaRepository <OrderEntity, Long>, Quer
 
     @Query("SELECT o from OrderEntity o where o.ostate like '구매발주' and o.orderdate like : orderDate% ")
     List<OrderEntity> searchByorderDateStartsWith(@Param("orderDate") String orderDate);
+
+
+    Optional<OrderEntity> findByCnoAndOcode(Long cno, String ocode);
 
 }
