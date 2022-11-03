@@ -99,7 +99,6 @@ public class ContractController {
     @GetMapping("/tradeprint")
     public void tradeprint(Long cno, String ocode,  @ModelAttribute("requestDTO") ContractPageRequestDTO contractPageRequestDTO, Model model){
         log.info(">>>>> ContractController(tradeprint GetMapping)");
-
         ContractDTO dto = service.read(cno);
         OrderDTO dto2 = orderService.read2(cno, ocode);
         model.addAttribute("dto", dto);
