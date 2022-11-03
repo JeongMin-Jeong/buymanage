@@ -101,6 +101,9 @@ public class OrderController {
         return new ResponseEntity<>(orderChartService.getList(month, orderstate), HttpStatus.OK);
     }
 
+    public void ostatecount(Long count){
+
+    }
 }
 
 

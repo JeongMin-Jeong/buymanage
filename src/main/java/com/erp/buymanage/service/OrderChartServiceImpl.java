@@ -1,6 +1,7 @@
 package com.erp.buymanage.service;
 
 import com.erp.buymanage.dto.OrderChartDTO;
+import com.erp.buymanage.dto.OrderDTO;
 import com.erp.buymanage.dto.StockChartDTO;
 import com.erp.buymanage.entity.OrderChart;
 import com.erp.buymanage.entity.StockChart;
@@ -25,5 +26,17 @@ public class OrderChartServiceImpl implements OrderChartService {
         List<OrderChart> result = orderChartRepository.findAllByDateContainsAndOrderstate(month, orderstate);
 
         return result.stream().map(orderChart -> entityToDTO(orderChart)).collect(Collectors.toList());
+
+
     }
+    public void ostateCount(OrderDTO dto) {
+        Long count = orderChartRepository.countbyostateandorderdate(dto.getOstate(),dto.getOrderdate());
+
+
+
+
+
+    }
+
+
 }

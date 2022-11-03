@@ -2,6 +2,7 @@ package com.erp.buymanage.service;
 
 
 import com.erp.buymanage.dto.OrderChartDTO;
+import com.erp.buymanage.dto.OrderDTO;
 import com.erp.buymanage.dto.StockChartDTO;
 import com.erp.buymanage.entity.OrderChart;
 import com.erp.buymanage.entity.StockChart;
@@ -33,4 +34,5 @@ public interface OrderChartService {
         return dto;
     }
 
+    void ostateCount(OrderDTO dto);
 }

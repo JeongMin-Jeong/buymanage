@@ -11,5 +11,5 @@ public interface OrderChartRepository extends JpaRepository<OrderChart, Long>, Q
 
     List<OrderChart> findAllByDateContainsAndOrderstate(String month, String orderState);
 
-
+    Long countbyostateandorderdate(String ostate , String orderdate);
 }

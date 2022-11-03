@@ -178,8 +178,11 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public void ostateCount1(OrderDTO dto) {
-        List<OrderEntity> results = repository.findByOstateContains("구매발주");
+
+
+    public void ostateCount(OrderDTO dto) {
+       Long count = repository.countbyostateandorderdate(dto.getOstate(),dto.getOrderdate());
+
 
 
 

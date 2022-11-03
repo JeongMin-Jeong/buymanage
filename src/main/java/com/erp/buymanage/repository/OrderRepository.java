@@ -19,10 +19,11 @@ public interface OrderRepository extends JpaRepository <OrderEntity, Long>, Quer
 
     List<OrderEntity> findByOstateContains(String ostate);
 
-    @Query("SELECT o from OrderEntity o where o.ostate like '구매발주' and o.orderdate like : orderDate% ")
-    List<OrderEntity> searchByorderDateStartsWith(@Param("orderDate") String orderDate);
+//    @Query("SELECT o from OrderEntity o where o.ostate like '구매발주' and o.orderdate like : orderDate% ")
+//    List<OrderEntity> searchByorderDateStartsWith(@Param("orderDate") String orderDate);
 
 
     Optional<OrderEntity> findByCnoAndOcode(Long cno, String ocode);
 
+    Long countbyostateandorderdate(String ostate , String orderdate);
 }
