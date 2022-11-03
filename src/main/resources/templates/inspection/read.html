@@ -53,12 +53,18 @@
             <div class="card-body">
                 <div class="form-group">
                     <a th:href="@{/inspection/modify(ono=${dto.ono})}"><button type="button" class="btn btn-primary">검수진행</button></a>
-                    <button type="button" class="btn btn-info" onclick="self.close();">닫기</button>
+                    <button type="button" class="btn btn-info" onclick="reloadclose();">닫기</button>
                 </div>
             </div>
             <!-- card-body -->
         </div>
         <!-- page card -->
+        <script th:inline="javascript">
+        function reloadclose(){
+            window.opener.location.reload();
+            self.close();
+        }
+        </script>
 
         </form>
     </th:block>
