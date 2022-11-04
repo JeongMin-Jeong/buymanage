@@ -3,26 +3,25 @@
 
 <th:block th:replace="~{/layout/popup :: setContent(~{this :: content})}">
     <th:block th:fragment="content">
-        <form id="registForm" th:action="@{/inspection/read}" th:method="post">
-        <h1 class="h3 mb-2 text-gray-800">검수계획 보기</h1>
+        <form id="registForm" th:action="@{/inspection/return}" th:method="post">
+        <h1 class="h3 mb-2 text-gray-800">반품완료</h1>
 
         <!-- page card -->
         <div class="card shadow mb-4">
             <!-- card-body -->
             <div class="card-body">
                 <input type="hidden" name="ono" th:value="${dto.ono}">
+                <input type="hidden" name="ostate" th:value="${orderDTO.ostate}">
                 <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">1차 검수</h6></div>
                 <div class="form-group">
                     <label>검수날짜</label><br/>
                     <input type="date" class="form-control" name="inspection_date1" th:value="${dto.inspection_date1}" readonly>
                     <label>검수담당자</label><br/>
                     <input type="text" class="form-control" name="inspection_prime1" th:value="${dto.inspection_prime1}" readonly>
-                    <!--
                     <label>검수진척도</label>
                     <input type="text" class="form-control" name="inspection_degree1" th:value="${dto.inspection_degree1}" readonly>
                     <label>검수내용</label>
-                    <textarea class="form-control" rows="2" name="inspection_etc1" readonly>[[${dto.inspection_etc1}]]</textarea>
-                    -->
+                    <input type="text" class="form-control" name="inspection_etc1" th:value="${dto.inspection_etc1}" readonly>
                 </div>
             </div>
             <!-- card-body -->
@@ -39,12 +38,10 @@
                     <input type="date" class="form-control" name="inspection_date2" th:value="${dto.inspection_date2}" readonly>
                     <label>검수담당자</label><br/>
                     <input type="text" class="form-control" name="inspection_prime2" th:value="${dto.inspection_prime2}" readonly>
-                    <!--
                     <label>검수진척도</label>
                     <input type="text" class="form-control" name="inspection_degree2" th:value="${dto.inspection_degree2}" readonly>
                     <label>검수내용</label>
-                    <textarea class="form-control" rows="2" name="inspection_etc2" readonly>[[${dto.inspection_etc2}]]</textarea>
-                    -->
+                    <input type="text" class="form-control" name="inspection_etc2" th:value="${dto.inspection_etc2}" readonly>
                 </div>
             </div>
             <!-- card-body -->
@@ -56,8 +53,7 @@
             <!-- card-body -->
             <div class="card-body">
                 <div class="form-group">
-                    <a th:href="@{/inspection/modify(ono=${dto.ono})}"><button type="button" class="btn btn-primary">검수진행</button></a>
-                    <a th:href="@{/inspection/return(ono=${dto.ono})}"><button type="button" class="btn btn-primary">반품진행</button></a>
+                    <button th:if="${orderDTO.ostate.toString().equals('검수진행')}" type="submit" class="btn btn-primary">반품완료</button>
                     <button type="button" class="btn btn-info" onclick="reloadclose();">닫기</button>
                 </div>
             </div>

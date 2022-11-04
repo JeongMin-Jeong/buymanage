@@ -69,7 +69,6 @@
             <div class="card-body">
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">검수완료</button>
-                    <a th:href="@{/inspection/return(ono=${dto.ono})}"><button type="button" class="btn btn-primary">반품완료</button></a>
                     <a th:href="@{/inspection/read(ono=${dto.ono})}"><button type="button" class="btn btn-info">검수계획</button></a>
                     <button type="button" class="btn btn-info" onclick="self.close();">닫기</button>
                 </div>
