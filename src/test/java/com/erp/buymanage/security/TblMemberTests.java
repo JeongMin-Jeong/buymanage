@@ -45,7 +45,7 @@ public class TblMemberTests {
                 tblMember.addMemberRole(TblMemberRole.ORDER);
                 tblMember.addMemberRole(TblMemberRole.MANAGER);
             }
-            if(i == 99){//자재닼당자
+            if(i == 99){//자재담당자
                 tblMember.addMemberRole(TblMemberRole.PRODUCT);
                 tblMember.addMemberRole(TblMemberRole.STOCK);
                 tblMember.addMemberRole(TblMemberRole.MANAGER);
