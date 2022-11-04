@@ -17,12 +17,10 @@
                     <input type="date" class="form-control" name="inspection_date1" th:value="${dto.inspection_date1}" readonly>
                     <label>검수담당자</label><br/>
                     <input type="text" class="form-control" name="inspection_prime1" th:value="${dto.inspection_prime1}" readonly>
-                    <!--
                     <label>검수진척도</label>
                     <input type="text" class="form-control" name="inspection_degree1" th:value="${dto.inspection_degree1}" readonly>
                     <label>검수내용</label>
-                    <textarea class="form-control" rows="2" name="inspection_etc1" readonly>[[${dto.inspection_etc1}]]</textarea>
-                    -->
+                    <input type="text" class="form-control" name="inspection_etc1" id="inspection_etc1" th:value="${dto.inspection_etc1}" readonly>
                 </div>
             </div>
             <!-- card-body -->
@@ -39,12 +37,10 @@
                     <input type="date" class="form-control" name="inspection_date2" th:value="${dto.inspection_date2}" readonly>
                     <label>검수담당자</label><br/>
                     <input type="text" class="form-control" name="inspection_prime2" th:value="${dto.inspection_prime2}" readonly>
-                    <!--
                     <label>검수진척도</label>
                     <input type="text" class="form-control" name="inspection_degree2" th:value="${dto.inspection_degree2}" readonly>
                     <label>검수내용</label>
-                    <textarea class="form-control" rows="2" name="inspection_etc2" readonly>[[${dto.inspection_etc2}]]</textarea>
-                    -->
+                    <input type="text" class="form-control" name="inspection_etc2" id="inspection_etc2" th:value="${dto.inspection_etc2}" readonly>
                 </div>
             </div>
             <!-- card-body -->
@@ -56,9 +52,9 @@
             <!-- card-body -->
             <div class="card-body">
                 <div class="form-group">
-                    <a th:href="@{/inspection/modify(ono=${dto.ono})}"><button type="button" class="btn btn-warning">검수진행</button></a>
-                    <a th:href="@{/inspection/return(ono=${dto.ono})}"><button type="button" class="btn btn-danger">반품진행</button></a>
-                    <button type="button" class="btn btn-info" onclick="reloadclose();">닫기</button>
+                    <a th:href="@{/inspection/modify(ono=${dto.ono})}"><button th:if="${orderDTO.ostate.toString().equals('검수진행')}" type="button" class="btn btn-warning">검수진행</button></a>
+                    <a th:href="@{/inspection/return(ono=${dto.ono})}"><button th:if="${orderDTO.ostate.toString().equals('검수진행')}" type="button" class="btn btn-danger">반품진행</button></a>
+                    <button type="button" class="btn btn-info" onclick="reloadclose()">닫기</button>
                 </div>
             </div>
             <!-- card-body -->
@@ -70,6 +66,7 @@
             self.close();
         }
         </script>
+
 
         </form>
     </th:block>
