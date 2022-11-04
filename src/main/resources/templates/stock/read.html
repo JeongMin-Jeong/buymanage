@@ -63,15 +63,15 @@
 
 
     <a th:href="@{/stock/modify(sno = ${dto.sno}, page=${requestDTO.page}, type1 = ${requestDTO.type1}, type2 = ${requestDTO.type2}, type3 = ${requestDTO.type3}, keyword = ${requestDTO.keyword})}">
-      <button type="button" class="btn btn-outline-secondary readModifyBtn">수정</button>
+      <button type="button" class="btn btn-primary readModifyBtn">수정</button>
     </a>
 
     <a th:href="@{/stock/list(page=${requestDTO.page}, type1 = ${requestDTO.type1}, type2 = ${requestDTO.type2}, type3 = ${requestDTO.type3}, keyword = ${requestDTO.keyword})}">
-      <button type="button" class="btn btn-outline-secondary readListBtn">목록</button>
+      <button type="button" class="btn btn-info readListBtn">목록</button>
     </a>
 
 <!--        <a th:href="@{/stock/remove(page=${requestDTO.page})}">-->
-    <button type="button" class="btn btn-outline-secondary readRemoveBtn">삭제</button>
+    <button type="button" class="btn btn-danger readRemoveBtn">삭제</button>
     <!--    </a>-->
 
     <!--<div class="modal" tabindex="-1" role="dialog">
