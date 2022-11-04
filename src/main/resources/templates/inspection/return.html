@@ -53,20 +53,15 @@
             <!-- card-body -->
             <div class="card-body">
                 <div class="form-group">
-                    <button th:if="${orderDTO.ostate.toString().equals('검수진행')}" type="submit" class="btn btn-primary">반품완료</button>
+                    <button th:if="${orderDTO.ostate.toString().equals('검수진행')}" type="button" class="btn btn-primary" onclick="inspectionReturnRegSubmitClose();">반품완료</button>
+                    <a th:href="@{/inspection/read(ono=${dto.ono})}"><button type="button" class="btn btn-primary">반품취소</button></a>
                     <button type="button" class="btn btn-info" onclick="reloadclose();">닫기</button>
                 </div>
             </div>
             <!-- card-body -->
         </div>
         <!-- page card -->
-        <script th:inline="javascript">
-        function reloadclose(){
-            window.opener.location.reload();
-            self.close();
-        }
-        </script>
-
         </form>
+
     </th:block>
 </th:block>

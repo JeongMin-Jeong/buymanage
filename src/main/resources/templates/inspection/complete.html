@@ -53,7 +53,7 @@
             <!-- card-body -->
             <div class="card-body">
                 <div class="form-group">
-                    <button th:if="${orderDTO.ostate.toString().equals('입고처리')}" type="submit" class="btn btn-primary">마감완료</button>
+                    <button th:if="${orderDTO.ostate.toString().equals('입고처리')}" type="button" class="btn btn-primary" onclick="inspectionCompleteRegSubmitClose();">마감완료</button>
                     <button type="button" class="btn btn-info" onclick="reloadclose();">닫기</button>
                 </div>
             </div>
