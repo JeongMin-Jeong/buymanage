@@ -56,8 +56,8 @@
             <!-- card-body -->
             <div class="card-body">
                 <div class="form-group">
-                    <a th:href="@{/inspection/modify(ono=${dto.ono})}"><button type="button" class="btn btn-primary">검수진행</button></a>
-                    <a th:href="@{/inspection/return(ono=${dto.ono})}"><button type="button" class="btn btn-primary">반품진행</button></a>
+                    <a th:href="@{/inspection/modify(ono=${dto.ono})}"><button type="button" class="btn btn-warning">검수진행</button></a>
+                    <a th:href="@{/inspection/return(ono=${dto.ono})}"><button type="button" class="btn btn-danger">반품진행</button></a>
                     <button type="button" class="btn btn-info" onclick="reloadclose();">닫기</button>
                 </div>
             </div>
