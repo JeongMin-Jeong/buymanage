@@ -254,8 +254,8 @@
         setTimeout(function () {
             alert("검수계획 등록 되었습니다.");
             window.opener.location.reload();
-            window.open('', '_self').close();
-        }, 100);
+            self.close();
+        }, 10);
     }
 
     //검수완료클릭 submit
@@ -264,8 +264,8 @@
         setTimeout(function () {
             alert("검수완료 되었습니다.");
             window.opener.location.reload();
-            window.open('', '_self').close();
-        }, 100);
+            self.close();
+        }, 10);
     }
 
     //검수 반품완료클릭 submit
@@ -274,8 +274,8 @@
         setTimeout(function () {
             alert("반품완료 되었습니다.");
             window.opener.location.reload();
-            window.open('', '_self').close();
-        }, 100);
+            self.close();
+        }, 10);
     }
 
     //발주 마감완료 클릭 submit
@@ -284,8 +284,8 @@
         setTimeout(function () {
             alert("발주 마감완료 되었습니다.");
             window.opener.location.reload();
-            window.open('', '_self').close();
-        }, 100);
+            self.close();
+        }, 10);
     }
 
     //검수진척도 셀렉트값 선택
