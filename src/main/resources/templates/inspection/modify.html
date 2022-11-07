@@ -68,30 +68,16 @@
             <!-- card-body -->
             <div class="card-body">
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">검수완료</button>
-                    <a th:href="@{/inspection/return(ono=${dto.ono})}"><button type="button" class="btn btn-primary">반품완료</button></a>
-                    <a th:href="@{/inspection/read(ono=${dto.ono})}"><button type="button" class="btn btn-info">검수계획</button></a>
-                    <button type="button" class="btn btn-info" onclick="self.close();">닫기</button>
+                    <button type="button" class="btn btn-primary" onclick="inspectionCompleteSubmitClose();">검수완료</button>
+                    <a th:href="@{/inspection/read(ono=${dto.ono})}"><button type="button" class="btn btn-primary">검수취소</button></a>
+                    <button type="button" class="btn btn-info" onclick="reloadclose();">닫기</button>
                 </div>
             </div>
             <!-- card-body -->
         </div>
         <!-- page card -->
-
-            <script th:inline="javascript">
-            function changeselect1(value){
-                document.getElementById('inspection_degree1').value = value;
-                document.getElementById('inspection_etc1').value = value + "% 검수완료";
-            }
-            function changeselect2(value){
-                document.getElementById('inspection_degree2').value = value;
-                var x = Number(document.getElementById('inspection_degree1').value);
-                var y = Number(document.getElementById('inspection_degree2').value);
-                var result =  x + y;
-                document.getElementById('inspection_etc2').value = result + "% 검수완료";
-            }
-            </script>
-
         </form>
+
+
     </th:block>
 </th:block>

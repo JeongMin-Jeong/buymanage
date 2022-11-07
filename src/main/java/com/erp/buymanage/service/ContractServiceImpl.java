@@ -69,7 +69,7 @@ public class ContractServiceImpl implements ContractService{
         BooleanBuilder conditionBuilder = new BooleanBuilder();
 
         if(ctype1 != null && ctype2 != null) {
-            if (ctype2.contains("cc")) {
+            if (ctype2.equals("cc")) {
                 conditionBuilder.and(qContract.ccode.contains(keyword));
             }
             if (ctype2.equals("pc")) {
@@ -78,12 +78,12 @@ public class ContractServiceImpl implements ContractService{
             if (ctype2.equals("pn")) {
                 conditionBuilder.and(qContract.pname.contains(keyword));
             }
-            if (ctype2.contains("cp")) {
+            if (ctype2.equals("cp")) {
                 conditionBuilder.and(qContract.cpartnername.contains(keyword));
             }
             conditionBuilder.and(qContract.cstatus.eq(ctype1));
         } else if (ctype1 == null && ctype2 != null) {
-            if (ctype2.contains("cc")) {
+            if (ctype2.equals("cc")) {
                 conditionBuilder.and(qContract.ccode.contains(keyword));
             }
             if (ctype2.equals("pc")) {
@@ -92,7 +92,7 @@ public class ContractServiceImpl implements ContractService{
             if (ctype2.equals("pn")) {
                 conditionBuilder.and(qContract.pname.contains(keyword));
             }
-            if (ctype2.contains("cp")) {
+            if (ctype2.equals("cp")) {
                 conditionBuilder.and(qContract.cpartnername.contains(keyword));
             }
         } else if (ctype1 != null && ctype2 == null) {

@@ -6,7 +6,7 @@
 
         <!-- Begin Page Content -->
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">계약정보 목록보기</h1>
+        <h1 class="h3 mb-2 text-gray-800">계약관리</h1>
         <!-- page card -->
         <div class="card shadow mb-4">
 
@@ -27,7 +27,6 @@
                                     <div class="input-group-prepend">
                                         <select class="form-select" name="ctype1" style="height:50px;">
                                             <option value="" th:selected="${contractPageRequestDTO.ctype1 == null}">----------------분류선택----------------</option>
-                                            <option value="신규계약" th:selected="${contractPageRequestDTO.ctype1 == '신규계약'}">신규계약</option>
                                             <option value="계약완료" th:selected="${contractPageRequestDTO.ctype1 == '계약완료'}">계약완료</option>
                                             <option value="계약종료" th:selected="${contractPageRequestDTO.ctype1 == '계약종료'}">계약종료</option>
                                         </select>&nbsp;

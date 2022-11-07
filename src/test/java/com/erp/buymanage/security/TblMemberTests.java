@@ -35,23 +35,22 @@ public class TblMemberTests {
                     .build();
             //default role
             tblMember.addMemberRole(TblMemberRole.USER);
-            if(i == 96){
+            if(i == 97){ //조달담당자
                 tblMember.addMemberRole(TblMemberRole.PRODUCT);
-                tblMember.addMemberRole(TblMemberRole.MANAGER);
-            }
-            if(i == 97){
                 tblMember.addMemberRole(TblMemberRole.CONTRACT);
                 tblMember.addMemberRole(TblMemberRole.MANAGER);
             }
-            if(i == 98){
+            if(i == 98){//발주담당자
+                tblMember.addMemberRole(TblMemberRole.CONTRACT);
                 tblMember.addMemberRole(TblMemberRole.ORDER);
                 tblMember.addMemberRole(TblMemberRole.MANAGER);
             }
-            if(i == 99){
+            if(i == 99){//자재담당자
+                tblMember.addMemberRole(TblMemberRole.PRODUCT);
                 tblMember.addMemberRole(TblMemberRole.STOCK);
                 tblMember.addMemberRole(TblMemberRole.MANAGER);
             }
-            if(i == 100){
+            if(i == 100){//관리자
                 tblMember.addMemberRole(TblMemberRole.PRODUCT);
                 tblMember.addMemberRole(TblMemberRole.CONTRACT);
                 tblMember.addMemberRole(TblMemberRole.ORDER);

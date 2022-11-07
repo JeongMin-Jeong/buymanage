@@ -109,7 +109,7 @@
        	var height = 600;
        	var left = (window.screen.width / 2) - (width/2);
        	var top = (window.screen.height / 4);
-        var url = "/order/popup";
+        var url = "/order/popup?page=1&ctype1=%EA%B3%84%EC%95%BD%EC%99%84%EB%A3%8C&ctype2=&keyword=";
         var name = "계약선택 팝업"; // 팝업의 이름을 입력해줍니다.
        	//윈도우 속성 지정
        	var option = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=no, location=no, titlebar=yes';
@@ -232,4 +232,126 @@
         //윈도우 속성 지정
         var option = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=no, location=no, titlebar=yes';
         window.open(url, name, option); // 새로운 창이 뜨면서 팝업이 생성됩니다.
+    }
+
+    function orderComplete(mode){
+        var width = 1200;
+        var height = 600;
+        var left = (window.screen.width / 2) - (width/2);
+        var top = (window.screen.height / 4);
+        var ono = document.getElementById('ono').value;
+        var mode = mode;
+        var url = "/inspection/"+mode+"?ono="+ono;
+        var name = "검수정보 등록"; // 팝업의 이름을 입력해줍니다.
+        //윈도우 속성 지정
+        var option = 'width='+width+', height='+height+', left='+left+', top='+top+', scrollbars=yes, status=yes, resizable=no, location=no, titlebar=yes';
+        window.open(url, name, option); // 새로운 창이 뜨면서 팝업이 생성됩니다.
+    }
+
+    //검수계획등록 submit
+    function inspectionPlanRegSubmitClose() {
+        // $('#registForm').submit();
+        // setTimeout(function () {
+        //     alert("검수계획 등록 되었습니다.");
+        //     window.opener.location.reload();
+        //     self.close();
+        // }, 10);
+        var params = $("#registForm").serialize();
+        $.ajax({
+            type: "POST",
+            url : '/inspection/register',
+            data : params,
+            success : function(){
+                alert("검수계획 등록 되었습니다.");
+                window.opener.location.reload();
+                self.close();
+                //window.close();
+            }
+        });
+    }
+
+    //검수완료클릭 submit
+    function inspectionCompleteSubmitClose() {
+        // $('#registForm').submit();
+        // setTimeout(function () {
+        //     alert("검수완료 되었습니다.");
+        //     window.opener.location.reload();
+        //     self.close();
+        // }, 10);
+        var params = $("#registForm").serialize();
+        $.ajax({
+            type: "POST",
+            url : '/inspection/modify',
+            data : params,
+            success : function(){
+                alert("검수완료 되었습니다.");
+                window.opener.location.reload();
+                self.close();
+                //window.close();
+            }
+        });
+    }
+
+    //검수 반품완료클릭 submit
+    function inspectionReturnRegSubmitClose() {
+        // $('#registForm').submit();
+        // setTimeout(function () {
+        //     alert("반품완료 되었습니다.");
+        //     window.opener.location.reload();
+        //     self.close();
+        // }, 10);
+        var params = $("#registForm").serialize();
+        $.ajax({
+            type: "POST",
+            url : '/inspection/return',
+            data : params,
+            success : function(){
+                alert("반품완료 되었습니다.");
+                window.opener.location.reload();
+                self.close();
+               //window.close();
+            }
+        });
+    }
+
+    //발주 마감완료 클릭 submit
+    function inspectionCompleteRegSubmitClose() {
+        // $('#registForm').submit();
+        // setTimeout(function () {
+        //     alert("발주 마감완료 되었습니다.");
+        //     window.opener.location.reload();
+        //     self.close();
+        // }, 10);
+        var params = $("#registForm").serialize();
+        $.ajax({
+            type: "POST",
+            url : '/inspection/complete',
+            data : params,
+            success : function(){
+                alert("발주 마감완료 되었습니다.");
+                window.opener.location.reload();
+                self.close();
+                //window.close();
+            }
+        });
+
+    }
+
+    //검수진척도 셀렉트값 선택
+    function changeselect1(value){
+        document.getElementById('inspection_degree1').value = value;
+        document.getElementById('inspection_etc1').value = value + "% 검수완료";
+    }
+    function changeselect2(value){
+        document.getElementById('inspection_degree2').value = value;
+        var x = Number(document.getElementById('inspection_degree1').value);
+        var y = Number(document.getElementById('inspection_degree2').value);
+        var result =  x + y;
+        document.getElementById('inspection_etc2').value = result + "% 검수완료";
+    }
+
+    //팝업창 닫기버튼 클릭시 리로드
+    function reloadclose(){
+        window.opener.location.reload();
+        self.close();
     }
