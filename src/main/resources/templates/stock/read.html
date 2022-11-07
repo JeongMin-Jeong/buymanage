@@ -5,7 +5,7 @@
 
   <th:block th:fragment="content">
 
-    <h1 class="mt-4">자재관리 상세보기</h1>
+    <h1 class="mt-4">자재정보 상세보기</h1>
 
     <form action="/stock/modify" method="post">
       <input type="hidden" name="sno" th:value="${dto.sno}">
@@ -108,7 +108,9 @@
       var actionForm = $("form");
 
       $(".readRemoveBtn").click(function (){
-
+        if(!confirm("삭제하시겠습니까?")) {
+          return;
+        }
         actionForm
                 .attr("action", "/stock/remove")
                 .attr("method", "post");
