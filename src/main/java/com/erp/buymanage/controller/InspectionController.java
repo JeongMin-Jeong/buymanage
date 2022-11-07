@@ -69,7 +69,7 @@ public class InspectionController {
     }
 
     @PostMapping("/modify")
-    public void modify(InspectionDTO dto, RedirectAttributes redirectAttributes){
+    public String modify(InspectionDTO dto, RedirectAttributes redirectAttributes){
         log.info(">>>>> InspectionController(plan modify PostMapping)");
         service.modify(dto);
 
@@ -78,35 +78,43 @@ public class InspectionController {
         orderDTO.setOno(ono);
         orderDTO.setOstate("검수완료");
         orderService.inputModify(orderDTO);
+
         redirectAttributes.addFlashAttribute("orderDTO", orderDTO);
         //return "redirect:/inspection/return?ono="+ono;
+        return "redirect:/inspection/read?ono="+ono;
     }
 
     @PostMapping("/return")
-    public void orderReturn(InspectionDTO dto, RedirectAttributes redirectAttributes){
+    public String orderReturn(InspectionDTO dto, RedirectAttributes redirectAttributes){
     //public void orderReturn(InspectionDTO dto){
         log.info(">>>>> InspectionController(order return PostMapping)");
         //service.modify(dto);
+
         OrderDTO orderDTO = new OrderDTO();
         long ono = dto.getOno();
         orderDTO.setOno(ono);
         orderDTO.setOstate("반품완료");
         orderService.inputModify(orderDTO);
+
         redirectAttributes.addFlashAttribute("orderDTO", orderDTO);
         //return "redirect:/inspection/return?ono="+ono;
+        return "redirect:/inspection/read?ono="+ono;
     }
 
     @PostMapping("/complete")
-    public void complete(InspectionDTO dto, RedirectAttributes redirectAttributes){
+    public String complete(InspectionDTO dto, RedirectAttributes redirectAttributes){
     //public void complete(InspectionDTO dto){
         log.info(">>>>> InspectionController(order complete PostMapping)");
         //service.modify(dto);
+
         OrderDTO orderDTO = new OrderDTO();
         long ono = dto.getOno();
         orderDTO.setOno(ono);
         orderDTO.setOstate("마감완료");
         orderService.inputModify(orderDTO);
+
         redirectAttributes.addFlashAttribute("orderDTO", orderDTO);
+        return "redirect:/inspection/read?ono="+ono;
         //return "redirect:/inspection/complete?ono="+ono;
     }
 
