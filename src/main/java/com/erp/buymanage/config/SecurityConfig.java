@@ -1,11 +1,13 @@
 package com.erp.buymanage.config;
 
 import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 //import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -106,6 +108,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/") // 로그아웃 성공 시 "/"으로 이동; //로그아웃처리
         ;
 
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer(){
+        //Static resource log ignore
+        log.info("- web configure -------------------------------------------------------");
+        return (web -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations()));
     }
 
 //    더이상 사용않음..
