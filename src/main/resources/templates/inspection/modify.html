@@ -80,6 +80,19 @@
             <!-- card-body -->
             <div class="card-body">
                 <div class="form-group">
+                    <label>납품진척도 : ((1차%+2차%)/2) %</label>
+                    <input type="text" class="form-control" name="inspection_etc3" id="inspection_etc3" readonly>
+                </div>
+            </div>
+            <!-- card-body -->
+        </div>
+        <!-- page card -->
+
+        <!-- page card -->
+        <div class="card shadow mb-4">
+            <!-- card-body -->
+            <div class="card-body">
+                <div class="form-group">
                     <button type="button" id="inspection_complete_btn" class="btn btn-primary" onclick="inspectionCompleteSubmitClose();" disabled>검수완료</button>
                     <a th:href="@{/inspection/read(ono=${dto.ono})}"><button type="button" class="btn btn-primary">검수취소</button></a>
                     <button type="button" class="btn btn-info" onclick="reloadclose();">닫기</button>
