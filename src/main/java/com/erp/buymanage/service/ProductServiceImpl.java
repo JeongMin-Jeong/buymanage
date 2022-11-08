@@ -107,13 +107,12 @@ public class ProductServiceImpl implements ProductService{
         }
         else if (ptype1 != null && ptype2 == null && ptype3 != null) {
             if (ptype3.contains("pc")) {
-                conditionBuilder.and(qProduct.ptype1.eq(ptype1));
                 conditionBuilder.and(qProduct.pcode.contains(keyword));
             }
             if (ptype3.equals("pn")) {
-                conditionBuilder.and(qProduct.ptype1.eq(ptype1));
                 conditionBuilder.and(qProduct.pname.contains(keyword));
             }
+            conditionBuilder.and(qProduct.ptype1.eq(ptype1));
         }
         else if (ptype1 != null && ptype2 == null && ptype3 == null) {
             conditionBuilder.and(qProduct.ptype1.eq(ptype1));

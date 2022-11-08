@@ -57,7 +57,7 @@
             <!-- card-body -->
             <div class="card-body">
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary" onclick="submitclose();">계획등록</button>
+                    <button type="button" class="btn btn-primary" onclick="inspectionPlanRegSubmitClose();">계획등록</button>
                     <button type="button" class="btn btn-info" onclick="self.close();">닫기</button>
                 </div>
             </div>
@@ -65,12 +65,6 @@
         </div>
         <!-- page card -->
         </form>
-        <script th:inline="javascript">
-        function submitclose() {
-            $('#registForm').submit();
-            alert("검수계획 등록 되었습니다.");
-        }
-        </script>
 
     </th:block>
 </th:block>
