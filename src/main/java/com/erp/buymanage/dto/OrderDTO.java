@@ -42,6 +42,15 @@ public class OrderDTO
 
     private String inspectionstate;
 
+    @Builder
+    public OrderDTO(String ocode, String orderdate, String ostate ) {
+
+        this.ocode=ocode;
+        this.orderdate=orderdate;
+        this.ostate=ostate;
+
+    }
+
 //    @QueryProjection
 //    public OrderDTO(int ono, String orderdate, String deliverydate, String opname, int oquantity, int oprice, String ocompany, String omanager,
 //                    String ostate,String oetc) {

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/popup :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <!-- Begin Page Content -->
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">&nbsp;</h1>
+
+        <!-- page card -->
+        <div class="card shadow mb-4">
+
+            <!-- card-header -->
+            <div class="card-header py-3"></div>
+            <!-- card-body -->
+            <div class="card-body">
+                <button class="btn btn-outline-secondary closeBtn" type="button" onclick="self.opener=self; self.close();">닫기</button>
+                   <canvas id="myChart ">
+
+
+                   </canvas>
+
+                </div>
+                <!-- <div class="table-responsive"> -->
+            </div>
+            <!-- card-body -->
+
+
+        </div>
+        <!-- page card -->
+        <!-- End Page Content -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+
+        <script th:inline="javascript">
+            var paymentMonths = /*[[${paymentMonth}]]*/
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    new Chart(document.getElementById('myChart'), v_config);
+                });
+
+            let labels = [];
+            let amounts = [];
+            let members = [];
+
+            for(let pm of paymentMonths){
+                labels.push(pm.paymentMonth);
+                amounts.push(pm.sumAmount);
+                members.push(pm.cntMember);
+            }
+
+            const v_data = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: '구매발주',
+                        data: amounts,
+                        borderColor: '#36a2eb',
+                        backgroundColor: '#36a2eb',
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: '마감완료',
+                        data: members,
+                        borderColor: '#ffb0c1',
+                        backgroundColor: '#ffb0c1',
+                        yAxisID: 'y1',
+                        type: 'bar'
+                    }
+                ]
+            };
+
+            const v_config = {
+                type: 'line',
+                data: v_data,
+                options: {
+                    interaction: {
+                        intersect: false,
+                        mode: 'index',
+                    },
+
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+
+                            suggestedMin: 0,
+                            suggestedMax: 1000000,
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+
+                            suggestedMin: 0,
+                            suggestedMax: 20,
+                            // grid line settings
+                            grid: {
+                                // only want the grid lines for one axis to show up
+                                drawOnChartArea: false,
+                            }
+                        }
+                    }
+                }
+            };
+        </script>
+    </th:block>
+</th:block>

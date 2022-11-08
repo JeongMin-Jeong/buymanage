@@ -118,7 +118,7 @@
                         </ul>
 
                         <div style="float: right">
-                            <button class="btn btn-outline-secondary stockchartBtn" type="button" onclick="drawChart()">리포트</button>
+                            <button class="btn btn-outline-secondary orderchartBtn" type="button">리포트</button>
                             <a href="/order/register" class="btn btn-outline-secondary registBtn" type="button">발주등록</a>
                         </div>
 
@@ -141,9 +141,67 @@
                                 </div>
                             </div>
                         </div><!-- 신규등록완료시 뜨는 모달창 처리-->
+                        <div class="modal" tabindex="-1" role="dialog" id="chartModal">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
 
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">발주 리포트</h5>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" name="chartOcode" id="chartOcode">
+
+                                        <select name="YEAR" id="YEAR" title="년도" class="select w80"></select>
+                                        <select name="selectMonth" id="selectMonth">
+                                            <option value="" selected>월</option>
+                                            <option value="01">1월</option>
+                                            <option value="02">2월</option>
+                                            <option value="03">3월</option>
+                                            <option value="04">4월</option>
+                                            <option value="05">5월</option>
+                                            <option value="06">6월</option>
+                                            <option value="07">7월</option>
+                                            <option value="08">8월</option>
+                                            <option value="09">9월</option>
+                                            <option value="10">10월</option>
+                                            <option value="11">11월</option>
+                                            <option value="12">12월</option>
+                                        </select>
+
+                                        <button type="button" id="btn">확인</button>
+                                        <!--<div id="graph" style="width: 80%; margin: 30px;">-->
+                                        <div>
+                                            <canvas id="canvas" height="350" width="600"></canvas>
+                                        </div>
+                                        <!--</div>-->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary chartClosebtn" data-dismiss="modal">닫기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- 차트 모달 END -->
 
                         <script th:inline="javascript" >
+
+                            $(document).ready(function(){
+                                setDateBox();
+                            });
+
+                            // select box 연도 , 월 표시
+                            function setDateBox(){
+                                var dt = new Date();
+                                var year = "";
+                                var com_year = dt.getFullYear();
+                                // 발행 뿌려주기
+                                $("#YEAR").append("<option value=''>년도</option>");
+                                // 올해 기준으로 -1년부터 +5년을 보여준다.
+                                for(var y = (com_year-5); y <= (com_year+5); y++){
+                                    $("#YEAR").append("<option value='"+ y +"'>"+ y + "년" +"</option>");
+                                }
+                            }
 
                             /* 신규등록완료시 뜨는 모달창 처리 */
                             var msg = [[${msg}]];
@@ -158,23 +216,54 @@
                                 searchForm.submit();
                             });/* 검색시 이벤트 처리*/
 
+                            var chartModal = $("#chartModal");
+                            $(".orderchartBtn").click(function (){
+                                chartModal.modal('show');
+                            });
 
+
+                            var canvas = $('#canvas');
+                            var context = canvas.get(0).getContext('2d');
+                            $("#chartModal").on('hidden.bs.modal', function () {
+                                /*document.getElementById("canvas").getContext("2d").clearRect(0, 0, canvas.width, canvas.height);*/
+                                /*$('#YEAR').val(0).trigger('change.YEAR');
+                                $('#selectMonth').val(0).trigger('change.selectMonth');*/
+                                context.fillStyle = 'rgb(255, 0, 0)';
+                                context.fillRect(40, 40, 100, 100);
+                                context.fill();
+                                canvas.attr('width', canvas.width());
+                                canvas.attr('height', canvas.height());
+                                $("#YEAR option").prop("selected", false);
+                                $("#selectMonth option").prop("selected", false);
+                                /*$("#selectMonth option:eq(0)").prop("selected", true);*/
+                                /*$("canvas").getContext("2d").clearRect(0, 0, this.width, this.height);*/
+                                /*document.getElementById("selectMonth").value="";*/
+                            });
 
                             var chartLabels = []; // 받아올 데이터를 저장할 배열 선언
                             var chartData = [];
+                            var chartData2 = [];
                             var month="";
-                            var scode="";
-                            var orderstate= "";
-                            var complete="";
+                            var ocode="";
+                            var year="";
 
                             function createChart() {
-                                var ctx = document.getElementById("canvas").getContext("2d");
-                                LineChartDemo = Chart.Line(ctx, {
+
+                                if(window.orderChart != undefined){
+                                    window.orderChart.destroy();
+                                }
+
+                                window.orderChart =  new Chart(document.getElementById("canvas"), {
+                                    type : "line",
                                     data : lineChartData,
                                     options : {
                                         scales : {
                                             yAxes : [ {
                                                 ticks : {
+
+
+                                                    padding: 5,
+
                                                     beginAtZero : true
                                                 }
                                             } ]
@@ -183,37 +272,54 @@
                                 });
                             }
 
+                            $('#YEAR').change(function (){
+                                var chargeYear = $('#YEAR option:selected').val();
+                                year = chargeYear;
+                                console.log(year);
+                            });
+
                             $('#selectMonth').change(function() {
                                 var changeMonth = $('#selectMonth option:selected').val();
-                                var changescode = $("#chartScode").val();
+                                var changeocode = $("#chartOcode").val();
                                 month = changeMonth;
-                                scode = changescode;
-                                console.log('month:'+month);
-                                console.log('scode:'+scode);
+                                // ocode = changeocode;
                             });
 
                             //버튼을 클릭하면 차트가 그려짐
                             $('#btn').click(function(){
                                 chartLabels = [];
                                 chartData=[];
-
+                                // chartData2=[];
                                 //getJson으로 데이터
-                                $.getJSON("/order/chartmodal", {
-                                    month : month,
-                                    scode : scode
-                                }, function(data) {
-                                    $.each(data, function(key, value) {
-                                        console.log(value)
-
-                                        chartLabels.push(value.date);
-                                        chartData.push(value.amount);
-                                        complete= value.orderstate;
-                                    });
+                                // $.getJSON("/order/chartmodal", {
+                                //     year : year,
+                                //     month : month,
+                                //     // ocode : ocode
+                                // }, function(data) {
+                                //     $.each(data, function(key, value) {
+                                //         console.log(value)
+                                //
+                                //         chartLabels.push(value.orderdate);
+                                //         chartData.push(value.oquantity);
+                                //         // chartData2.push(value.pprice);
+                                //     });
+                                $.ajax({
+                                    url:"$",
+                                    type:"get",
+                                    data:{:"${}", ostate:"마감완료"},
+                                    dataType:"json",
+                                    success:function(data){
+                                        // console.log(data[0].pos_count);
+                                        // 그래프로 나타낼 자료 리스트에 담기
+                                        for (let i = 0; i<data.length;i++){
+                                            chartLabels.push(data[i].orderdate);
+                                            chartData.push(data[i].);
+                                        }
 
                                     lineChartData = {
                                         labels : chartLabels,
                                         datasets : [ {
-                                            label : complete ,
+                                            label : "마감완료" ,
                                             backgroundColor:"#bfdaf9",
                                             borderColor: "#80b6f4",
                                             pointBorderColor: "#80b6f4",
@@ -223,7 +329,20 @@
                                             fill: false,
                                             borderWidth: 4,
                                             data : chartData
-                                        } ]
+                                        }
+                                        // ,{
+                                        //     label: '구매발주',
+                                        //     backgroundColor: 'rgba(255, 99, 132, 1)',
+                                        //     borderColor: 'rgba(255, 99, 132, 1)',
+                                        //     pointBorderColor: "rgba(255, 99, 132, 1)",
+                                        //     pointBackgroundColor: "rgba(255, 99, 132, 1)",
+                                        //     pointHoverBackgroundColor: "rgba(255, 99, 132, 1)",
+                                        //     pointHoverBorderColor: "rgba(255, 99, 132, 1)",
+                                        //     fill: false,
+                                        //     data: chartData2 ,
+                                        //     borderWidth: 4,
+                                        // }
+                                        ]
                                     }
                                     createChart();
 

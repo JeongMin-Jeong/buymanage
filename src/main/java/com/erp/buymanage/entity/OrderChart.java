@@ -17,7 +17,7 @@ public class OrderChart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ono;
     private String date;
-    private int amount;
-    private String orderstate;
 
+    private String orderstate;
+    private String ocode;
 }

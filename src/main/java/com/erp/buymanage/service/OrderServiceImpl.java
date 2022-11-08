@@ -180,12 +180,12 @@ public class OrderServiceImpl implements OrderService {
 
 
 
-    public void ostateCount(OrderDTO dto) {
-       Long count = repository.countbyostateandorderdate(dto.getOstate(),dto.getOrderdate());
-
-
-
-
-    }
+//    public void ostateCount(OrderDTO dto) {
+//       Long count = repository.countbyostateandorderdate(dto.getOstate(),dto.getOrderdate());
+//
+//
+//
+//
+//    }
 
 }

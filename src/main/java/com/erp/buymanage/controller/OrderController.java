@@ -2,6 +2,7 @@ package com.erp.buymanage.controller;
 
 import com.erp.buymanage.dto.*;
 import com.erp.buymanage.entity.OrderChart;
+import com.erp.buymanage.entity.OrderEntity;
 import com.erp.buymanage.service.ContractService;
 import com.erp.buymanage.service.OrderChartService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import com.erp.buymanage.service.OrderService;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -56,7 +58,7 @@ public class OrderController {
         return "redirect:/order/list";
     }
 
-    @GetMapping({"/read","/modify"})
+    @GetMapping({"/read","/modify","/list2"})
     public void read(long ono, @ModelAttribute("requestDTO") OrderPageRequestDTO requestDTO, Model model) {
         log.info("ono: " + ono);
         OrderDTO dto = orderService.read(ono);
@@ -97,13 +99,35 @@ public class OrderController {
 
     @GetMapping("/chartmodal")
     @ResponseBody
-    public ResponseEntity<List<OrderChartDTO>> chartmodal(String month, String orderstate){
-        return new ResponseEntity<>(orderChartService.getList(month, orderstate), HttpStatus.OK);
-    }
+    public ResponseEntity<List<OrderDTO>> chartmodal(String year, String month, String ocode ){
 
-    public void ostatecount(Long count){
+        String ym = year + "-" + month;
+
+//        OrderDTO dto = orderChartService.read(ono);
+//        model.addAttribute("dto", dto);
+        return new ResponseEntity<>(orderChartService.getList2(ym, ocode), HttpStatus.OK);
 
     }
+//@RequestMapping("/modalchart")
+//
+//    public @ResponseBody List<OrderEntity> count(String ostate , String orderdate) {
+//        List<OrderEntity> sumSum = new ArrayList<>();
+//        for (int i=0; i<22; i+=7) {
+//            sumSum.add(0, orderChartService.countbyostateandorderdate(String ostate , String orderdate),i );
+//
+//            return sumSum;
+//        }
+//}
+//    public void ostatecount(Long count){
+//
+//    }
+//@GetMapping("/monthly-sales/{year}")
+//public List<OrderEntity> count(@PathVariable("year") String year){
+//    return orderChartService.get(year);
+//}
+@GetMapping("/ochartmodal")
+@ResponseBody
+    public List<OrderEntity>
 }
 
 
