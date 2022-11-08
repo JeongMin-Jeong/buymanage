@@ -35,6 +35,7 @@ public interface OrderService {
                 .pcontent(dto.getPcontent())
                 .ocode(dto.getOcode())
                 .cno(dto.getCno())
+//                .ocount(dto.getOcount())
                 .build();
             return entity;
     }
@@ -57,6 +58,7 @@ public interface OrderService {
                 .pcontent(entity.getPcontent())
                 .ocode(entity.getOcode())
                 .cno(entity.getCno())
+//                .ocount(entity.getOcount())
                 .build();
         return dto;
 

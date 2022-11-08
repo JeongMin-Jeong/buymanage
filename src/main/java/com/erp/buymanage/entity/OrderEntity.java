@@ -40,6 +40,9 @@ public class OrderEntity {
 
     private Long cno;
 
+//    private Long ocount;
+
+//    public void changeOcount(Long ocount) { this.ocount = ocount;}
     public void changeOrderdate(String orderdate){
         this.orderdate = orderdate;
     }

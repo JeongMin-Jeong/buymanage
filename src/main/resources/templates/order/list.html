@@ -282,7 +282,8 @@
                                 var changeMonth = $('#selectMonth option:selected').val();
                                 var changeocode = $("#chartOcode").val();
                                 month = changeMonth;
-                                // ocode = changeocode;
+
+                                 ocode = changeocode;
                             });
 
                             //버튼을 클릭하면 차트가 그려짐
@@ -303,18 +304,17 @@
                                 //         chartData.push(value.oquantity);
                                 //         // chartData2.push(value.pprice);
                                 //     });
-                                $.ajax({
-                                    url:"$",
-                                    type:"get",
-                                    data:{:"${}", ostate:"마감완료"},
-                                    dataType:"json",
-                                    success:function(data){
-                                        // console.log(data[0].pos_count);
-                                        // 그래프로 나타낼 자료 리스트에 담기
-                                        for (let i = 0; i<data.length;i++){
-                                            chartLabels.push(data[i].orderdate);
-                                            chartData.push(data[i].);
-                                        }
+                                $.getJSON("/order/chartmodal", {
+                                    year : year,
+                                    month : month,
+                                    ocode : ocode
+                                }, function(data) {
+                                    $.each(data, function(key, value) {
+                                        console.log(value)
+
+                                        chartLabels.push(value.orderdate);
+                                        chartData.push(value.ocount);
+                                    });
 
                                     lineChartData = {
                                         labels : chartLabels,

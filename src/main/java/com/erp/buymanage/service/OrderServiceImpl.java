@@ -1,10 +1,7 @@
 package com.erp.buymanage.service;
 
 
-import com.erp.buymanage.dto.ContractPageRequestDTO;
-import com.erp.buymanage.dto.OrderDTO;
-import com.erp.buymanage.dto.OrderPageRequestDTO;
-import com.erp.buymanage.dto.PageResultDTO;
+import com.erp.buymanage.dto.*;
 import com.erp.buymanage.entity.OrderEntity;
 import com.erp.buymanage.entity.QContract;
 import com.erp.buymanage.entity.QOrderEntity;
@@ -128,10 +125,11 @@ public class OrderServiceImpl implements OrderService {
         return booleanBuilder;
     }
 
-    @Override
     public OrderDTO read(Long ono) {
+
         Optional<OrderEntity> result = repository.findById(ono);
-        return result.isPresent()? entityToDto(result.get()): null;
+
+        return result.isPresent()? entityToDto(result.get()) : null;
     }
 
     @Override
@@ -164,6 +162,7 @@ public class OrderServiceImpl implements OrderService {
             entity.changeOstate(dto.getOstate());
             entity.changeOquantity(dto.getOquantity());
             entity.changeOrderdate(dto.getOrderdate());
+//            entity.changeOcount(dto.getOcount());
             repository.save(entity);
         }
     }

@@ -1,20 +1,24 @@
 package com.erp.buymanage.repository;
 
 import com.erp.buymanage.entity.OrderEntity;
-import com.erp.buymanage.entity.Stock;
-import com.erp.buymanage.entity.StockChart;
-import com.querydsl.core.types.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository <OrderEntity, Long>, QuerydslPredicateExecutor<OrderEntity> {
 
+@Transactional
+@Modifying
 
+
+
+    public OrderEntity findByOcode(String ocode);
     Optional<OrderEntity> findByCno(Long cno);
 
 //    Optional<OrderEntity> findByOstateAndOrderdate(String ostate, String orderdate);
@@ -28,7 +32,7 @@ public interface OrderRepository extends JpaRepository <OrderEntity, Long>, Quer
     Optional<OrderEntity> findByCnoAndOcode(Long cno, String ocode);
 
 //    Long countbyostateandorderdate(String ostate , String orderdate);
-List<OrderEntity> findAllByOrderdateStartsWithAndOcodeOrderByOrderdateAsc(String ym, String scode);
+List<OrderEntity> findAllByOrderdateStartsWithAndOcodeOrderByOrderdateAsc(String ym, String ocode);
 
     List<OrderEntity> findAllByOrderdate(String orderdate);
 
@@ -38,6 +42,6 @@ List<OrderEntity> findAllByOrderdateStartsWithAndOcodeOrderByOrderdateAsc(String
 //    List<OrderEntity> countbyostateandorderdate(@Param("orderdate") String orderdate);
 
 
-    @Query(value =  "select count(o) from tbl_order o where o.ostate = '구매발주' and o.orderdate= :orderdate")
-    List<OrderEntity> countbyostateandorderdate(@Param("orderdate") String orderdate);
+    @Query(value =  "select count(o) from tbl_order o where o.ostate = '구매발주' and o.orderdate=:orderdate")
+    public long countbyostateandorderdate(@Param("orderdate") String orderdate);
 }

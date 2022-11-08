@@ -41,10 +41,10 @@ public class OrderDTO
     private Long cno;
 
     private String inspectionstate;
-
+//    private Long ocount;
     @Builder
-    public OrderDTO(String ocode, String orderdate, String ostate ) {
-
+    public OrderDTO(Long ocount, String ocode, String orderdate, String ostate  ) {
+//        this.ocount=ocount;
         this.ocode=ocode;
         this.orderdate=orderdate;
         this.ostate=ostate;

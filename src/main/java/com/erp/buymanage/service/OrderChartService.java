@@ -64,6 +64,7 @@ public interface OrderChartService {
 
     void chartRegister();
 
-    List<OrderEntity> countbyostateandorderdate(String ostate , String orderdate);
+    List<OrderDTO> ordercount(String orderdate);
     OrderDTO read(Long ono);
+
 }

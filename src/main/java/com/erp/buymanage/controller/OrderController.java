@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -125,9 +126,40 @@ public class OrderController {
 //public List<OrderEntity> count(@PathVariable("year") String year){
 //    return orderChartService.get(year);
 //}
-@GetMapping("/ochartmodal")
-@ResponseBody
-    public List<OrderEntity>
+@GetMapping("/chartRegister")
+public String chartRegister(RedirectAttributes redirectAttributes) {
+
+    orderChartService.chartRegister();
+
+    redirectAttributes.addFlashAttribute("msg", 1);
+
+    return "redirect:/order/list";
+}
+
+//    @RequestMapping("/count")
+//    @ResponseBody
+//    public  ResponseEntity<List<OrderEntity>> ordercount(Model model, OrderEntity order)  {
+//        List<OrderEntity> countlist = orderChartService.ordercount(order);
+//        model.addAttribute("countlist", countlist);
+////        return new ResponseEntity<>(orderChartService.ordercount(order), HttpStatus.OK);
+//        return countlist;
+//    }
+
+    @GetMapping("/modalread2")
+    @ResponseBody
+    public OrderDTO modalread2(@RequestParam Map<String, Object> param) {
+
+        System.out.println("컨트롤러 ono : " + param.get("ono"));
+
+        String str = (String)param.get("ono");
+
+        long ono = Long.parseLong(str);
+
+        OrderDTO dto = orderService.read(ono);
+
+        return dto;
+    }
+
 }
 
 

@@ -59,6 +59,8 @@ public class OrderChartServiceImpl implements OrderChartService {
 
         for (OrderEntity order : result) {
 
+
+//            orderDTO.setOcount(orderRepository.countbyostateandorderdate(orderdate));
             orderDTO.setOcode(order.getOcode());
             orderDTO.setOrderdate(order.getOrderdate());
 
@@ -68,20 +70,20 @@ public class OrderChartServiceImpl implements OrderChartService {
 
         orderRepository.saveAll(chartList);
     }
-//    @Override
-//    public List<OrderEntity> ordercount(String ostate , String orderdate) {
+    @Override
+    public List<OrderDTO> ordercount( String orderdate) {
+
+        orderRepository.countbyostateandorderdate(orderdate);
+
+
+
+        return null;
+
+
+
+
 //
-//        List<OrderEntity> result = orderRepository.countbyostateandorderdate(String ostate , String orderdate);
-//
-//        return result.stream().map(orderEntity -> entityToDTO(orderEntity)).collect(Collectors.toList());
-//
-//
-//
-//        return null;
-//
-//
-////
-//    }
+    }
     @Override
     public OrderDTO read(Long ono) {
         Optional<OrderEntity> result = orderRepository.findById(ono);
