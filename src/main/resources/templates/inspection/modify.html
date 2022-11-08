@@ -21,11 +21,17 @@
                     <input type="hidden" class="form-control" name="inspection_degree1" id="inspection_degree1"  th:value="${dto.inspection_degree1}" readonly>
                     <select name="inspection_degree1_view" onchange="changeselect1(this.value);" style="height:50px; width:100%;">
                         <option value="" selected disabled>---------------------------</option>
+                        <option value="100">100%</option>
+                        <option value="90">90%</option>
+                        <option value="80">80%</option>
+                        <option value="70">70%</option>
+                        <option value="60">60%</option>
                         <option value="50">50%</option>
                         <option value="40">40%</option>
                         <option value="30">30%</option>
                         <option value="20">20%</option>
                         <option value="10">10%</option>
+                        <option value="0">0%</option>
                     </select><br>
                     <label>검수내용</label><br/>
                     <input type="text" class="form-control" name="inspection_etc1" id="inspection_etc1" th:value="${dto.inspection_etc1}" readonly>
@@ -49,11 +55,17 @@
                     <input type="hidden" class="form-control" name="inspection_degree2" id="inspection_degree2"  th:value="${dto.inspection_degree2}" readonly>
                     <select name="inspection_degree2_view" onchange="changeselect2(this.value);" style="height:50px; width:100%;">
                         <option value="" selected disabled>---------------------------</option>
+                        <option value="100">100%</option>
+                        <option value="90">90%</option>
+                        <option value="80">80%</option>
+                        <option value="70">70%</option>
+                        <option value="60">60%</option>
                         <option value="50">50%</option>
                         <option value="40">40%</option>
                         <option value="30">30%</option>
                         <option value="20">20%</option>
                         <option value="10">10%</option>
+                        <option value="0">0%</option>
                     </select><br>
                     <label>검수내용</label>
                     <input type="text" class="form-control" name="inspection_etc2" id="inspection_etc2" th:value="${dto.inspection_etc2}" readonly>
@@ -68,7 +80,7 @@
             <!-- card-body -->
             <div class="card-body">
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary" onclick="inspectionCompleteSubmitClose();">검수완료</button>
+                    <button type="button" id="inspection_complete_btn" class="btn btn-primary" onclick="inspectionCompleteSubmitClose();" disabled>검수완료</button>
                     <a th:href="@{/inspection/read(ono=${dto.ono})}"><button type="button" class="btn btn-primary">검수취소</button></a>
                     <button type="button" class="btn btn-info" onclick="reloadclose();">닫기</button>
                 </div>

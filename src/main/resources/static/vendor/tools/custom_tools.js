@@ -340,14 +340,26 @@
     //검수진척도 셀렉트값 선택
     function changeselect1(value){
         document.getElementById('inspection_degree1').value = value;
-        document.getElementById('inspection_etc1').value = value + "% 검수완료";
+        document.getElementById('inspection_etc1').value = value + "% 납품완료";
     }
     function changeselect2(value){
+        const target = document.getElementById('inspection_complete_btn');
         document.getElementById('inspection_degree2').value = value;
         var x = Number(document.getElementById('inspection_degree1').value);
         var y = Number(document.getElementById('inspection_degree2').value);
-        var result =  x + y;
-        document.getElementById('inspection_etc2').value = result + "% 검수완료";
+        var result =  (x + y)/2;
+        if ( result >= 100 ) { result = 100; }
+        if ( result <= 0 ) { result = 0; }
+        if (result >= 85){
+            document.getElementById('inspection_etc2').value = result + "% 납품완료";
+            target.disabled = false;
+            alert("검수 진행결과 납품진척도가 85%이상입니다. 검수완료처리 하시기 바랍니다.");
+        } else if (result < 85){
+            document.getElementById('inspection_etc2').value = result + "% 납품완료";
+            target.disabled = true;
+            alert("검수 진행결과 납품진척도가 85%이하입니다. 반품처리 하시기 바랍니다.");
+        }
+
     }
 
     //팝업창 닫기버튼 클릭시 리로드
