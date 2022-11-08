@@ -58,7 +58,7 @@ public class TblMemberTests {
                 tblMember.addMemberRole(TblMemberRole.MANAGER);
                 tblMember.addMemberRole(TblMemberRole.ADMIN);
             }
-            repository.save(tblMember);
+            //repository.save(tblMember);
         });
     }
 

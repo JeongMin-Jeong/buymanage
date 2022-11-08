@@ -72,3 +72,9 @@ configurations {
 compileQuerydsl {
 	options.annotationProcessorPath = configurations.querydsl
 }
+
+//bootWar {
+//	archiveBaseName = 'buymanage-api'
+//	archiveFileName = 'buymanage-api.war'
+//	archiveVersion = '0.0.0'
+//}
