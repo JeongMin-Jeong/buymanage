@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{/layout/popup :: setContent(~{this :: content})}">
+<th:block th:replace="~{layout/popup :: setContent(~{this :: content})}">
     <th:block th:fragment="content">
         <form id="registForm" th:action="@{/inspection/read}" th:method="post">
         <h1 class="h3 mb-2 text-gray-800">검수계획 보기</h1>
