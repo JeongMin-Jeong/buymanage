@@ -94,11 +94,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/stock/outModify").hasRole("STOCK")
                 .antMatchers("/stock/chartRegister").hasRole("STOCK")
                 .antMatchers("/stock/remove").hasRole("ADMIN")
-
         ;
+
         http.formLogin()//인증문제 발생시 오류화면 대신 로그인화면 출력
 //                .loginPage("/members/login")
-//                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/")
 //                .usernameParameter("email")
 //                .failureUrl("/members/login/error")
 //                .and()
@@ -106,7 +106,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
 //                .logoutSuccessUrl("/")
         ;
+
         http.csrf().disable(); //CSRF토큰 발행금지 해킹방어용
+
         http.logout()
                 .logoutSuccessUrl("/") // 로그아웃 성공 시 "/"으로 이동; //로그아웃처리
         ;

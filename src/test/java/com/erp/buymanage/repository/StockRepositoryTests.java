@@ -21,25 +21,25 @@ public class StockRepositoryTests {
     @Autowired
     private StockRepository stockRepository;
 
-    @Test
-    public void insertDummies() {
-
-        IntStream.rangeClosed(1,300).forEach(i -> {
-
-            Stock stock = Stock.builder()
-                    .scode("P" + i)
-                    .sname("Name" + i)
-                    .scate1("대분류" + i)
-                    .scate2("중분류" + i)
-                    .sin(1 + i)
-                    .sout(i)
-                    .sreturn(0)
-                    .stock(0)
-                    .snote("No")
-                    .build();
-            System.out.println(stockRepository.save(stock));
-        });
-    }
+//    @Test
+//    public void insertDummies() {
+//
+//        IntStream.rangeClosed(1,300).forEach(i -> {
+//
+//            Stock stock = Stock.builder()
+//                    .scode("P" + i)
+//                    .sname("Name" + i)
+//                    .scate1("대분류" + i)
+//                    .scate2("중분류" + i)
+//                    .sin(1 + i)
+//                    .sout(i)
+//                    .sreturn(0)
+//                    .stock(0)
+//                    .snote("No")
+//                    .build();
+//            System.out.println(stockRepository.save(stock));
+//        });
+//    }
 
     @Test
     public void updateTest() {

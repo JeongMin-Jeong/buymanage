@@ -9,11 +9,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @SpringBootApplication
 @EnableJpaAuditing
 //default main class
-public class BuyManageApplication extends SpringBootServletInitializer{
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application){
-		return application.sources(ServletInitializer.class);
-	}
+public class BuyManageApplication{
+//public class BuyManageApplication extends SpringBootServletInitializer{
+//	@Override
+//	protected SpringApplicationBuilder configure(SpringApplicationBuilder application){
+//		return application.sources(ServletInitializer.class);
+//	}
 	public static void main(String[] args) {
 		SpringApplication.run(BuyManageApplication.class, args);
 	}
