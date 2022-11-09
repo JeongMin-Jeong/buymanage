@@ -25,8 +25,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
 
-                //ROOT페이지
+                //접근허용 페이지 (ROOT, LOGIN/OUT, ETC)
                 .antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/logout").permitAll()
+                .antMatchers("/css/**", "/img/**", "/js/**", "/vendor/**","/vendor/tools/**").permitAll()
                 //.antMatchers("/").hasRole("USER") //USER
 
                 //SAMPLE
