@@ -26,7 +26,7 @@
 
     <div class="form-group">
       <label >품목분류</label>
-      <input type="text" class="form-control" name="cate1" th:value="${dto.scate1}">
+      <input type="text" class="form-control" name="cate1" th:value="${dto.scate1}" readonly>
       <select id="category" name="scate1" size="1" onchange="makeSubmenu(this.value);selectscate1(this.value);" style="width:100%;height:50px;">
         <option value="" disabled selected>----------------분류선택----------------</option>
         <option value="DESKTOP">DESKTOP</option>
@@ -36,7 +36,7 @@
         <option value="ACCESSORY">ACCESSORY</option>
         <option value="TOOLS">TOOLS</option>
       </select>&nbsp;
-      <input type="text" class="form-control" name="cate2" th:value="${dto.scate2}">
+      <input type="text" class="form-control" name="cate2" th:value="${dto.scate2}" readonly>
       <select id="categorySelect" name="scate2" size="1" style="width:100%;height:50px;" onchange="selectscate2(this.value);">
         <option value="" disabled selected>----------------분류선택----------------</option>
         <option></option>
@@ -53,12 +53,12 @@
         <input type="text" class="form-control" name="sout" th:value="${dto.sout}" readonly>
       </div>
       <div>
-        <label>반품수량</label>
-        <input type="text" class="form-control" name="sreturn" th:value="${dto.sreturn}" readonly>
-      </div>
-      <div>
         <label>재고수량</label>
         <input type="text" class="form-control" name="stock" th:value="${dto.stock}" readonly>
+      </div>
+      <div>
+        <label>공급단가</label>
+        <input type="text" class="form-control" name="sreturn" th:value="${#numbers.formatInteger(dto.sreturn, 1, 'COMMA') + '원'}" readonly>
       </div>
     </div>
 
@@ -69,11 +69,11 @@
     </form>
 
 <!--    <a th:href="@{/stock/modify(sno = ${dto.sno}, page=${requestDTO.page})}">-->
-      <button type="button" class="btn btn-outline-secondary readModifyBtn">수정</button>
+      <button type="button" class="btn btn-primary readModifyBtn">수정</button>
 <!--    </a>-->
 
     <a th:href="@{/stock/list(page=${requestDTO.page}, type1 = ${requestDTO.type1}, type2 = ${requestDTO.type2}, type3 = ${requestDTO.type3}, keyword = ${requestDTO.keyword})}">
-      <button type="button" class="btn btn-outline-secondary readListBtn">목록</button>
+      <button type="button" class="btn btn-info readListBtn">목록</button>
     </a>
 
     <!--<div class="modal" tabindex="-1" role="dialog">
