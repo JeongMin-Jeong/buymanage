@@ -102,13 +102,6 @@
                         </tbody>
                     </table>
 
-                    <div style="float: right">
-                        <button class="btn btn-outline-secondary stockchartBtn" type="button">리포트</button>
-                        <button class="btn btn-outline-secondary stockOutputBtn" type="button">자재출고</button>
-                        <button th:if="${chart.isEmpty()}" class="btn btn-outline-secondary deadlineBtn" type="button">재고마감</button>
-                        <!-- <button class="btn btn-outline-secondary stockRegistBtn" type="button" onclick="location.href='/stock/register';">자재등록</button> -->
-                    </div>
-
                     <!-- 하단 페이지 버튼 -->
                     <ul class="pagination h-100 justify-content-center align-items-center">
                         <li class="page-item " th:if="${result.prev}">
@@ -122,7 +115,16 @@
                         <li class="page-item" th:if="${result.next}">
                             <a class="page-link" th:href="@{/stock/list(page= ${result.end + 1}, type1 = ${stockPageRequestDTO.type1}, type2 = ${stockPageRequestDTO.type2}, type3 = ${stockPageRequestDTO.type3}, keyword = ${stockPageRequestDTO.keyword})}">Next</a>
                         </li>
-                    </ul><!-- 하단 페이지 버튼 -->
+                    </ul>
+                    <!-- 하단 페이지 버튼 -->
+
+                    <div style="float: right">
+                        <button class="btn btn-outline-secondary stockchartBtn" type="button">리포트</button>
+                        <button class="btn btn-outline-secondary stockOutputBtn" type="button">자재출고</button>
+                        <button th:if="${chart.isEmpty()}" class="btn btn-outline-secondary deadlineBtn" type="button">재고마감</button>
+                        <!-- <button class="btn btn-outline-secondary stockRegistBtn" type="button" onclick="location.href='/stock/register';">자재등록</button> -->
+                    </div>
+
 
                     <!-- 모달창 처리-->
                     <div class="modal" tabindex="-1" role="dialog" id="cmodal">
