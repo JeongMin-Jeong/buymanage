@@ -310,7 +310,6 @@
                    chartModal.modal('show');
                 });
 
-
                     var canvas = $('#canvas');
                     var context = canvas.get(0).getContext('2d');
                 $("#chartModal").on('hidden.bs.modal', function () {
@@ -339,8 +338,14 @@
                         modal.modal.hide();
                     } else {
                         alert("재고수량 확인")
+                        return;
                     }
                 });
+
+               $("#omodal").on('hidden.bs.modal', function () {
+                   $("#sout").val("");
+                   $("#requester").val("");
+               });
 
                 var msg = [[${msg}]];
                 console.log(msg);
