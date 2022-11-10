@@ -157,7 +157,7 @@
 
     //거래명세서 클릭시 프린트화면 팝업
     function tradePrintOpenPopup() {
-        var width = 1400;
+        var width = 1010;
         var height = 700;
         var left = (window.screen.width / 2) - (width/2);
         var top = (window.screen.height / 4);
