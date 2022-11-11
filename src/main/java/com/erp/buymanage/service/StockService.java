@@ -5,6 +5,9 @@ import com.erp.buymanage.dto.PageResultDTO;
 import com.erp.buymanage.dto.StockDTO;
 import com.erp.buymanage.entity.Stock;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
 public interface StockService {
     Long register(StockDTO dto);
 
@@ -17,6 +20,10 @@ public interface StockService {
     void modify(StockDTO dto);
 
     void outModify(StockDTO dto);
+
+    Object getStock(HttpServletResponse response);
+
+    void createExcelDownloadResponse(HttpServletResponse response, List<Stock> stockList);
 
     default Stock dtoToEntity(StockDTO dto) {
         Stock entity = Stock.builder()
