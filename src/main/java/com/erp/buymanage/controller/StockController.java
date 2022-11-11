@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -206,6 +207,12 @@ public class StockController {
         redirectAttributes.addFlashAttribute("msg", 1);
 
         return "redirect:/stock/list";
+    }
+
+    @GetMapping("/excel")
+    @ResponseBody
+    public ResponseEntity getStock(HttpServletResponse response){
+        return ResponseEntity.ok(stockService.getStock(response));
     }
 
 }

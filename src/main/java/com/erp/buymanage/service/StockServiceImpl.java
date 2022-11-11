@@ -10,11 +10,18 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -179,5 +186,92 @@ public class StockServiceImpl implements StockService {
             entity.changeStock2(dto.getSout());
             stockRepository.save(entity);
         }
+    }
+
+    @Transactional
+    @Override
+    public Object getStock(HttpServletResponse response) {
+
+        List<Stock> stockList = stockRepository.findAll(Sort.by(Sort.Direction.DESC, "sno"));
+        createExcelDownloadResponse(response, stockList);
+
+        return null;
+    }
+
+    @Transactional
+    @Override
+    public void createExcelDownloadResponse(HttpServletResponse response, List<Stock> stockList) {
+
+        try{
+            Workbook workbook = new SXSSFWorkbook();
+            Sheet sheet = workbook.createSheet("자재목록");
+
+            //숫자 포맷은 아래 numberCellStyle을 적용시킬 것이다다
+            CellStyle numberCellStyle = workbook.createCellStyle();
+            numberCellStyle.setDataFormat(HSSFDataFormat.getBuiltinFormat("#,##0"));
+
+            //파일명
+            final String fileName = "자재목록";
+
+            //헤더
+            final String[] header = {"품목코드", "품목이름", "품목분류1", "품목분류2", "입고수량", "출고수량", "재고수량", "공급단가", "재고금액"};
+            Row row = sheet.createRow(0);
+            for (int i = 0; i < header.length; i++) {
+                Cell cell = row.createCell(i);
+                cell.setCellValue(header[i]);
+            }
+
+            //바디
+            for (int i = 0; i < stockList.size(); i++) {
+                row = sheet.createRow(i + 1);  //헤더 이후로 데이터가 출력되어야하니 +1
+
+                Stock stock = stockList.get(i);
+
+                Cell cell = null;
+                cell = row.createCell(0);
+                cell.setCellValue(stock.getScode());
+
+                cell = row.createCell(1);
+                cell.setCellValue(stock.getSname());
+
+                cell = row.createCell(2);
+                cell.setCellValue(stock.getScate1());
+
+                cell = row.createCell(3);
+                cell.setCellValue(stock.getScate2());
+
+                cell = row.createCell(4);
+                cell.setCellStyle(numberCellStyle);      //숫자포맷 적용
+                cell.setCellValue(stock.getSin());
+
+                cell = row.createCell(5);
+                cell.setCellStyle(numberCellStyle);      //숫자포맷 적용
+                cell.setCellValue(stock.getSout());
+
+                cell = row.createCell(6);
+                cell.setCellStyle(numberCellStyle);      //숫자포맷 적용
+                cell.setCellValue(stock.getStock());
+
+                cell = row.createCell(7);
+                cell.setCellStyle(numberCellStyle);      //숫자포맷 적용
+                cell.setCellValue(stock.getSreturn());
+
+                cell = row.createCell(8);
+                cell.setCellStyle(numberCellStyle);      //숫자포맷 적용
+                cell.setCellValue(stock.getSreturn()*stock.getStock());
+            }
+
+
+            response.setContentType("application/vnd.ms-excel");
+            response.setHeader("Content-Disposition", "attachment;filename="+ URLEncoder.encode(fileName, "UTF-8")+".xlsx");
+            //파일명은 URLEncoder로 감싸주는게 좋다!
+
+            workbook.write(response.getOutputStream());
+            workbook.close();
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
     }
 }
