@@ -104,9 +104,12 @@
 
                     <div>
                         <button style="float: left" class="btn btn-warning excelBtn" type="button" onclick="location.href='/stock/excel';">엑셀</button>
-                        <button style="float: right" class="btn btn-outline-secondary stockchartBtn" type="button">리포트</button>
-                        <button style="float: right" class="btn btn-outline-secondary stockOutputBtn" type="button">자재출고</button>
-                        <button style="float: right" th:if="${chart.isEmpty()}" class="btn btn-outline-secondary deadlineBtn" type="button">재고마감</button>
+
+                        <span style="float: right">
+                        <button class="btn btn-outline-secondary stockchartBtn" type="button">리포트</button>
+                        <button class="btn btn-outline-secondary stockOutputBtn" type="button">자재출고</button>
+                        <button th:if="${chart.isEmpty()}" class="btn btn-outline-secondary deadlineBtn" type="button">재고마감</button>
+                        </span>
                         <!-- <button class="btn btn-outline-secondary stockRegistBtn" type="button" onclick="location.href='/stock/register';">자재등록</button> -->
                     </div>
                 </div>  <!-- 68line end -->
